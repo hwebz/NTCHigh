@@ -1,0 +1,81 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighNet.Pages
+@using EPiServer.Web
+@using High.Net.Web.Business.Helpers;
+@using High.Net.Core.Helpers
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+    var menuItems = MenuHelpers.GetMenu(Model.CurrentPage, true, false);
+    var logoUrlFromEpi = MediaHelpers.GetImageUrl(homePage.SiteLogo);
+    var logoImageUrl = string.IsNullOrEmpty(logoUrlFromEpi) ? "../dist/Leadership/images/logo.png" : logoUrlFromEpi;
+    var animatedLogoUrlFromEpi = MediaHelpers.GetImageUrl(homePage.SiteLogoAnimated);
+    var animatedLogoImageUrl = string.IsNullOrEmpty(animatedLogoUrlFromEpi) ? "../dist/Leadership/images/logo-animated.png" : animatedLogoUrlFromEpi;
+}
+<style type="text/css">
+    .leadership-header.animated .leadership-header__logo a{
+        background: transparent url(@logoImageUrl) no-repeat center center;
+        background-size: cover;
+    }
+    .leadership-header.animated .leadership-header__logo a
+    {
+        background: transparent url(@animatedLogoImageUrl) no-repeat center center;
+        background-size: cover;
+    }
+
+</style>
+<div class="leadership-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="leadership-header__logo">
+                    <a href="@Url.ContentUrl(homePage.ContentLink)"></a>
+                </div>
+                <div class="leadership-header__right-nav">
+                    <div class="leadership-header__right-nav-wrapper">
+                        <a class="leadership-header__toggle-button"><span></span><span></span><span></span></a>
+                        <div class="nav-mask"></div>
+                        <div class="mobile-device-mask"></div>
+
+                        <ul class="leadership-header__nav">
+                            @if (menuItems != null)
+                            {
+                                foreach (var item in menuItems)
+                                {
+
+                                    <li class="@(item.IsActive?"active":string.Empty) @(item.Children!=null && item.Children.Any()?"has-submenu":string.Empty)">
+                                        <a href="@item.Url">@item.MenuText</a>
+                                        @if (item.Children != null && item.Children.Any())
+                                        {
+                                            <ul class="leadership-header__subnav">
+                                                @foreach (var subItem in item.Children)
+                                                {
+                                                    <li><a href="@subItem.Url">@subItem.MenuText</a></li>
+                                                }
+                                            </ul>
+                                        }
+                                    </li>
+                                }
+                            }
+
+                            <li>
+                                <div class="leadership-header__social">
+                                    @if (!homePage.BottomBarIconLinks.IsNullOrEmpty())
+                                    {
+                                        foreach (var item in homePage.BottomBarIconLinks)
+                                        {
+                                            <a href="@Url.ContentUrl(item.Link)"><img src="@Url.ContentUrl(item.Icon)" alt="@item.AltText"></a>
+                                        }
+                                    }                               
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

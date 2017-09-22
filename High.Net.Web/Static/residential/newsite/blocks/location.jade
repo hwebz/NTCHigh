@@ -1,0 +1,23 @@
+﻿extends ../layouts/root.jade
+
+block title
+    title Location block
+
+block content
+    div(class="residential-location")
+        div(class="container")
+            div(class="row")
+                div(class="col-xs-12 col-sm-12 col-md-12")
+                    div#residential-location__information-box
+                        h3 Location
+                        h4 2225 Ashley River Road
+                            br
+                            | Charleston, Sc 29412
+                        p Morbi vehicula sapien sed velit scelerisque, eget tincidunt leo mattis. Praesent lorem elit, scelerisque ac interdum vel, gravida sit amet turpis. Quisque vel maximus magna. Mauris neque nulla, sollicitudin id tellus at, aliquam consectetur dui. Suspendisse ultrices massa eget orci euismod, aliquam tincidunt elit sodales. Aliquam fringilla dignissim luctus.
+                    div#residential-location__map(data-lat="32.816521", data-long="-80.034847")
+    script(src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDzzAFqbA5agZEi5uy5dWGjN_k8oqiOKrc")
+                
+                            
+                    
+
+    

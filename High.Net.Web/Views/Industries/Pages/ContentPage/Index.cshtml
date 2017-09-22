@@ -1,0 +1,22 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Industries.Pages
+
+@model PageViewModel<ContentPage>
+
+@{
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    var parents = dataLocator.GetAncestors(Model.CurrentPage.ContentLink);
+}
+
+<div class="container">
+    @Html.Partial("~/Views/Industries/Shared/Banner.cshtml")
+    <div class="center-white">
+        @Html.PropertyFor(m => m.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth } })
+        <div class="clearfix"></div>
+    </div>
+    <div class="spacer"></div>
+    @section SiteFooter{
+        @Scripts.Render("~/bundles/jssor")
+    }
+</div>

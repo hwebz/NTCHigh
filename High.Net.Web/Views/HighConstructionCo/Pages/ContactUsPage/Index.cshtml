@@ -1,0 +1,19 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Shared.ViewModels
+@using High.Net.Core
+
+@model ContactUsPageModel
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();   
+}
+<div class="abt-mgt">
+    <div class="container">
+        @if (Model.ContactUsForm.IsContactSubmitted)
+        {
+            @(new HtmlString(Model.ContactUsForm.ThankYouMessageText))
+        }
+        @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.ThreeFourthWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.OneThirdWidth } })
+    </div>
+</div>
+

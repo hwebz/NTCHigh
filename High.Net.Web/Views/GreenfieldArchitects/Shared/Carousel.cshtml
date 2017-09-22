@@ -1,0 +1,31 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.GreenfieldArchitects.Pages
+@using ImageVault.EPiServer
+@model PageViewModel<HomePage>
+@{
+    var repo = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+
+    var homePage = repo.Get<HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+<!-- revolution slider start -->
+<div class="container">
+    @if (Model.CurrentPage.SliderImages != null)
+    {
+        <div class="hero-banner">
+            <!-- Carousel Start -->
+            <div class="img-slider">
+                <ul class="bxslider-img" data-slider-type="img">
+                    @foreach (var item in Model.CurrentPage.SliderImages)
+                    {
+                        <li>
+                            @Html.PropertyFor(x => item, new { PropertySettings = new PropertyMediaSettings { Width=1170, Height = 600 }, CssClass = "img-responsive" })
+                        </li>
+                    }
+                </ul>
+            </div>
+            <!-- Carousel Ends-->
+        </div>
+    }
+</div>
+<!-- revolution slider end -->

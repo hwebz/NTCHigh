@@ -1,0 +1,142 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+
+@model High.Net.Models.HighSteelStructure.ViewModels.SteelDayModel
+@section SiteHeader{
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+}
+<div class="container">
+    <div class="common-container advisor">
+        <div class="row">
+            @if (!Model.SteelDayForm.IsMailSendSuccessfully)
+            {
+                <div class="col-md-12">
+                    @Html.PropertyFor(m => m.CurrentPage.ContentArea, new { CssClass = "row", ChildrenCssClass = "", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+                    @using (Html.BeginForm(null, null, FormMethod.Post,
+                    new { @Class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken();
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.SteelDayForm.FirstName, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.SteelDayForm.FirstName, new { @Class = "form-control" })
+                                <span class="req-field">*</span>
+                                <br />
+                                @Html.ValidationMessageFor(x => x.SteelDayForm.FirstName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.SteelDayForm.LastName, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.SteelDayForm.LastName, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.SteelDayForm.LastName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.SteelDayForm.Company, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.SteelDayForm.Company, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.SteelDayForm.Company)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.SteelDayForm.MailingAddress, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.SteelDayForm.MailingAddress, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.SteelDayForm.MailingAddress)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.SteelDayForm.City, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.SteelDayForm.City, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.SteelDayForm.City)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.SteelDayForm.State, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.SteelDayForm.State, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.SteelDayForm.State)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.SteelDayForm.BusinessClassification, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.DropDownList("SteelDayForm.BusinessClassification", new List<SelectListItem>
+                                {
+                                   new SelectListItem(){Text="Project Owner", Value="Project Owner"},
+                                   new SelectListItem(){Text="Design Consultant",Value="Design Consultant"},
+                                   new SelectListItem(){Text="General Contractor", Value="General Contractor"},
+                                   new SelectListItem(){Text="Academic", Value="Academic"}
+                                    }, "--Select--", new { @Class = "form-control" }
+                                )
+                            </div>
+                            <span class="req-field">*</span>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-4">
+                            @Html.ValidationMessageFor(x => x.SteelDayForm.BusinessClassification)
+                                </div>
+                        </div> 
+                
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.SteelDayForm.ZipCode, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.SteelDayForm.ZipCode, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.SteelDayForm.ZipCode)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.SteelDayForm.EmailAddress, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.SteelDayForm.EmailAddress, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.SteelDayForm.EmailAddress)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.SteelDayForm.PhoneNumber, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.SteelDayForm.PhoneNumber, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.SteelDayForm.PhoneNumber)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.SteelDayForm.HowDidYouHearAboutEvent, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.SteelDayForm.HowDidYouHearAboutEvent, new { @Class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.SteelDayForm.Note, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.SteelDayForm.Note, new { @Class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">Submit</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                @Model.CurrentPage.ThankYouMessage
+            }
+        </div>
+    </div>
+</div>

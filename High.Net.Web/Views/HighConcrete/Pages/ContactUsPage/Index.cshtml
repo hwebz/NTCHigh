@@ -1,0 +1,71 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Shared.ViewModels
+@using High.Net.Core
+@using High.Net.Models.HighConcrete.Pages
+@model ContactUsPageModel
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(PageReference.StartPage);
+}
+
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+               <div class="contact-us-form">
+                   @if(!Model.ContactUsForm.IsContactSubmitted)
+                   {
+                        <div class="contact-form">
+                            <h4>Contact</h4>
+                         @using(Html.BeginForm(null,null,FormMethod.Post))
+                         {
+                             @Html.AntiForgeryToken()
+                             @Html.HiddenFor(x => x.ContactUsForm.IsB2BSite, new { Value= "true" })
+                             @Html.HiddenFor(x => x.ContactUsForm.Solve360SelectedCategory, new { Value = homePage.Solve360CategoryTag })
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                      @Html.TextBoxFor(x => x.ContactUsForm.Name, new { placeholder="Name" })
+                                      @Html.ValidationMessageFor(x=> x.ContactUsForm.Name)
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                       @Html.TextBoxFor(x => x.ContactUsForm.Email, new { placeholder="Email" })
+                                       @Html.ValidationMessageFor(x=> x.ContactUsForm.Email)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                      @Html.TextBoxFor(x => x.ContactUsForm.Title, new { placeholder="Title" })
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                      @Html.TextBoxFor(x => x.ContactUsForm.Company, new { placeholder="Company" })
+                                      @Html.ValidationMessageFor(x=> x.ContactUsForm.Company)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                    @Html.TextBoxFor(x => x.ContactUsForm.PhoneNo, new { placeholder = "Phone number" })
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                    @Html.TextBoxFor(x => x.ContactUsForm.Address, new { placeholder="Address" })
+                                    </div>
+                                </div>
+                               @Html.TextAreaFor(x => x.ContactUsForm.Message, new { rows = "7", placeholder = "Message" })
+                            <button type="submit" onClick="_gaq.push(['_trackEvent', 'contact', 'submit', 'Contact Form',, false]);" class="btn contact-us-send" value="Send">Send</button>
+                         }
+                        </div>
+                   }
+                   else
+                   {
+                     @(new HtmlString(Model.ContactUsForm.ThankYouMessageText))
+                   }
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>
+
+

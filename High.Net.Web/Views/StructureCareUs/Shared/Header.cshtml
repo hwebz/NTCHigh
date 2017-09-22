@@ -1,0 +1,30 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.StructureCareUs.Pages
+@using EPiServer.Web
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<div class="container">
+    <div class="logo-container">
+        <div class="logo cf">
+            <p class="header-text center" @Html.EditAttributes(m => homePage.HeaderText)>@Html.DisplayFor(m => homePage.HeaderText)</p>
+            @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl) }))
+            {
+                <div class="search-bx">
+                    <input type="text" placeholder="Search for..." class="search-text" name="q" />
+                    <button class="search-btn glyphicon glyphicon-search"></button>
+                </div>
+            }
+            <a href="/" class="pull-left main-logo">
+                @Html.PropertyFor(x => homePage.SiteLogo, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 586, Height = 91 }, CssClass = "img-responsive" })
+            </a>
+            <div class="pull-right">
+                <h2 class="phone-no"><a href="@homePage.PhoneNumber">@Html.PropertyFor(m => homePage.PhoneNumber)</a></h2>
+            </div>
+        </div>
+    </div>
+</div>

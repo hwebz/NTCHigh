@@ -1,0 +1,40 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.RealEstateGroup.Pages
+@using High.Net.Models.Shared.Pages
+
+@model PageViewModel<HomePage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var PropertyListingPage = contentLoader.GetChildren<PropertyListingPage>(Model.CurrentPage.ContentLink).FirstOrDefault();
+    var PropertyItems = contentLoader.GetChildren<PropertyTypePage>(PropertyListingPage.ContentLink).ToList();
+
+}
+
+<!-- section content start-->
+<div class="main-section">
+    <div class="container">
+        <div class="row" >
+        <div class="col-md-12">
+            <div class="heading-bar announcement">
+               
+                    @if (Model.CurrentPage.RealEstateMatters)
+                    {
+                        @Html.PropertyFor(x => x.CurrentPage.AnnouncementBlockContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+                    }
+               
+            </div>
+            </div>
+        </div>
+        @Html.PropertyFor(m => m.CurrentPage.TopContentArea, new {tag = Global.ContentAreaTags.NoRenderer})
+        @Html.PropertyFor(m => m.CurrentPage.AssetsContentArea, new {tag = Global.ContentAreaTags.NoRenderer})
+        @Html.PropertyFor(m => m.CurrentPage.BottomContentArea, new {tag = Global.ContentAreaTags.NoRenderer})
+    </div>
+</div>
+@section SiteFooter
+{
+    @Scripts.Render("~/bundles/bxslider")
+    @Scripts.Render("~/bundles/fitvids")
+}

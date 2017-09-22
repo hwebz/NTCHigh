@@ -1,0 +1,28 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.SteelServiceCentre.Pages
+@model PageViewModel<BrokerPage>
+<div class="container">
+    <div class="full-profile">
+        <h3 class="blue">@Html.PropertyFor(x=> x.CurrentPage.Name)</h3>
+        <div class="profile-img">
+            @Html.PropertyFor(x => Model.CurrentPage.ProfilePhoto, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width=84, Height = 115 } })
+        </div>
+        <div class="profile-para">
+            <p>
+                <strong>
+                    @Html.PropertyFor(x => x.CurrentPage.Name)<br />
+                    @Html.PropertyFor(x => x.CurrentPage.Designation)
+                </strong>
+            </p>
+            <div class="clearfix"></div>
+            @Html.PropertyFor(x => x.CurrentPage.Description)
+            <p>
+                <a href="tel:@Model.CurrentPage.SkypeContact" @Html.EditAttributes(x => x.CurrentPage.SkypeContact)>@Model.CurrentPage.SkypeContact</a><br>
+                <a href="tel:@Model.CurrentPage.MobileContact" @Html.EditAttributes(x => x.CurrentPage.MobileContact)>@Model.CurrentPage.MobileContact</a><br><br>
+                <a href="mailto:@Model.CurrentPage.MobileContact">@Model.CurrentPage.EmailAddress</a>
+            </p>
+        </div>
+    </div>
+</div>

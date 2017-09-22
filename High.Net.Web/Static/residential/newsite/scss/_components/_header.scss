@@ -1,0 +1,224 @@
+$pre: "residential-header";
+
+.#{$pre} {
+    padding: 20px;
+    background: $color-white;
+    position: relative;
+    z-index: 3;
+
+    &.sticky-header {
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+
+        &.fixed {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 8;
+            margin: 0;
+        }
+    }
+
+    .#{$pre}__logo {
+        width: 100%;
+
+        img {
+            display: block;
+            width: 250px;
+
+            @include respond-to-max($phonePortrait) {
+                width: 210px;
+            }
+        }
+    }
+
+    .#{$pre}__right-nav {
+        @extend %vertical-centered;
+        right: 20px;
+
+        .#{$pre}__right-nav-wrapper {
+            position: relative;
+
+            .#{$pre}__toggle-button {
+                @extend %common-link;
+                width: 43px;
+                height: 43px;
+                padding: 5px;
+                border: 2px solid $color-dark-blue;
+                border-radius: 3px;
+
+                span {
+                    border: 2px solid $color-dark-blue;
+                    display: block;
+                    margin-top: 5px;
+                    border-radius: 3px;
+
+                    &:first-child {
+                        margin-top: 3px;
+                    }
+                }
+            }
+
+            .#{$pre}__nav {
+                display: block;
+                background: $color-white;
+
+                &.fixedheight {
+                    height: 150px;
+                    overflow: hidden;
+                    overflow-y: visible;
+                }
+
+                @include respond-to-max($largerSize) {
+                    display: none;
+                    position: absolute;
+                    top: 65px;
+                    right: -25px;
+                }
+
+                @include respond-to-max($tabletSize) {
+                    top: 62px;
+                }
+
+                li {
+                    display: inline-block;
+                    position: relative;
+
+                    a {
+                        @extend %roboto-bold;
+                        @extend %common-link;
+                        @extend %uppercase-text;
+                        color: $color-dark-blue;
+                        padding: 0 15px;
+                        font-size: $base-font-size-tablet;
+
+                        @include respond-to-min($hugeSize) {
+                            font-size: $li-font-size;
+                        }
+
+                        @include respond-to-max($largerSize) {
+                            display: block;
+                            min-width: 250px;
+                            text-align: right;
+                            padding: 8px 30px;
+                        }
+                    }
+
+                    .#{$pre}__subnav {
+                        position: absolute;
+                        top: 80%;
+                        left: 0;
+                        min-width: 250px;
+                        background-color: $color-white;
+
+                        @include respond-to-min($largerSize) {
+                            display: none !important;
+                            padding-top: 30px;
+                        }
+
+                        @include respond-to-max($largerSize) {
+                            position: inherit;
+                            background-color: $color-light-gray;
+                            display: none;
+                        }
+
+                        li {
+                            display: block;
+                            width: 100%;
+
+                            a {
+                                padding: 10px 15px;
+                                display: block;
+                                width: 100%;
+
+                                @include respond-to-max($largerSize) {
+                                    font-size: 12px;
+                                    padding: 7px 60px 7px 7px;
+                                    border-top: 1px solid $color-white;
+
+                                    &:last-child {
+                                        border-bottom: 1px solid $color-white;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    &.has-submenu {
+                        .toggle-btn {
+                            @extend %horizontal-centered;
+                            bottom: -20px;
+                            background: transparent url('../images/arrow-down.png') no-repeat center center;
+                            background-size: contain;
+                            width: 50px;
+                            height: 25px;
+                            cursor: pointer;
+                            display: none;
+
+                            @include respond-to-max($largerSize) {
+                                left: -5px;
+                                top: 0;
+                                width: 50px;
+                                height: 50px;
+                                text-align: center;
+                                -webkit-transform: translate(0, 0);
+                                -moz-transform: translate(0, 0);
+                                -o-transform: translate(0, 0);
+                                -ms-transform: translate(0, 0);
+                                transform: translate(0, 0);
+                                background-size: 50%;
+                                display: block;
+                            }
+
+                            &.shown {
+                            }
+                        }
+
+                        @include respond-to-min($largerSize) {
+                            &:hover {
+                                .#{$pre}__subnav {
+                                    display: block !important;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                > li {
+                    position: relative;
+
+                    &.active {
+                        &:after {
+                            @extend %horizontal-centered;
+                            bottom: -50px;
+                            content: '';
+                            display: none;
+                            border: 16px solid transparent;
+                            border-top-color: $color-white;
+                        }
+
+                        @include respond-to-min($largerSize) {
+                            &:after {
+                                display: block;
+                            }
+                        }
+
+                        @include respond-to-max($largerSize) {
+                            background-color: $color-light-gray;
+                        }
+                    }
+
+                    &:last-child {
+                        .#{$pre}__subnav {
+                            left: auto;
+                            right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

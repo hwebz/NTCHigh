@@ -1,0 +1,170 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.Web
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighHotels.Pages
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var contentLocator = ServiceLocator.Current.GetInstance<ContentLocator>();
+    var contactUsForm = ServiceLocator.Current.GetInstance<High.Net.Models.Shared.ViewModels.ContactUsForm>();
+
+    var homePage = contentLoader.Get<HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+    var contactPage = contentLocator.GetAll<High.Net.Models.Shared.Pages.ContactUsPage>(SiteDefinition.Current.StartPage).FirstOrDefault();
+
+    var pages = contentLoader.GetChildren<BasePageData>(homePage.ContentLink).Where(x => x.VisibleInMenu == true);
+    
+}
+
+<div class="container">
+    <div class="col-lg-12 col-sm-12 mango-bg">
+        <div class="col-lg-3 col-sm-3">
+            <h3 class="white">Call Us <a href="tel:@homePage.ContactNumber">@Html.PropertyFor(m => homePage.ContactNumber)</a></h3>
+        </div>
+        <div class="col-lg-3 col-sm-2">&nbsp;</div>
+        <div class="col-lg-3 col-sm-4">
+            @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl), @Class = "navbar-form navbar-right" }))
+            {
+                <div class="col-lg-12 col-sm-12">
+                    <!--<input class="form-control search" type="text" placeholder="enter id for newsletter">-->
+                    <div id="custom-search-input">
+                        <div class="input-group">
+                            <input type="text" class="  search-query form-control" name="q" placeholder="Search for..." />
+
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger" type="submit">
+                                    <span class=" glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+        <div class="col-lg-3 col-sm-3 mango-bg1">
+            <ul class="mango-li">
+                <li><a target="_blank" href="@Url.ContentUrl(homePage.FacebookLink)" @Html.EditAttributes(x => homePage.FacebookLink)>
+                    <img src="~/Static/high-hotels/img/fb.png" /></a></li>
+                <li><a target="_blank" href="@Url.ContentUrl(homePage.PinterestLink)" @Html.EditAttributes(x => homePage.PinterestLink)>
+                    <img src="~/Static/high-hotels/img/Pinterest.png" /></a></li>
+                <li><a target="_blank" href="@Url.ContentUrl(homePage.LinkedInLink)" @Html.EditAttributes(x => homePage.LinkedInLink)>
+                    <img src="~/Static/high-hotels/img/linkedin.png" /></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--footer start-->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-sm-3">
+                <h1>Address</h1>
+                <h5>@Html.PropertyFor(m => homePage.ContactAddress)</h5>
+            </div>
+            <div class="col-lg-3 col-sm-2">
+                <ul>
+                    <li><a href="@Url.ContentUrl(homePage.ContentLink)">Home</a></li>
+                    @foreach (var item in pages.Take(5))
+                    {
+                        <li><a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a></li>   
+                    }
+                </ul>
+            </div>
+            <div class="col-lg-2 col-sm-2">
+                <ul>
+                    @foreach (var item in pages.Skip(5))
+                    {
+                        <li><a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a></li>   
+                    }
+                    <li>@Html.PropertyFor(m => homePage.FooterLinks)</li>
+                </ul>
+            </div>
+            <div class="col-md-4 col-sm-4">
+
+                @using (Ajax.BeginForm(null, null, new AjaxOptions()
+                        {
+                            HttpMethod = "POST",
+                            InsertionMode = InsertionMode.Replace,
+                            OnSuccess = "validaton_success",
+                        },
+                        new { @class = "contact-form-footer", action = contactPage != null ? Url.ContentUrl(contactPage.ContentLink) : null, enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(x => contactUsForm.IsJsonRequest, new { Value = "true" })
+                    <div class="form-group col-md-6 ">
+                        <div>
+                            @Html.TextBoxFor(x => contactUsForm.Name, new { @class = "form-control", Placeholder = "Name*" })
+                            <label class="validator" id="ErrorName" style="display: none;">Please enter name.</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 ">
+                        <div>
+                            @Html.TextBoxFor(x => contactUsForm.Company, new { @class = "form-control", Placeholder = "Company" })
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group col-md-6 ">
+                        <div>
+                            @Html.TextBoxFor(x => contactUsForm.Title, new { @class = "form-control", Placeholder = "Title" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 ">
+                        <div>
+                            @Html.TextBoxFor(x => contactUsForm.PhoneNo, new { @class = "form-control", Placeholder = "PhoneNo" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 ">
+                        <div>
+                            @Html.TextBoxFor(x => contactUsForm.Email, new { @class = "form-control", Placeholder = "Email*" })
+                            <label class="validator" id="ErrorEmail" style="display: none;">Please enter valid email-id.</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 ">
+                        <div class="checkbox">
+                            <label>@Html.CheckBoxFor(x => contactUsForm.chkSpecialOffers) Sign up for special offers</label>
+                        </div>
+                    </div>
+                    <div class="form-group text-area col-md-12 ">
+                        @Html.TextAreaFor(x => contactUsForm.Message, new { @class = "form-control", rows = "5" })
+                    </div>
+                    <div class="form-group  col-md-12">
+                        <button id="btnsubmit" type="submit" class="btn btn-warning">Submit</button>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</footer>
+<!--footer end-->
+
+<script>
+    function validaton_success(data) {
+        var validationlabels = $('.contact-form-footer').find('.validator');
+        validationlabels.attr('style', 'display:none');
+        if (typeof data === 'string') {
+            $('.contact-form-footer').html('');
+            $('.contact-form-footer').html(data);
+        }
+        else {
+            var RawData = JSON.stringify(data).split(',');
+            for (var i = 0; i < RawData.length; i++) {
+                var tempdata = RawData[i].replace(/['"]+/g, '');
+
+                for (var j = 0; j < validationlabels.length; j++) {
+                    var label = validationlabels[j];
+                    var message = tempdata.includes(validationlabels[j].id.replace("Error", ""));
+                    if (message == true) {
+                        $(label).attr('style', 'display:block;color:white;font-size:12px');
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+
+
+
+

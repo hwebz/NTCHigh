@@ -1,0 +1,11 @@
+﻿.blk-background {
+    background: black;
+}
+
+.row.white-back {
+    background: white;
+}
+
+.row {
+    margin: 0!important;
+}

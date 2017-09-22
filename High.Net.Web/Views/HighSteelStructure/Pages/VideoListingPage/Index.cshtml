@@ -1,0 +1,51 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighSteelStructure.Pages
+
+@model PageViewModel<VideoListingPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var videoItemPages = contentLoader.GetChildren<VideoItemPage>(Model.CurrentPage.ContentLink);
+}
+
+<div class="container">
+    <div class="common-container video">
+        <div class="row">
+            <div class="form-group col-md-12">
+                <form>
+                    <label>View Bridge Projects by Type:  </label>
+                    <select>
+                        <option>all</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="video-info">
+            @if (videoItemPages != null)
+            {
+                <div class="row">
+                    @foreach (var item in videoItemPages)
+                    {
+                        <div class="col-md-4 col-sm-4">
+                            <div class="video-left">
+                                <img src="@dataLocator.GetYouTubeThumbnail(item.VideoLink)" alt="" />
+                            </div>
+                            <div class="video-content">
+                                <a href="@Url.ContentUrl(item.ContentLink)"><h5>@item.Heading</h5></a>
+                                <p>
+                                    @item.IntroText
+                                </p>
+                                <p>
+                                    <a href="@Url.ContentUrl(item.ContentLink)">Read More</a>
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

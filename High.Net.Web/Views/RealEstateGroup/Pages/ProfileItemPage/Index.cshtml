@@ -1,0 +1,37 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.RealEstateGroup.Pages
+@using ImageVault.EPiServer
+@model PageViewModel<ProfileItemPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+
+<div class="main-section">
+    <div class="container">
+        <div class="full-profile">
+            <h2 class="broker-title">@Model.CurrentPage.Name</h2>
+            <h3 class="broker-title">@Model.CurrentPage.Title</h3>
+            <div class="row">
+                <div class=" col-md-12">
+                    <div class="profile-img pics">
+                        @Html.PropertyFor(x => Model.CurrentPage.ProfileImage, new { PropertySettings = new PropertyMediaSettings { Width = 100, Height = 125, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                    </div>
+                    <p>
+                        <a href="tel:@Model.CurrentPage.Contact" @Html.EditAttributes(m => Model.CurrentPage.Contact)>@Model.CurrentPage.Contact</a><br />
+                        <a href="mailto:@Model.CurrentPage.EmailID" @Html.EditAttributes(m => Model.CurrentPage.EmailID)>@Model.CurrentPage.EmailID</a>
+                    </p>
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="row">
+                <div class=" col-md-12">
+                    <div class="profile-para">
+                        @Html.PropertyFor(x => x.CurrentPage.Description)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

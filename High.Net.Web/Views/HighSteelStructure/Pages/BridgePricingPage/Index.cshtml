@@ -1,0 +1,771 @@
+﻿@using High.Net.Core
+@using EPiServer.Web
+
+@model High.Net.Models.HighSteelStructure.ViewModels.BridgePricingModel
+
+@section Siteheader{
+    @Styles.Render("~/bundles/bootstrap-datetimepicker-css")
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+}
+
+<div class="container">
+    @if (!Model.BridgePricingForm.IsMailSendSuccessfully && !Model.BridgePricingForm.IsPreviewPage)
+    {
+        <div class="common-container advisor">
+            <p><span class="req-field">*</span> Indicates a required field</p>
+            @using (Html.BeginForm(null, null, FormMethod.Post,
+            new { @Class = "form-horizontal", @enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <input id="BridgePricingForm_IsPreviewPage" name="BridgePricingForm.IsPreviewPage" type="hidden" value="True">
+                <h5><strong>Part 1 - Contact Information:</strong></h5>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.FirstName, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.FirstName, new { @Class = "form-control" })
+                        <span class="req-field">*</span><br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.FirstName)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.LastName, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.LastName, new { @Class = "form-control" })
+                        <span class="req-field">*</span><br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.LastName)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ContactTitle, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.ContactTitle, new { @Class = "form-control" })
+                        <span class="req-field">*</span><br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.ContactTitle)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.Company, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.Company, new { @Class = "form-control" })
+                        <span class="req-field">*</span><br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.Company)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ContactPhone, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.ContactPhone, new { @Class = "form-control" })
+                        <span class="req-field">*</span><br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.ContactPhone)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.Email, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.Email, new { @Class = "form-control" })
+                        <span class="req-field">*</span><br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.Email)
+                    </div>
+                </div>
+                <br />
+                <h5><strong>Part 2 - Project Information:</strong></h5>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ProjectName, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.ProjectName, new { @Class = "form-control" })
+                        <span class="req-field">*</span><br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.ProjectName)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ScheduledConstructionLettingDate, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.ScheduledConstructionLettingDate, new { @Class = "form-control input-group datetimepicker", data_provide = "datepicker" })
+                        <span class="req-field">*</span><br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.ScheduledConstructionLettingDate)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ProjectCity, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.ProjectCity, new { @Class = "form-control" })
+                        <span class="req-field">*</span><br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.ProjectCity)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ProjectState, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-2">
+                        @Html.DropDownList("BridgePricingForm.ProjectState", new List<SelectListItem>
+                        {
+                            new SelectListItem(){ Text= "CT", Value = "CT"},
+                            new SelectListItem(){ Text= "DC", Value = "DC"},
+                            new SelectListItem(){ Text= "DE", Value = "DE"},
+                            new SelectListItem(){ Text= "IL", Value = "IL"},
+                            new SelectListItem(){ Text= "IN", Value = "IN"},
+                            new SelectListItem(){ Text= "KY", Value = "KY"},
+                            new SelectListItem(){ Text= "MA", Value = "MA"},
+                            new SelectListItem(){ Text= "MD", Value = "MD"},
+                            new SelectListItem(){ Text= "ME", Value = "ME"},
+                            new SelectListItem(){ Text= "MI", Value = "MI"},
+                            new SelectListItem(){ Text= "MN", Value = "MN"},
+                            new SelectListItem(){ Text= "NC", Value = "NC"},
+                            new SelectListItem(){ Text= "NH", Value = "NH"},
+                            new SelectListItem(){ Text= "NJ", Value = "NJ"},
+                            new SelectListItem(){ Text= "NY (City)", Value = "NY (City)"},
+                            new SelectListItem(){ Text= "NY (State)", Value = "NY (State)"},
+                            new SelectListItem(){ Text= "OH", Value = "OH"},
+                            new SelectListItem(){ Text= "PA", Value = "PA"},
+                            new SelectListItem(){ Text= "RI", Value = "RI"},
+                            new SelectListItem(){ Text= "TN", Value = "TN"},
+                            new SelectListItem(){ Text= "VA", Value = "VA"},
+                            new SelectListItem(){ Text= "VT", Value = "VT"},
+                            new SelectListItem(){ Text= "WV", Value = "WV"},
+                            new SelectListItem(){ Text= "AB", Value = "AB"},
+                            new SelectListItem(){ Text= "BC", Value = "BC"},
+                            new SelectListItem(){ Text= "MB", Value = "MB"},
+                            new SelectListItem(){ Text= "NB", Value = "NB"},
+                            new SelectListItem(){ Text= "NS", Value = "NS"},
+                            new SelectListItem(){ Text= "ON", Value = "ON"},
+                            new SelectListItem(){ Text= "QC", Value = "QC"},
+                            new SelectListItem(){ Text= "SK", Value = "SK"},
+                            new SelectListItem(){ Text= "other", Value = "other"},
+                        }, "-- Select --", new { @Class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(x => x.BridgePricingForm.ProjectState)
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for=""></label>
+                    @Html.LabelFor(x => x.BridgePricingForm.StateIfNotListed, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.StateIfNotListed, new { @Class = "form-control" })
+                        <span class="req-field">*</span><br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.StateIfNotListed)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.SteelDeliveryDate, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.SteelDeliveryDate, new { @Class = "form-control input-group datetimepicker", data_provide = "datepicker" })
+                        <span class="req-field">*</span><br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.SteelDeliveryDate)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ProjectOwner, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.ProjectOwner, new { @Class = "form-control" })
+                        <span class="req-field">*</span><br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.ProjectOwner)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.OwnersProjectNumber, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.OwnersProjectNumber, new { @Class = "form-control" })
+                        <span class="req-field">*</span><br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.OwnersProjectNumber)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ApproximateBridgeLength, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.ApproximateBridgeLength, new { @Class = "form-control" })<br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.ApproximateBridgeLength)
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.DropDownList("BridgePricingForm.ApproximateBridgeLengthUnit", new List<SelectListItem>
+               {
+                    new SelectListItem(){ Text= "Feet", Value = "Feet"},
+                    new SelectListItem(){ Text= "Meters", Value = "Meters"}
+               }, "-- Select --", new { @Class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.ApproximateBridgeLengthUnit)
+                    </div>
+                    <span class="req-field">*</span>
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.NumberOfSpan, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.NumberOfSpan, new { @Class = "form-control" })
+                        <span class="req-field">*</span><br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.NumberOfSpan)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.Description, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.TextAreaFor(x => x.BridgePricingForm.Description, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <h5><strong>Part 3-Design Information:</strong></h5>
+                int i = 0;
+                <div class="row">
+                    <div class="col-md-7 col-sm-7">
+                        <div class="row">
+                            @foreach (var item in Model.BridgePricingForm.ListDesigns.Take(3))
+                            {
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="design-info">
+                                        <p>@item.Name</p>
+                                        <img src="~/Static/high-steel-structure/img/design-img/@(item.Name.Replace(" ", "_")).gif" />
+                                        @Html.CheckBoxFor(x => x.BridgePricingForm.ListDesigns[i].Checked, new { @Class = "design-check" })
+                                        @Html.HiddenFor(x => x.BridgePricingForm.ListDesigns[i].Name)
+                                    </div>
+                                </div>
+
+                                if (i != 2)
+                                {
+                                <hr class="design-line mobile-device" />
+                                }
+                                i++;
+                            }
+                        </div>
+                        <hr class="design-line" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7 col-sm-7">
+                        <div class="row">
+                            @foreach (var item in Model.BridgePricingForm.ListDesigns.Skip(3).Take(3))
+                            {
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="design-info">
+                                        <p>@item.Name</p>
+                                        <img src="~/Static/high-steel-structure/img/design-img/@(item.Name.Replace(" ", "_")).gif" />
+                                        @Html.CheckBoxFor(x => x.BridgePricingForm.ListDesigns[i].Checked, new { @Class = "design-check" })
+                                        @Html.HiddenFor(x => x.BridgePricingForm.ListDesigns[i].Name)
+                                    </div>
+                                </div>
+
+                                if (i != 5)
+                                {
+                                <hr class="design-line mobile-device" />
+                                }
+                                i++;
+                            }
+                        </div>
+                        <hr class="design-line" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7 col-sm-7">
+                        <div class="row">
+                            @foreach (var item in Model.BridgePricingForm.ListDesigns.Skip(6).Take(3))
+                            {
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="design-info">
+                                        <p>@item.Name</p>
+                                        <img src="~/Static/high-steel-structure/img/design-img/@(item.Name.Replace(" ", "_")).gif" />
+                                        @Html.CheckBoxFor(x => x.BridgePricingForm.ListDesigns[i].Checked, new { @Class = "design-check" })
+                                        @Html.HiddenFor(x => x.BridgePricingForm.ListDesigns[i].Name)
+                                    </div>
+                                </div>
+
+                                if (i != 8)
+                                {
+                                <hr class="design-line mobile-device" />
+                                }
+                                i++;
+                            }
+                        </div>
+                        <hr class="design-line" />
+                    </div>
+                </div>
+                <div class="spacer"></div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.Radius, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.Radius, new { @Class = "form-control" })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.DropDownList("BridgePricingForm.RadiusUnit", new List<SelectListItem>
+               {
+                   new SelectListItem(){Text="Feet", Value="Feet"},
+                   new SelectListItem(){Text="Meters",Value="Meters"}
+               }, "--Select--", new { @Class = "form-control" }
+                    )
+                    </div>
+                    Curved Girder only
+                </div>
+                <br />
+                <h5><strong>Part 4-Specifications:</strong></h5>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label no-top" for="">Type of steel</label>
+                    <label class="col-sm-2 control-label no-top text-left" for="">Percentage (%)</label>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.A572Grade50, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.A572Grade50, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.A588Grade50W, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.A588Grade50W, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.A852GradeHPS70W, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.A852GradeHPS70W, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.HPSHighPerformanceSteel, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.HPSHighPerformanceSteel, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.Coating, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.DropDownList("BridgePricingForm.Coating", new List<SelectListItem>
+               {
+               new SelectListItem{Text="None",Value="None"},
+               new SelectListItem{Text="Painted",Value="Painted"},
+               new SelectListItem{Text="Weathering/end paint",Value="Weathering/end paint"},
+               new SelectListItem{Text="Metalized",Value="Metalized"},
+               new SelectListItem{Text="Galvanized",Value="Galvanized"}
+               }, "--Select--", new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <h5><strong>Average Material Measurements:</strong></h5>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.WebThickness, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.WebThickness, new { @Class = "form-control" })<br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.WebThickness)
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.DropDownList("BridgePricingForm.WebThicknessUnit", new List<SelectListItem>
+               {
+               new SelectListItem{Text="Inches",Value="Inches"},
+               new SelectListItem{Text="centimeters",Value="centimeters"}
+               }, "--Select--", new { @Class = "form-control" }
+                    )
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.WebThicknessUnit)
+                    </div>
+                    <span class="req-field">*</span><br />
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.WebDepth, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.WebDepth, new { @Class = "form-control" })<br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.WebDepth)
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.DropDownList("BridgePricingForm.WebDepthUnit", new List<SelectListItem>
+               {
+               new SelectListItem{Text="Inches",Value="Inches"},
+               new SelectListItem{Text="centimeters",Value="centimeters"}
+               }, "--Select--", new { @Class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.WebDepthUnit)
+                    </div>
+                    <span class="req-field">*</span><br />
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ThickestFlange, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.ThickestFlange, new { @Class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.ThickestFlange)
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.DropDownList("BridgePricingForm.ThickestFlangeUnit", new List<SelectListItem>
+               {
+               new SelectListItem{Text="Inches",Value="Inches"},
+               new SelectListItem{Text="centimeters",Value="centimeters"}
+               }, "--Select--", new { @Class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.ThickestFlangeUnit)
+                    </div>
+                    <span class="req-field">*</span><br />
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.EstimatedWeight, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(x => x.BridgePricingForm.EstimatedWeight, new { @Class = "form-control" })<br />
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.EstimatedWeight)
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.DropDownList("BridgePricingForm.EstimatedWeightUnit", new List<SelectListItem>
+               {
+               new SelectListItem{Text="english ton(s)",Value="english ton(s)"},
+               new SelectListItem{Text="metric ton(s)",Value="metric ton(s)"}
+               }, "--Select--", new { @Class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.BridgePricingForm.EstimatedWeightUnit)
+                    </div>
+                    <span class="req-field">*</span><br />
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.FractureCritical, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.DropDownList("BridgePricingForm.FractureCritical", new List<SelectListItem>
+               {
+               new SelectListItem{Text="Yes",Value="Yes"},
+               new SelectListItem{Text="No",Value="No"}
+               }, "--Select--", new { @Class = "form-control" })
+                    </div>
+                    <span class="req-field">*</span>
+                    @Html.ValidationMessageFor(x => x.BridgePricingForm.FractureCritical)
+                </div>
+                <br />
+                <div class="advisor-para">
+                    <p>The information provided is for budget pricing and planning purposes only. By providing the information, High Steel is not extending an offer to sell or agreeing to enter a contract. The actual price will be determined by final design and market conditions then existing.</p>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-danger">Finish and Review</button>
+                        <button type="reset" class="btn btn-danger">Clear Form</button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else if (Model.BridgePricingForm.IsPreviewPage)
+    {
+        <div class="common-container advisor">
+            <p><span class="req-field">*</span> Indicates a required field</p>
+            @using (Html.BeginForm(null, null, FormMethod.Post,
+            new { @Class = "form-horizontal", @enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <input id="BridgePricingForm_IsPreviewPage" name="BridgePricingForm.IsPreviewPage" type="hidden" value="False">
+                <h5><strong>Part 1 - Contact Information:</strong></h5>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.FirstName, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.FirstName, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.LastName, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.LastName, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ContactTitle, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.ContactTitle, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.Company, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.Company, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ContactPhone, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.ContactPhone, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.Email, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.Email, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <h5><strong>Part 2 - Project Information:</strong></h5>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ProjectName, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.ProjectName, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ScheduledConstructionLettingDate, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.ScheduledConstructionLettingDate, new { @Class = "form-control input-group datetimepicker", data_provide = "datepicker" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ProjectCity, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.ProjectCity, new { @Class = "form-control" })
+                    </div>
+                </div>
+                if (Model.BridgePricingForm.ProjectState != null)
+                {
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ProjectState, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.ProjectState, new { @Class = "form-control" })
+                    </div>
+                </div>
+                }
+                else
+                {
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for=""></label>
+                    @Html.LabelFor(x => x.BridgePricingForm.StateIfNotListed, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.StateIfNotListed, new { @Class = "form-control" })
+                    </div>
+                </div>
+                }
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.SteelDeliveryDate, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.SteelDeliveryDate, new { @Class = "form-control input-group datetimepicker", data_provide = "datepicker" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ProjectOwner, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.ProjectOwner, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.OwnersProjectNumber, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.OwnersProjectNumber, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ApproximateBridgeLength, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.ApproximateBridgeLength, new { @Class = "form-control" })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.ApproximateBridgeLengthUnit, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.NumberOfSpan, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.NumberOfSpan, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.Description, new { @Class = "col-sm-2 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.Description, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <h5><strong>Part 3-Design Information:</strong></h5>
+                int i = 0;
+                <div class="row">
+                    <div class="col-md-7 col-sm-7">
+                        <div class="row">
+                            @foreach (var item in Model.BridgePricingForm.ListDesigns.Take(3))
+                            {
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="design-info">
+                                        <p>@item.Name</p>
+                                        <img src="~/Static/high-steel-structure/img/design-img/@(item.Name.Replace(" ", "_")).gif" />
+                                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.ListDesigns[i].Checked, new { @Class = "design-check" })
+                                        @*@Html.CheckBoxFor(x => x.BridgePricingForm.ListDesigns[i].Checked, new { @Class = "design-check", disabled = "disabled" })*@
+                                        <input class="design-check" @(Model.BridgePricingForm.ListDesigns[i].Checked ? "checked" : null) disabled="disabled" name="BridgePricingForm.ListDesigns[@(i)].Checked" id="BridgePricingForm_ListDesigns_@(i)__Checked" type="checkbox" value="@Model.BridgePricingForm.ListDesigns[i].Checked">
+                                        <input @(Model.BridgePricingForm.ListDesigns[i].Checked ? "checked" : null) name="BridgePricingForm.ListDesigns[@(i)].Checked" type="hidden" value="@Model.BridgePricingForm.ListDesigns[i].Checked">
+                                        @Html.HiddenFor(x => x.BridgePricingForm.ListDesigns[i].Name)
+                                    </div>
+                                </div>
+                                if (i != 2)
+                                {
+                                <hr class="design-line mobile-device" />
+                                }
+                                i++;
+                            }
+                        </div>
+                        <hr class="design-line" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7 col-sm-7">
+                        <div class="row">
+                            @foreach (var item in Model.BridgePricingForm.ListDesigns.Skip(3).Take(3))
+                            {
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="design-info">
+                                        <p>@item.Name</p>
+                                        <img src="~/Static/high-steel-structure/img/design-img/@(item.Name.Replace(" ", "_")).gif" />
+                                        @*@Html.DisplayHiddenFor(x => x.BridgePricingForm.ListDesigns[i].Checked, new { @Class = "design-check" })*@
+                                        @*@Html.CheckBoxFor(x => x.BridgePricingForm.ListDesigns[i].Checked, new { @Class = "design-check", disabled = "disabled" })*@
+                                        <input class="design-check" @(Model.BridgePricingForm.ListDesigns[i].Checked ? "checked" : null) disabled="disabled" name="BridgePricingForm.ListDesigns[@(i)].Checked" id="BridgePricingForm_ListDesigns_@(i)__Checked" type="checkbox" value="@Model.BridgePricingForm.ListDesigns[i].Checked">
+                                        <input @(Model.BridgePricingForm.ListDesigns[i].Checked ? "checked" : null) name="BridgePricingForm.ListDesigns[@(i)].Checked" type="hidden" value="@Model.BridgePricingForm.ListDesigns[i].Checked">
+                                        @Html.HiddenFor(x => x.BridgePricingForm.ListDesigns[i].Name)
+                                    </div>
+                                </div>
+
+                                if (i != 5)
+                                {
+                                <hr class="design-line mobile-device" />
+                                }
+                                i++;
+                            }
+                        </div>
+                        <hr class="design-line" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7 col-sm-7">
+                        <div class="row">
+                            @foreach (var item in Model.BridgePricingForm.ListDesigns.Skip(6).Take(3))
+                            {
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="design-info">
+                                        <p>@item.Name</p>
+                                        <img src="~/Static/high-steel-structure/img/design-img/@(item.Name.Replace(" ", "_")).gif" />
+                                        @*@Html.DisplayHiddenFor(x => x.BridgePricingForm.ListDesigns[i].Checked, new { @Class = "design-check" })*@
+                                        @*@Html.CheckBoxFor(x => x.BridgePricingForm.ListDesigns[i].Checked, new { @Class = "design-check", disabled = "disabled" })*@
+                                        <input class="design-check" @(Model.BridgePricingForm.ListDesigns[i].Checked ? "checked" : null) disabled="disabled" name="BridgePricingForm.ListDesigns[@(i)].Checked" id="BridgePricingForm_ListDesigns_@(i)__Checked" type="checkbox" value="@Model.BridgePricingForm.ListDesigns[i].Checked">
+                                        <input @(Model.BridgePricingForm.ListDesigns[i].Checked ? "checked" : null) name="BridgePricingForm.ListDesigns[@(i)].Checked" type="hidden" value="@Model.BridgePricingForm.ListDesigns[i].Checked">
+                                        @Html.HiddenFor(x => x.BridgePricingForm.ListDesigns[i].Name)
+                                    </div>
+                                </div>
+                                if (i != 8)
+                                {
+                                <hr class="design-line mobile-device" />
+                                }
+                                i++;
+                            }
+                        </div>
+                        <hr class="design-line" />
+                    </div>
+                </div>
+                <div class="spacer"></div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.Radius, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.Radius, new { @Class = "form-control" })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.RadiusUnit, new { @Class = "form-control" }
+                    )
+                    </div>
+                    Curved Girdier only
+                </div>
+                <br />
+                <h5><strong>Part 4-Specifications:</strong></h5>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label no-top" for="">Type of steel</label>
+                    <label class="col-sm-2 control-label no-top text-left" for="">Percentage (%)</label>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.A572Grade50, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.A572Grade50, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.A588Grade50W, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.A588Grade50W, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.A852GradeHPS70W, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.A852GradeHPS70W, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.HPSHighPerformanceSteel, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.HPSHighPerformanceSteel, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.Coating, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.Coating, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <h5><strong>Average Material Measurements:</strong></h5>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.WebThickness, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.WebThickness, new { @Class = "form-control" })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.WebThicknessUnit, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.WebDepth, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.WebDepth, new { @Class = "form-control" })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.WebDepthUnit, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.ThickestFlange, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.ThickestFlange, new { @Class = "form-control" })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.ThickestFlangeUnit, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.EstimatedWeight, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.EstimatedWeight, new { @Class = "form-control" })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.EstimatedWeightUnit, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BridgePricingForm.FractureCritical, new { @Class = "col-sm-2 control-label no-top" })
+                    <div class="col-sm-2">
+                        @Html.DisplayHiddenFor(x => x.BridgePricingForm.FractureCritical, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="advisor-para">
+                    <p>The information provided is for budget pricing and planning purposes only. By providing the information, High Steel is not extending an offer to sell or agreeing to enter a contract. The actual price will be determined by final design and market conditions then existing.</p>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-danger">Submit</button>
+                        @if (Request.UrlReferrer != null)
+                        {
+                            <a class="btn btn-danger" onclick="history.go(-1); return false;" href="#">Make Changes</a>
+                        }
+@*<button type="reset" class="btn btn-danger">Clear Form</button>*@
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="common-container advisor">
+            @Html.PropertyFor(x => x.CurrentPage.ThankYouMessage)
+        </div>
+    }
+</div>
+
+@section SiteFooter{
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/bootstrap-datetimepicker-js")
+    <script type="text/javascript">
+        $(function () {
+            $('.datetimepicker').datetimepicker({
+                viewMode: 'years',
+                format: 'MM/DD/YYYY'
+            });
+        });
+    </script>
+}

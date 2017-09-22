@@ -1,0 +1,21 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.Web
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighTransit.Pages
+@using ImageVault.EPiServer
+@model IPageViewModel<BasePageData>
+@{
+    var repository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var homePage = repository.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<!-- Banner  start -->
+<div class="image-banner">
+    @Html.PropertyFor(x => homePage.PageBanner, new { PropertySettings = new PropertyMediaSettings { Width = 1000, Height = 360 }, CssClass = "img-responsive" })
+</div>
+<div class="blue-band">
+    <div class="container">
+        <h1 class="banner-title">@Model.CurrentPage.Name </h1>
+    </div>
+</div>
+<!-- Banner end -->

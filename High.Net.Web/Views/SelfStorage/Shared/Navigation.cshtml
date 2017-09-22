@@ -1,0 +1,38 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.SelfStorage.Pages
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<SelfStoragePageData>(SiteDefinition.Current.StartPage);
+}
+
+@model IPageViewModel<BasePageData>
+<div class="menu">
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="">
+                <div class="navbar-header">
+                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-nav">
+                        <li class=""><a href="@Url.ContentUrl(SiteDefinition.Current.StartPage)">Home</a></li>
+                        @Html.MenuList(SiteDefinition.Current.StartPage,
+                                                   @<li class="@(item.Selected ? "active" : "")">@Html.PageLink(item.Page)
+                                                   </li>)
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            <!--/.container-fluid -->
+        </nav>
+    </div>
+</div>

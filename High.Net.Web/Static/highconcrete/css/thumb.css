@@ -1,0 +1,117 @@
+﻿/*thumb slider start*/
+
+.slider-heading h3 {
+    float: left;
+    margin-top: 0;
+    padding-left: 23px;
+}
+
+.right-pag {
+    float: right;
+    padding: 0 10px;
+}
+
+    .right-pag img {
+        cursor: pointer;
+    }
+
+.slider-conatiner {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 991px;
+    height: 380px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+
+.sliders {
+    border: 1px solid #e2e2e2;
+    border-radius: 0px;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 0px;
+    width: 600px;
+    height: 337px;
+    overflow: hidden;
+    margin: 20px;
+}
+
+    .sliders img {
+        /* border: 12px solid #EFEFEF;*/
+        border-radius: 0px !important;
+    }
+
+.jssora05l, .jssora05r {
+    display: block;
+    position: absolute;
+    /* size of arrow element */
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: url(../img/a17.png) no-repeat;
+    overflow: hidden;
+}
+
+.jssora05l {
+    background-position: -10px -40px;
+}
+
+.jssora05r {
+    background-position: -70px -40px;
+}
+
+.jssora05l:hover {
+    background-position: -130px -40px;
+}
+
+.jssora05r:hover {
+    background-position: -190px -40px;
+}
+
+.jssora05l.jssora05ldn {
+    background-position: -250px -40px;
+}
+
+.jssora05r.jssora05rdn {
+    background-position: -310px -40px;
+}
+
+.jssort02 {
+    position: absolute;
+    /* size of thumbnail navigator container */
+    width: 375px;
+    height: 385px;
+}
+
+    .jssort02 .p {
+        border: 1px solid #e2e2e2;
+        border-radius: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 160px;
+        height: 160px;
+    }
+
+    .jssort02 .t {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0px;
+    }
+
+    .jssort02 .w {
+        /*border: 12px solid #EFEFEF;*/
+        border-radius: 10px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+    }
+

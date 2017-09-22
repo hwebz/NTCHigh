@@ -1,0 +1,66 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Models.Residential.Pages
+@using EPiServer.Core
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<ResidentialPageData>(SiteDefinition.Current.StartPage);
+
+    var residentHomePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+
+<!-- Navigation Starts-->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                @Html.MenuList(SiteDefinition.Current.StartPage,
+                @<li class="@(item.Selected ? "active" : "")">
+                    @if (item.HasChildren.Value)
+                    {
+                        <a class="navitem" href="@Url.ContentUrl(item.Page.ContentLink)">@item.Page.Name</a>
+                        <a class="dropdown-toggle caret-dd" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            @{var childItems = contentLoader.GetChildren<BasePageData>(item.Page.ContentLink);}
+                            @foreach (var childItem in childItems)
+                            {
+                                <li>@Html.PageLink(childItem)</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <a class="navitem" href="@Url.ContentUrl(item.Page.ContentLink)">@item.Page.Name</a>
+                    }
+                </li>)
+                <li>
+                    <a class=" navitem search-txt" href="#"><span class="nav-search glyphicon glyphicon-search"></span></a>
+                    @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(residentHomePage.SearchPageUrl) }))
+                    {
+                        <div class="search-bx">
+                            <input type="text" placeholder="Search for..." class="search-text" name="q" />
+                            <button class="search-btn glyphicon glyphicon-search"></button>
+                        </div>
+                    }
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<!-- Navigation Ends-->

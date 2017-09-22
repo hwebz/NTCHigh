@@ -1,0 +1,89 @@
+﻿$pre: 'residential-faq';
+
+.#{$pre} {
+    @include block-spacing($block-spacing-type-2, $block-spacing-type-2-tablet);
+    margin-bottom: 25px;
+    background: $color-white;
+
+    .#{$pre}__item {
+        margin-bottom: 30px;
+
+        h3 {
+            @extend %medium-title;
+            text-transform: initial;
+            padding-left: 70px;
+            cursor: pointer;
+            user-select: none;
+            @extend %common-link;
+            position: relative;
+
+            &:after {
+                content: '';
+                display: block;
+                width: 45px;
+                height: 45px;
+                background: transparent url('../images/plus-sign.png') no-repeat left top;
+                background-size: cover;
+                @extend %vertical-centered;
+                left: 0;
+                margin-top: -1px;
+            }
+
+            span {
+                display: block;
+                width: 45px;
+                height: 45px;
+                background-color: $color-white;
+                border: 3px solid $color-orange;
+                border-radius: 50%;
+                @extend %vertical-centered;
+                left: 0;
+            }
+
+            @include respond-to-max($hugeSize) {
+                span, &:after {
+                    width: 30px;
+                    height: 30px;
+                }
+
+                span {
+                    border-width: 2px;
+                }
+            }
+
+            @include respond-to-max($hugeSize) {
+                padding-left: 45px;
+
+                span, &:before {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        }
+
+        .#{$pre}__answer {
+            display: none;
+            margin-left: 70px;
+            background-color: $color-orange;
+            color: $color-white;
+            padding: 15px;
+
+            p {
+                line-height: 1.2;
+            }
+
+            @include respond-to-max($hugeSize) {
+                margin-left: 45px;
+            }
+        }
+
+        &.shown {
+            h3 {
+                &:after {
+                    background: transparent url('../images/minus-sign.png') no-repeat left top;
+                    background-size: cover;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,161 @@
+﻿$pre: 'leadership-article-slider';
+
+$carousel-height: 485px;
+$carousel-image-height-tablet: 250px;
+
+.#{$pre} {
+    @include block-spacing($block-spacing-2, $block-spacing-tablet-2);
+
+    .#{$pre}__title {
+        h1 {
+            @extend %big-title;
+
+            @include respond-to-min($tabletSize) {
+                &.left {
+                    text-align: left;
+                }
+
+                &.right {
+                    text-align: right;
+                }
+            }
+        }
+    }
+
+    .carouselblock {
+        margin-bottom: 140px;
+
+        @include respond-to-max($tabletSize) {
+            margin-bottom: 70px;
+        }
+
+        &:last-child {
+            margin: 0;
+        }
+    }
+
+    .#{$pre}__slider {
+        /*margin-bottom: 140px;
+
+        @include respond-to-max($tabletSize) {
+            margin-bottom: 70px;
+        }*/
+        /*&:last-child {
+            margin: 0;
+        }*/
+
+        .#{$pre}__slider-item {
+            position: relative;
+
+            .#{$pre}__slider-item__thumb {
+                .col-xs-12 {
+                    padding: 0;
+                }
+
+                .#{$pre}__slider-item__image {
+                    height: $carousel-height;
+                    background: transparent url('../images/article-slider.jpg') no-repeat center center;
+                    background-size: cover;
+
+                    @include respond-to-max($tabletSize) {
+                        height: $carousel-image-height-tablet;
+                    }
+                }
+            }
+
+            .#{$pre}__slider-item__description {
+                width: 100%;
+
+                @include respond-to-min($tabletSize) {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+
+                    .left-column {
+                        .wrapper-center-div {
+                            padding-right: 30px;
+                        }
+                    }
+
+                    .right-column {
+                        .wrapper-center-div {
+                            padding-left: 30px;
+                        }
+                    }
+                }
+
+                .#{$pre}__slider-item__description-wrapper {
+                    position: relative;
+
+                    @include respond-to-min($tabletSize) {
+                        height: $carousel-height;
+                        overflow: hidden;
+                        overflow-y: visible;
+                    }
+
+                    .wrapper-center-div {
+                        @include respond-to-max($tabletSize) {
+                            margin-top: 30px;
+                        }
+
+                        @include respond-to-min($tabletSize) {
+                            position: absolute;
+                            top: 50%;
+                            left: 0;
+                            @include prefix(( transform: translate(0, -50%) ), webkit moz ms o);
+                        }
+
+                        h3 {
+                            @extend %medium-title;
+                            margin-bottom: 15px;
+                        }
+
+                        p {
+                            @extend %opensans-regular;
+                        }
+                    }
+                }
+            }
+        }
+
+        .slick-dots {
+            @extend %horizontal-centered;
+            bottom: auto;
+            top: calc(100% + 40px);
+
+            @include respond-to-max($tabletSize) {
+                top: calc(100% + 20px);
+            }
+        }
+
+        .slick-arrow {
+            &.slick-prev {
+                @include respond-to-max($extraLargeSize) {
+                    left: 0;
+                }
+
+                @include respond-to-min($extraLargeSize) {
+                    left: 4%;
+                }
+
+                @include respond-to-min($hugeSize) {
+                    left: 15%;
+                }
+            }
+
+            &.slick-next {
+                @include respond-to-max($extraLargeSize) {
+                    right: 0;
+                }
+
+                @include respond-to-min($extraLargeSize) {
+                    right: 4%;
+                }
+
+                @include respond-to-min($hugeSize) {
+                    right: 15%;
+                }
+            }
+        }
+    }
+}

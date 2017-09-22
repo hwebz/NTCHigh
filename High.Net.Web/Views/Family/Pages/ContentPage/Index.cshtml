@@ -1,0 +1,16 @@
+﻿@using High.Net.Core
+@using High.Net.Core.Helpers
+@using High.Net.Models.HighNet.Pages
+@using ImageVault.EPiServer
+
+@model PageViewModel<ContentPage>  
+
+@{
+
+    var highNetPage = Model.CurrentPage as HighNetPageData;
+    var imgBanner = highNetPage != null ? highNetPage.ImageBanner : null;
+    var imgBannerLogo = highNetPage != null ? highNetPage.ImageBannerLogo : null;
+}
+@Html.Partial("~/Views/Family/Shared/Banner.cshtml", Model.CurrentPage) 
+
+@Html.PropertyFor(x=>x.CurrentPage.ContentArea, new { Tag = Global.ContentAreaTags.FamilyContentPage })

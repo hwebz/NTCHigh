@@ -1,0 +1,54 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Core.Helpers
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Web.Business.Helpers
+@using ImageVault.Common.Data
+@using ImageVault.EPiServer
+
+@model CarouselBlock
+
+<div class="leadership-carousel-slider">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-6">
+                <div class="leadership-carousel-slider__title">
+                    <h1>@Html.PropertyFor(x=>Model.MainHeading)</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="leadership-carousel-slider__slider">
+                    @if (Model.ContentArea != null && Model.ContentArea.FilteredItems.Any())
+                    {
+                        foreach (var item in Model.ContentArea.FilteredItems)
+                        {
+                            var carouselSliderBlockItem = item.ContentLink.GetContent<CarouselItemBlock>();
+                            <div class="leadership-carousel-slider__slider-item">
+                            <div class="leadership-carousel-slider__slider-item__thumbnail">
+                                @Html.PropertyFor(x => carouselSliderBlockItem.Image, new
+                           {
+                               PropertySettings = new PropertyMediaSettings {Height = 450,ResizeMode = ResizeMode.ScaleToFit},
+                               DataImage = MediaHelpers.GetImageUrl(carouselSliderBlockItem.Image),
+                               CssClass = "image-lightbox",
+                               Alt = @carouselSliderBlockItem.AltText ?? "Carousel slider item"
+                           })
+                            </div>
+                               
+                                    <div class="leadership-carousel-slider__slider-item__details">
+                                        <p>@Html.PropertyFor(x => carouselSliderBlockItem.HtmlText)</p>
+                                        @if (carouselSliderBlockItem.Link != null)
+                                        {
+                                            <a href="@Url.GetContentUrl(carouselSliderBlockItem.Link)" class="leadership-btn">Learn more</a>
+                                        }
+                                    </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

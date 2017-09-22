@@ -1,0 +1,17 @@
+﻿extends ../layouts/root.jade
+
+block title
+    title Two columns block
+
+block content
+    div.leadership-video-popup
+        div.container
+            div.row
+                div.col-xs-12.col-sm-12.col-md-12
+                    div.leadership-video-popup__thumbnail
+                        a#leadership-video-popup__video.video-lightbox(href="https://www.youtube.com/watch?v=qznPCS5gYY0")
+                            img(src="../images/video-popup.jpg", alt="Video popup thumbnail")
+                            div.leadership-video-popup__play-btn
+                                span
+
+    

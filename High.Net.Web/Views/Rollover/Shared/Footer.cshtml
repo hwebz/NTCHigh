@@ -1,0 +1,38 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using EPiServer.Core
+@using RO = High.Net.Models.Rollover.Pages
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    IContent homePage;
+    if (Model.CurrentPage.GetType().BaseType == typeof(RO.HomePage))
+    {
+        homePage = contentLoader.Get<RO.HomePage>(Model.CurrentPage.ContentLink);
+    }
+    else
+    {
+        homePage = contentLoader.GetAncestors(Model.CurrentPage.ContentLink).Where(x => x.GetType().BaseType == typeof(RO.HomePage)).FirstOrDefault();
+    }
+    var currentPage = contentLoader.Get<RO.HomePage>(homePage.ContentLink);
+}
+<!-- footer start-->
+<div class="footer">
+    <div class="container">
+        <div class="footer-menu first">
+            <ul>
+                @Html.MenuList(homePage.ContentLink,
+                @<li class="@(Model.CurrentPage.ContentLink.CompareToIgnoreWorkID(item.Page.ContentLink) ? "active" : null)">
+                    @Html.PageLink(item.Page, null, new { })
+                </li>)
+            </ul>
+            <ul>
+                <li>@Html.PropertyFor(m => currentPage.Address)</li>
+                <li>@Html.PropertyFor(m => currentPage.FooterPages)</li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- footer end-->

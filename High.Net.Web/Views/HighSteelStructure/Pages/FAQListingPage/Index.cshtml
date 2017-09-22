@@ -1,0 +1,33 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighSteelStructure.Pages
+@model PageViewModel<FAQListingPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var FAQItems = contentLoader.GetChildren<FAQItemPage>(Model.CurrentPage.ContentLink);
+    int i = 1;
+}
+<div class="container">
+    <div class="common-container about">
+        @Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.ThreeFourthWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+        <div class="spacer"></div>
+        @foreach (var item in FAQItems)
+        {
+            <h4>@i. <a href="@Url.ContentUrl(item.ContentLink)">@item.FAQQuestion</a></h4>
+            <div class="spacer"></div>
+            i++;
+        }
+    </div>
+</div>
+
+@section SiteFooter
+{
+    <script>
+        $('.collapse').on('shown.bs.collapse', function () {
+            $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+        }).on('hidden.bs.collapse', function () {
+            $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+        });
+    </script>
+}

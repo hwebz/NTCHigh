@@ -1,0 +1,43 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcrete.Pages
+@using High.Net.Core
+
+@model PageViewModel<TeamTypeListingPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var TeamTypeList = contentLoader.GetChildren<TeamListingPage>(Model.CurrentPage.ContentLink);
+}
+@section SiteHeader{
+    <style>
+        .team-icon {
+            margin: 5px;
+            border: 1px solid;
+        }
+    </style>
+}
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                <div class="section about">
+                    <ul>
+                        @if (TeamTypeList != null)
+                        {
+                            foreach (var item in TeamTypeList)
+                            {
+                                <li>
+                                    @Html.PropertyFor(x => item.PageIcon, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 52, Height = 52 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "team-icon" })
+                                    <a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

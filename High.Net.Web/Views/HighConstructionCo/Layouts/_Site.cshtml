@@ -1,0 +1,62 @@
+﻿@using High.Net.Core
+
+@{
+    Layout = "~/Views/Shared/Layouts/_root.cshtml";
+}
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentloader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentloader.Get<High.Net.Models.HighConstructionCo.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+
+@section Header
+{
+    <link type="image/ico" href="~/Static/global/favicon/favicon.ico" rel="icon">
+    <!-- Bootstrap core CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+
+    @Styles.Render("~/bundles/bootstrap-css")
+    <!--external css-->
+    @Styles.Render("~/bundles/browserBlast-css")
+    @Styles.Render("~/bundles/fontawesome-css")
+    @Styles.Render("~/bundles/global-css")
+    @Styles.Render("~/bundles/construction-css")
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '@homePage.GoogleAnalytics']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    @RenderSection("SiteHeader", required: false)
+}
+<div>
+    @Html.Partial("~/Views/HighConstructionCo/Shared/Header.cshtml", Model)
+    @Html.Partial("~/Views/HighConstructionCo/Shared/Carousel.cshtml", Model)
+    @RenderBody()
+    @Html.Partial("~/Views/HighConstructionCo/Shared/Footer.cshtml", Model)
+</div>
+
+@section Footer
+{
+    <!-- js placed at the end of the document so the pages load faster -->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap-js")
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/browserBlast-js")
+    @Scripts.Render("~/bundles/bxslider")
+    @Scripts.Render("~/bundles/fitvids")
+
+    @Scripts.Render("~/bundles/global-js")
+    @Scripts.Render("~/bundles/construction-js")
+
+    @RenderSection("SiteFooter", required: false)
+}

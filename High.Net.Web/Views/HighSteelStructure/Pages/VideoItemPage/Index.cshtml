@@ -1,0 +1,26 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighSteelStructure.Pages
+
+@model PageViewModel<VideoItemPage>
+
+
+<div class="container">
+    <div class="common-container video-inner">
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="page-title">@Html.PropertyFor(x=> x.CurrentPage.Heading)</h3>
+                <iframe height="300" src="@Url.ContentUrl(Model.CurrentPage.VideoLink)"></iframe>
+                <button><span class="glyphicon glyphicon-comment"></span>Comments</button>
+                <button><span class="glyphicon glyphicon-share"></span>Share</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+               @Html.PropertyFor(x=> x.CurrentPage.Text)
+            </div>
+        </div>
+    </div>
+</div>
+

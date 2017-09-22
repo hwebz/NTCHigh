@@ -1,0 +1,49 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Shared.Pages
+
+@model High.Net.Core.PageViewModel<NewsListingPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var NewsList = contentLoader.GetChildren<NewsItemPage>(Model.CurrentPage.ContentLink).OrderByDescending(p => p.PostedDate).ToList();
+}
+@Html.Partial("~/Views/SteelServiceCentre/Shared/Banner.cshtml", Model.CurrentPage)
+<div class="container">
+    <div class="news">
+        @if (NewsList != null)
+        {
+            foreach (var item in NewsList)
+            {
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="col-md-3 text-center">
+                            @if (item.NewsImage != null)
+                            {
+                                @Html.PropertyFor(x => item.NewsImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 250, Height = 250 }, CssClass = "img-responsive" })
+                            }
+                            else
+                            {
+                                <img src="~/Static/global/images/news-placeholder-290X190.jpg" class="img-responsive placeholder" />
+                            }
+                            <p>@item.ImageQuote</p>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="passage">
+                                <div class="passage-head">
+                                    <div class="date"><span class="glyphicon glyphicon-calendar"></span>@item.PostedDate.ToString("MMMM dd, yyyy")</div>
+                                </div>
+                                <div class="passage-body">
+                                    <a href="@Url.ContentUrl(item.ContentLink)">
+                                        <h3>@item.Title</h3>
+                                    </a>
+                                    @item.NewsHighlight
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            }
+        }
+    </div>
+</div>

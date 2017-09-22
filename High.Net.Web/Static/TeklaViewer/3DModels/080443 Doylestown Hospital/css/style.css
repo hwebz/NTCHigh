@@ -1,0 +1,88 @@
+BODY
+{
+    FONT-SIZE: 15px;
+    COLOR: #000000;
+    FONT-FAMILY: Arial, Verdana, Helvetica
+}
+TD
+{
+    FONT-SIZE: 10px;
+    COLOR: #000000;
+    FONT-FAMILY: Arial, Verdana, Helvetica
+}
+TABLE
+{
+    FONT-SIZE: 10px;
+    COLOR: #000000;
+    FONT-FAMILY: Arial, Verdana, Helvetica
+}
+
+A.linkki:link { color: #111111; text-decoration: underline;}
+A.linkki:active { color: #111111; text-decoration: underline;}
+A.linkki:visited { color: #111111; text-decoration: underline;}
+A.linkki:hover { color: #FF0033; text-decoration: underline;}
+.linkki
+{
+    FONT-SIZE: 13px;
+    FONT-FAMILY: Arial, Verdana, Helvetica;
+}
+
+A.pieni_linkki:link { color: #111111; text-decoration: underline;}
+A.pieni_linkki:active { color: #111111; text-decoration: underline;}
+A.pieni_linkki:visited { color: #111111; text-decoration: underline;}
+A.pieni_linkki:hover { color: #FF0033; text-decoration: underline;}
+.pieni_linkki
+{
+    FONT-SIZE: 10px;
+    FONT-FAMILY: Arial, Verdana, Helvetica;
+}
+.chkfield
+{
+    WIDTH: 145px;
+    BORDER-RIGHT: 1px solid;
+    PADDING-RIGHT: 4px;
+    BORDER-TOP: 1px solid;
+    PADDING-LEFT: 4px;
+    FONT-SIZE: 8pt;
+    BORDER-LEFT: 1px solid;
+    BORDER-BOTTOM: 1px solid
+}
+.text_black_bold
+{
+	FONT-WEIGHT: bold;
+	color :#000000;
+	font-family : arial;
+	font-size: 11px;
+}
+.link
+{
+	FONT-WEIGHT: bold;
+	color :#FFFFFF;
+	font-family : arial;
+	font-size: 13px;
+}
+.status
+{
+	color :#000000;
+	font-family : arial;
+	font-size: 10px;
+}
+.tooltip
+{
+	color : #000000;
+	background-color: #E7EBF7;
+	font-family : arial;
+	font-size: 10px;
+	border-top-width: 1px; 
+	border-top-style: ridge; 
+	border-top-color: black; 
+	border-right-style: ridge; 
+	border-right-width: 1px; 
+	border-right-color: black; 
+	border-bottom-width: 1px; 
+	border-bottom-style: ridge; 
+	border-bottom-color: black; 
+	border-left-width: 1px; 
+	border-left-style: ridge; 
+	border-left-color: black;
+}

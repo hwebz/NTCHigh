@@ -1,0 +1,41 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Industries.Pages
+@using High.Net.Core
+@using ImageVault.EPiServer
+@model PageViewModel<CommonListingPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var CommonItemPages = contentLoader.GetChildren<CommonItemPage>(Model.CurrentPage.ContentLink);
+}
+<div class="container">
+    @Html.Partial("~/Views/Industries/Shared/Banner.cshtml")
+    <div class="sec-cc">
+        <h4>@Model.CurrentPage.Name</h4>
+        @if (CommonItemPages != null)
+        {
+            foreach (var item in CommonItemPages)
+            {
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="photo-cc">
+                            @if (item.IntroImage != null)
+                            {
+                                @Html.PropertyFor(x => item.IntroImage, new { PropertySettings = new PropertyMediaSettings { Width = 205, Height = 80 }, CssClass = "img-responsive" })
+                            }
+                            else if (item.PageImage != null)
+                            {
+                                @Html.PropertyFor(x => item.PageImage, new { PropertySettings = new PropertyMediaSettings { Width = 205, Height = 80 }, CssClass = "img-responsive" })
+                            }
+                        </div>
+                        <p>@item.IntroText</p>
+                        <p><a href="@Url.ContentUrl(item.ContentLink)">Learn More</a></p>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <br />
+            }
+        }
+    </div>
+</div>

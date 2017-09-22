@@ -1,0 +1,84 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighHotels.Pages
+@using EPiServer.ServiceLocation
+
+@model High.Net.Web.Business.ViewModels.SearchContentModel
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(PageReference.StartPage);
+}
+@Html.Partial("~/Views/HighHotels/Shared/Banner.cshtml")
+@section SiteHeader{
+    <style>
+        .Search em {
+            background-color: #FFFF00;
+            border-radius: 3px 3px 3px 3px;
+            box-shadow: 0 1px #FFFFFF inset;
+            font-style: normal;
+        }
+
+        .search-item {
+            margin-bottom:10px;
+        }
+    </style>
+}
+<div class="container">
+    <div class="about">
+        <div class="row">
+            <div class="col-md-8 col-sm-8">
+                <div class="about-para">
+                    @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl) }))
+                    {
+                        <label class="col-md-3">Search Again:</label>
+                        <div class="col-md-4">
+                            <input type="text" name="q" placeholder="search" value="@Model.SearchQuery" class="form-control" />
+                        </div>
+                        <button type="submit" class="btn go">GO</button>
+                    }
+                </div>
+                <div class="clearfix"></div>
+                @if (Model.Results != null)
+                {
+                    if (!string.IsNullOrEmpty(Model.SearchQuery))
+                    {
+                        <p>Your Search for <i>@Model.SearchQuery resulted in @Model.Results.TotalMatching hits</i></p>
+                    }
+                    else
+                    {
+                        <p>Total hits: @Model.Results.TotalMatching</p>
+                    }
+                    <div class="Search">
+                        @foreach (var hit in Model.Results)
+                        {
+                            <div class="search-item">
+                                <h3>@Html.Raw(hit.Title)</h3>
+                                <p>@Html.Raw(hit.Excerpt)</p>
+                                <a href="@hit.Url" target="_blank">read more...</a>
+                            </div>
+                        }
+                    </div>
+                    <nav>
+                        <ul class="pagination">
+                            @foreach (var pagerLink in Model.PagerLinks)
+                            {
+                                if (pagerLink.IsActivePage)
+                                {
+                                    <li class="active"><a href="#">@pagerLink.LinkText</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.RouteLink(pagerLink.LinkText, pagerLink.Route)</li>
+                                }
+                            }
+                        </ul>
+                    </nav>
+                }<br><br>
+            </div>
+            <div class="col-md-4 col-sm-4">
+
+            </div>
+        </div>
+    </div>
+</div>
+

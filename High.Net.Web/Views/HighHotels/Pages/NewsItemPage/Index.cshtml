@@ -1,0 +1,42 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.Shared.Pages
+@using ImageVault.EPiServer
+
+@model PageViewModel<NewsItemPage>
+@Html.Partial("~/Views/HighHotels/Shared/Banner.cshtml")
+
+<!-- about start -->
+<div class="container">
+    <div class="news">
+        <div class="row">
+            <div class="col-md-8 col-sm-8">
+                <div class="passage">
+                    <div class="passage-body">
+                        <h3>@Html.PropertyFor(x => x.CurrentPage.Title)</h3>
+                        @Html.PropertyFor(x => x.CurrentPage.NewsContent)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="news-right-img">
+                    <div class="cal">
+                        @if (Model.CurrentPage.NewsImage != null)
+                        {
+                            @Html.PropertyFor(m => m.CurrentPage.NewsImage, new { PropertySettings = new PropertyMediaSettings { Width = 362, Height = 234 }, CssClass = "img-responsive" })
+                        }
+                        else
+                        {
+                            <img src="~/Static/global/images/news-placeholder-360X200.png" class="img-responsive placeholder" />
+                        }
+                        <div class="date">
+                            <span class="glyphicon glyphicon-calendar news"><span class="date-text">  @Model.CurrentPage.PostedDate.ToString("MMMM dd, yyyy")</span></span>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center">@Model.CurrentPage.ImageQuote</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- about end -->

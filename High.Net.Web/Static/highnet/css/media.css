@@ -1,0 +1,445 @@
+@media (max-width: 1199px) {
+    .highnet .navbar-default .navbar-nav > li > a {
+        font-size: 16px;
+        padding: 31px 18px 30px;
+    }
+
+    .band {
+        height: auto;
+    }
+
+    .bxslider-img .banner-text h1 {
+        font-size: 40px;
+    }
+
+    .bxslider-img .banner-text p {
+        font-size: 22px;
+        margin: 0;
+    }
+
+    .bxslider-img .banner-text a {
+        font-size: 14px;
+    }
+
+    .intro-heading {
+        font-size: 22px;
+    }
+
+    .red-band h1 {
+        font-size: 20px;
+    }
+
+    .business p {
+        font-size: 16px;
+    }
+
+    .gallery-pager .thumb {
+        height: 120px;
+    }
+}
+
+@media (max-width: 991px) {
+    body {
+        font-size: 12px;
+    }
+
+    .bxslider-img .banner-text h1 {
+        font-size: 30px;
+    }
+
+    .bxslider-img .banner-text p {
+        font-size: 18px;
+    }
+
+    .bxslider-img .banner-text a {
+        font-size: 14px;
+    }
+
+    .intro-heading {
+        font-size: 18px;
+        margin: 15px 0;
+    }
+
+    .char-info p {
+        font-size: 10px;
+    }
+
+    .red-band h1 {
+        font-size: 20px;
+    }
+
+    h3, .feature-item h3, .text-slider-wrapper h3 {
+        font-size: 16px;
+    }
+
+    .business-conent > h2, .business h2 {
+        font-size: 22px;
+    }
+
+    .hover-link .glyphicon.glyphicon-search, .hover-link .glyphicon.glyphicon-link {
+        font-size: 20px;
+        padding: 12px;
+    }
+
+    .hover-link {
+        top: 33%;
+    }
+
+    .white-section {
+        padding: 15px 15px 0;
+    }
+
+    .highnet .navbar-default .navbar-nav > li > a {
+        font-size: 14px;
+        padding: 31px 11px 30px;
+    }
+
+    .contact-us .icon-txt, .gal-title {
+        font-size: 14px;
+    }
+
+    .dropdown-menu > li > a {
+        font-size: 12px;
+    }
+
+    .red-band {
+        bottom: -20px;
+    }
+
+        .red-band h1 {
+            font-size: 18px;
+            padding: 10px 15px;
+        }
+
+    .business p {
+        font-size: 14px;
+    }
+
+    .feature-item {
+        padding: 40px 0 20px;
+    }
+
+        .feature-item h3 {
+            width: 148px;
+        }
+
+    .gallery-pager .thumb {
+        height: 90px;
+    }
+
+    .more-link {
+        padding: 5px 0 10px 10px;
+    }
+
+    .feature-item {
+        margin: 80px 0 20px;
+    }
+
+    .gal-item .gal-title {
+        font-size: 16px;
+    }
+
+    .search-bx .glyphicon.glyphicon-search {
+        font-size: 14px;
+    }
+
+    .col-xs-8.col-sm-8.col-md-8.col-lg-8 > .pull-right > a, .col-xs-8.col-sm-8.col-md-8.col-lg-8 > .pull-right > span {
+        display: none;
+    }
+
+    .bxslider-img .banner-text h2 {
+        font-size: 20px;
+    }
+
+     .newsblock .block-main-content ,   .newsblock .block-main-content {
+            position: relative;
+            width: 100%; /* Could be anything you like. */
+        }
+
+        .newsblock .block-main-content ,  .othertilesblock .block-main-content{
+            display: inline-block;
+            max-height: 100% !important;
+            overflow: hidden;
+            overflow-wrap: break-word;
+            position: relative;
+        }
+}
+
+@media (min-width: 768px) {
+    .navbar-nav > li:hover .dropdown-menu {
+        display: block;
+    }
+
+    .caret-dd {
+        display: none !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-nav .open .dropdown-menu {
+        background-color: #000;
+        border-radius: 0;
+    }
+
+    .navbar-default .navbar-nav > li > a, .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        font-size: 11px;
+    }
+
+    .intro-heading {
+        font-size: 16px;
+        margin: 10px 0;
+    }
+
+    .bxslider-img .banner-text h1 {
+        font-size: 20px;
+    }
+
+    .bxslider-img .banner-text p, .feature-item h3, .h4, h4 {
+        font-size: 14px;
+    }
+
+    .bxslider-img .banner-text a, .gal-title, .h5, h5 {
+        font-size: 12px;
+    }
+
+    .highnet .navbar-brand {
+        padding: 10px 0;
+    }
+
+    .navbar-toggle {
+        margin-top: 17px;
+        margin-bottom: 16px;
+    }
+
+    .highnet .navbar-default .navbar-nav > li > a {
+        font-size: 12px;
+        padding: 10px 15px;
+    }
+
+    .highnet .navbar-default li.active .arrow-down, .highnet .navbar-default li.active:hover .arrow-down, .highnet .navbar-default li.active:focus .arrow-down {
+        display: none;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    .red-band h1 {
+        font-size: 18px;
+    }
+
+    .com-seation .com-img img {
+        border-radius: 50%;
+        margin: 0 auto;
+        width: auto;
+    }
+
+    /*.news .cal img {
+        width: auto;
+    }*/
+
+    .news-right-img {
+        text-align: center;
+    }
+
+    h3 {
+        font-size: 15px;
+    }
+
+    .cal {
+        margin-top: 15px;
+    }
+
+    .business-conent > h2, .business h2 {
+        font-size: 20px;
+    }
+
+    .text-slider-wrapper h3 {
+        margin: 0;
+    }
+
+    .contact-us {
+        padding: 0;
+    }
+
+    .contact-us-item {
+        margin: 5px 0;
+    }
+
+    .contact-us .icon-txt {
+        font-size: 12px;
+    }
+
+    .social-icon {
+        margin: 0 auto;
+        width: 116px;
+    }
+
+    .red-band {
+        bottom: 0;
+        margin: 0;
+        position: relative;
+    }
+
+        .red-band h1 {
+            font-size: 16px;
+            padding: 10px 15px;
+        }
+
+    .business p {
+        font-size: 12px;
+    }
+
+    .feature-item h3 {
+        width: auto;
+    }
+
+    .feature-item {
+        margin: 50px 0 0;
+        padding: 40px 0 10px;
+    }
+
+    .gal-item {
+        margin: 15px auto;
+        width: 50%;
+    }
+
+    .news-right-img {
+        margin: 0 auto;
+        position: relative;
+        width: 318px;
+    }
+
+    .bx-pager.bx-default-pager {
+        position: relative;
+    }
+
+    .character-img {
+        text-align: center;
+    }
+
+    .char-info > p {
+        text-align: center;
+    }
+
+    .character-img img {
+        float: none;
+        margin: 10px auto;
+    }
+
+    .char-info {
+        margin-bottom: 10px;
+    }
+
+    .history .history-image {
+        float: left;
+        margin-bottom: 10px;
+    }
+
+    .ceo-detail {
+        margin: 10px 0;
+    }
+
+    .ceo-name {
+        font-size: 14px;
+    }
+
+    .main-content p {
+        margin: 0 0 10px;
+    }
+
+    .white-section {
+        padding: 0 15px;
+    }
+
+    .char-info p {
+        font-size: 12px;
+    }
+
+    .gover-main .spacer {
+        margin: 0;
+    }
+
+    .com-seation {
+        padding: 15px 0 0;
+    }
+
+    .main-content {
+        margin-top: 7px;
+    }
+
+    .character-img {
+        float: none;
+    }
+
+    .business-image {
+        margin: 0 auto;
+        width: 60%;
+    }
+      .bxslider-img .banner-text h2 {
+        font-size: 18px;
+    }
+    .footer-links.cf li a.caret-dd {
+        display: none;
+    }
+}
+
+@media (max-width:600px) {
+    .news-right-img {
+        width: 100%;
+    }
+
+    .history .history-image {
+        float: none;
+        margin: 10px auto;
+    }
+
+    .history .bx-viewport {
+        height: auto !important;
+    }
+}
+
+@media (max-width: 550px) {
+    .band {
+        top: 10%;
+    }
+
+    .gal-item {
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .red-band h1 {
+        font-size: 16px;
+    }
+
+    .business-conent > h2, .business h2 {
+        font-size: 18px;
+    }
+
+    /*.news .cal img {
+        width: 100%;
+    }*/
+
+    .highlight-header {
+        letter-spacing: 5px;
+    }
+
+    .contact-detail-item {
+        width: 94px;
+    }
+
+    .video-iframe iframe {
+        height: auto !important;
+    }
+
+    /*Development*/
+    .col-xs-8.col-sm-8.col-md-8.col-lg-8 > .pull-right > a, .col-xs-8.col-sm-8.col-md-8.col-lg-8 > .pull-right > span {
+        display: none;
+    }
+          .bxslider-img .banner-text h2 {
+        font-size: 15px;
+    }
+
+}

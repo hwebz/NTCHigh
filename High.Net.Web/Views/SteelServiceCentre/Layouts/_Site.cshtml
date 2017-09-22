@@ -1,0 +1,59 @@
+﻿@using High.Net.Core
+
+@{
+    Layout = "~/Views/Shared/Layouts/_root.cshtml";
+}
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentloader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentloader.Get<High.Net.Models.SteelServiceCentre.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+
+@section Header
+{
+    <link type="image/ico" href="~/Static/global/favicon/favicon.ico" rel="icon">
+     @Styles.Render("~/bundles/bootstrap-css")
+     @Styles.Render("~/bundles/global-css")
+
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '@homePage.GoogleAnalytics']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    @RenderSection("SiteHeader", required: false)
+    @Styles.Render("~/bundles/highsteelservicecenter-css")
+    
+    <!--
+        [if lt IE 9]>
+         <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+       <![endif]
+    -->
+}
+
+@Html.Partial("~/Views/SteelServiceCentre/Shared/Header.cshtml", Model)
+
+@RenderBody()
+
+@Html.Partial("~/Views/SteelServiceCentre/Shared/Footer.cshtml", Model)
+
+@section Footer
+{
+     @Scripts.Render("~/bundles/jquery")
+     @Scripts.Render("~/bundles/bootstrap-js")
+     @Scripts.Render("~/bundles/jcarousel")
+     @Scripts.Render("~/bundles/highsteelservicecenterTeam-js")
+     @RenderSection("SiteFooter", required: false)
+     @Scripts.Render("~/bundles/bxslider")
+     @Scripts.Render("~/bundles/highsteelservicecenter-js")
+     @Scripts.Render("~/bundles/global-js")
+}
+

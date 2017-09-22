@@ -1,0 +1,463 @@
+@media (max-width: 1200px) {
+    .footer-img {
+        margin-top: 0;
+        width: 50%;
+    }
+
+    .zoom-icon h2 {
+        top: 25% !important;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1920px) {
+    .padd {
+        padding-top: 10px;
+        font-size: 16px;
+    }
+
+    .panel-body {
+        padding: 0 !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .panel-body {
+        padding: 0 !important;
+    }
+
+    .col-4 .item {
+        width: 47%;
+        margin-right: 2%;
+        margin-bottom: 2%;
+    }
+
+    .header-frontend .navbar-nav > li > a {
+        margin: 0 0 0 5px;
+    }
+
+    .nav.navbar-nav a {
+        padding: 3px;
+    }
+
+    .featured-box h2 {
+        color: #ffffff;
+        font-size: 14px;
+        padding-top: 100px !important;
+        text-align: left !important;
+        text-transform: capitalize;
+    }
+
+    .navbar-brand > img {
+        display: block;
+        width: 100%;
+    }
+
+    .padd {
+        padding-top: 0px !important;
+        font-size: 16px;
+    }
+}
+
+@media (min-width:960px) {
+    .container-960 .container {
+        width: 960px;
+    }
+}
+
+@media (max-width: 960px) {
+    .zoom-icon h2 {
+        font-size: 17px;
+        top: 39px !important;
+    }
+}
+
+@media (max-width:991px) {
+    p {
+        font-size: 12px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    address .padd {
+        font-size: 12px;
+    }
+
+    .portfolio-inner ul li {
+        width: 33%;
+    }
+
+    .zoom-icon > p {
+        bottom: 0;
+        font-size: 10px;
+        line-height: 11px;
+    }
+
+    .bxslider-img > li img {
+        height: auto !important;
+        width: 100%;
+    }
+
+    .zoom-icon h2 {
+        top: 50px !important;
+    }
+
+    .padd-11 h2 {
+        font-size: 22px;
+    }
+
+
+    .padd-12 h2 {
+        font-size: 22px;
+    }
+
+
+    .padd-13 h2 {
+        font-size: 22px;
+    }
+
+    .news h2 {
+        color: #000;
+        font-size: 16px;
+        font-weight: bold;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-nav > li:hover .dropdown-menu {
+        display: block;
+    }
+
+    .caret-dd {
+        display: none !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .panel-body {
+        padding: 0 !important;
+    }
+
+    /*.pull-left.thumb.p-thumb {
+        width: 100%;
+    }*/
+
+    .padd {
+        padding-top: 0px !important;
+        font-size: 13px;
+    }
+
+    .navbar-header {
+        padding-bottom: 20px;
+    }
+
+    .navbar-toggle {
+        margin-top: 25px;
+    }
+
+    .header-frontend .navbar-collapse ul.navbar-nav {
+        float: none;
+        margin-left: 0;
+    }
+
+    .header-frontend .nav li a:hover,
+    .header-frontend .nav li a:focus,
+    .header-frontend .nav li a.dropdown-toggle:focus,
+    .header-frontend .nav li a.dropdown-toggle .dropdown-menu li a:hover,
+    .header-frontend .nav li.active a,
+    .header-frontend .dropdown-menu li a:hover {
+        color: #fff !important;
+    }
+
+    .header-frontend .navbar-nav > li {
+        padding: 0;
+        margin-bottom: 2px;
+    }
+
+    .header-frontend .nav li ul.dropdown-menu li a {
+        margin-left: 20px;
+        color: #FFF !important;
+    }
+
+    .header-frontend .nav li .dropdown-menu li a:hover, .header-frontend .nav li .dropdown-menu li.active a {
+        color: #fff !important;
+    }
+
+    .purchase-btn, .about-testimonial {
+        margin-top: 10px;
+    }
+
+    .breadcrumb.pull-right {
+        padding: 0;
+    }
+
+    .search, .bx-controls-direction {
+        display: none;
+    }
+
+    .tweet-box {
+        margin-bottom: 20px;
+    }
+
+    .property img {
+        width: 100%;
+    }
+
+    /*.bx-wrapper {
+        margin-bottom: 60px;
+    }*/
+
+    .purchase-btn, .about-testimonial {
+        margin-top: 0;
+    }
+
+    .purchase-btn {
+        line-height: 98px;
+    }
+
+    .social-link-footer li a {
+        font-size: 16px;
+        height: 40px;
+        width: 40px;
+    }
+
+    .navbar-header {
+        float: none;
+        text-align: center;
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .navbar-brand {
+        float: left;
+    }
+
+    .carousel-control {
+        font-size: 45px;
+        line-height: 70px;
+    }
+
+    .btn, .form-control {
+        margin-bottom: 10px;
+    }
+
+    .header-frontend .nav li .dropdown-menu { /* display:none !important;  display:none; */
+    }
+
+    .padd {
+        font-size: 14px;
+    }
+
+    .h3, h3 {
+        font-size: 20px;
+    }
+
+    .news-right-img {
+        margin: 0 auto;
+        width: 70%;
+    }
+
+    h3 {
+        font-size: 16px !important;
+        margin: 10px 0 !important;
+    }
+
+    .portfolio-content {
+        margin: 0 auto;
+        width: 70%;
+    }
+
+    h4 {
+        font-size: 15px !important;
+    }
+
+    .common-container.services ul li {
+        font-size: 12px;
+    }
+
+    .footer-img {
+        width: 80%;
+    }
+
+    .padd-11, .padd-12 {
+        margin-bottom: 10px;
+    }
+
+    .view {
+        float: none;
+        margin-bottom: 20px !important;
+    }
+
+    .jcarousel-wrapper {
+        padding: 10px 8px 10px 10px !important;
+    }
+
+    .box {
+        margin: 15px auto;
+        width: 70%;
+    }
+
+    .zoom-icon h2 {
+        top: 45% !important;
+    }
+
+    .small-slide {
+        margin: 0 auto;
+        width: 100%;
+    }
+
+        .small-slide h3 {
+            margin: 0 !important;
+            padding: 10px;
+        }
+
+
+    .news h2 {
+        color: #000;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .search-bx {
+        margin-bottom: 10px;
+        margin-top: -35px;
+    }
+}
+
+@media (max-width: 680px) {
+    .portfolio-inner ul li {
+        width: 50%;
+    }
+}
+
+@media (max-width:600px) {
+    .footer-image img {
+        width: 50%;
+    }
+
+    .member-logo {
+        width: 12% !important;
+    }
+}
+
+@media (max-width:510px) {
+    .search-bx {
+        margin-bottom: 10px;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-header {
+        padding-bottom: 20px;
+    }
+
+    .panel-body {
+        padding: 0 !important;
+    }
+
+    .navbar-brand > img {
+        display: block;
+        width: 100% !important;
+    }
+
+    .header-frontend .navbar {
+        min-height: 60px;
+    }
+
+    .navbar-toggle {
+        margin-right: 10px;
+    }
+
+    .header-frontend .navbar-nav > li a:hover {
+        color: #ff0000 !important;
+    }
+
+    .navbar-collapse {
+        background: transparent !important;
+        /*margin-top: 40px;*/
+    }
+
+    .header-frontend .navbar-nav > li > a {
+        font-size: 12px;
+    }
+
+    .header-frontend .nav li ul.dropdown-menu li a {
+        font-size: 12px;
+        padding: 0 0 0 25px;
+    }
+
+    .header-frontend .nav li .dropdown-menu li a:hover {
+        color: #f10000 !important;
+        background: url("/Static/greenfield-architects/img/sqaure_list.jpg") no-repeat scroll 10px center;
+        border-bottom: 1px solid #000000;
+    }
+
+    .header-frontend .nav li .dropdown-menu { /* display:none !important;  display:none; */
+    }
+
+    .navbar-brand {
+        margin-top: 10px !important;
+        float: left !important;
+    }
+
+    .col-4 .item {
+        width: 100%;
+        margin-right: 0%;
+        margin-bottom: 2%;
+    }
+
+    .breadcrumb.pull-right {
+        float: left !important;
+        margin-top: 10px;
+        padding: 0;
+    }
+
+    .carousel-control {
+        font-size: 23px;
+        line-height: 38px;
+    }
+
+    h3 {
+        font-size: 18px !important;
+        margin: 10px 0 !important;
+    }
+
+    .footer-img {
+        width: 100%;
+    }
+
+    .portfolio-inner ul li {
+        width: 100%;
+    }
+
+    .box {
+        margin: 15px auto;
+        width: 100%;
+    }
+
+    .p-thumb {
+        float: none !important;
+    }
+
+    .thumb.p-thumb > img {
+        display: none;
+    }
+
+    .glyphicon.glyphicon-calendar.news {
+        padding: 15px 20px;
+    }
+}
+
+@media (max-width:320px) {
+
+    .mid-box-1 .padd1 {
+        padding-top: 0px;
+        font-size: 13px !important;
+    }
+
+    .panel-body {
+        padding: 0 !important;
+    }
+}

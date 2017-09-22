@@ -1,0 +1,12 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.Rollover.Blocks
+
+@model MainBlock
+
+<div class="welcome asset-services">
+    <h2 class="title">@Html.PropertyFor(x => x.Heading)</h2>
+    @*<hr class="blue-border" />*@
+    @Html.PropertyFor(m => m.BlockContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.NoRenderer, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+    <div class="clearfix"></div>
+</div>

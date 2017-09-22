@@ -1,0 +1,73 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Web.Business.Helpers
+@using ImageVault.EPiServer
+@using High.Net.Models.Constants
+@using ImageVault.Client
+@using High.Net.Core.Helpers
+@using ImageVault.Common.Data
+
+@model CarouselBlock
+
+@{
+    if (Model.ContentArea.IsNullOrEmpty()) { return; }
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+}
+
+@helper renderThumbnail(Client imgClient, MediaReference mediaRef, bool isImgInLeft)
+{
+var carouselImgUrl = mediaRef != null ? MediaHelpers.GetImageUrl(mediaRef, new { PropertySettings = new PropertyMediaSettings { Height = 500, ResizeMode = ResizeMode.ScaleToFit } }) : string.Empty;
+    <div class="col-xs-12 col-sm-6 col-md-6 @(isImgInLeft?"":" col-sm-offset-6  col-md-offset-6" )">
+        <div class="leadership-article-slider__slider-item__image" style="background: transparent url(@carouselImgUrl) no-repeat center center; background-size:cover"></div>
+    </div>
+}
+
+@helper renderTextContent(XhtmlString htmlText, bool isImgInLeft)
+{
+if (isImgInLeft)
+{
+        <div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-6 col-md-offset-6">
+            <div class="leadership-article-slider__slider-item__description-wrapper right-column">
+                <div class="wrapper-center-div">
+                    @Html.PropertyFor(x => htmlText)
+                </div>
+            </div>
+        </div>
+}
+else
+{
+        <div class="col-xs-12 col-sm-6 col-md-6 left-column">
+            <div class="leadership-article-slider__slider-item__description-wrapper">
+                <div class="wrapper-center-div">
+                    @Html.PropertyFor(x => htmlText)
+                </div>
+            </div>
+        </div>
+}
+}
+<div class="leadership-article-slider__slider">
+    @foreach (var item in Model.ContentArea.FilteredItems)
+    {
+        var contentItem = item.ContentLink.GetContent<CarouselItemBlock>();
+        if (contentItem == null) { continue; }
+        var isImgInLeft = Model.ViewTemplate.Equals(EditorConstants.CarouselViewTemplate.FamilyCarouselLeftImage);
+
+        <div class="leadership-article-slider__slider-item">
+            <div class="leadership-article-slider__slider-item__thumb">
+                <div class="row">
+                    @renderThumbnail(client, contentItem.Image, isImgInLeft)
+                </div>
+            </div>
+            <div class="leadership-article-slider__slider-item__description">
+                <div class="container">
+                    <div class="row">
+                        @renderTextContent(contentItem.HtmlText, isImgInLeft)
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

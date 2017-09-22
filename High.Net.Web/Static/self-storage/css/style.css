@@ -1,0 +1,604 @@
+﻿body {
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+}
+
+/*start bootstrap*/
+.container {
+    width: 955px;
+}
+
+/*p {
+    margin: 0px;
+}*/
+
+.navbar-default {
+    background-color: #000;
+    border: medium none;
+    border-radius: 0;
+    margin: 0;
+    min-height: 30px;
+}
+
+    .navbar-default .navbar-nav > li > a {
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: bold;
+        margin: 5px 21px;
+        padding: 0;
+    }
+
+        .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+            color: #ffffff;
+        }
+
+    .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+        background-color: transparent;
+        color: #ffffff;
+    }
+/*end bootstrap*/
+
+/*start header*/
+.header .main-logo {
+    float: left;
+    margin: 20px 0;
+}
+
+.header .social {
+    float: left;
+    margin: 55px auto 0;
+    text-align: center;
+    width: 495px;
+}
+
+    .header .social .skpe-no {
+        font-size: 26px;
+        color: #00543d;
+    }
+
+
+.social img { /*akshay*/
+    margin-bottom: 12px;
+}
+
+.header .right-logo {
+    float: left;
+    width: 240px;
+}
+
+    .header .right-logo p a.login {
+        background: #006633 none repeat scroll 0 0;
+        border: 1px solid black;
+        color: #ffffff;
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 8px auto 10px;
+        padding: 5px 0;
+        text-align: center;
+        text-decoration: none;
+        width: 143px;
+    }
+
+        .header .right-logo p a.login:hover {
+            text-decoration: none;
+        }
+
+    .header .right-logo p.special {
+        border-bottom: 3px solid #00543D; /* akshay border color*/
+        border-top: 3px solid #00543D; /* akshay border color*/
+        font-size: 20px;
+        line-height: 22px;
+        text-align: center;
+    }
+
+    .header .right-logo .special a:hover {
+        text-decoration: none;
+    }
+
+    .header .right-logo p a.title-2 {
+        color: #c5c19d;
+    }
+/*end header*/
+
+/*start section*/
+.section .section-title, .section .homepage {
+    border-bottom: 1px solid #00543d;
+    color: #00543d;
+    font-size: 24px;
+    line-height: 1.2em;
+    margin: 15px 0;
+}
+
+.section ul {
+    padding-left: 30px;
+}
+
+    .section ul li {
+        color: #000;
+        font-size: 15px;
+        line-height: 25px;
+        list-style-type: disc;
+        margin: 0 0 8px 0;
+        padding: 0;
+    }
+
+        .section ul li span {
+            color: #00543d;
+        }
+
+.break {
+    padding: 10px 0;
+}
+
+.section .call-out {
+    background: #f5f4ec none repeat scroll 0 0;
+    border: 1px solid #00543d;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 20px 50px;
+    padding: 50px 0;
+    text-align: center;
+}
+
+    .section .call-out a {
+        color: #00543d;
+        text-decoration: underline;
+    }
+
+        .section .call-out a:hover {
+            color: #00543d;
+            text-decoration: none;
+        }
+
+.section .call-out2 {
+    background: #f5f4ec none repeat scroll 0 0;
+    border: 1px solid #00543d;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+    .section .call-out2 a {
+        padding: 25px 0;
+    }
+
+        .section .call-out2 a:hover {
+            text-decoration: none;
+        }
+
+    .section .call-out2 .camera {
+        float: left;
+        margin: 0;
+        padding: 25px 0;
+    }
+
+    .section .call-out2 .vt {
+        color: #00543d;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0;
+        padding: 25px 0;
+    }
+
+        .section .call-out2 .vt:hover {
+            text-decoration: none;
+        }
+
+.section .map a img {
+    margin: 0 auto;
+    /*width: 100%;*/
+}
+
+.section .homepage {
+    border: medium none;
+    font-size: 14px !important;
+    line-height: 26px;
+    margin: 14px 0;
+    text-align: center;
+}
+
+.section .address {
+    font-size: 12px;
+    line-height: 17px;
+}
+/*end section*/
+
+/*start partner*/
+.partner ul {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+
+    .partner ul li {
+        float: left;
+        margin-bottom: 40px;
+        margin-right: 8px;
+        min-height: 65px;
+    }
+
+        .partner ul li.last {
+            margin-right: 0;
+        }
+/*end partner*/
+
+/*start footer*/
+.footer .inner-footer {
+    border-top: 4px solid #00543d;
+}
+
+.footer .left-footer {
+    float: left;
+}
+
+    .footer .left-footer ul {
+        list-style: outside none none;
+        margin: 0;
+        padding: 0;
+    }
+
+        .footer .left-footer ul li {
+            float: left;
+        }
+
+            .footer .left-footer ul li a {
+                color: #666666;
+                font-size: 9px;
+                margin: 0 8px;
+                text-decoration: none;
+            }
+
+    .footer .left-footer > p {
+        clear: both;
+        color: #666666; /*akshay*/
+        font-size: 10px;
+        margin-left: 8px;
+        margin-top: 5px;
+    }
+
+        .footer .left-footer > p a {
+            color: #666666;
+        }
+
+            .footer .left-footer > p a:hover {
+                text-decoration: none;
+            }
+
+.footer .right-footer {
+    float: right;
+}
+/*end footer*/
+
+/*start faq*/
+.handcursor {
+    cursor: pointer;
+}
+
+h4 {
+    color: #00543d;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 18px;
+}
+
+.switchgroup1 {
+    color: #000000;
+    display: none;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 17px;
+}
+
+blockquote, .blockquote {
+    border-left: 0;
+    font-size: 12px;
+    margin: 0 0 20px;
+    padding: 10px 20px;
+}
+
+.exp-col a:link {
+    color: #00543d;
+    text-decoration: underline;
+}
+
+.time {
+    font-size: 14px;
+}
+
+.exp-col > a:hover {
+    text-decoration: none;
+}
+
+/*end faq*/
+
+/*start store*/
+.store-sec {
+    padding: 0 0 0 15px;
+}
+
+
+    .store-sec ul li, .tips-sec ul li, .brochure ul li {
+        color: #000000;
+        font-size: 13px;
+        line-height: 22px;
+    }
+
+    .store-sec h3, .test-sec h3 {
+        border-bottom: 1px dotted #00543d;
+        border-color: #00543d;
+        border-width: 1px;
+        color: #00543d;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 16px;
+        padding: 1px;
+    }
+
+    .store-sec > p {
+        color: black;
+    }
+
+.time {
+    color: black;
+}
+/*end store*/
+
+/*start direction*/
+.textsub {
+    color: #000000;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 17px;
+}
+
+.map iframe {
+    width: 100%;
+}
+/*end direction*/
+
+/*start prices*/
+.rates-title {
+    border-bottom: 1px dotted #811438;
+    border-color: #811438;
+    border-width: 1px;
+    color: #811438;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 19px;
+    margin: 30px 0;
+}
+
+.table {
+    margin: 0 0 15px;
+}
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 8px 0;
+        /*text-align: center;*/
+    }
+
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+    border: medium none;
+    padding: 6px;
+    width: 1px;
+}
+
+.table th.title {
+    background: #00563d none repeat scroll 0 0;
+    border: 2px solid #000000 !important;
+    color: #fff;
+    font-size: 17px;
+    padding: 2px;
+    text-align: center;
+}
+
+.table p {
+    color: #82163a;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+}
+
+    .table p strong {
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+tr.table-row-head {
+    background: #00563d none repeat scroll 0 0;
+    border: 2px solid #000;
+    color: #fff;
+}
+
+    tr.table-row-head > th, tr.table-col > td {
+        border: 2px solid #000 !important;
+        /*font-weight: 600;*/
+        padding: 2px 0 !important;
+        text-align: center;
+    }
+
+        tr.table-row-head > th.last {
+            background: #811539;
+        }
+
+        tr.table-col > td.last {
+            background: #D4B4B5;
+        }
+
+.table-col > td {
+    color: black;
+}
+
+.table-row-head b {
+    font-size: 14px;
+    font-weight: normal;
+    margin: 4px;
+}
+
+.title.unit-pri {
+    font-size: 15px !important;
+}
+
+.table-bordered {
+    border: medium none;
+}
+
+    .table-bordered td {
+        border: 2px solid #000000 !important;
+    }
+
+.sub-table1 {
+    float: left;
+    margin: 0 20px;
+    width: 92px;
+}
+
+.sub-table2 {
+    width: 132px;
+}
+
+    .sub-table2 td {
+        border: medium none !important;
+    }
+
+    .sub-table2 p {
+        font-size: 21px;
+        font-weight: normal;
+        margin: 0;
+    }
+
+.rates {
+    margin: 0 auto 15px;
+    width: 319px;
+}
+
+    .rates small {
+        float: right;
+        font-size: 60%;
+    }
+
+.table.table-bordered > tbody {
+    color: black;
+}
+/*end prices*/
+
+/*start contact*/
+.contact-info > p {
+    margin-left: 30px;
+}
+
+.contact-info {
+    margin: 0 0 10px;
+}
+
+.brochure img {
+    margin: 0 0 0 10px;
+}
+
+.brochure > a {
+    color: #00543d;
+    font-size: 13px;
+    text-decoration: underline;
+}
+
+    .brochure > a:hover {
+        text-decoration: none;
+    }
+
+.contact-info > p {
+    color: black;
+}
+/*end contact*/
+
+/*start testimonials*/
+hr {
+    border-color: #808080;
+    margin: 10px;
+}
+
+.testimonials > p {
+    color: black;
+    font-size: 13px;
+    line-height: 17px;
+    padding: 0 8%;
+}
+
+iframe {
+    width: 100%;
+}
+
+.test-sec ul li a {
+    color: #00543d;
+    font-size: 13px;
+    text-decoration: underline;
+}
+
+    .test-sec ul li a:hover {
+        text-decoration: none;
+    }
+/*end testimonials*/
+
+
+/*term of use start*/
+.term-of-use {
+    font-size: 14px;
+    line-height: 16px;
+    font-style: normal;
+    font-weight: normal;
+    color: #000000;
+}
+/*term of use end*/
+
+/*start special*/
+.box {
+    border: 1px dashed #00543d;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    width: 555px;
+}
+
+    .box p.text-special {
+        color: #00543d;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 24px;
+    }
+
+    .box small {
+        color: #000000;
+    }
+/*end special*/
+
+
+/*start privacy*/
+.policy-sec {
+    font-size: 14px;
+    line-height: 16px;
+}
+
+    .policy-sec > p {
+        color: black;
+    }
+/*end privacy*/
+
+/*start floor plan*/
+.right .brochure img {
+    margin: 0 0 0 12px;
+}
+/*end floor plan*/
+p {
+    color: #000;
+}
+
+.search li {
+    list-style-type: none !important;
+}
+
+.search ul {
+    padding: 0;
+}

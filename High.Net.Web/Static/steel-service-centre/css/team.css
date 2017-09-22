@@ -1,0 +1,84 @@
+﻿.jcarousel-wrapper {
+    margin: 20px auto 80px;
+    position: relative;
+    /*border: 10px solid #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+    -moz-box-shadow: 0 0 2px #999;
+    box-shadow: 0 0 2px #999;*/
+}
+
+/** Carousel **/
+
+.jcarousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+    .jcarousel ul {
+        width: 20000em;
+        position: relative;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .jcarousel li {
+        width: 250px;
+        float: left;
+        border: 1px solid #fff;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .jcarousel img {
+        display: block;
+        max-width: 100%;
+        height: auto !important;
+    }
+
+/** Carousel Controls **/
+
+.jcarousel-control-prev,
+.jcarousel-control-next {
+    background: #f65801 none repeat scroll 0 0;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    behavior: url(/static/steel-service-centre/css/PIE.htc);
+    /*box-shadow: 0 0 4px #f0efe7;*/
+    color: #fff;
+    font: 24px/27px Arial,sans-serif;
+    height: 40px;
+    margin-top: -15px;
+    padding: 5px;
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    top: 50%;
+    width: 40px;
+}
+
+.jcarousel-control-prev {
+    left: -65px;
+}
+
+.jcarousel-control-next {
+    right: -65px;
+}
+
+.proj-gallery .jcarousel img {
+    display: block;
+    height: auto !important;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.proj-gallery .jc-container {
+    width: 100%;
+}

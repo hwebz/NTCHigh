@@ -1,0 +1,56 @@
+﻿@using EPiServer.Core
+@using High.Net.Models.Shared.Pages
+@using High.Net.Core
+@model High.Net.Core.PageViewModel<NewsListingPage>
+@{
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var newsListPages = dataLocator.GetNewsFeed(Model.CurrentPage);
+}
+@section SiteHeader{
+    <style>
+        .date-text {
+            font-family: "Open Sans",sans-serif;
+            font-size: 12px;
+            letter-spacing: 0 !important;
+        }
+    </style>
+}
+<div class="spacer"></div>
+<div class="container">
+    <div class="news">
+        @Html.PropertyFor(m => m.CurrentPage.MainContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+        @if (newsListPages != null)
+        {
+            foreach (var item in newsListPages)
+            {
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="news-right-img">
+                            <div class="cal">
+                                @if (item.NewsImage != null)
+                                {
+                                    @Html.PropertyFor(m => item.NewsImage, new { CssClass = "img-responsive" })
+                                }
+                                else
+                                {
+                                    <img src="~/Static/global/images/news-placeholder-360X200.png" class="img-responsive placeholder" />
+                                }
+                                <div class="date">
+                                    <span class="glyphicon glyphicon-calendar news"><span class="date-text"> @item.PostedDate.ToString("MMMM dd, yyyy")</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center">@item.ImageQuote</p>
+                    </div>
+                    <div class="col-md-8 col-sm-8">
+                        <h2>@Html.PropertyFor(m => item.Title)</h2>
+                        <p>@Html.PropertyFor(m => item.NewsHighlight)</p>
+                        <a class="detail-link" href="@Url.ContentUrl(item.ContentLink)">more +</a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+<div class="spacer"></div>

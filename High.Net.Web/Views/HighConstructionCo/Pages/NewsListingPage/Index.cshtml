@@ -1,0 +1,46 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.Shared.Pages
+@using ImageVault.EPiServer
+@model PageViewModel<NewsListingPage>
+@{
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var newsItemPages = dataLocator.GetNewsFeed(Model.CurrentPage);
+}
+<div class="news ">
+    <div class="container">
+        @if (newsItemPages != null)
+        {
+            foreach (var item in newsItemPages)
+            {
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="news-right-img">
+                            <div class="cal">
+                                @if (item.NewsImage != null)
+                                {
+                                    @Html.PropertyFor(x => item.NewsImage, new { PropertySettings = new PropertyMediaSettings { Width = 290, Height = 190 }, CssClass = "img-responsive" })
+                                }
+                                else
+                                {
+                                    <img src="~/Static/global/images/news-placeholder-290X190.jpg" class="img-responsive placeholder" />
+                                }
+                            </div>
+                            <div class="date">
+                                <span class="glyphicon glyphicon-calendar news"><span class="date-text">@item.PostedDate.ToString("MMMM dd, yyyy")</span></span>
+                            </div>
+                        </div>
+                        <p class="text-center">@item.ImageQuote</p>
+                    </div>
+                    <div class="col-md-8 col-sm-8">
+                        <h2>@item.Title</h2>
+                        <p>@item.NewsHighlight</p>
+                        <a href="@Url.ContentUrl(item.ContentLink)" class="detail-link">more +</a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

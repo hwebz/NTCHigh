@@ -1,0 +1,49 @@
+﻿extends ../layouts/root.jade
+
+block title
+    title Header block
+
+block content
+    div.leadership-header
+        div.container
+            div.row
+                div.col-xs-12.col-sm-12.col-md-12
+                    div.leadership-header__logo
+                        a(href="#")
+                    div.leadership-header__right-nav
+                        div.leadership-header__right-nav-wrapper
+                            a.leadership-header__toggle-button
+                                span
+                                span
+                                span
+                            div.nav-mask
+                            div.mobile-device-mask
+                            ul.leadership-header__nav
+                                li.active
+                                    a(href="about.html") About
+                                    ul.leadership-header__subnav
+                                        li
+                                            a(href="#") Lorem
+                                        li
+                                            a(href="#") Liupsumar
+                                        li
+                                            a(href="#") Dolar
+                                li
+                                    a(href="focus-area.html") Focus Area
+                                li
+                                    a(href="partners.html") Partners
+                                li
+                                    a(href="how-we-work.html") How We Work
+                                li
+                                    a(href="extra-give.html") Extra Ordniary Give
+                                li
+                                    a(href="#") Contact
+                                li
+                                    div.leadership-header__social
+                                        a(href="#")
+                                            img(src="../images/facebook.png", alt="Facebook")
+                                        a(href="#")
+                                            img(src="../images/twitter.png", alt="Twitter")
+                                        a(href="#")
+                                            img(src="../images/linkedin.png", alt="Linkedin")
+    div(style="background: black;width: 100%;height:130vh")

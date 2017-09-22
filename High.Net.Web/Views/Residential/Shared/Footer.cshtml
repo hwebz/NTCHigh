@@ -1,0 +1,62 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using EPiServer.Core
+@using High.Net.Models.Residential.Pages
+@model IPageViewModel<BasePageData>
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var contentLocator = ServiceLocator.Current.GetInstance<ContentLocator>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+@Html.FullRefreshPropertiesMetaData(new[] { "FooterLinks" })
+<!-- Footer Starts-->
+<div class="assitance-bar">
+    <div class="container" @Html.EditAttributes(x => homePage.FooterLinkItems)>
+        <ul class="row assitance-bar-items cf">
+            @if (homePage.FooterLinkItems != null && homePage.FooterLinkItems.Items.Any())
+            {
+                foreach (var item in homePage.FooterLinkItems.Items)
+                {
+                    var currItem = contentLoader.Get<High.Net.Models.Residential.Blocks.ImageTextBlock>(item.ContentLink);
+                    EPiServer.SpecializedProperties.PropertyFrame currPagePropertyFrame = contentLoader.Get<PageData>(currItem.PageReferenceLink).Property["PageTargetFrame"] as EPiServer.SpecializedProperties.PropertyFrame;
+                    var target = currPagePropertyFrame !=null ? currPagePropertyFrame.FrameName :string.Empty;
+                    <li class="@(Url.ContentUrl(Model.CurrentPage.ContentLink) == Url.ContentUrl(currItem.PageReferenceLink) ? "active" : "")">
+                        <a href="@Url.ContentUrl(currItem.PageReferenceLink)" target="@target">
+                            @Html.PropertyFor(x => currItem.Image)<span class="icon-text">@currItem.Heading</span>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+<!-- Footer Ends-->
+
+<div class="footer">
+    <div class="container">
+        <div class="footer-logo col-xs-12 col-sm-4 col-md-3 col-lg-3">
+            <a href="@Url.ContentUrl(homePage.HighAssociates.PageUrl)">
+                @Html.PropertyFor(x => homePage.HighAssociates.Media, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 43 } })
+            </a>
+        </div>
+        <div class="footer-menu col-xs-12 col-sm-8 col-md-9 col-lg-9">
+            <ul class="footer-item cf" @Html.EditAttributes(x => homePage.FooterNavigationItems)>
+            @*@Html.MenuList(SiteDefinition.Current.StartPage,
+                @<li class="@(item.Selected ? "active" : "" )">
+                    @Html.PageLink(item.Page)
+                </li>)*@
+            @if (homePage.FooterNavigationItems != null && homePage.FooterNavigationItems.Any())
+            {
+                foreach (var item in homePage.FooterNavigationItems)
+                {
+                        <li><a target="@item.Target" href="@Url.ContentUrl(item.Href)">@item.Text</a></li>
+                }
+            }
+            </ul>
+            <p><small>@Html.PropertyFor(x => homePage.CopyRightText)</small></p>
+        </div>
+
+    </div>
+</div>

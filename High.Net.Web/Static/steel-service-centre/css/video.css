@@ -1,0 +1,114 @@
+﻿.video-gallery {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 820px;
+    height: 420px;
+    background: transparent;
+    overflow: hidden;
+	
+    -webkit-font-smoothing: antialiased;/*akshay*/
+ 
+}
+
+.video-slides {
+    cursor: pointer;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 600px;
+    height: 400px;
+    overflow: hidden;
+}
+
+
+/* jssor slider thumbnail navigator skin 11 css */
+/*
+                .jssort11 .p            (normal)
+                .jssort11 .p:hover      (normal mouseover)
+                .jssort11 .pav          (active)
+                .jssort11 .pav:hover    (active mouseover)
+                .jssort11 .pdn          (mousedown)
+                */
+.jssort11 {
+    position: absolute;
+    width: 220px;
+    height: 400px;
+    font-family: Arial, Helvetica, sans-serif;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    left: 605px;
+    top: 0px;
+}
+
+    .jssort11 .p {
+        position: absolute;
+        width: 215px;
+        height: 80px;
+        background: transparent;
+    }
+
+    .jssort11 .tp {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    .jssort11 .i, .jssort11 .pav:hover .i {
+        /*position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 100px;
+        height: 100px;
+        border: white 1px dashed;*/
+        float: left;
+        margin-right: 5px;
+    }
+
+.tp .i > img {
+    height: 80px;
+    width: 100px;
+}
+
+* html .jssort11 .i {
+    width /**/: 62px;
+    height /**/: 32px;
+}
+
+.jssort11 .t, .jssort11 .pav:hover .t {
+    font-size: 12px;
+    margin: 0;
+    font-weight: 700;
+}
+
+
+.jssort11 .c, .jssort11 .pav:hover .c {
+    /*position: absolute;
+    top: 38px;
+    left: 3px;
+    width: 197px;
+    height: 31px;
+    line-height: 31px;*/
+    /*font-weight: 400;
+    overflow: hidden;*/
+    color: #8f8f8f;
+    font-size: 9px;
+    margin: 0;
+}
+
+.jssort11 .p:hover .t, .jssort11 .pav:hover .t, .jssort11 .p:hover .c, .jssort11 .pav:hover .c {
+    transition: none;
+    -moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: none;
+}
+
+.main-frame {
+    background: #ffffff none repeat scroll 0 0;
+    padding: 38px 30px;
+}

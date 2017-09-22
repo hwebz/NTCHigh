@@ -1,0 +1,555 @@
+﻿@media (max-width: 1319px) {
+    .jcarousel-control-prev {
+        left: -45px;
+    }
+
+    .jcarousel-control-next {
+        right: -45px;
+    }
+}
+
+@media (max-width: 1250px) {
+    .jcarousel-control-prev, .jcarousel-control-next {
+        display: none;
+        top: 50%;
+    }
+
+    .jcarousel-wrapper:hover .jcarousel-control-prev, .jcarousel-wrapper:hover .jcarousel-control-next {
+        display: block;
+        opacity: 0.6;
+    }
+
+    .jcarousel-control-prev {
+        left: 0px;
+    }
+
+    .jcarousel-control-next {
+        right: 15px;
+    }
+}
+
+@media (max-width:1199px) {
+    .nav > li > a {
+        font-size: 11px;
+        padding: 20px 6px;
+    }
+
+    .navbar-right {
+        margin-right: 0;
+        padding: 0;
+    }
+
+    .input-group {
+        width: 150px;
+    }
+
+    .service ul li {
+        width: 185px;
+    }
+
+    .jssorb05 {
+        bottom: 15%;
+    }
+
+    .vid-container iframe, .vid-container object, .vid-container embed {
+        width: 600px;
+    }
+
+    .thumb img {
+        height: 90px;
+        width: 100px;
+    }
+
+    .list-thumb {
+        max-height: 465px;
+    }
+}
+
+@media (max-width: 991px) {
+    .nav > li > a {
+        font-size: 9px;
+        padding: 15px 6px;
+    }
+
+    .navbar-right {
+        float: none !important;
+    }
+
+    .header .header-top .right .mail-logo, .header .header-top .right .phone-logo {
+        font-size: 12px;
+        padding-top: 5px;
+    }
+
+    .header .header-top .right .mail-logo {
+        margin-left: 15px;
+        padding-left: 35px;
+    }
+
+    .our-product p.title, .sales-team p.title, .service .title, .gallery .title {
+        font-size: 20px;
+        padding: 25px 0;
+    }
+
+    .our-product .pdt-block p.pname {
+        font-size: 20px;
+    }
+
+    .sales-team .jcarousel .character {
+        margin-right: 10px;
+    }
+
+    .sales-team .profile {
+        font-size: 11px;
+    }
+
+    .contact .form-a input {
+        width: 100%;
+    }
+
+    .partner {
+        margin-top: 15px;
+    }
+
+    .contact h4 {
+        font-size: 14px;
+    }
+
+    .contact ul li a, .contact p, .block-service p {
+        font-size: 12px;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    .input-group-btn {
+        width: 1px !important;
+    }
+
+    .service ul li {
+        width: 50%;
+    }
+
+    .about-para > p {
+        font-size: 12px;
+    }
+
+
+    h2 {
+        font-size: 22px !important;
+    }
+
+    h3 {
+        font-size: 18px !important;
+    }
+
+    .banner-title {
+        font-size: 38px;
+    }
+
+    p {
+        font-size: 12px !important;
+    }
+
+    .header .header-middle .mail-logo-left {
+        float: none;
+        margin: 10px 0;
+    }
+
+        .header .header-middle .mail-logo-left img {
+            margin: 0 auto;
+            width: 310px;
+        }
+
+    .header-middle .right {
+        float: none;
+        margin: 0 auto;
+        width: 472px;
+    }
+
+    .header .header-middle .highsl-logo-right {
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .highsl-logo-right img {
+        margin: 0 auto;
+        width: 209px;
+    }
+
+    .vid-container iframe, .vid-container object, .vid-container embed {
+        height: 350px;
+        width: 375px;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar {
+        min-height: 50px;
+    }
+
+    .nav > li > a {
+        padding: 10px 15px;
+    }
+
+    .navbar-form {
+        margin-right: -15px;
+        padding: 10px 15px;
+    }
+
+    .our-product p.title, .sales-team p.title, .service .title, .gallery .title {
+        font-size: 16px;
+        padding: 20px 0;
+    }
+
+    .our-product .pdt-block p.pname {
+        font-size: 16px;
+    }
+
+    .our-product .pdt-block {
+        margin-bottom: 15px;
+    }
+
+        .our-product .pdt-block img {
+            width: 100%;
+        }
+
+    .sales-team .profile {
+        font-size: 9px;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    .contact .form-a input {
+        width: 49.6%;
+    }
+
+    .contact h4 {
+        font-size: 12px;
+    }
+
+    .contact ul li a, .contact p {
+        font-size: 10px;
+    }
+
+    .character-img > img {
+        float: none;
+        margin: 0;
+    }
+
+    .team-info {
+        text-align: center;
+    }
+
+        .team-info h2 {
+            margin-left: 10px;
+            text-align: left;
+        }
+
+    .team-profile {
+        margin-bottom: 30px;
+    }
+
+    h2 {
+        font-size: 18px !important;
+    }
+
+    .video-image > img, .video-image img {
+        float: none;
+        margin: 0;
+    }
+
+    .video-image {
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .block-service > img {
+        margin-bottom: 10px;
+    }
+
+    .contact {
+        background: #074f89 none repeat scroll 0 0;
+        padding: 15px 0;
+    }
+
+    .img-section > span {
+        font-size: 12px;
+        margin: 0 auto;
+        width: 60%;
+    }
+
+    .img-section > img {
+        margin: 0 auto !important;
+        width: 60%;
+    }
+
+    .img-section {
+        text-align: center;
+    }
+
+    .service-image {
+        text-align: center;
+    }
+
+        .service-image > img {
+            width: 60%;
+        }
+
+        .service-image > p {
+            margin: 0 auto;
+            width: 60%;
+        }
+
+    .video-frame {
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+        .video-frame > iframe {
+            height: auto;
+            margin: 0 auto;
+            padding: 15px;
+            width: auto;
+        }
+
+    .thumb img {
+        float: none;
+    }
+
+    .vid-item {
+        float: left;
+        margin: 15px 5px;
+        text-align: center;
+        width: 120px;
+    }
+
+    .vid-container iframe, .vid-container object, .vid-container embed {
+        height: 350px;
+        width: 100%;
+    }
+
+    .iframe-new {
+        display: block;
+    }
+
+    .no-right-padd {
+        padding-right: 15px !important;
+    }
+
+    .list-thumb {
+        display: table;
+        margin: 0 auto;
+    }
+
+    .vid-item.active {
+        display: block;
+        margin: 15px auto;
+        width: 100%;
+    }
+
+    .arrow-left {
+        display: block;
+    }
+
+    .arrow-right {
+        display: block;
+    }
+
+    .vid-item {
+        display: none;
+    }
+
+
+        .vid-item.active {
+            display: block;
+        }
+
+    .next-prev-btn {
+        display: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .footer .reserved {
+        font-size: 12px;
+        margin-right: 10px;
+    }
+
+    .footer .social {
+        margin: 5px 0 0;
+    }
+}
+
+@media (max-width: 691px) {
+    .contact .form-a input {
+        width: 49.6%;
+    }
+}
+
+@media (max-width: 654px) {
+    .footer .reserved {
+        float: none;
+        margin: 0 auto;
+    }
+
+    .rbi-logo {
+        margin-top: 7px;
+    }
+}
+
+@media (max-width: 600px) {
+    .header .header-middle .mail-logo-left {
+        float: none;
+        text-align: center;
+    }
+
+    .header-middle .right {
+        width: auto;
+    }
+
+    .header .header-middle .b {
+        margin-right: 0;
+    }
+
+    .header .header-middle .highsl-logo-right {
+        float: none;
+        text-align: center;
+    }
+
+    .mail-logo-left img {
+        margin: 0 auto;
+        width: 310px;
+    }
+
+    .service ul li {
+        width: 100%;
+    }
+
+    .contact .form-a input {
+        width: 100%;
+    }
+
+    .contact ul {
+        line-height: 22px;
+        font-size: 12px;
+    }
+
+    h4, .h4 {
+        font-size: 16px;
+    }
+
+    h4, .h4, h5, .h5, h6, .h6 {
+        margin-bottom: 8px;
+        margin-top: 8px;
+    }
+
+    p {
+        margin: 0 0 5px;
+    }
+
+    .banner-title {
+        font-size: 28px;
+    }
+
+    .sitemap-content li {
+        font-size: 12px;
+    }
+
+    .prod-panel ul li {
+        padding: 8px 0 0 2px;
+    }
+
+        .prod-panel ul li a {
+            font-size: 12px;
+            padding: 10px 4px;
+        }
+}
+
+@media (max-width:500px) {
+    .vid-container iframe, .vid-container object, .vid-container embed {
+        display: table;
+        height: auto;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 460px) {
+    .footer .reserved, .footer .rbi-logo, .footer .social {
+        clear: both;
+        font-size: 10px;
+        float: none;
+        margin: 0;
+        text-align: center;
+    }
+
+        .footer .rbi-logo img {
+            float: none;
+            margin: 0 auto;
+            width: 189px;
+        }
+
+        .footer .rbi-logo > span {
+            left: 0;
+            position: relative;
+            top: 0;
+        }
+
+
+    h3 {
+        font-size: 16px !important;
+    }
+
+    .banner-title {
+        bottom: -10px;
+        font-size: 20px;
+    }
+
+    .about-para > p {
+        font-size: 11px;
+    }
+
+    .sub-menu {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 441px) {
+    .contact .partner ul li {
+        float: none;
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 380px) {
+    .header .header-top .right .phone-logo {
+        background: url("/static/steel-service-centre/images/icon/phone-icon.png") no-repeat scroll 10px center;
+        padding-left: 35px;
+    }
+
+    .header .header-top .right .mail-logo, .header .header-top .right .phone-logo {
+        font-size: 10px;
+    }
+
+    .news .passage .passage-head div {
+        display: block;
+    }
+
+    .prod-panel ul li a {
+        font-size: 9px;
+        padding: 10px 2px;
+    }
+}
+
+@media (max-width: 345px) {
+    .header .header-top .right .mail-logo, .header .header-top .right .phone-logo {
+        font-size: 9px;
+    }
+
+    .header .header-top .right {
+        float: right;
+    }
+}

@@ -1,0 +1,61 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@using ImageVault.EPiServer
+
+@model SingleColumnCalloutBlock
+@{
+    var ContenLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+<style>
+    .reblock-main-content ul {
+        list-style: none;
+        padding: 0 0 0 10px;
+        margin: 0 0 10px 0;
+    }
+
+    .reblock-main-content li {
+        padding-left: 1em;
+        text-indent: -.7em;
+    }
+
+        .singlecolumncalloutblock .reblock-main-content li::before {
+            color: @Model.BulletColor;
+            content: "• ";
+            font-size: 22px;
+            position: relative;
+            top: 3px;
+        }
+</style>
+<div class="spacer"></div>
+@if (Url.ContentUrl(Model.Link) != string.Empty)
+{
+    <a href="@Url.ContentUrl(Model.Link)" style="text-decoration:none !important">
+        <div class="rehome-block" style="background:@Model.BackGroundColor; color:@Model.FontColor;">
+            <div class="reFull-block-content">
+                <div class="reblock-head">
+                    <span class="arro" style="color:@Model.FontColor;">→</span>
+                    <p>@Html.PropertyFor(x => x.Title)</p>
+                </div>
+                <div class="reblock-main-content" style="color:@Model.FontColor;">
+                    @Html.PropertyFor(x => x.Body)
+                    <span style="color:@Model.FontColor; text-decoration:underline;">@Html.PropertyFor(x => x.UrlText)</span>
+                </div>
+            </div>
+        </div>
+    </a>
+}
+else
+{
+
+    <div class="rehome-block" style="background:@Model.BackGroundColor; color:@Model.FontColor;">
+        <div class="reFull-block-content">
+            <div class="reblock-head">
+                <p>@Html.PropertyFor(x => x.Title)</p>
+            </div>
+            <div class="reblock-main-content" style="color:@Model.FontColor;">
+                @Html.PropertyFor(x => x.Body)
+            </div>
+        </div>
+    </div>
+}

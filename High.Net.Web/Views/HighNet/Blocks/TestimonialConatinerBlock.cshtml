@@ -1,0 +1,49 @@
+﻿@using EPiServer.Core
+@model High.Net.Models.HighNet.Blocks.TestimonialConatinerBlock
+
+@if (Model.Items == null || Model.Items.Items == null || !Model.Items.Items.Any())
+{
+    return;
+}
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var blockGuid = Model is IContent ? ((IContent)Model).ContentGuid.ToString() : "tcb-testimonial-carousel";
+}
+<div class="carousel slide testimonial-slide" id="@blockGuid" data-ride="carousel">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="quote-test">
+                <img src="/Static/highnet/images/homepg/quotes-test.png" data-pin-nopin="true">
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="carousel-inner">
+
+                @for (int i = 0; i < Model.Items.Items.Count; i++)
+            {
+                var contentItem = Model.Items.Items[i];
+                var item = contentLoader.Get<High.Net.Models.HighNet.Blocks.TestimonialBlock>(contentItem.ContentLink);
+                    <div class="item @(i == 0 ? "active" : "")">
+                        <div class="row">
+                            @Html.Partial("~/Views/HighNet/Blocks/TestimonialBlock.cshtml", item)
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <ol class="carousel-indicators">
+
+                @for (int i = 0; i < Model.Items.Items.Count(); i++)
+            {
+                    <li data-target="@string.Format("#{0}", blockGuid)" data-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
+
+                }
+
+            </ol>
+            <div class="test-slider-nav">
+                <a class="left carousel-control" href="@string.Format("#{0}", blockGuid)" data-slide="prev"> <span class="ar-left">&#x2190;</span> </a>
+                <a class="right carousel-control" href="@string.Format("#{0}", blockGuid)" data-slide="next"> <span class="ar-right">&#x2192;</span> </a>
+            </div>
+        </div>
+    </div>
+</div>

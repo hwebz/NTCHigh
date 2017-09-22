@@ -1,0 +1,71 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.Web.Mvc.Html
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Constants
+@model High.Net.Core.PageViewModel<High.Net.Models.Shared.Pages.PropertyTypePage>
+@{
+    Layout = "~/Views/Commercial/Layouts/_Site.cshtml";
+
+    var contentRepo = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var ContentLocator = ServiceLocator.Current.GetInstance<ContentLocator>();
+
+    var ListingType = ContentLocator.GetCategories(PropertyCategories.ListingType);
+    var propertyListPage = contentRepo.GetChildren<High.Net.Models.Shared.Pages.PropertyListingPage>(PageReference.StartPage).FirstOrDefault();
+}
+@Html.Partial("~/Views/Commercial/Shared/Banner.cshtml", Model.CurrentPage.Name)
+<div class="spacer"></div>
+<div class="container">
+    @if (propertyListPage != null)
+    {
+        var productPages = contentRepo.GetChildren<High.Net.Models.Shared.Pages.PropertyTypePage>(propertyListPage.ContentLink);
+        if (productPages != null)
+        {
+            int counter = 0;
+            foreach (var item in productPages)
+            {
+                if (counter == 0)
+                {
+                    @Html.Raw("<div class=\"row\">")
+                }
+                else if (counter > 0 && counter % 3 == 0)
+                {
+                    @Html.Raw("</div><div class=\"row\">")
+                }
+                <div class="col-md-4 col-sm-4">
+                    <div class="prod-content">
+                        @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get,
+                        new { @action = Url.ContentUrl(propertyListPage != null ? propertyListPage.ContentLink : PageReference.StartPage), id = @item.Name }))
+                        {
+                            <input type="hidden" name="RootPage" value="@EPiServer.Core.PageReference.StartPage.ID" />
+                            for (int i = 0; i < ListingType.Categories.Count; i++)
+                            {
+                                <input type="hidden" name="ListingType[@i]" value="@ListingType.Categories[i].Name" />
+                            }
+                            <input type="hidden" name="PropertyType" value="@item.Name" />
+                            <a href="javascript:void(0)" onclick="document.getElementById('@item.Name').submit();">
+                                <div class="prod-img">
+                                    @Html.PropertyFor(x => item.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 360, Height = 240, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                    <div class="search-logo">
+                                        <img src="~/Static/commercial/images/search-logo.png" />
+                                    </div>
+                                </div>
+                                <div class="product-para">
+                                    <h2>@item.Name</h2>
+                                    <p>@item.IntroText</p>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+                        counter++;
+            }
+            @Html.Raw("</div>")
+        }
+    }
+</div>
+<div class="spacer"></div>
+<!-- About LLC Starts-->
+<!-- About LLC Ends-->
+<div class="spacer"></div>
+<div class="spacer"></div>

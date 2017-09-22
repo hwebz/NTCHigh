@@ -1,0 +1,457 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@model High.Net.Models.HighSteelStructure.ViewModels.NEXTBeamBudgetPriceModel
+@section Siteheader{
+    @Styles.Render("~/bundles/bootstrap-datetimepicker-css")
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+}
+
+<div class="container">
+    <div class="common-container advisor">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    @if (!Model._NEXTBeamBudgetPriceForm.IsSuccess && !Model._NEXTBeamBudgetPriceForm.IsPreviewPage)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Request a NEXT Beam Budget Price</h3>
+                                <p>
+                                    High Steel Structures Inc. now offers the concrete double tee NEXT Beam as an alternative for bridges with 30' - 90' spans.
+                                    We welcome your design inquiries for the use of the NEXT Beam in your next project.
+                                </p>
+                                <p>
+                                    To begin the process, please fill out the form below, and we will contact you to discuss the suitablity of NEXT Beam for your project.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            @using (Html.BeginForm(null, null, FormMethod.Post,
+                     new { @Class = "form-horizontal", @enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="_NEXTBeamBudgetPriceForm.IsPreviewPage" value="True" />
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.FirstName, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.FirstName, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.FirstName)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.LastName, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.LastName, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.LastName)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ContactTitle, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.ContactTitle, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.ContactTitle)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.Company, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.Company, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.Company)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.PhoneNumber, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.PhoneNumber, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.PhoneNumber)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.Email, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.Email, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.Email)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ProjectName, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.ProjectName, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.ProjectName)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ConstructionBidDate, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.ConstructionBidDate, new { @Class = "form-control datetimepicker" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.ConstructionBidDate)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ProjectCity, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.ProjectCity, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.ProjectCity)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.State, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.State, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.State)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.BeamDeliveryLocation, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.BeamDeliveryLocation, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.BeamDeliveryLocation)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.DeliveryDate, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.DeliveryDate, new { @Class = "form-control datetimepicker" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.DeliveryDate)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ProjectOwner, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.ProjectOwner, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.ProjectOwner)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.OwnerProjectNumber, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.ProjectOwner, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.ProjectOwner)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ApproxBridgeWidth, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.ApproxBridgeWidth, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.ApproxBridgeWidth)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ApproxBridgeLength, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.ApproxBridgeLength, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.ApproxBridgeLength)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.NumberofSpans, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.NumberofSpans, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.NumberofSpans)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.TypeofBeam, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-3">
+                                        @Html.DropDownList("_NEXTBeamBudgetPriceForm.TypeofBeam", new List<SelectListItem>
+                                        {
+                                        new SelectListItem{Text="'F' (Form) Beam",Value="\"F\" (Form) Beam"},
+                                        new SelectListItem{Text="'D' (Deck) Beam",Value="\"D\" (Deck) Beam"},
+                                        new SelectListItem{Text="Undecided",Value="Undecided"}
+                                        }, "--Select--", new { @Class = "form-control" })
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.TypeofBeam)<br />
+                                        <span>* See below for more information.</span>
+                                    </div>
+                                    <span class="req-field">*</span>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ApproximateBeamLength, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.ApproximateBeamLength, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        <span>Please enter a number between 30 and 90.</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.ApproximateBeamLength)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ApproximateBeamDepth, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextBoxFor(x => x._NEXTBeamBudgetPriceForm.ApproximateBeamDepth, new { @Class = "form-control" })
+                                        <span class="req-field">*</span><br />
+                                        <span>Please enter a number between 24 and 40.</span><br />
+                                        @Html.ValidationMessageFor(x => x._NEXTBeamBudgetPriceForm.ApproximateBeamDepth)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.AdditionalNotes, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.TextAreaFor(x => x._NEXTBeamBudgetPriceForm.AdditionalNotes, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-danger">Submit</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4 text-center">
+                                <strong>About the "F" Beam</strong>
+                                <p>
+                                    4" Top flange serves as form
+                                    for field poured structural deck.
+                                </p>
+                                <div>
+                                    <img title="TT_NEXT_BEAM_36F_Iso2a" class="img-responsive" src="~/Static/high-steel-structure/img/TT_NEXT_BEAM_36F_Iso2a.jpg" />
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <strong>About the "D" Beam</strong>
+                                <p>
+                                    8" Top Flange serves as
+                                    structural deck.
+                                </p>
+                                <div>
+                                    <img title="TT_NEXT_BEAM_40D_Iso2a" class="img-responsive" src="~/Static/high-steel-structure/img/TT_NEXT_BEAM_40D_Iso2a.jpg" />
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    }
+                    else if (Model._NEXTBeamBudgetPriceForm.IsPreviewPage)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Request a NEXT Beam Budget Price</h3>
+                                <p>
+                                    High Steel Structures Inc. now offers the concrete double tee NEXT Beam as an alternative for bridges with 30' - 90' spans.
+                                    We welcome your design inquiries for the use of the NEXT Beam in your next project.
+                                </p>
+                                <p>
+                                    To begin the process, please fill out the form below, and we will contact you to discuss the suitablity of NEXT Beam for your project.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            @using (Html.BeginForm(null, null, FormMethod.Post,
+                     new { @Class = "form-horizontal", @enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="_NEXTBeamBudgetPriceForm.IsPreviewPage" value="False" />
+                                <div class="form-group">
+                                    <div class="col-sm-1"></div>
+                                    <strong>Please confirm your answers and click 'Confirm' to submit.</strong>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.FirstName, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.FirstName, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.LastName, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.LastName, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ContactTitle, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.ContactTitle, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.Company, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.Company, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.PhoneNumber, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.PhoneNumber, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.Email, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.Email, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ProjectName, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.ProjectName, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ConstructionBidDate, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.ConstructionBidDate, new { @Class = "form-control datetimepicker" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ProjectCity, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.ProjectCity, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.State, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.State, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.BeamDeliveryLocation, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.BeamDeliveryLocation, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.DeliveryDate, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.DeliveryDate, new { @Class = "form-control datetimepicker" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ProjectOwner, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.ProjectOwner, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.OwnerProjectNumber, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.ProjectOwner, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ApproxBridgeWidth, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.ApproxBridgeWidth, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ApproxBridgeLength, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.ApproxBridgeLength, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.NumberofSpans, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.NumberofSpans, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.TypeofBeam, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-2">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.TypeofBeam, new { @Class = "form-control" })
+                                    </div>
+                                    <span>* See below for more information.</span>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ApproximateBeamLength, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.ApproximateBeamLength, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.ApproximateBeamDepth, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.ApproximateBeamDepth, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x._NEXTBeamBudgetPriceForm.AdditionalNotes, new { @Class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.DisplayHiddenFor(x => x._NEXTBeamBudgetPriceForm.AdditionalNotes, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-danger">Submit</button>
+                                        @if (Request.UrlReferrer != null)
+                                        {
+                                            <a class="btn btn-primary" onclick="history.go(-1); return false;" href="#">Make Changes</a>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4 text-center">
+                                <strong>About the "F" Beam</strong>
+                                <p>
+                                    4" Top flange serves as form
+                                    for field poured structural deck.
+                                </p>
+                                <div>
+                                    <img title="TT_NEXT_BEAM_36F_Iso2a" class="img-responsive" src="~/Static/high-steel-structure/img/TT_NEXT_BEAM_36F_Iso2a.jpg" />
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <strong>About the "D" Beam</strong>
+                                <p>
+                                    8" Top Flange serves as
+                                    structural deck.
+                                </p>
+                                <div>
+                                    <img title="TT_NEXT_BEAM_40D_Iso2a" class="img-responsive" src="~/Static/high-steel-structure/img/TT_NEXT_BEAM_40D_Iso2a.jpg" />
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-12">
+                            @Model.CurrentPage.ThankYouMessage
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section SiteFooter{
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/bootstrap-datetimepicker-js")
+    <script type="text/javascript">
+        $(function () {
+            $('.datetimepicker').datetimepicker({
+                viewMode: 'years',
+                format: 'MM/DD/YYYY'
+            });
+        });
+    </script>
+}

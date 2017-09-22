@@ -1,0 +1,41 @@
+﻿@using EPiServer.Core
+@using High.Net.Models.Shared.Pages
+@using ImageVault.EPiServer
+@model High.Net.Core.PageViewModel<NewsItemPage>
+@Html.Partial("~/Views/GreenfieldArchitects/Shared/Banner.cshtml", Model.CurrentPage.BannerImage != null ? Model.CurrentPage.BannerImage : new ImageVault.EPiServer.MediaReference())
+
+<div class="container">
+    <div class="black-band">
+        <div class="container">
+            <h1>News</h1>
+        </div>
+    </div>
+    <div class="common-container">
+        <div class="news">
+            <div class="row">
+                <div class="col-md-8 col-sm-8">
+                    <h2>@Html.PropertyFor(x => x.CurrentPage.Name)</h2>
+                    @Html.PropertyFor(x => x.CurrentPage.NewsContent)
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="news-right-img">
+                        <div class="cal">
+                            @if (Model.CurrentPage.NewsImage != null)
+                            {
+                            @Html.PropertyFor(x => x.CurrentPage.NewsImage, new { CssClass = "img-responsive" })
+                            }
+                            else
+                            {
+                            <img src="~/Static/global/images/news-placeholder-360X200.png" class="img-responsive placeholder" />
+                            }
+                            <div class="date">
+                                <span class="glyphicon glyphicon-calendar news"><span class="date-text">@Model.CurrentPage.PostedDate.ToString("MMMM dd, yyyy")</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-center">@Model.CurrentPage.ImageQuote</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

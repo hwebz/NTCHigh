@@ -1,0 +1,49 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Core
+@model GoogleMapBlock
+@{
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+    var locationData = client.Load<ImageVault.Common.Data.Media>(Model.LocationData.Id).FirstOrDefault();
+}
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="row">
+    <div class="col-md-9">
+        <input type="hidden" id="locationData" value="@Url.ContentUrl(locationData.Url)" />
+        <div id="map-canvas"></div>
+    </div>
+    <div class="col-md-3">
+        <div class="side-map">
+        <div class="form-group">
+            <h3>Filter the map</h3>
+            <select id="filter-legend" class="form-control">
+                <option value="">All</option>
+                <option value="Corporate Offices">Corporate Offices</option>
+                <option value="Production Facility">Production Facility</option>
+                <option value="Office">Office</option>
+                <option value="Corporate Center">Corporate Center</option>
+                <option value="Shopping Center">Shopping Center</option>
+                <option value="Apartment Community">Apartment Community</option>
+                <option value="Manufactured Home Community">Manufactured Home Community</option>
+                <option value="Self Storage">Self Storage</option>
+                <option value="Hotel">Hotel</option>
+            </select>
+        </div>
+        <h3>Legend</h3>
+        <ul id="legend">
+            <li><span><img src="~/Static/highnet/google-map/location-images/red.png" alt="red" /></span>Corporate Offices</li>
+            <li><span><img src="~/Static/highnet/google-map/location-images/orange.png" alt="orange" /></span>Production Facility</li>
+            <li><span><img src="~/Static/highnet/google-map/location-images/yellow.png" alt="yellow" /></span>Office</li>
+            <li><span><img src="~/Static/highnet/google-map/location-images/green.png" alt="green" /></span>Corporate Center</li>
+            <li><span><img src="~/Static/highnet/google-map/location-images/blue.png" alt="blue" /></span>Shopping Center</li>
+            <li><span><img src="~/Static/highnet/google-map/location-images/purple.png" alt="purple" /></span>Apartment Community</li>
+            <li><span><img src="~/Static/highnet/google-map/location-images/black.png" alt="black" /></span>Manufactured Home Community</li>
+            <li><span><img src="~/Static/highnet/google-map/location-images/pink.png" alt="pink" /></span>Self Storage</li>
+            <li><span><img src="~/Static/highnet/google-map/location-images/white.png" alt="white" /></span>Hotel</li>
+        </ul>
+            </div>
+    </div>
+    <div class="spacer"></div>
+</div>

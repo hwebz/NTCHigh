@@ -1,0 +1,47 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighConcreteAccessories.Pages
+@using ImageVault.EPiServer
+@model PageViewModel<HomePage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+
+<div class="section-product">
+    <div class="container">
+        <div class="article">
+            <div class="row">
+              @*  <div class="col-md-3 col-sm-4">
+                    <div class="small-accessories">
+                         @Html.PropertyFor(x => x.CurrentPage.OrderProductImage, new { PropertySettings = new PropertyMediaSettings { Width=172, Height = 87 } })
+                    </div>
+                </div>*@
+                <div class="col-md-12">
+                    <h4 class="red">@Html.PropertyFor(x=> x.CurrentPage.OrderProductHeading)</h4>
+                    <p class="para">
+                       @Html.PropertyFor(x=> x.CurrentPage.OrderProductText)
+                    </p>
+                    <a href="@Url.ContentUrl(Model.CurrentPage.OrderProductLink)" @Html.EditAttributes(x=> x.CurrentPage.OrderProductLink)>READ MORE</a>
+                </div>
+            </div>
+        </div>
+        <div class="our-products">
+            @*<h4 class="main-title">Our Products</h4>*@
+            @Html.PropertyFor(x => x.CurrentPage.OrderProductFreeText)
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<div class="description">
+    <div class="pdt-acc-bg">
+        @Html.PropertyFor(x => x.CurrentPage.ContentImage, new { PropertySettings = new PropertyMediaSettings { Width=285, Height = 208 }, CssClass = "img-responsive" })
+    </div>
+    <div class="pdt-desc">
+        @Html.PropertyFor(x => x.CurrentPage.AboutText)
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+

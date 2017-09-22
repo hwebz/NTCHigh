@@ -1,0 +1,53 @@
+﻿$pre: 'residential-main-photo-gallery';
+
+.#{$pre} {
+    margin-bottom: -8px;
+    background: $color-white;
+    margin-left: -6px;
+
+    .container {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+
+        .row {
+            text-align: center;
+            @extend %row-centered;
+            margin: 0;
+
+            > div {
+                padding: 0;
+                @extend %col-centered;
+
+                &:nth-child(n + 3) {
+                    margin-top: -6px;
+                }
+
+                .#{$pre}__item {
+                    height: 370px;
+                    width: 100%;
+                    background-color: $color-white;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    background-size: cover;
+
+                    @include respond-to-max($largerSize) {
+                        height: 300px;
+                    }
+
+                    @include respond-to-max($desktopSize) {
+                        height: 250px;
+                    }
+
+                    @include respond-to-max($tabletSize) {
+                        height: 350px;
+                    }
+
+                    @include respond-to-max($phonePortrait) {
+                        height: 250px;
+                    }
+                }
+            }
+        }
+    }
+}

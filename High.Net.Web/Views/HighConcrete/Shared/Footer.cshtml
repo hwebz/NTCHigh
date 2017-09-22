@@ -1,0 +1,72 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighConcrete.Pages
+@using EPiServer.Web
+@using ImageVault.EPiServer
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+
+<div class="module contact-details">
+    <div class="container">
+        <div class="footer-content">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <ul class="footer-contact-us">
+                        <li>
+                            <span class="icon address-icon"></span>
+                            <strong><span class="icon-header">Address : </span></strong>
+                            <br>
+                            <span class="icon-txt">@Html.PropertyFor(x => homePage.Address)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <ul class="footer-contact-us">
+                        <li>
+                            <span class="icon mobile-icon"></span>
+                            <strong><span class="icon-header">Phone number : </span></strong>
+                            <br>
+                            <span class="icon-txt">Toll-free: @Html.PropertyFor(x => homePage.Contact)<br />
+                                Fax: @Html.PropertyFor(x => homePage.Fax)
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <ul class="footer-contact-us">
+                        <li>
+                            <span class="icon email-icon"></span>
+                            <strong><span class="icon-header">Email : </span></strong>
+                            <br>
+                            <span class="icon-txt"><a href="mailto:@homePage.Email " @Html.EditAttributes(x => homePage.Email)>@homePage.Email</a></span>
+                        </li>
+                        <li class="social-link">
+                            <a href="@Url.ContentUrl(homePage.FacebookLink)" @Html.EditAttributes(x => homePage.FacebookLink)>
+                                <img alt="facebook" src="~/Static/HighConcrete/images/icon/fb.png" />
+                            </a>
+                            <a href="@Url.ContentUrl(homePage.TwitterLink)" @Html.EditAttributes(x => homePage.TwitterLink)>
+                                <img alt="twitter" src="~/Static/HighConcrete/images/icon/twitter.png" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <p class="text-center footer-nav">
+            @if (homePage.FooterLinks != null)
+            {
+                foreach (var item in homePage.FooterLinks)
+                {
+                <span><a target="@item.Target" href="@Url.ContentUrl(item.Href)">@item.Text</a></span><span>|</span>
+                }
+            }
+       </p>
+         <p class="text-center">
+             <span>@Html.PropertyFor(x => homePage.CopyRightText) </span></p>
+    </div>
+</div>
+

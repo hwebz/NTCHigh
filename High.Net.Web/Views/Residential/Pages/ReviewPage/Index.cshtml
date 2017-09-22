@@ -1,0 +1,20 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Residential.Pages
+
+@model PageViewModel<ReviewPage>
+
+@section PageBannerSection
+{
+    @Html.Partial("~/Views/Residential/Shared/Banner.cshtml", Model)
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="reviwes">
+            <strong>@Html.PropertyFor(x => x.CurrentPage.Heading)</strong>
+            <p class="review-content">@Html.PropertyFor(x => x.CurrentPage.Description)</p>
+            <p>@Model.CurrentPage.Created.ToString("d MMMM yyyy")</p>
+        </div>
+    </div>
+</div>

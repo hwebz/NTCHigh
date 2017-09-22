@@ -1,0 +1,61 @@
+﻿@using EPiServer.Editor
+@model High.Net.Models.HighNet.Blocks.FeaturePositionItemBlock
+@helper RenderSharingButton() {}
+@{
+    var domain = HttpContext.Current.Request.Url.Host;
+}
+
+<div class="comp-name">
+    <p>
+        @Html.PropertyFor(x => x.JobLocation, new { tag = "LineBreaked" })
+    </p>
+</div>
+<div class="com-spec">
+    <h2>@Html.PropertyFor(x => x.Title)</h2>
+    <p>
+        @Html.PropertyFor(x => x.Body)
+    </p>
+</div>
+
+<div class="reapp-btn text-center">
+    <a href="@Url.ContentUrl(Model.ApplyNowLink)" class="re-apply">Apply Now</a>
+    @if (Model.EnableSharing)
+    {
+        <div class="si">
+            <a href="javascript:void(0)" class="re-share"></a>
+            <div class="si-img">
+                <a class="addthis_button_linkedin"
+                    addthis:url="@domain@Url.ContentUrl(Model.ApplyNowLink)"
+                    addthis:title="@Model.Title"
+                    addthis:media=""
+                    addthis:description="@Model.Body">
+                    <i class="fa lin fa-linkedin" aria-hidden="true"></i>
+                </a>
+                <a class="addthis_button_facebook"
+                    addthis:url="@domain@Url.ContentUrl(Model.ApplyNowLink)"
+                    addthis:title="@Model.Title"
+                    addthis:description="@Model.Body">
+                    <i class="fa fb fa-facebook" aria-hidden="true"></i>
+                </a>
+                <a class="addthis_button_twitter"
+                    addthis:url="@domain@Url.ContentUrl(Model.ApplyNowLink)"
+                    addthis:title="@Model.Title"
+                    addthis:description="@Model.Body">
+                    <i class="fa tw fa-twitter" aria-hidden="true"></i>
+                </a>
+                <a class="addthis_button_email"
+                    addthis:url="@domain@Url.ContentUrl(Model.ApplyNowLink)"
+                    addthis:title="@Model.Title"
+                    addthis:description="@Model.Body">
+                    <i class="fa eml fa-envelope" aria-hidden="true"></i>
+                </a>
+                <a class="addthis_button_compact"
+                    addthis:url="@domain@Url.ContentUrl(Model.ApplyNowLink)"
+                    addthis:title="@Model.Title"
+                    addthis:description="@Model.Body">
+                    <i class="fa eml fa-plus" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    }
+</div>

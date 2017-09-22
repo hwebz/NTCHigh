@@ -1,0 +1,39 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighNet.Blocks
+@using ImageVault.EPiServer
+
+@model ImageTextBlock
+
+<div class="row">
+<div class="col-md-4 col-sm-4">
+    <div class="business-image">
+        @Html.PropertyFor(x => Model.Image, new { PropertySettings = new PropertyMediaSettings { Width=360, Height=360  } , CssClass="img-responsive gal-img" }) 
+        <div class="hover-link">
+          @*  <a href="#"><span class="glyphicon glyphicon-search"></span></a>
+            <a href="#"><span class="glyphicon glyphicon-link"></span></a>*@
+        </div>
+    </div>
+</div>
+<div class="col-md-8 col-sm-8">
+    <div class="business-conent">
+        <h2>@Html.PropertyFor(x=> x.Heading)</h2>
+        @if(!String.IsNullOrEmpty(Model.Text))
+        {
+        <p>
+           @Html.PropertyFor(x=> x.Text)
+        </p>
+        }
+        else
+        {
+             @Html.PropertyFor(x=> x.HtmlText)
+        }
+        @if(Model.SiteLink != null)
+        {
+             <a href="@Url.ContentUrl(Model.SiteLink)" @Html.EditAttributes(x=> x.SiteLink)>read more...</a>
+        }
+    </div>
+</div>
+</div>
+ <div class="spacer"></div>

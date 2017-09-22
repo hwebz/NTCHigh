@@ -1,0 +1,205 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcrete.ViewModels
+
+@model OnlineCoursesFormModel
+
+@section SiteHeader{
+     @Styles.Render("~/bundles/bootstrap-datetimepicker-css")
+@*    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />*@
+    <style>
+        .field-validation-error {
+            color: red !important;
+        }
+    </style>
+}
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            @if(!Model._OnlineCoursesForm.Ismailsendsuccessfully)
+            {
+                <div class="col-md-8 col-sm-8">
+                <div class="section  get-quote">
+                   <p><strong>To Register for :</strong> Please fill in the form below and then click the red Submit button at the bottom of the form.</p>
+                    <p>*indicates required field </p>
+                    @using (Html.BeginForm(null, null, FormMethod.Post,
+                        new { @Class = "form-horizontal" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group quote">
+                            <label for="email" class="control-label col-sm-3">*First Name:</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(x => x._OnlineCoursesForm.FirstName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x._OnlineCoursesForm.FirstName)
+                            </div>
+                            <label for="email" class="control-label col-sm-2">Middle Initial: </label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(x => x._OnlineCoursesForm.MiddleName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group quote">
+                            <label for="email" class="control-label col-sm-3">*Last Name:</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(x => x._OnlineCoursesForm.LastName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x._OnlineCoursesForm.LastName)
+                            </div>
+                        </div>
+
+                        <div class="form-group quote">
+                            <label for="email" class="control-label col-sm-3">*E-mail Address:</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(x => x._OnlineCoursesForm.EmailAddress, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x._OnlineCoursesForm.EmailAddress)
+                            </div>
+                        </div>
+
+                        <div class="form-group quote">
+                            <label for="email" class="control-label col-sm-3">*Confirm E-Mail Address:</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(x => x._OnlineCoursesForm.ConfirmEmailAddress, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x._OnlineCoursesForm.ConfirmEmailAddress)
+                            </div>
+                        </div>
+
+                        <div class="form-group quote">
+                            <label for="email" class="control-label col-sm-3">Company:</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(x => x._OnlineCoursesForm.Company, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group quote">
+                            <label for="email" class="control-label col-sm-3">*Address Line 1:</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(x => x._OnlineCoursesForm.AddressLane1, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x._OnlineCoursesForm.AddressLane1)
+                            </div>
+                        </div>
+
+                        <div class="form-group quote">
+                            <label for="email" class="control-label col-sm-3">Address Line 2:</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(x => x._OnlineCoursesForm.AddressLane2, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group quote">
+                            <label for="email" class="control-label col-sm-3">*City:</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(x => x._OnlineCoursesForm.City, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x._OnlineCoursesForm.City)
+                            </div>
+                        </div>
+
+                        <div class="form-group quote">
+                            <label for="" class="control-label col-sm-3">*State/Province/Territory: </label>
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(x => x._OnlineCoursesForm.State, Model._OnlineCoursesForm.States, "Select", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x._OnlineCoursesForm.State)
+                            </div>
+                        </div>
+                        
+                        <div class="form-group quote">
+                            <label for="" class="control-label col-sm-3"> *Zip/Postal Code:</label>
+                            <div class="col-sm-3">
+                                @Html.TextBoxFor(x => x._OnlineCoursesForm.ZipCode, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x._OnlineCoursesForm.ZipCode)
+                            </div>
+                            <label for="" class="control-label col-sm-1"> +4:</label>
+                            <div class="col-sm-3">
+                                @Html.TextBoxFor(x => x._OnlineCoursesForm.PlusFour, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group quote">
+                            <label for="" class="control-label col-sm-3">Primary Telephone: </label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(x => x._OnlineCoursesForm.Telephone, new { @class = "form-control" })
+                            </div>
+                            <label for="" class="control-label col-sm-3"> (e.g. xxx-xxx-xxxx)</label>
+                        </div>
+                        
+                        <div class="form-group quote">
+                            <label for="" class="control-label col-sm-3">Fax: </label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(x => x._OnlineCoursesForm.Fax, new { @class = "form-control" })
+                            </div>
+                            <label for="" class="control-label col-sm-3"> (e.g. xxx-xxx-xxxx)</label>
+                        </div>
+
+                        <div class="form-group quote">
+                            <label for="" class="control-label col-sm-3"> *Which best describes you?</label>
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(x => x._OnlineCoursesForm.WhichBestDescribesYou, Model._OnlineCoursesForm.WhichBestDescribesYouItems, "Select", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x._OnlineCoursesForm.WhichBestDescribesYou)
+                            </div>
+                        </div>
+                        
+                        <div class="form-group quote">
+                            <label for="" class="control-label col-sm-3">AIA Number : </label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(x => x._OnlineCoursesForm.AIANumber, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        
+                         <div class="form-group quote">
+                            <label for="" class="control-label col-sm-3">Will you need a certificate of completion? : </label>
+                            <div class="col-sm-5">
+                                @Html.CheckBoxFor(x => x._OnlineCoursesForm.CertificateOfCompletionRequired)
+                            </div>
+                        </div>
+                        
+                        <div class="form-group quote">
+                            <label for="" class="control-label col-sm-3">How did you hear about this program? : </label>
+                            <div class="col-sm-5">
+                                @Html.TextAreaFor(x => x._OnlineCoursesForm.ProgramInformation, new { rows="5", @class = "form-control" })
+                            </div>
+                        </div>
+                       
+                        
+                        <div class="submit-clear">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3">
+
+                                </div>
+                                <div class="col-md-9 col-sm-9">
+                                    <button type="reset" class="btn clear-form" >CLEAR FORM</button>
+                                    <button type="submit" class="btn clear-form">SUBMIT</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+                <div class="spacer"></div>
+            </div>
+            }
+            else
+            {
+             <div class="col-md-8 col-sm-8">
+                 @Model.CurrentPage.ThankYouMessage
+             </div>   
+            }
+        </div>
+    </div>
+</div>
+
+@section SiteFooter
+{
+     @Scripts.Render("~/bundles/moment")
+     @Scripts.Render("~/bundles/bootstrap-datetimepicker-js")
+     @*<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
+     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>*@
+     <script type="text/javascript">
+         $(function () {
+             $('.datepicker').datetimepicker({
+                 viewMode: 'years',
+                 format: 'MM/DD/YYYY'
+             });
+         });
+    </script>
+}
+

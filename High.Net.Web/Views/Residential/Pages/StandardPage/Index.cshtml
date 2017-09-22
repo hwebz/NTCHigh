@@ -1,0 +1,98 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Residential.Pages
+@using EPiServer.Core
+@using High.Net.Models.Residential.Blocks
+@model PageViewModel<StandardPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+@section PageBannerSection
+{
+    @Html.Partial("~/Views/Residential/Shared/Banner.cshtml", Model)
+}
+
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+    @if (Model.CurrentPage.ShowQuickNavigation)
+    {
+        <div class="neighbor-menu">
+            @if (Model.CurrentPage.ContentArea.Items.Any())
+            {
+                foreach (var item in Model.CurrentPage.ContentArea.Items)
+                {
+                    var currentitem = contentLoader.Get<BlockData>(item.ContentLink) as IContent;
+                <a class="AccLink" data-targetid="#@(currentitem.GetHashCode())" href="javascript:void(0)">
+                    @currentitem.Name
+                </a>
+                }
+            }
+        </div>
+    }
+    @Html.PropertyFor(x => x.CurrentPage.TopContentArea, new {CssClass="row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+    @Html.PropertyFor(x => x.CurrentPage.ContentArea, new {CssClass="row", ChildrenCssClass = "panel panel-default", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+</div>
+@section SiteFooter{
+    <!-- back to top script start-->
+    <script>
+        $(function () {
+            $(document).on('scroll', function () {
+                if ($(window).scrollTop() > 100) {
+                    $('.btn.btn-top ').addClass('show');
+                } else {
+                    $('.btn.btn-top ').removeClass('show');
+                }
+            });
+
+            $('#accordion .collapse').on('show.bs.collapse', function (e) {
+                var actives = $('#accordion').find('.in, .collapsing');
+                actives.each(function (index, element) {
+                    $(element).collapse('hide');
+                })
+            })
+        });
+    </script>
+    <script>
+        $(function () {
+
+            $(document).on('scroll', function () {
+
+                if ($(window).scrollTop() > 100) {
+                    $('.btn.btn-top ').addClass('show');
+                } else {
+                    $('.btn.btn-top ').removeClass('show');
+                }
+            });
+
+            $('.btn.btn-top ').on('click', scrollToTop);
+        });
+
+        function scrollToTop() {
+            verticalOffset = typeof (verticalOffset) != 'undefined' ? verticalOffset : 0;
+            element = $('body');
+            offset = element.offset();
+            offsetTop = offset.top;
+            $('html, body').animate({ scrollTop: offsetTop }, 500, 'linear');
+        }
+
+    </script>
+    <script>
+        $(function () {
+            $('.AccLink').each(function (i) {
+                $(this).click(function () {
+                    Navigate(i, $(this).data('targetid'));
+                });
+            });
+
+            function Navigate(dest, target) {
+                $(".panel-collapse").collapse('hide');
+                $(target).collapse('show');
+                setTimeout(function () {
+                    $('html, body').animate({ scrollTop: $(target).offset().top - 60 }, 500, 'linear');
+                }, 310);
+            }
+        });
+    </script>
+    <!-- back to top script end-->
+}

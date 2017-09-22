@@ -1,0 +1,44 @@
+﻿@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@model CSSLayeredImageContentBlock
+@{
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+    var backgroundImage = client.Load<ImageVault.Common.Data.WebMedia>(Model.BackGroundImage != null ? Model.BackGroundImage.Id : 0).ToList();
+}
+<style>
+    .rblock-main-content ul {
+        list-style: none;
+        padding: 0 0 0 10px;
+        margin: 0 0 10px 0;
+    }
+
+    .rblock-main-content li {
+        padding-left: 1em;
+        padding-right: 37px;
+        text-indent: -1em;
+    }
+
+    .c_@Html.GetHashCode() .rblock-main-content li::before {
+        color: @Model.BulletColor;
+        content: "• ";
+        font-size: 22px;
+        position: relative;
+        top: 3px;
+    }
+</style>
+<div class="rhome-block c_@Html.GetHashCode()" style="color: @Model.FontColor; background-image: url('@(backgroundImage.Any() ? backgroundImage.First().Url : "")');">
+    <div class="overr" style="background-color: @Model.BackGroundColor; opacity: 0.75;"></div>
+    <img class="img-responsive" src="~/Static/highnet/reusable-components/img/blank.jpg" style="visibility: hidden" ;>
+    <div class="rFull-block-content" >
+        <div class="rblock-head" style="font-size: 15px">
+            @if (Model.Hyperlink != null)
+            {
+                <a href="@Url.ContentUrl(Model.Hyperlink)" block-arrow="" style="color: @Model.FontColor; text-decoration: none;">→</a>
+            }
+            <p>@Html.PropertyFor(x => x.Title)</p>
+        </div>
+        <div class="rblock-main-content">
+            @Html.PropertyFor(x => x.Body)
+        </div>
+    </div>
+</div>

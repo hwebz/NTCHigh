@@ -1,0 +1,18 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Humanity.Blocks
+@model TextBlock
+
+<div class="article-top"></div>
+<div class="article-middle home">
+    <h4 class="heading">
+        <a class="title" href="@Url.ContentUrl(Model.ReadMore)" target="_blank">@Html.PropertyFor(m => m.Title)</a>
+    </h4>
+    @Html.PropertyFor(m => m.Text)
+   
+     @if (Model.ReadMore != null)
+    {
+        <p class="pull-right"><a class="read-more" href="@Url.ContentUrl(Model.ReadMore)">READ MORE</a></p>
+    }
+</div>
+<div class="article-bottom"></div>

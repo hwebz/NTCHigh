@@ -1,0 +1,150 @@
+﻿// ------------------------------------------------------------------------- //
+// #GLOBALS
+//
+// Global settings and spacing units.
+// ------------------------------------------------------------------------- //
+// Base settings (in pixels)
+$base-font-size-tablet: 14px;
+$base-font-size: 20px;
+$base-line-height: 32px;
+$base-line-height-tablet: 24px;
+
+// Block spacing
+$block-spacing: 70px 0;
+$block-spacing-tablet: 35px 0;
+
+// Home page
+$nav-li-font-size: 16px;
+$nav-li-font-size-tablet: 18px;
+$nav-sub-li-font-size: $nav-li-font-size;
+$nav-sub-li-font-size-tablet: 14px;
+$two-columns-header-font-size: 46px;
+$two-columns-header-font-size-tablet: 24px;
+$map-header-title-font-size: 36px;
+$map-header-title-font-size-tablet: 28px;
+$testimonial-slider-quote-font-size: 40px;
+$testimonial-slider-quote-font-size-tablet: 24px;
+$testimonial-slider-quote-line-height: 52px;
+$testimonial-slider-quote-line-height-tablet: 32px;
+$bulleted-list-title-font-size: 24px;
+$bulleted-list-title-font-size-tablet: 18px;
+
+body {
+    @include set-font('%opensans-regular', $base-font-size);
+    line-height: $base-line-height;
+    -webkit-overflow-scrolling: touch;
+    background-color: $color-white;
+    color: $color-black;
+
+    @include respond-to-max($tabletSize) {
+        font-size: $base-font-size-tablet;
+    }
+}
+
+// Custom .container
+.container {
+    max-width: 1200px !important;
+    width: auto;
+    margin: 0 auto;
+
+    @include respond-to-max($largerSize) {
+        margin: 0 45px;
+    }
+
+    @include respond-to-max($desktopSize) {
+        margin: 0 30px;
+    }
+
+    @include respond-to-max($tabletSize) {
+        margin: 0;
+    }
+}
+
+%big-title {
+    @include set-font('%droidserif-bold', $two-columns-header-font-size);
+    margin-bottom: 30px;
+
+    @include respond-to-max($tabletSize) {
+        font-size: $two-columns-header-font-size-tablet;
+    }
+}
+
+%medium-title {
+    @include set-font('%droidserif-bold', $map-header-title-font-size);
+    margin-bottom: 30px;
+
+    @include respond-to-max($tabletSize) {
+        font-size: $map-header-title-font-size-tablet;
+    }
+}
+
+%small-title {
+    @include set-font('%droidserif-bold', $bulleted-list-title-font-size);
+    margin-bottom: 10px;
+
+    @include respond-to-max($tabletSize) {
+        font-size: $bulleted-list-title-font-size-tablet;
+    }
+}
+
+.leadership-btn {
+    color: $color-white;
+    @include set-font('%opensans-bold', $base-font-size);
+    background-color: $color-red;
+    width: 80%;
+    border-radius: 50px;
+    text-align: center;
+    padding: 10px;
+    display: block;
+    margin: 15px auto;
+    border: none;
+    outline: none;
+    max-width: 325px;
+
+    @include respond-to-max($tabletSize) {
+        font-size: $base-font-size-tablet;
+        padding: 5px 10px;
+    }
+
+    &:hover {
+        color: $color-white;
+        background-color: $color-dark-red;
+    }
+
+    &:visited, &:focus {
+        color: $color-white;
+    }
+
+    &.type-2 {
+        background-color: $color-dark-gray;
+
+        &:hover {
+            background-color: $color-darker-gray;
+        }
+    }
+}
+
+.leadership-btn a {
+    color: $color-white;
+
+    &:hover {
+        color: $color-white;
+        background-color: $color-dark-red;
+    }
+
+    &:visited, &:focus {
+        color: $color-white;
+    }
+
+    &.type-2 {
+        background-color: $color-dark-gray;
+
+        &:hover {
+            background-color: $color-darker-gray;
+        }
+    }
+}
+
+.overflow-hidden {
+    overflow: hidden !important;
+}

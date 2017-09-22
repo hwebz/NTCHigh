@@ -1,0 +1,24 @@
+@font-face {
+	font-family: 'arumsansbold';
+	src: url('../fonts/arumsansbold-webfont.eot') format('embedded-opentype'),
+	url('../fonts/arumsansbold-webfont.woff') format('woff'),
+	url('../fonts/arumsansbold-webfont.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'arumsansregular';
+	src: url('../fonts/arumsansregular-webfont.eot') format('embedded-opentype'),
+	url('../fonts/arumsansregular-webfont.woff') format('woff'),
+	url('../fonts/arumsansregular-webfont.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'vectipedebkregular';
+	src: url('../fonts/vectipedebk-regular-webfont.eot') format('embedded-opentype'),
+	url('../fonts/vectipedebk-regular-webfont.woff') format('woff'),
+	url('../fonts/vectipedebk-regular-webfont.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'vectipedergbold';
+	src: url('../fonts/vectipederg-bold-webfont.eot') format('embedded-opentype'),
+	url('../fonts/vectipederg-bold-webfont.woff') format('woff'),
+	url('../fonts/vectipederg-bold-webfont.ttf') format('truetype');
+}

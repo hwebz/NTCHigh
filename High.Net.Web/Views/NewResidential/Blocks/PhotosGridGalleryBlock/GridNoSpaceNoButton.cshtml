@@ -1,0 +1,30 @@
+﻿@using High.Net.Core
+@using High.Net.Core.Helpers
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Web.Business.Helpers
+@using ImageVault.EPiServer
+@model High.Net.Models.NewResidential.Blocks.PhotosGridGalleryBlock
+
+
+@{
+    var cssClassInSmallDevice = Model.NumberOfColums == 3 ? "col-sm-4" : "col-sm-6";
+    var cssClassInMediumDevice = Model.NumberOfColums == 3 ? "col-md-4" : "col-md-3";
+}
+<div class="residential-main-photo-gallery">
+    <div class="container">
+        <div class="row">
+            @if (Model.PhotoItems != null)
+            {
+                foreach (var item in Model.PhotoItems.FilteredItems)
+                {
+                    var photoGridItem = item.ContentLink.GetContent<ImageTextBlock>();
+                    <div class="col-xs-12 @cssClassInSmallDevice @cssClassInMediumDevice">
+                        <div style="@Html.MakeImageBackground(MediaHelpers.GetImageUrl(photoGridItem.Image,
+                                                              new {PropertySettings = new PropertyMediaSettings {ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill}}))"
+                             class="residential-main-photo-gallery__item"></div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

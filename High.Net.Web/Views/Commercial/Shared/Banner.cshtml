@@ -1,0 +1,50 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Business
+@using High.Net.Models.Constants
+@Html.FullRefreshPropertiesMetaData(new[] { "SiteBannerImage" })
+@model String
+@{
+    var homePage = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>().Get<High.Net.Models.Commercial.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+<!-- Carousel Start -->
+<div class="banner">
+    <div class="banner-img">
+        @Html.PropertyFor(x => homePage.SiteBannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+        <div class="main-quote">
+            <div class="container">
+                <h1>@Model</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Carousel Ends-->
+<!-- Contact Us Strip -->
+<nav class="module contact-us">
+    <div class="container">
+        <div class="row">
+            <div class="contact-us-item col-xs-12  col-md-4 col-lg-4 cf">
+                <span class="icon address-icon"></span>
+                <span class="icon-txt">@Html.PropertyFor(x => homePage.Address)</span>
+            </div>
+            <div class="contact-us-item col-xs-12 col-md-2 col-lg-2 cf">
+                <span class="icon mobile-icon"></span>
+                <span class="icon-txt"><a href="tel:@homePage.ContactNumber">@Html.PropertyFor(x => homePage.ContactNumber)</a></span>
+            </div>
+            <div class="contact-us-item col-xs-12  col-md-3 col-lg-3 cf">
+                <span class="icon email-icon"></span>
+                <span class="icon-txt"><a href="mailto:@homePage.EmailId">@Html.PropertyFor(x => homePage.EmailId)</a></span>
+            </div>
+            <div class="contact-us-item col-xs-12  col-md-3 col-lg-3 cf">
+                @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl) }))
+                {
+                    <div class="search-bx">
+                        <input type="text" placeholder="Search for..." class="search-text" name="q" />
+                        <button class="search-btn glyphicon glyphicon-search"></button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Contact Us Strip ends -->

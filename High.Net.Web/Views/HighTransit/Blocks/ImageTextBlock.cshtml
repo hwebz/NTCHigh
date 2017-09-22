@@ -1,0 +1,9 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighTransit.Blocks
+@using ImageVault.EPiServer
+@model ImageTextBlock
+<div class="award-para">
+    @Html.PropertyFor(x => Model.Image, new { PropertySettings = new PropertyMediaSettings { Width = 156, Height = 200 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+    @Html.PropertyFor(m => m.Description)
+</div>

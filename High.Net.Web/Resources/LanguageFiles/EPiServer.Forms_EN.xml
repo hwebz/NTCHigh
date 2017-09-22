@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<languages>
+  <language name="English" id="en">
+
+    <!-- New language entries after Forms 2.1 should be placed here. We will send this file to translation company, and merge back to main set of files later -->
+    <episerver>
+      <forms>
+        <highnet>
+          <editview>
+            <requirejs>JavaScript is required to display reCAPTCHA.</requirejs>
+          </editview>
+        </highnet>
+        <validators>
+          <episerver.forms.implementation.validation.recaptchavalidator>
+            <displayname>reCAPTCHA</displayname>
+            <message>Please verify that you are not a robot.</message>
+          </episerver.forms.implementation.validation.recaptchavalidator>
+        </validators>
+      </forms>
+    </episerver>
+    <contenttypes>
+      <recaptchaelementblock>
+        <name>reCAPTCHA</name>
+        <description></description>
+        <newitemdefaultname>New reCAPTCHA</newitemdefaultname>
+        <properties>
+          <sitekey>
+            <caption>Site key</caption>
+            <help>Enter site key for reCAPTCHA.</help>
+          </sitekey>
+          <secretkey>
+            <caption>Secret key</caption>
+            <help>The shared key between your site and reCAPTCHA.</help>
+          </secretkey>
+        </properties>
+      </recaptchaelementblock>
+    </contenttypes>
+  </language>
+</languages>

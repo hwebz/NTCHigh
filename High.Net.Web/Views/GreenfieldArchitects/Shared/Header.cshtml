@@ -1,0 +1,29 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using ImageVault.EPiServer
+@using High.Net.Models.GreenfieldArchitects.Pages
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var homePage = contentLoader.Get<HomePage>(EPiServer.Core.PageReference.StartPage);
+}
+<!--header start-->
+<header class="header-frontend">
+    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-8">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/">
+                           @Html.PropertyFor(x => homePage.SiteLogo, new { PropertySettings = new PropertyMediaSettings { Width = 297, Height = 69 }, CssClass = "img-responsive" })
+                        </a>
+                    </div>
+                </div>
+                @Html.Partial("~/Views/GreenfieldArchitects/Shared/Navigation.cshtml", Model)
+            </div>
+        </div>
+    </div>
+</header>
+<!--header end-->

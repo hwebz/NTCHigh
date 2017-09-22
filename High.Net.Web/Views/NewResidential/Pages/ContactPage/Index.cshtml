@@ -1,0 +1,65 @@
+﻿@using High.Net.Core
+@using High.Net.Models.NewResidential.Pages
+@using ImageVault.EPiServer
+@using High.Net.Core.Helpers
+@using High.Net.Models.Validation
+
+@model PageViewModel<ContactPage>
+
+
+@{
+    var heroImgUrl = MediaHelpers.GetImageUrl(Model.CurrentPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1170 } });
+    var heroLogoWidth = Model.CurrentPage.HeroLogoWidth > 0 ? Model.CurrentPage.HeroLogoWidth : RangeRules.DefaultHeroIconWidth;
+    var heroLogoUrl = MediaHelpers.GetImageUrl(Model.CurrentPage.BannerLogoImage, new { PropertySettings = new PropertyMediaSettings { Width = heroLogoWidth } });
+}
+
+<div id="banner" style="@Html.MakeImageBackground(heroImgUrl)" class="blocks banner" @Html.EditAttributes(x => x.CurrentPage.BannerImage)>
+    <div class="banner-contents"><img src="@heroLogoUrl" style="width:@string.Format("{0}px",heroLogoWidth)"  alt="" @Html.EditAttributes(x => x.CurrentPage.BannerLogoImage) ></div>
+</div>
+
+<div class="page-contents">
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+        @Html.PropertyFor(x => x.CurrentPage.Description)
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            @Html.PropertyFor(x => x.CurrentPage.ContactForm)
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <div class="contact-form__information">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="contact-form__map">
+                            <div class="residential-location no-border">
+                                <div id="residential-location__map" data-lat="@Model.CurrentPage.Coordinates.Latitude" data-long="@Model.CurrentPage.Coordinates.Longitude" data-center="true"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyDzzAFqbA5agZEi5uy5dWGjN_k8oqiOKrc"></script>
+                    @if (Model.CurrentPage.OfficeInfomation != null && Model.CurrentPage.OfficeInfomation.Any())
+                    {
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="contact-form__offices">
+                                @foreach (var item in Model.CurrentPage.OfficeInfomation)
+                                {
+                                    <div class="office">
+                                        <h3>@Html.PropertyFor(x => item.Title)</h3>
+                                        @Html.PropertyFor(x=>item.Content)
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section SiteFooter
+{
+    <script src="https://www.google.com/recaptcha/api.js?onload=initRecaptchaElements&render=explicit&hl={0}" async defer></script>
+}

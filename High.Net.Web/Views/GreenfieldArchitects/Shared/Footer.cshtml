@@ -1,0 +1,137 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Models.GreenfieldArchitects.Pages
+@using High.Net.Models.Shared.ViewModels
+@using ImageVault.EPiServer
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var ContactUsForm = ServiceLocator.Current.GetInstance<ContactUsForm>();
+    var homePage = contentLoader.Get<HomePage>(EPiServer.Core.PageReference.StartPage);
+}
+@Html.FullRefreshPropertiesMetaData(new[] { "LinkedInLink" , "Address" })
+<div class="container">
+    <div class="row mid-box-1">
+        <div class="col-lg-12"><h2 class="r-work" style="text-align:center;">Contact Us</h2></div>
+        <div class="col-lg-6 ">
+            <div class="col-lg-12 col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg-1 col-xs-3"><a href="#"><img src="~/Static/greenfield-architects/img/address-icon.jpg" alt="" /></a></div>
+                <div class="col-lg-11 col-xs-9 padd1">
+                    <address>
+                        <a href="#">
+                            <div class="padd no-padding" style="margin:0 !important;" @Html.EditAttributes(x=> homePage.Address)>
+                                Address:   @(new HtmlString(homePage.Address))
+                            </div>
+                        </a>
+                    </address>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg-1 col-xs-3"><a href="#"><img src="~/Static/greenfield-architects/img/phone-icon.jpg" alt="" /></a></div>
+                <div class="col-lg-11 col-xs-9 padd1">
+                    <address>
+                        <div class="padd"><a href="tel:@homePage.ContactNo">Phone: @Html.PropertyFor(x => homePage.ContactNo)</a><br /><br /></div>
+                    </address>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg-1 col-xs-3"><a href="#"><img src="~/Static/greenfield-architects/img/mail.png" alt="" /></a></div>
+                <div class="col-lg-11 col-xs-9 padd1">
+                    <address>
+                        <div class="padd"><a href="mailto:@homePage.EmailID">Email: @Html.PropertyFor(x => homePage.EmailID)</a><br /><br /></div>
+                    </address>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg-1 col-xs-3">
+                    <a target="_blank" href="@Url.ContentUrl(homePage.LinkedInLink)" @Html.EditAttributes(x => homePage.LinkedInLink)>
+                        <img src="~/Static/greenfield-architects/img/linkedin.png" alt="" />
+                    </a><br /><br />
+                </div>
+                 <div class="col-lg-11 col-xs-9 padd1">
+                        <address>
+                            <div class="padd linkdin-text">
+                                <a href="@Url.ContentUrl(homePage.LinkedInLink)">Join our LinkedIn network</a><br>
+                                <br>
+                            </div>
+                        </address>
+                    </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel-body">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "contact-form", action = Url.ContentUrl(homePage.ContactUsPageLink) }))
+                {
+                    <input type="hidden" name="ContactUsForm.currentPage" value="@Model.CurrentPage.ContentLink" />
+                    @Html.HiddenFor(x => ContactUsForm.Solve360SelectedCategory, new { Value = homePage.Solve360CategoryTag })
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.TextBoxFor(x => ContactUsForm.Name, new { placeholder = "Name", @class = "form-control" })
+                            @Html.ValidationMessageFor(x=> ContactUsForm.Name)
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.TextBoxFor(x => ContactUsForm.Email, new { placeholder = "Email", @class = "form-control" })
+                            @Html.ValidationMessageFor(x=> ContactUsForm.Email)
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="form-group">
+                            @Html.TextBoxFor(x => ContactUsForm.PhoneNo, new { placeholder = "Phone", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            @Html.TextAreaFor(x => ContactUsForm.Message, new { placeholder = "Message", rows = 5, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <button class="btn btn-danger" style="width:100%; border-radius: 0px;" type="submit">Submit</button>
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="footer-image">
+                        <a href="@Url.ContentUrl(homePage.InstitureofArchitects.PageUrl)">
+                            @Html.PropertyFor(x => homePage.InstitureofArchitects.Media, new { PropertySettings = new PropertyMediaSettings { Width = 210, Height = 50 } })
+                        </a>
+                        <a href="@Url.ContentUrl(homePage.USGBC.PageUrl)">
+                            @Html.PropertyFor(x => homePage.USGBC.Media, new { PropertySettings = new PropertyMediaSettings { Width = 79, Height = 79 } })
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+      
+    <div class="row">
+                <div class="col-lg-12 col-sm-12 text-center">
+                    <div class="footer-nav">
+                        <a href="@Url.ContentUrl(homePage.ContentLink)">Home</a>
+                       @Html.MenuList(EPiServer.Core.PageReference.StartPage,
+                       @<a href="@Url.ContentUrl(item.Page.ContentLink)">@item.Page.Name</a>)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 text-center  footer-nav-2">
+                      @Html.PropertyFor(x=> homePage.CopyrightText)
+                      @if (homePage.FooterLinks != null)
+                      {
+                         foreach (var item in homePage.FooterLinks)
+                          {
+                             @Html.ContentLink(item) <span>|</span> 
+                          } 
+                      }   
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>

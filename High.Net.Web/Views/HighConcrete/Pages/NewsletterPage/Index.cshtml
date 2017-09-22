@@ -1,0 +1,65 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcrete.Pages
+@using High.Net.Core
+
+@model High.Net.Models.HighConcrete.ViewModels.NewsletterModel
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+@section siteHeader{
+    <style>
+        .custom-form .validation-summary-errors li {
+            color: red;
+            list-style: inside none disc;
+        }
+
+        .validation-summary-errors > ul {
+            margin: 0 0 15px;
+        }
+    </style>
+}
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="section representative">
+                    @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", ChildrenCssClass = "passage", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+                    <div class="spacer"></div>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-10">
+                            <form action="http://app.myemailfx.com/t/y/s/pyuhju/" method="post" id="subForm" class="custom-form" onsubmit="return validateForm()">
+                                <div class="form-group">
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control" name="cm-name" id="name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email:</label>
+                                    <div class="reqired-input cf">
+                                        <input type="text" class="form-control" name="cm-pyuhju-pyuhju" value="@(Model.NewsLetterForm.Email != null ? Model.NewsLetterForm.Email : null)" id="pyuhju-pyuhju"><span class="req"> *</span>
+                                    </div>
+                                    <div id="lblvalidation" style="color:red;">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Job Title:</label>
+                                    <input type="text" class="form-control" name="cm-f-uuljuh" id="JobTitle">
+                                </div>
+                                <div class="form-group">
+                                    <label>State/Province:</label>
+                                    <input type="text" name="cm-f-uultlr" id="State/Province" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Zip/Postal Code:</label>
+                                    <input type="text" name="cm-f-uultly" class="form-control" id="Zip/PostalCode">
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Subscribe" class="btn btn-default">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

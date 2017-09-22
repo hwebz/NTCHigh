@@ -1,0 +1,41 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcrete.Pages
+@using High.Net.Core
+
+@model PageViewModel<EventItemPage>
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                <div class="section about">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <p><strong>@Model.CurrentPage.EventTitle</strong></p>
+                            <p>
+                                <span>@Model.CurrentPage.StartDate.ToString("MMM dd, yyyy hh:mm tt") - @Model.CurrentPage.EndDate.ToString("MMM dd, yyyy hh:mm tt")</span> <br />
+                                <span>@Model.CurrentPage.Location</span>
+                            </p>
+                            @Model.CurrentPage.FullDescription
+                            <p>
+                                <span>@Html.PropertyFor(x => x.CurrentPage.ContactName)</span> <br />
+                                <span>@Html.PropertyFor(x => x.CurrentPage.ContactPhoneNumber)</span> <br />
+                                <span>@Html.PropertyFor(x => x.CurrentPage.ContactEmail)</span>
+                            </p>
+                            @if (Model.CurrentPage.WebSite != null)
+                            {
+                                <a class="orange-link" href="@Url.ContentUrl(Model.CurrentPage.WebSite)">Go</a>
+                            }
+                        </div>
+                        <div class="col-md-3">
+                            @Html.PropertyFor(x => x.CurrentPage.Photo, new { CssClass = "img-responsive" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

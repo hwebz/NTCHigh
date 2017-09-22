@@ -1,0 +1,92 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Industries.Pages
+@model IPageViewModel<BasePageData>
+@{
+    var ContentLocator = ServiceLocator.Current.GetInstance<ContentLocator>();
+    var contentLoader =ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>().Get<HomePage>(PageReference.StartPage);
+    bool IsBannerRendered = false;
+    
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    var parents = dataLocator.GetAncestors(Model.CurrentPage.ContentLink);
+  
+}
+
+<div class="center-white">
+    <div class="banner">
+        @if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.NewsListingPage))
+        {
+            var currentPage = contentLoader.Get<High.Net.Models.Shared.Pages.NewsListingPage>(Model.CurrentPage.ContentLink);
+            if(currentPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => currentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+                IsBannerRendered = true;
+            }
+        }
+        else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.NewsItemPage))
+        {
+            var currentPage = contentLoader.Get<High.Net.Models.Shared.Pages.NewsItemPage>(Model.CurrentPage.ContentLink);
+            if(currentPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => currentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+                IsBannerRendered = true;
+            } 
+        }
+        else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.ContactUsPage))
+        {
+            var currentPage = contentLoader.Get<High.Net.Models.Shared.Pages.ContactUsPage>(Model.CurrentPage.ContentLink);
+            if(currentPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => currentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+                IsBannerRendered = true;
+            }
+        }
+        else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.LocationPage))
+        {
+            var currentPage = contentLoader.Get<High.Net.Models.Shared.Pages.LocationPage>(Model.CurrentPage.ContentLink);
+            if (currentPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => currentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+                IsBannerRendered = true;
+            }
+        }
+        else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.SearchPage))
+        {
+            var currentPage = contentLoader.Get<High.Net.Models.Shared.Pages.SearchPage>(Model.CurrentPage.ContentLink);
+            if (currentPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => currentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+                IsBannerRendered = true;
+            }
+        }
+        else
+        {
+            var currentPage = contentLoader.Get<IndustriesPageData>(Model.CurrentPage.ContentLink);
+            if (currentPage.PageBannerImage != null)
+            {
+               @Html.PropertyFor(x => currentPage.PageBannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" }) 
+                IsBannerRendered = true;
+             }  
+        }
+        @if (!IsBannerRendered)
+        {
+              @Html.PropertyFor(x => homePage.PageBannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" }) 
+        }
+        <h1 class="banner-title">@Model.CurrentPage.Name.ToUpper()</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="sec-menu-link">
+                <a href="@Url.ContentUrl(parents.First().ContentLink)">Home</a><span> > </span>
+                @foreach (var item in parents.Skip(1))
+                {
+                    <a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a><span> > </span>
+                }
+                <a href="@Url.ContentUrl(Model.CurrentPage.ContentLink)">@Model.CurrentPage.Name</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

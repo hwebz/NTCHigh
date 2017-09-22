@@ -1,0 +1,37 @@
+﻿@using EPiServer.Core
+@using High.Net.Models.HighTransit.Pages
+@using EPiServer.Web
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@model PageViewModel<VideoListingPage>
+@{
+    var dataLocator = ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    var repository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var videoItemPages = repository.GetChildren<VideoItemPage>(Model.CurrentPage.ContentLink);
+}
+@Html.Partial("~/Views/HighTransit/Shared/Navigation.cshtml", Model)
+@Html.Partial("~/Views/HighTransit/Shared/Banner.cshtml")
+<div class="spacer"></div>
+<div class="container">
+    <div class="video-info">
+        <div class="row">
+            @if (videoItemPages != null)
+            {
+                foreach (var item in videoItemPages)
+                {
+                <div class="col-md-4 col-sm-4">
+                    <div class="video-left">
+                        <img src="@Url.ContentUrl(dataLocator.GetYouTubeThumbnail(item.VideoLink))" />
+                    </div>
+                    <div class="video-content">
+                        <h5>@Html.PropertyFor(m => item.Name)</h5>
+                        @Html.PropertyFor(m => item.VideoIntro)<p>
+                            <a href="@Url.ContentUrl(item.ContentLink)">read more...</a>
+                        </p>
+                    </div>
+                </div>
+                }
+            }
+        </div>
+    </div>
+</div>

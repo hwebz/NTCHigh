@@ -1,0 +1,12 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighConcreteAccessories.Pages
+
+@model PageViewModel<ContentPage>
+
+<div class="about faq">
+    <div class="container">
+        @Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth, Global.ContentAreaTags.OneFifthWidth, Global.ContentAreaTags.OneTwelfthWidth } })
+    </div>
+</div>

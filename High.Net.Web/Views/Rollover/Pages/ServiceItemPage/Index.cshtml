@@ -1,0 +1,22 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Rollover.Pages
+@using EPiServer.ServiceLocation
+
+@model PageViewModel<ServiceItemPage>
+
+<div class="spacer"></div>
+<div class="main-section">
+    <div class="container">
+        <div class="welcome ">
+            <h2 class="title">@Html.PropertyFor(x => x.CurrentPage.Heading)</h2>
+            @*<hr class="blue-border" />*@
+            <div class="content service-detail">
+                @Html.PropertyFor(x => x.CurrentPage.ServiceImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 235 }})
+                @Html.PropertyFor(x => x.CurrentPage.ServiceDescription)
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

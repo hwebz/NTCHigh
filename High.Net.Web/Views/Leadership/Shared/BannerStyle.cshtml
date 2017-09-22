@@ -1,0 +1,33 @@
+﻿@using High.Net.Core.Helpers
+@using ImageVault.EPiServer
+@using High.Net.Models.HighNet.Pages
+
+@model  HighNetPageData
+
+@{
+    var tabletBannerImg = Model.ImageBannerTablet ?? Model.ImageBanner;
+    var mobileBannerImg = Model.ImageBannerMobile ?? Model.ImageBanner;
+
+    var desktopBannerUrl = MediaHelpers.GetImageUrl(Model.ImageBanner);
+    var tabletBannerUrl = MediaHelpers.GetImageUrl(tabletBannerImg);
+    var mobileBannerUrl = MediaHelpers.GetImageUrl(mobileBannerImg);
+    }
+
+<style type="text/css">
+    .leadership-header-banner {
+        background: #000 url("@desktopBannerUrl") no-repeat center right;
+        background-size: cover !important;
+    }
+    @@media only screen and (max-width: 991px) {
+         .leadership-header-banner {
+          background: #000 url("@tabletBannerUrl") no-repeat center right;
+          background-size: cover !important;
+         }
+        }
+    @@media only screen and (max-width: 639px) {
+         .leadership-header-banner {
+          background: #000 url("@mobileBannerUrl") no-repeat center center;
+          background-size: cover !important;
+         }
+        }
+</style>

@@ -1,0 +1,27 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.HighTransit.Pages
+@model PageViewModel<VideoItemPage>
+@Html.Partial("~/Views/HighTransit/Shared/Navigation.cshtml", Model)
+@Html.Partial("~/Views/HighTransit/Shared/Banner.cshtml")
+<div class="spacer"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md=12 col-sm-12">
+            <div class="video-inner-content">
+                <h2 class="blue">@Html.PropertyFor(m => m.CurrentPage.VideoIntro)</h2>
+                <div class="video-frame">
+                    <iframe width="600" height="345" src="@Url.ContentUrl(Model.CurrentPage.VideoLink)"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="video-innerpara">
+                @Html.PropertyFor(m => m.CurrentPage.VideoDescription)
+            </div>
+        </div>
+    </div>
+</div>

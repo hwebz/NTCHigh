@@ -1,0 +1,111 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcrete.Pages
+@using High.Net.Core
+
+@model High.Net.Models.HighConcrete.ViewModels.FindRepresentativeModel
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                <div class="section representative">
+                    @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", ChildrenCssClass = "passage", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+                    <div class="spacer"></div>
+                        @using (Html.BeginForm(null, null, FormMethod.Post ,
+                        new { @Class = "custom-form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.FindRepresentitiveForm.PersonDescription)
+                                        @Html.DropDownList("FindRepresentitiveForm.PersonDescription", new List<SelectListItem>()
+                                    {
+                                        new SelectListItem(){ Text= "Architect", Value = "Architect"},
+                                        new SelectListItem(){ Text= "Engineer", Value = "Engineer"},
+                                        new SelectListItem(){ Text= "Parking Consultant", Value = "Parking Consultant"},
+                                        new SelectListItem(){ Text= "General Contractor", Value = "General Contractor"},
+                                        new SelectListItem(){ Text= "Construction Manager", Value = "Construction Manager"},
+                                        new SelectListItem(){ Text= "Owner", Value = "Owner"},
+                                        new SelectListItem(){ Text= "Student", Value = "Student"},
+                                        new SelectListItem(){ Text= "Other", Value = "Other"}
+                                    }, "-- Select --", new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.FindRepresentitiveForm.ProjectName)
+                                        @Html.TextBoxFor(x => x.FindRepresentitiveForm.ProjectName, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.FindRepresentitiveForm.ProjectSize)
+                                        @Html.DropDownList("FindRepresentitiveForm.ProjectSize", new List<SelectListItem>()
+                                    {
+                                        new SelectListItem(){ Text= "Up to 99,999 Sq. Ft.", Value = "Up to 99,999 Sq. Ft."},
+                                        new SelectListItem(){ Text= "100,000 to 249,999 Sq. Ft.", Value = "100,000 to 249,999 Sq. Ft."},
+                                        new SelectListItem(){ Text= "250,000 to 499,999 Sq. Ft.", Value = "250,000 to 499,999 Sq. Ft."},
+                                        new SelectListItem(){ Text= "500,000 Sq. Ft. or more", Value = "500,000 Sq. Ft. or more"},
+                                    }, "-- Select --", new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.RadioButtonFor(x => x.FindRepresentitiveForm.RepresentativeLocation, "project")<span> Find a representative near my project</span><br />
+                                        @Html.RadioButtonFor(x => x.FindRepresentitiveForm.RepresentativeLocation, "office")<span> Find a representative near my office</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.FindRepresentitiveForm.State)
+                                        @Html.DropDownList("FindRepresentitiveForm.State", new List<SelectListItem>()
+                                    {
+                                        new SelectListItem(){ Text= "Connecticut", Value = "Connecticut"},
+                                        new SelectListItem(){ Text= "Delaware", Value = "Delaware"},
+                                        new SelectListItem(){ Text= "District of Columbia", Value = "District of Columbia"},
+                                        new SelectListItem(){ Text= "Illinois", Value = "Illinois"},
+                                        new SelectListItem(){ Text= "Kentucky", Value = "Kentucky"},
+                                        new SelectListItem(){ Text= "Maryland", Value = "Maryland"},
+                                        new SelectListItem(){ Text= "Michigan", Value = "Michigan"},
+                                        new SelectListItem(){ Text= "Missouri", Value = "Missouri"},
+                                        new SelectListItem(){ Text= "New Jersey", Value = "New Jersey"},
+                                        new SelectListItem(){ Text= "New York", Value = "New York"},
+                                        new SelectListItem(){ Text= "Ohio", Value = "Ohio"},
+                                        new SelectListItem(){ Text= "Pennsylvania", Value = "Pennsylvania"},
+                                        new SelectListItem(){ Text= "Tennessee", Value = "Tennessee"},
+                                        new SelectListItem(){ Text= "Virginia", Value = "Virginia"},
+                                        new SelectListItem(){ Text= "West Virginia", Value = "West Virginia"},
+                                    }, "-- Select --", new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.FindRepresentitiveForm.County)
+                                        @Html.DropDownList("FindRepresentitiveForm.County", new List<SelectListItem>()
+                                    {
+                                        new SelectListItem(){ Text= "All Countries", Value = "All Countries"},
+                                    }, "-- Select --", new { @Class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="submit" value="Find Rep" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

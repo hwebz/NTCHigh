@@ -1,0 +1,72 @@
+﻿/* 5 Columns */
+
+.col-xs-15,
+.col-sm-15,
+.col-md-15,
+.col-lg-15 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.col-xs-15 {
+    width: 20%;
+    float: left;
+}
+
+@media (min-width: 768px) {
+    .col-sm-15 {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-15 {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-15 {
+        width: 20%;
+        float: left;
+    }
+}
+
+$pre: 'leadership-logo-wall';
+$box-width: 150px;
+$box-width-tablet: 120px;
+$box-width-phone: 100px;
+$box-height: 90px;
+$box-height-tablet: 70px;
+$box-height-phone: 60px;
+
+.#{$pre} {
+    @include block-spacing($block-spacing, $block-spacing-tablet);
+    .#{$pre}__item {
+        width: $box-width;
+        height: $box-height;
+        margin: 50px auto;
+        text-align: center;
+        position: relative;
+
+        @include respond-to-max($desktopSize) {
+            width: $box-width-tablet;
+            height: $box-height-tablet;
+        }
+
+        @include respond-to-max($phonePortrait) {
+            width: $box-width-phone;
+            height: $box-height-phone;
+        }
+
+        img {
+            @extend %all-centered;
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+}

@@ -1,0 +1,593 @@
+﻿body {
+    background: url(/Static/humanity/images/global/background.jpg) repeat-x;
+}
+
+/*start bootstrap*/
+.container {
+    width: 1002px;
+}
+
+.section {
+    background: #F9F9F9;
+}
+
+.navbar {
+    border: 1px solid transparent;
+    margin-bottom: 30px;
+    min-height: 50px;
+    position: relative;
+}
+
+.navbar-nav {
+    float: none;
+    padding: 0 15px;
+    text-align: center;
+}
+
+.navbar-default {
+    background: transparent;
+    border: none;
+}
+
+    .navbar-default .navbar-nav > li {
+        /*box-shadow: 0 15px 15px #e9e9e9;*/
+        float: left;
+        margin: 0 0 0 12px;
+    }
+
+.nav > li > a {
+    padding: 10px 25px;
+}
+
+.navbar-default .navbar-nav > li > a {
+    border-bottom: 8px solid #cacfd7;
+    color: #751d0a;
+    font-size: 14px;
+    font-weight: normal;
+    padding-bottom: 5px;
+    text-shadow: 0 0 0;
+    text-transform: uppercase;
+}
+
+    .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+        color: #751D0A;
+    }
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background: transparent;
+    color: #751D0A;
+}
+/*end bootstrap*/
+
+/*start header*/
+.main-logo {
+    float: left;
+    margin-top: 12px;
+}
+
+.header-text {
+    color: #888787;
+    float: right;
+    font-size: 16px;
+    margin-top: 100px;
+    width: 503px;
+}
+
+.abc-logo {
+    clear: right;
+    float: right;
+    margin-top: 5px;
+}
+/*start header*/
+
+/*start menu*/
+.menu {
+    margin: 10px 0 0;
+}
+
+.navbar-default .navbar-nav > li.first {
+    margin: 0;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a.active {
+    border-bottom: 8px solid #0E294D;
+}
+/*end menu*/
+
+
+/*start article*/
+.article-top {
+    box-shadow: 0 0px 20px #E7E7E7;
+    border-top: 7px solid #B7BFCA;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.article-middle {
+    background: #ffffff none repeat scroll 0 0;
+    border-left: 1px solid #cacfd7;
+    border-right: 1px solid #cacfd7;
+    box-shadow: 10px 0 5px #e9e9e9;
+    color: #666666;
+    padding: 21px;
+}
+
+    .article-middle .heading {
+        border-bottom: 1px solid #990000;
+        padding-bottom: 5px;
+    }
+
+    .article-middle .title {
+        color: #990000;
+    }
+
+    .article-middle .heading a {
+        color: #990000;
+        text-decoration: none;
+    }
+
+        .article-middle .heading a:hover {
+            color: #990000;
+            text-decoration: none;
+        }
+
+    .article-middle p {
+        font-size: 12px;
+        line-height: 20px;
+    }
+
+        .article-middle p a.read-more {
+            color: #0E294D;
+            text-decoration: underline;
+        }
+
+a.link {
+    color: #660000;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: underline;
+}
+
+.article-bottom {
+    border-bottom: 5px solid #0E294D;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+
+.article-middle p.img-about {
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+.article-middle .right-para {
+    margin-bottom: 18px;
+}
+
+.article-middle p a.read-more:hover {
+    color: #660000;
+    text-decoration: none;
+}
+
+.toggle-button > p#post_text {
+    margin-right: 15px;
+}
+
+.contact {
+    background: #0e294d none repeat scroll 0 0;
+    color: #ffffff !important;
+}
+
+.contact-us-form .form-control {
+    padding: 0 0 0 5px;
+}
+/*end article*/
+
+/*start footer*/
+.footer-1 {
+    background: #0E294D;
+    /*border-bottom: 1px solid #ffffff;*/
+}
+
+    .footer-1 .footer-text,
+    .footer-1 .footer-text a,
+    .footer-2 .footer-text a {
+        color: #d2d2d2;
+        font-size: 10px;
+        line-height: 14px;
+        padding: 5px 0;
+    }
+
+.footer-2 {
+    background: #010101;
+    color: #999999;
+    font-size: 8px;
+}
+
+    .footer-2 .footer-text {
+        padding: 8px 0;
+    }
+
+    .footer-2 sup {
+        top: 0.1em;
+    }
+
+.footer-text a.tin {
+    color: #999999;
+    text-decoration: none;
+    padding: 0;
+}
+/*end footer*/
+
+/*start winners*/
+/*.winners {
+    margin-top: 41px;
+}*/
+
+.winners .article {
+    background: #ffffff;
+}
+
+.winners .award {
+    padding: 20px 0 0;
+}
+
+    .winners .award h3.heading {
+        clear: both;
+        margin-top: 0;
+    }
+
+        .winners .award h3.heading a.title {
+            color: #990000;
+            text-decoration: none;
+            padding-left: 30px;
+        }
+
+.toggle-button {
+    display: none;
+}
+
+.winners .received {
+    color: #666666;
+    font-size: 12px;
+    line-height: 18px;
+    margin-top: 48px;
+    padding-left: 30px;
+}
+
+    .winners .received h4 {
+        margin: 0;
+    }
+
+        .winners .received h4 a.link {
+            color: #000000;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+            .winners .received h4 a.link:hover {
+                color: #990000;
+            }
+
+.received.pagination > a:hover {
+    color: #ff4b33;
+}
+
+.entry-meta {
+    color: #888;
+    font-size: 12px;
+}
+
+    .entry-meta a {
+        color: #888;
+        text-decoration: underline;
+    }
+
+        .entry-meta a:hover {
+            color: #990000;
+        }
+
+.entry-content {
+    padding: 12px 0;
+}
+
+.character {
+    background: #f1f1f1 none repeat scroll 0 0;
+    float: left;
+    margin: 0 24px 24px 0;
+    padding: 10px;
+    text-align: center;
+}
+
+    .character p.cname {
+        color: #888;
+        font-size: 12px;
+        margin: 5px;
+    }
+
+.pagination a, .pagination a:hover {
+    color: #888;
+    text-decoration: none;
+}
+
+.description {
+    padding: 20px;
+}
+
+.site-description {
+    font-style: italic;
+    margin: 15px 0 18px;
+}
+
+.description ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+    .description ul li .widget-title {
+        color: #222;
+        font-weight: bold;
+    }
+
+    .description ul li .textwidget a {
+        color: #222;
+    }
+
+        .description ul li .textwidget a:hover {
+            color: #990000;
+        }
+
+.description .sub-ul {
+    list-style: outside none square;
+    margin-left: 20px;
+    font-size: 12px;
+}
+
+    .description .sub-ul a {
+        color: #990000;
+    }
+
+        .description .sub-ul a:hover {
+            text-decoration: underline;
+        }
+
+input[type="text"], textarea {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1) inset;
+    padding: 2px;
+}
+
+.winners-footer {
+    border-top: 4px solid #000;
+    margin-top: -4px;
+    overflow: hidden;
+    padding: 18px 0;
+}
+
+.site-name a {
+    font-weight: bold;
+    color: #000;
+    text-decoration: none;
+}
+
+.site-generator a {
+    background: rgba(0, 0, 0, 0) url("/Static/humanity/images/icons/wordpress.png") no-repeat scroll left center;
+    color: #666;
+    font-size: 12px;
+    font-style: italic;
+    padding-left: 20px;
+    position: relative;
+}
+/*end winners*/
+
+/*start partner*/
+.partner-ul {
+    list-style-type: none;
+    margin-bottom: 0;
+}
+
+    .partner-ul li {
+        float: left;
+        height: 120px;
+        width: 250px;
+    }
+
+        .partner-ul li a {
+            display: inline-block;
+        }
+/*end partner*/
+
+/*start toggle*/
+#post {
+    clear: both;
+    position: relative;
+    margin-bottom: 10px;
+    right: 0;
+    top: 0;
+}
+
+.glyphicon {
+    margin: 0 0 0 5px;
+}
+/*end toggle*/
+
+/*start about*/
+.article-middle .doted {
+    border-bottom: 1px dotted #990000;
+    padding-bottom: 5px;
+}
+
+    .article-middle .doted .title {
+        text-decoration: none;
+    }
+
+.recognize-left ul, .recognize-right ul {
+    list-style-type: none;
+    float: left;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 10px 20px;
+}
+
+.award {
+    margin-left: 25px;
+}
+
+    .award > span {
+        color: #990000;
+    }
+
+    .award > a:hover {
+        text-decoration: none;
+    }
+
+.commitee {
+    margin-left: 70px;
+}
+/*end about*/
+
+/* paw start */
+a.paw-link {
+    color: #990000;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+.received.paw {
+    text-align: right;
+}
+
+    .received.paw > a {
+        color: #888;
+    }
+
+        .received.paw > a:hover {
+            color: #990000;
+        }
+
+.received.paw {
+    margin: 0;
+}
+
+
+.red {
+    color: red;
+}
+
+
+.form-group {
+    margin: 0 0 7px;
+}
+
+.form-control {
+    border-radius: 0;
+    padding: 2px;
+}
+
+label {
+    color: #888;
+    font-weight: normal;
+    margin: 0;
+}
+
+.form-control:focus {
+    border-color: #ccc;
+    box-shadow: none;
+    outline: none;
+}
+
+textarea.form-control {
+    height: 165px;
+}
+
+.btn.btn-default {
+    line-height: 13px;
+}
+
+
+.form-allowed-tags {
+    color: #888;
+    font-size: 10px;
+}
+/* paw start */
+
+
+
+
+
+/*winner 1 start */
+
+.received.pagination.left, .received.pagination.right {
+    margin: 3px;
+}
+/* winner 1 end*/
+
+ol li {
+    list-style-type: decimal;
+    list-style-position: inside;
+    color: #660000;
+    font-size: 12px;
+    margin: 5px 3px 0 0;
+}
+
+/*search page start*/
+
+.pagination .active > a {
+    background: #0E294D none repeat scroll 0 0 !important;
+    border: 1px solid #DDDDDD !important;
+    font-weight: bold;
+}
+
+.search-input {
+    height: 35px;
+    padding-left: 5px;
+}
+
+.btn.search-button {
+    background: #0E294D none repeat scroll 0 0;
+    color: white;
+    margin-bottom: 3px;
+    margin-left: 10px !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    padding: 7px 20px;
+}
+/*search page end*/
+
+/*validation label*/
+.field-validation-error {
+    color: red;
+    font-weight: bold;
+}
+
+/**/
+
+/*award winners*/
+.received a.link {
+    color: #000;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none ;
+}
+
+    .received a.link:hover {
+        color: #660000;
+    }
+/*award winners end*/
+.article-middle.home {
+    min-height: 315px;
+}
+
+
+.entry-content .link {
+    color: #600000 !important;
+    text-decoration: underline !important;
+    font-size:12px !important;
+    font-weight:normal !important;
+
+}

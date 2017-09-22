@@ -1,0 +1,36 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighSteelStructure.Pages
+@model IPageViewModel<BasePageData>
+@{
+    var contenLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contenLoader.Get<HomePage>(PageReference.StartPage);
+}
+
+<div class="navbar-collapse collapse menu_bar">
+    <ul class="nav navbar-nav" style="float: left">
+        <li class="@(Model.CurrentPage.ContentLink == homePage.ContentLink ? "active" : "")"><a href="@Url.ContentUrl(homePage.ContentLink)">Home</a></li>
+        @Html.MenuList(PageReference.StartPage,
+        @<li class="@(item.HasChildren.Value ? "dropdown" : "") @(item.Selected ? "active" : "")">
+            @if (item.HasChildren.Value)
+            {
+                <a href="@Url.ContentUrl(item.Page.ContentLink)" data-hover="dropdown" data-delay="0" data-close-others="false">@item.Page.Name</a>
+                <a class="dropdown-toggle caret-dd" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a>
+                var childItems = contenLoader.GetChildren<BasePageData>(item.Page.ContentLink);
+                <ul class="dropdown-menu">
+                    @foreach (var childItem in childItems)
+                    {
+                        <li>
+                            @Html.PageLink(childItem)
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <a href="@Url.ContentUrl(item.Page.ContentLink)">@item.Page.Name</a>
+            }
+        </li>)
+    </ul>
+</div>

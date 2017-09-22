@@ -1,0 +1,81 @@
+﻿
+.jcarousel-wrapper {
+    width: 100% !important;
+}
+
+.jcarousel-wrapper {
+    margin: 0;
+    padding: 10px 0;
+    position: relative;
+    /*border: 10px solid #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+    -moz-box-shadow: 0 0 2px #999;
+    box-shadow: 0 0 2px #999;*/
+}
+
+    .jcarousel-wrapper::selection {
+        background: #FFF;
+        color: #505050;
+    }
+
+/** Carousel **/
+
+.jcarousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+    .jcarousel ul {
+        width: 20000em;
+        position: relative;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .jcarousel li {
+        float: left;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        margin-right: 14px;
+    }
+
+    .jcarousel img {
+        cursor: pointer;
+        display: block;
+        height: 100px;
+        min-width: 100%;
+    }
+
+/** Carousel Controls **/
+
+.jcarousel-control-prev, .jcarousel-control-next {
+    color: #FFF;
+    cursor: pointer;
+    display: none;
+    font-size: 24px;
+    position: absolute;
+    top: 40%;
+}
+
+.jcarousel-control-prev {
+    left: 20px;
+}
+
+.jcarousel-control-next {
+    right: 20px;
+}
+
+    .jcarousel-control-next::selection, .jcarousel-control-prev::selection {
+        background: #FFF;
+        color: #FFF;
+    }
+
+.jcarousel-wrapper:hover .jcarousel-control-prev, .jcarousel-wrapper:hover .jcarousel-control-next {
+    display: block;
+}

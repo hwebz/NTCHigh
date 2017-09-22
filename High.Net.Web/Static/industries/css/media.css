@@ -1,0 +1,352 @@
+/*desktop*/
+@media (max-width: 1199px) {
+    .nav > li > a {
+        padding: 40px 10px;
+    }
+
+    .properties ul li {
+        width: 18.24%;
+    }
+
+    .slogan {
+        font-size: 12px;
+    }
+
+    .nav > li > a {
+        font-size: 18px;
+        padding: 40px 8px;
+    }
+}
+
+@media (max-width: 1056px) {
+}
+
+@media ( max-width:991px) {
+    .navbar-brand {
+        margin: 0;
+    }
+
+    .navbar-nav > li > a, .dropdown-menu > li > a {
+        font-size: 12px;
+    }
+
+    .nav > li > a {
+        padding: 28px 8px;
+    }
+
+    .section-content > p, .header .header-top .right a {
+        font-size: 12px;
+    }
+
+    .portfolio h4 {
+        bottom: 20px;
+        font-size: 12px;
+    }
+
+    .section > p {
+        font-size: 12px;
+    }
+
+    .slider-heading h3 {
+        font-size: 18px;
+    }
+
+    .footer-menu > ul {
+        width: 691px;
+    }
+
+    .footer-menu li a {
+        font-size: 11px;
+    }
+
+    #btn-prev, #btn-next {
+        width: 30px;
+    }
+
+    .section-image.about p, .about p, .print-page a {
+        font-size: 12px;
+    }
+
+    .send-msg-para {
+        font-size: 12px;
+        width: auto;
+    }
+
+        .send-msg-para h2 {
+            font-size: 24px;
+        }
+
+    .send-contact {
+        font-size: 18px;
+        padding: 5px;
+        width: 100%;
+    }
+
+    .corp-off > p, .media-inquiry > p {
+        font-size: 12px;
+    }
+
+    .select-legend h3 {
+        font-size: 16px;
+    }
+
+    .sec-location p,
+    .select-legend ul li a,
+    .glyphicon.glyphicon-plus,
+    .glyphicon.glyphicon-minus,
+    .section-para p,
+    .news-comment > a {
+        font-size: 12px;
+    }
+
+    .banner-title {
+        font-size: 18px;
+    }
+
+    .section-para h2 {
+        font-size: 16px;
+    }
+
+    .about-portfolio > h3 {
+        font-size: 15px;
+    }
+
+    .properties ul li {
+        margin: 15px 0;
+        width: 33.33%;
+    }
+
+    .sec-cc p, .sec-family p, .item > p {
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .header .header-top .right .mail-logo {
+        height: 23px;
+        margin-top: 2px;
+    }
+
+    .header .header-top .right .phone-logo {
+        height: 20px;
+        margin-top: 3px;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-nav > li:hover .dropdown-menu {
+        display: block;
+    }
+
+    .caret-dd {
+        display: none !important;
+    }
+}
+
+@media (max-width:767px) {
+    .navbar-toggle {
+        margin: 20px 15px 20px 0;
+    }
+
+    .nav.navbar-nav.navbar-right a {
+        padding: 10px;
+    }
+
+    .section-content > p, .header .header-top .right a {
+        font-size: 10px;
+    }
+
+    .navbar-nav > li > a {
+        font-size: 12px;
+    }
+
+    .portfolio h4 {
+        font-size: 14px;
+    }
+
+    .section > p, .img-president > p {
+        font-size: 12px;
+    }
+
+    .slider-heading h3 {
+        font-size: 16px;
+    }
+
+    .footer-menu > ul {
+        width: 641px;
+    }
+
+    .footer-menu li a {
+        font-size: 10px;
+    }
+
+    #btn-prev, #btn-next {
+        width: 25px;
+    }
+
+    .send-msg-para h2 {
+        font-size: 20px;
+    }
+
+    .send-contact {
+        font-size: 14px;
+    }
+
+    .map iframe {
+        height: 100%;
+    }
+
+    .section-image {
+        margin: 0 0 10px;
+    }
+
+    .navbar-nav .open .dropdown-menu {
+        background: #333333;
+    }
+
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a, .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #ffffff;
+    }
+
+    .navbar-nav > li > .dropdown-menu {
+        border-radius: 0;
+    }
+
+    .navbar-right li:last-child .dropdown-menu li a {
+        text-align: left;
+    }
+
+    .properties ul li {
+        margin: 15px 0;
+        width: 33.33%;
+    }
+
+    .section-image.news {
+        margin: 0 auto;
+        width: 30%;
+    }
+}
+
+@media (max-width: 675px) {
+    .footer-menu > ul {
+        width: auto;
+    }
+
+    .footer-menu li {
+        padding: 5px 0;
+    }
+
+    .section-image.about-main {
+        float: none;
+    }
+
+    .image-para {
+        width: auto;
+    }
+
+    .section-image.about-main > img {
+        width: 100%;
+    }
+}
+
+@media (max-width:600px) {
+    .properties ul li {
+        margin: 15px 0;
+        width: 50%;
+    }
+}
+
+@media (max-width: 550px) {
+    .sec-menu-link {
+        font-size: 11px;
+    }
+
+    .sec-family h4, .sec-cc h4 {
+        font-size: 14px;
+    }
+
+    .sec-cc .photo-cc, .photo-brochure {
+        float: none;
+        margin: 0 0px 10px 0;
+        text-align: center;
+    }
+
+        .sec-cc .photo-cc img {
+            margin: 0 auto;
+            width: 209px;
+        }
+
+    .corp-off p {
+        width: auto;
+    }
+
+    .sec-family .family-photo {
+        float: none;
+    }
+
+    .sec-family .family-council {
+        float: none;
+        margin: 0 0 10px;
+        text-align: center;
+    }
+
+        .sec-family .family-council img {
+            margin: 0 auto;
+        }
+
+    .sec-family ul li {
+        font-size: 11px;
+    }
+
+    .item > p {
+        font-size: 11px;
+    }
+
+    .contact-header {
+        float: right;
+    }
+
+    .search-bx {
+        display: table;
+        float: none;
+        margin: 0;
+        width: 100%;
+    }
+
+        .search-bx input {
+            width: 100%;
+        }
+
+    .header .header-top .right {
+        float: none;
+    }
+}
+
+@media (max-width:400px) {
+    .properties ul li {
+        margin: 15px 0;
+        width: 100%;
+    }
+
+        .properties ul li img {
+            width: 100%;
+        }
+}
+
+@media (max-width:382px) {
+    .header .header-top .right {
+    }
+
+    .navbar-brand {
+        padding: 15px 0;
+    }
+
+    .img-president {
+        float: none;
+        margin-right: 0;
+        text-align: center;
+    }
+
+        .img-president img {
+            margin: 0 auto;
+        }
+}

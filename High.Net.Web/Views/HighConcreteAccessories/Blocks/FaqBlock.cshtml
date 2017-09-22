@@ -1,0 +1,12 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcreteAccessories.Blocks
+
+@model FaqBlock
+
+
+<div class="section">
+    <p class="quest">@Html.PropertyFor(x => x.Question)</p>
+    <p>@Html.PropertyFor(x => x.Text)</p>
+</div>
+

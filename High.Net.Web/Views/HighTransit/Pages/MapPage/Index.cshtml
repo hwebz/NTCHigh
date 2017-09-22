@@ -1,0 +1,86 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.HighTransit.Pages
+@model IPageViewModel<MapPage>
+@{
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+}
+@section SiteHeader{
+    <style>
+        #visualization {
+            border: 1px solid #000000;
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+}
+@Html.Partial("~/Views/HighTransit/Shared/Navigation.cshtml", Model)
+@Html.Partial("~/Views/HighTransit/Shared/Banner.cshtml")
+<div class="spacer"></div>
+<div class="container">
+    @Html.PropertyFor(m => m.CurrentPage.PageContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFifthWidth } })
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.CurrentPage.MapLocationData != null)
+            {
+                var locationData = client.Load<ImageVault.Common.Data.Media>(Model.CurrentPage.MapLocationData.Id).ToList();
+                if (locationData.Count > 0)
+                {
+                    <input type="hidden" id="locationData" value="@Url.ContentUrl(locationData.FirstOrDefault().Url)" />
+                }
+                <div id='visualization'></div>
+            }
+        </div>
+    </div>
+</div>
+@section SiteFooter{
+    <script src="~/Static/lib/location-js/jquery.csv.min.js"></script>
+    <script type='text/javascript' src='http://www.google.com/jsapi'></script>
+    <script>
+        var $locationUrl = $('#locationData').val();
+
+        if ($locationUrl) {
+            $.get($locationUrl, function (data) {
+                var dataClean = data.replace(/,,/g, ",&nbsp;,");
+                var locations = $.csv()(dataClean);
+
+                var options = { packages: ['geochart'], callback: drawVisualization };
+                google.load('visualization', '1', options);
+
+                function drawVisualization() {
+                    var data = new google.visualization.DataTable();
+                    var $colors = [];
+                    data.addColumn('string', 'Country');
+                    data.addColumn('number', 'Value');
+                    data.addColumn({ type: 'string', role: 'tooltip' });
+                    for (i = 1; i < locations.length; i++) {
+                        data.addRows([[{ v: locations[i][2], f: locations[i][1] }, i, '']]);
+                        $colors.push(locations[i][3]);
+                    }
+
+                    var options = {
+                        colorAxis: {
+                            minValue: 1,
+                            maxValue: 54,
+                            colors: $colors
+                        },
+                        legend: 'none',
+                        backgroundColor: { fill: '#FFFFFF', stroke: '#FFFFFF', strokeWidth: 0 },
+                        datalessRegionColor: '#C3C3C3',
+                        displayMode: 'regions',
+                        enableRegionInteractivity: 'true',
+                        resolution: 'provinces',
+                        region: 'US',
+                        keepAspectRatio: true,
+                        //width: 600,
+                        //height: 400,
+                        tooltip: { textStyle: { color: '#444444' }, trigger: 'hover' }
+                    };
+                    var chart = new google.visualization.GeoChart(document.getElementById('visualization'));
+                    chart.draw(data, options);
+                }
+            });
+        }
+    </script>
+}

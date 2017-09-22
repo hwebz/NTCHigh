@@ -1,0 +1,87 @@
+﻿$pre: 'leadership-carousel-slider';
+
+.#{$pre} {
+    @include block-spacing($block-spacing, $block-spacing-tablet);
+
+    @include respond-to-max($tabletSize) {
+        padding-bottom: 70px;
+    }
+
+    .#{$pre}__title {
+        h1 {
+            @extend %big-title;
+            text-align: right;
+
+            @include respond-to-max($desktopSize) {
+                text-align: left;
+            }
+        }
+    }
+
+    .#{$pre}__slider {
+        .#{$pre}__slider-item {
+            position: relative;
+
+            @include respond-to-max($tabletSize) {
+                padding: 3px !important;
+            }
+
+            .#{$pre}__slider-item__thumbnail {
+                width: 65%;
+                height: 450px;
+                overflow: hidden;
+                margin-bottom: 75px;
+                position: relative;
+
+                @include respond-to-max($desktopSize) {
+                    height: 300px;
+                }
+
+                @include respond-to-max($tabletSize) {
+                    width: 100%;
+                    margin: 0;
+                }
+
+                img {
+                }
+            }
+
+            .#{$pre}__slider-item__details {
+                position: absolute;
+                right: 5px;
+                bottom: 5px;
+                width: 45%;
+                box-shadow: 0 0 5px $color-black-half;
+                background-color: $color-white-almost;
+                padding: 40px;
+
+                @include respond-to-max($largerSize) {
+                    padding: 20px;
+                }
+
+                @include respond-to-max($desktopSize) {
+                    font-size: $base-font-size-tablet;
+                    line-height: $base-line-height-tablet;
+                }
+
+                @include respond-to-max($tabletSize) {
+                    position: initial;
+                    width: 100%;
+                    padding: 20px;
+                }
+
+
+                p {
+                }
+
+                a {
+                    margin-top: 35px;
+
+                    @include respond-to-max($largerSize) {
+                        margin-top: 20px;
+                    }
+                }
+            }
+        }
+    }
+}

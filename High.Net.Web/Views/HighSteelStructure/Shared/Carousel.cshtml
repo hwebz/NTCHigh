@@ -1,0 +1,142 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighSteelStructure.Pages
+@model IPageViewModel<BasePageData>
+
+@{
+    var contenLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var repository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+
+    var homePage = contenLoader.Get<HomePage>(PageReference.StartPage);
+    bool IsBannerRendered = false;
+}
+@Html.FullRefreshPropertiesMetaData(new[] { "Slider" })
+
+@if (Model.CurrentPage.ContentLink.ID == homePage.ContentLink.ID)
+{
+    if (homePage.Slider != null)
+    {
+        IsBannerRendered = true;
+    <div class="container">
+        <div class="hero-banner">
+            <!-- Carousel Start -->
+            <div class="img-slider">
+                <ul class="bxslider-img" data-slider-type="img">
+                    @foreach (var contentItem in homePage.Slider.Items)
+                    {
+                        var item = contenLoader.Get<High.Net.Models.HighSteelStructure.Blocks.ImageTextBlock>(contentItem.ContentLink);
+                        <li>
+                            @Html.PropertyFor(x => item.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                            @if (item.Text != null)
+                            {
+                                <div class="band">
+                                    <div class="container">
+                                        <div class="banner-text">
+                                            <a href="@Url.ContentUrl(item.LinkPage)">@item.Text</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </li>
+                    }
+                </ul>
+            </div>
+            <!-- Carousel Ends-->
+        </div>
+    </div>
+
+    }
+}
+else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.NewsListingPage))
+{
+    var _NewsListingPage = repository.Get<High.Net.Models.Shared.Pages.NewsListingPage>(Model.CurrentPage.ContentLink);
+    if (_NewsListingPage.BannerImage != null)
+    {
+        <div class="container">
+            <div class="banner">
+             @Html.PropertyFor(x => _NewsListingPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+             @{IsBannerRendered = true;}
+            </div>
+            <div class="red-band">
+                <h1>@Model.CurrentPage.Name</h1>
+            </div>
+        </div>
+    }
+}
+else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.NewsItemPage))
+{
+    var _NewsItemPage = repository.Get<High.Net.Models.Shared.Pages.NewsItemPage>(Model.CurrentPage.ContentLink);
+    if (_NewsItemPage.BannerImage != null)
+    {
+        <div class="container">
+            <div class="banner">
+             @Html.PropertyFor(x => _NewsItemPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+             @{IsBannerRendered = true;}
+            </div>
+            <div class="red-band">
+                <h1>@Model.CurrentPage.Name</h1>
+            </div>
+        </div>
+    }
+}
+else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.ContactUsPage))
+{
+    var _ContactUsPage = repository.Get<High.Net.Models.Shared.Pages.ContactUsPage>(Model.CurrentPage.ContentLink);
+    if (_ContactUsPage.BannerImage != null)
+    {
+        <div class="container">
+            <div class="banner">
+             @Html.PropertyFor(x => _ContactUsPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+             @{IsBannerRendered = true;}
+            </div>
+            <div class="red-band">
+                <h1>@Model.CurrentPage.Name</h1>
+            </div>
+        </div>
+    }
+}
+else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.SearchPage))
+{ 
+    if (homePage.PageBannerImage != null)
+    {
+        <div class="container">
+            <div class="banner">
+             @Html.PropertyFor(x => homePage.PageBannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+             @{IsBannerRendered = true;}
+            </div>
+            <div class="red-band">
+                <h1>@Model.CurrentPage.Name</h1>
+            </div>
+        </div>
+    }
+}
+else
+{
+    var sitePageData = repository.Get<HighSteelStructurePageData>(Model.CurrentPage.ContentLink);
+    if (sitePageData.PageBannerImage != null)
+    {
+        <div class="container">
+        <div class="banner">
+            @Html.PropertyFor(x => sitePageData.PageBannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+            @{IsBannerRendered = true;}
+        </div>
+        <div class="red-band">
+            <h1>@Model.CurrentPage.Name</h1>
+        </div>
+    </div>
+    }
+}
+@if(!IsBannerRendered)
+{
+    <div class="container">
+        <div class="banner">
+            @Html.PropertyFor(x => homePage.PageBannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+            @{IsBannerRendered = true;}
+        </div>
+        <div class="red-band">
+            <h1>@Model.CurrentPage.Name</h1>
+        </div>
+    </div>
+}
+

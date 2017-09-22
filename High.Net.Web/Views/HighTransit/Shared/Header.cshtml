@@ -1,0 +1,52 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.Web
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighTransit.Pages
+@using ImageVault.EPiServer
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+@Html.FullRefreshPropertiesMetaData(new[] { "RequestQuoteLink" })
+
+<div class="top-blk-band">
+    <div class="container">
+        <div class="header-top">
+            <div class="right">
+                <div class="contact-header">
+                    <a href="tel:@homePage.PhoneNumber" class="phone-logo"><span class="glyphicon glyphicon-earphone"></span><strong>@homePage.PhoneNumber</strong></a>
+                    <a href="mailto:@homePage.EmailId" class="mail-logo"><span class=" 	glyphicon glyphicon-envelope"></span>@homePage.EmailId</a>
+                </div>
+                <div class="search-bx">
+                    @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl) }))
+                    {
+                        <input type="text" name="q" placeholder="Search for..." />
+                        <button type="submit" class="search-btn glyphicon glyphicon-search"></button>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<header class="header-frontend">
+    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="top-band">
+                <a class="top-logo" href="@Url.ContentUrl(homePage.ContentLink)">
+                    @Html.PropertyFor(x => homePage.SiteLogo, new { PropertySettings = new PropertyMediaSettings { Width = 350, Height = 65 } })
+                </a>
+                <a class="top-quote" href="@Url.ContentUrl(homePage.RequestQuoteLink)" @Html.EditAttributes(m => homePage.RequestQuoteLink)>
+                    <div class="">
+                        <img src="~/Static/high-transit/img/request_quote.png" alt="request quote">&nbsp;Request A Quote
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+

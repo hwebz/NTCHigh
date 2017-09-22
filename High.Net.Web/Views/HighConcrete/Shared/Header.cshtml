@@ -1,0 +1,42 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighConcrete.Pages
+@using EPiServer.Web
+@using ImageVault.EPiServer
+
+@model IPageViewModel<BasePageData>
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+
+<!-- Logo Starts-->
+<div class="container logo-container">
+    <div class="main-logo pull-left cf">
+        <a href="/" class="">
+            @Html.PropertyFor(x => homePage.SiteLogo, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 300, Height = 57 } })
+        </a>
+    </div>
+
+    <div class="get-join pull-right">
+        <a href="@Url.ContentUrl(homePage.CEUSlink)" @Html.EditAttributes(x => homePage.CEUSlink) class="header-links">
+            <img src="~/Static/highconcrete/images/get-ceus.png" />GET CEUs
+        </a>
+        <a href="@Url.ContentUrl(homePage.Teamlink)" @Html.EditAttributes(x => homePage.Teamlink) class="header-links">
+            <img src="~/Static/highconcrete/images/join-team.png" />Join our team
+        </a>
+        <a href="tel:@homePage.Contact" class="header-links phono-no" @Html.EditAttributes(x => homePage.Contact)>
+            <img src="~/Static/highconcrete/images/icon/phone-icon-hi.png">@homePage.Contact
+        </a>
+        @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl) }))
+        {
+            <div class="search-bx">
+
+                <input type="text" placeholder="Search for..." name="q" />
+                <button type="submit" class="glyphicon glyphicon-search"></button>
+            </div>
+        }
+    </div>
+</div>
+<!-- Logo Ends-->

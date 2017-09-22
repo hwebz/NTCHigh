@@ -1,0 +1,17 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using EPiServer.ServiceLocation
+@using ImageVault.EPiServer
+@using High.Net.Models.Residential.Pages
+
+@model PageViewModel<ContentPage>
+@section PageBannerSection
+{
+ @Html.Partial("~/Views/Residential/Shared/Banner.cshtml", Model)
+}
+@Html.FullRefreshPropertiesMetaData(new[] { "ContentArea" })
+@Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+<div class="spacer"></div>
+
+
+

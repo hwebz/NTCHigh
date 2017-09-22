@@ -1,0 +1,28 @@
+﻿@using High.Net.Core
+@using High.Net.Models.NewResidential.Pages
+@using ImageVault.EPiServer
+@using High.Net.Core.Helpers
+@using High.Net.Models.Validation
+
+
+@model PageViewModel<ContentPage>
+
+
+@{
+    var heroImgUrl = MediaHelpers.GetImageUrl(Model.CurrentPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1170 } });
+    var heroLogoWidth = Model.CurrentPage.HeroLogoWidth > 0 ? Model.CurrentPage.HeroLogoWidth : RangeRules.DefaultHeroIconWidth;
+    var heroLogoUrl = MediaHelpers.GetImageUrl(Model.CurrentPage.BannerLogoImage, new { PropertySettings = new PropertyMediaSettings { Width = heroLogoWidth } });
+}
+
+<div id="banner" style="@Html.MakeImageBackground(heroImgUrl)" class="blocks banner" @Html.EditAttributes(x => x.CurrentPage.BannerImage)>
+    <div class="banner-contents"><img src="@heroLogoUrl" style="width:@string.Format("{0}px",heroLogoWidth)" alt="" @Html.EditAttributes(x => x.CurrentPage.BannerLogoImage)></div>
+</div>
+
+<div class="page-contents">
+    <div class="container">
+        <h1>@Html.PropertyFor(x => x.CurrentPage.Title)</h1>
+        @Html.PropertyFor(x => x.CurrentPage.Description)
+    </div>
+</div>
+
+@Html.PropertyFor(x => x.CurrentPage.Content, new { Tag = Global.ContentAreaTags.ResidentialContentPage })

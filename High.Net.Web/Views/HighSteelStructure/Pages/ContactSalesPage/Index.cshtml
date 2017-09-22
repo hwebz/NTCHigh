@@ -1,0 +1,108 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+
+@model High.Net.Models.HighSteelStructure.ViewModels.ContactSalesModel
+@section SiteHeader{
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+}
+<div class="container">
+    <div class="common-container advisor">
+        <div class="row">
+           @if (!Model.ContactSalesForm.IsMailSendSuccessfully)
+            {
+                <div class="col-md-12">
+                    @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", ChildrenCssClass = "", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+                    @using (Html.BeginForm(null, null, FormMethod.Post,
+                    new { @Class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        bool isfirstitem = true;
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.ContactSalesForm.FirstName, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ContactSalesForm.FirstName, new { @Class = "form-control" })
+                                <span class="req-field">*</span>
+                                <br />
+                                @Html.ValidationMessageFor(x => x.ContactSalesForm.FirstName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.ContactSalesForm.LastName, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ContactSalesForm.LastName, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ContactSalesForm.LastName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.ContactSalesForm.CompanyName, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ContactSalesForm.CompanyName, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ContactSalesForm.CompanyName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.ContactSalesForm.Email, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ContactSalesForm.Email, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ContactSalesForm.Email)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.ContactSalesForm.PhoneNumber, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ContactSalesForm.PhoneNumber, new { @Class = "form-control" })
+                               </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Type of Project :</label>
+                            <div class="col-sm-6">
+                                @foreach (var item in Model.ContactSalesForm.TypeofProjects)
+                                {
+                                    if (isfirstitem)
+                                    {
+                                    <div class="radio">
+                                        <label>
+                                            @Html.RadioButtonFor(x => x.ContactSalesForm.SelectedProject, item, new { @checked = true })@item</label>
+                                    </div> 
+                                        isfirstitem = false;
+                                    }
+                                    else
+                                    {
+                                    <div class="radio">
+                                        <label>
+                                            @Html.RadioButtonFor(x => x.ContactSalesForm.SelectedProject, item)@item</label>
+                                    </div> 
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.ContactSalesForm.Message, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(x => x.ContactSalesForm.Message, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br /><br /><br/>
+                                @Html.ValidationMessageFor(x => x.ContactSalesForm.Message)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">Submit</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                @Model.CurrentPage.ThankYouMessage
+            }
+        </div>
+    </div>
+</div>

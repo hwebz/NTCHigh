@@ -1,0 +1,40 @@
+﻿@using EPiServer.Core
+@using High.Net.Core;
+@using High.Net.Models.NewResidential.Blocks
+
+@model GoogleMapSingleLocationBlock
+@{
+    var hasLocationInfor = !string.IsNullOrEmpty(Model.Address);
+    string lat = string.Empty;
+    string lng = string.Empty;
+    if (!string.IsNullOrEmpty(Model.ComplexCoordinates))
+    {
+        lat = Model.ComplexCoordinates.Split(',')[0];
+        lng = Model.ComplexCoordinates.Split(',')[1];
+    }
+}
+
+@if (hasLocationInfor)
+{
+    <div class="residential-location">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div id="residential-location__information-box">
+                        <h3>Location</h3>
+                        <h4> @Model.Address.ToLineBreakString()</h4>
+                        @Model.Description
+                    </div>
+                    <div id="residential-location__map" data-lat="@lat" data-long="@lng" data-center="false"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="residential-location no-border">
+        <div id="residential-location__map" data-lat="@lat" data-long="@lng" data-center="true"></div>
+    </div>
+}<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyDzzAFqbA5agZEi5uy5dWGjN_k8oqiOKrc"></script>

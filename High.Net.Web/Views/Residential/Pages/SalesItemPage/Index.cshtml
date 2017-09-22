@@ -1,0 +1,70 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Residential.Pages
+@using High.Net.Core
+
+@model PageViewModel<SalesItemPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+@section PageBannerSection
+{
+    @Html.Partial("~/Views/Residential/Shared/Banner.cshtml", Model)
+}
+
+<div class="section resident-review">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="reviwes">
+                <h2>@Html.PropertyFor(x => x.CurrentPage.Heading)</h2>
+                <!--Photo Gallery Start -->
+                @if (Model.CurrentPage.SalesImageSlider != null)
+                {
+                    <div class="img-gallery-slider border-block" data-pager="pager-0">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-10">
+                                <div class="video-slider-wrapper">
+                                    <ul class="bxslider-img-gallery">
+                                        @if (Model.CurrentPage.SalesImageSlider != null)
+                                        {
+                                            foreach (var contentItem in Model.CurrentPage.SalesImageSlider.Items)
+                                            {
+                                                var item = contentLoader.Get<High.Net.Models.Residential.Blocks.ImageTextBlock>(contentItem.ContentLink);
+                                                <li>
+                                                    @Html.PropertyFor(x => item.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 600 , Height = 445 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } , CssClass="img-responsive" })
+                                                    <p>@item.Heading</p>
+                                                </li>
+                                            }
+
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2">
+                                <div class="pager-container">
+                                    <div class="row gallery-pager pager-0">
+                                        @if (Model.CurrentPage.SalesImageSlider != null)
+                                        {
+                                            int i = 0;
+                                            foreach (var contentItem in Model.CurrentPage.SalesImageSlider.Items)
+                                            {
+                                                var item = contentLoader.Get<High.Net.Models.Residential.Blocks.ImageTextBlock>(contentItem.ContentLink);
+                                                <a data-slide-index="@i" href="#" class="col-xs-4 col-sm-12">
+                                                    @Html.PropertyFor(x => item.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width =98 , Height = 104 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } , CssClass="thumb" })
+                                                </a>
+                                                i++;
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <!--Photo Gallery End -->
+                <p class="review-content">@Html.PropertyFor(x => x.CurrentPage.Description)</p>
+                <p>@Model.CurrentPage.Created.ToString("d MMMM yyyy")</p>
+            </div>
+        </div>
+    </div>
+</div>

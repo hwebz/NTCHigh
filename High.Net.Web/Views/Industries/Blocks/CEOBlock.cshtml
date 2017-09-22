@@ -1,0 +1,12 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Industries.Blocks
+@using ImageVault.EPiServer
+@model CEOBlock
+<div class=" chief-executive">
+    @if (Model.Image != null)
+    {
+        @Html.PropertyFor(x => Model.Image, new { PropertySettings = new PropertyMediaSettings { Width = 166, Height = 206 }, CssClass = "img-responsive" })
+    }
+    <p class="text-center">@Html.PropertyFor(x => x.Heading)</p>
+</div>

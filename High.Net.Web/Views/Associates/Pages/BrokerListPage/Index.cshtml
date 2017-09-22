@@ -1,0 +1,60 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Associates.Pages
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using ImageVault.EPiServer
+
+@model PageViewModel<BrokerListPage>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var BrokerList = contentLoader.GetChildren<BrokerPage>(Model.CurrentPage.ContentLink);
+}
+@Html.Partial("~/Views/Associates/Shared/Banner.cshtml")
+<div class="container">
+    @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+    <div class="row">
+        
+            <div class="col-md-12">
+                <h2 class="broker-title">Brokers</h2>
+            </div>
+        
+    </div>
+
+    <div class="row">
+        <div class="broker-info">
+            @if (BrokerList.Any())
+            {
+                foreach (var countryitem in BrokerList.GroupBy(x => x.Location))
+                {
+                  
+                        <div class="col-md=12 col-sm-12">
+                            <h2 class="black bold">@countryitem.Key</h2>
+                        </div>
+                   
+                    foreach (var item in countryitem)
+                    {
+                        <div class="col-md-4 col-sm-4">
+                            <div class="character-img">
+                                @Html.PropertyFor(x => item.ProfilePhoto, new { PropertySettings = new PropertyMediaSettings { Width = 86, Height = 114 } })
+                            </div>
+                            <div class="broker-profile">
+                                <strong class="black">@item.Name</strong>
+                                <p>@item.Designation</p>
+                                <p>@item.SkypeContact</p>
+                                <p>@item.MobileContact</p>
+                                <p><a href="mailto:@item.EmailAddress">@item.EmailAddress</a></p>
+                                <a href="@Url.ContentUrl(item.ContentLink)">Profile</a>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>
+
+
+
+

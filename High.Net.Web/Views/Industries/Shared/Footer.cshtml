@@ -1,0 +1,34 @@
+﻿@using EPiServer.Web;
+@using EPiServer.ServiceLocation;
+@using EPiServer.Core
+@using High.Net.Core
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<High.Net.Models.Industries.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+
+<div class="footer">
+    <div class="container">
+        <div class="footer-menu">
+            <ul>
+                <li>
+                    <a class="@(Model.CurrentPage.ContentLink.CompareToIgnoreWorkID(SiteDefinition.Current.StartPage) ? "active" : null)"
+                       href="@Url.ContentUrl(SiteDefinition.Current.StartPage)">Home</a>
+                </li>
+                @Html.MenuList(SiteDefinition.Current.StartPage,
+                @<li>@Html.PageLink(item.Page, null, new { @class = item.Selected ? "active" : null })</li>)
+
+                @if (homePage.FooterPages != null)
+                {
+                    foreach (var item in homePage.FooterPages)
+                    {
+                        <li>
+                            <a target="@item.Target" href="@Url.ContentUrl(item.Href)">@item.Text</a>
+                        </li>
+                    }
+                }
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

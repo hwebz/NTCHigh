@@ -1,0 +1,14 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighNet.Blocks
+
+@model NumberListContentBlock
+
+<div class="spacer"></div>
+<div class="std-content">
+    <h2><strong> @Html.PropertyFor(x=>x.MainHeading) </strong></h2>
+    @Html.PropertyFor(x=>x.Body)
+</div>
+@Html.PropertyFor(x=>x.NumberListContentContentArea,new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.ThreeFourthWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth, Global.ContentAreaTags.OneFifthWidth, Global.ContentAreaTags.OneTwelfthWidth } })
+<div class="spacer"></div>

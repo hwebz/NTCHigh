@@ -1,0 +1,48 @@
+﻿extends ../layouts/root.jade
+
+block title
+    title Header block
+
+block content
+    div(class="residential-header sticky-header fixed")
+        div(class="residential-header__logo")
+            img(src="../images/logo.png", alt="High Associates Residential")
+        div(class="residential-header__right-nav")
+            div(class="residential-header__right-nav-wrapper")
+                a(class="residential-header__toggle-button desktop", href="#")
+                    span
+                    span
+                    span
+                ul(class="residential-header__nav")
+                    li(class="active")
+                        a(href="#") Home
+                    li
+                        a(href="#") About Us
+                        ul(class="residential-header__subnav")
+                            li
+                                a(href="#") Our Team
+                            li
+                                a(href="#") Our Work
+                            li
+                                a(href="#") Our Products
+                            li
+                                a(href="#") Our Company
+                    li
+                        a(href="#") Feature &amp; Photos
+                    li
+                        a(href="#") Floor Plans
+                    li
+                        a(href="#") Residents
+                    li
+                        a(href="#") Neighborhood
+                    li
+                        a(href="#") Contact
+                        ul(class="residential-header__subnav")
+                            li
+                                a(href="#") Contact Team
+                            li
+                                a(href="#") Contact HR
+                            li
+                                a(href="#") Contact BE
+                            li
+                                a(href="#") Contact FE

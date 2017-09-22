@@ -1,0 +1,62 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Shared
+@using High.Net.Core
+@using High.Net.Models.Shared.Pages
+@using ImageVault.EPiServer
+
+@model PageViewModel<NewsListingPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var NewsList = dataLocator.GetNewsFeed(Model.CurrentPage);
+}
+@Html.Partial("~/Views/Associates/Shared/Banner.cshtml")
+<div class="spacer"></div>
+<div class="container">
+    @if (NewsList != null)
+    {
+        int counter = 0;
+        foreach (var item in NewsList)
+        {
+            if (counter == 0)
+            {
+                @Html.Raw("<div class=\"row\">")
+            }
+            else if (counter > 0 && counter % 3 == 0)
+            {
+                @Html.Raw("</div><br /><div class=\"row\">")
+            }
+            <div class="col-md-4 col-sm-4">
+                <div class="news-portfolio">
+                    <div class="news-portfolio-img">
+                        @if (item.NewsImage != null)
+                        {
+                            @Html.PropertyFor(x => item.NewsImage, new { PropertySettings = new PropertyMediaSettings { Width = 360, Height = 200, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                        }
+                        else
+                        {
+                            <img class="placeholder img-responsive" src="~/Static/global/images/news-placeholder-360X200.png" />
+                        }
+                    </div>
+                    <p class="text-center">@item.ImageQuote</p>
+                    <div class="news-portfolio-para">
+                        <p class="date-month">On @item.PostedDate.ToString("MMMM dd, yyyy")</p>
+                        <h2>@item.Title</h2>
+                        @{var SitePage = contentLoader.GetAncestors(item.ContentLink).Where(x => x.GetType().GetInterfaces().Contains(typeof(High.Net.Core.IHome))).FirstOrDefault();}
+                        @if (SitePage != null)
+                        {
+                            <b>@SitePage.Name</b>
+                        }
+                        <p>@item.NewsHighlight</p>
+                        <a href="@Url.ContentUrl(item.ContentLink)">read more..</a>
+                    </div>
+                </div>
+            </div>
+                        counter++;
+        }
+        @Html.Raw("</div>")
+    }
+</div>
+<div class="spacer"></div>

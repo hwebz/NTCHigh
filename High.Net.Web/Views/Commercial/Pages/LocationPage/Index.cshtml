@@ -1,0 +1,242 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Commercial.Pages
+
+@model PageViewModel<LocationPage>
+@{
+    var contentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+
+    var propertyPages = contentLocator.GetAll<High.Net.Models.Shared.Pages.PropertyPage>(EPiServer.Web.SiteDefinition.Current.StartPage)
+        .Select(x => new
+        {
+            PropertyName = x.PropertyName,
+            Latitude = x.Coordinates.Latitude,
+            Longitude = x.Coordinates.Longitude,
+            AddressLine1 = x.AddressLine1,
+            City = x.City,
+            State = x.State,
+            ZipCode = x.ZipCode,
+            County = x.County,
+            PageImage = x.PageImage != null ? ((client.Load<ImageVault.Common.Data.WebMedia>(x.PageImage.Id).Count() > 0) ? Url.ContentUrl(client.Load<ImageVault.Common.Data.WebMedia>(x.PageImage.Id).FirstOrDefault().Url) : null) : null,
+            PageLink = Url.ContentUrl(x.ContentLink)
+        });
+}
+@section SiteHeader{
+    <style>
+        .map-wrapper {
+            position: relative;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        #map_canvas {
+            width: 100%;
+            height: 600px;
+        }
+
+        #marker-tooltip {
+            display: none;
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background-color: #fff;
+            margin: 15px;
+        }
+
+        .infobox {
+            width: 180px;
+        }
+
+        .infobox-title {
+            font-family: helvetica,arial,helvetica,sans-serif;
+            font-weight: bold;
+            font-size: 12pt;
+        }
+
+        .infobox-content {
+            font-family: helvetica,arial,helvetica,sans-serif;
+            font-size: 10pt;
+        }
+
+        a.infobox-link:link {
+            color: #0785B8;
+            font-family: helvetica,arial,helvetica,sans-serif;
+            text-decoration: none;
+        }
+
+        a.infobox-link:visited {
+            color: #0785B8;
+            font-family: helvetica,arial,helvetica,sans-serif;
+            text-decoration: none;
+        }
+
+        a.infobox-link:hover {
+            color: #0785B8;
+            font-family: helvetica,arial,helvetica,sans-serif;
+            text-decoration: none;
+        }
+
+        a.infobox-link:active {
+            color: #0785B8;
+            font-family: helvetica,arial,helvetica,sans-serif;
+            text-decoration: none;
+        }
+
+        .infobox-image {
+            position: relative;
+            width: 180px;
+            border: none;
+        }
+
+        div#marker-tooltip {
+            width: 200px;
+            padding: 10px 10px;
+            height: auto;
+        }
+    </style>
+}
+@Html.Partial("~/Views/Commercial/Shared/Banner.cshtml", Model.CurrentPage.Name)
+<div class="spacer"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 map-wrapper">
+            <div id="map_canvas"></div>
+            <div id="marker-tooltip"></div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<br />
+
+@section SiteFooter{
+    <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false"></script>
+    <script>
+        $(document).ready(function () {
+            var markers = $.parseJSON('@Html.Raw(Json.Encode(propertyPages))'); //get market data
+
+            var polygons = @Html.Raw(Json.Encode(Model.CurrentPage.PolygonCoordinates)); // get polygon area
+
+            LoadMap(); //Load map on startup
+
+            function LoadMap() {
+                //Center map starts
+                var centerLatArray = [];
+                var centerLngArray = [];
+                for (var i = 0; i < markers.length; i++) {
+                    if (isNaN(Number(markers[0].Latitude))) {
+                    } else {
+                        centerLatArray.push(Number(markers[0].Latitude));
+                    }
+
+                    if (isNaN(Number(markers[0].Longitude))) {
+                    } else {
+                        centerLngArray.push(Number(markers[0].Longitude));
+                    }
+                }
+
+                var centerLatSum = centerLatArray.reduce(function (a, b) { return a + b; });
+                var centerLngSum = centerLngArray.reduce(function (a, b) { return a + b; });
+
+                var centerLat = centerLatSum / markers.length;
+                var centerLng = centerLngSum / markers.length;
+
+                //Center map ends
+
+                var mapOptions = {
+                    center: new google.maps.LatLng(centerLat, centerLng),
+                    zoom: 15,
+                    mapTypeId: google.maps.MapTypeId.HYBRID
+                };
+                var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+                //Create and open InfoWindow.
+                var infoWindow = new google.maps.InfoWindow();
+
+                //Polygon formation starts
+                var triangleCoords = [];
+                if(polygons != null){
+                    var polygonCords = polygons.split('\n');
+                    for (var i = 0; i < polygonCords.length; i++) {
+                        var cords = polygonCords[i].split(',');
+                        var _cords = {
+                            lat: Number(cords[0]),
+                            lng: Number(cords[1])
+                        }
+                        triangleCoords.push(_cords);
+                    }
+                }
+                //Polygon formation ends
+
+                for (var i = 0; i < markers.length; i++) {
+                    var data = markers[i];
+
+                    var myLatlng = new google.maps.LatLng(data.Latitude, data.Longitude);
+                    var marker = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map,
+                        title: data.PropertyName
+                    });
+
+                    // Construct the polygon.
+                    if(polygons != null){
+                        var polygonArea = new google.maps.Polygon({
+                            paths: triangleCoords,
+                            strokeColor: '#FF0000',
+                            strokeOpacity: 0.8,
+                            strokeWeight: 5,
+                            fillColor: '#000000',
+                            fillOpacity: 0.0
+                        });
+                        polygonArea.setMap(map);
+                    }
+
+                    //Attach click event to the marker.
+                    (function (marker, data) {
+
+                        var htmlToolTip = '<div class="infobox">' +
+                                '<p class="infobox-content">' +
+                                '<span class="infobox-title">' + data.PropertyName + '</span>' +
+                                '<br><a class="infobox-link" target="_blank" href="' + data.PageLink + '">more info</a>' +
+                                '<br><br>' + data.AddressLine1 + '<br>' + data.City + ', ' + data.State + ' ' + data.ZipCode + '<br><br>' +
+                                '<a class="infobox-link" target="_blank" href="https://maps.google.com?daddr=' + data.ZipCode + data.State + data.PropertyName.replace(/\ /g, '+') + data.County + '">Directions</a>' +
+                                '</p>' +
+                                '<img class="infobox-image" alt="' + data.PropertyName + '" src="' + data.PageImage + '">' +
+                                '</div>';
+
+                        marker.tooltipContent = htmlToolTip;
+
+                        google.maps.event.addListener(marker, "click", function (e) {
+                            //Wrap the content inside an HTML DIV in order to set height and width of InfoWindow.
+                            infoWindow.setContent(htmlToolTip);
+                            infoWindow.open(map, marker);
+                        });
+
+                        google.maps.event.addListener(marker, 'mouseover', function () {
+                            var point = fromLatLngToPoint(marker.getPosition(), map);
+                            $('#marker-tooltip').html(marker.tooltipContent).css({
+                                'left': point.x,
+                                'top': point.y - 15
+                            }).show();
+                        });
+
+                        google.maps.event.addListener(marker, 'mouseout', function () {
+                            $('#marker-tooltip').hide();
+                        });
+
+                    })(marker, data);
+                }
+            }
+        });
+
+        function fromLatLngToPoint(latLng, map) {
+            var topRight = map.getProjection().fromLatLngToPoint(map.getBounds().getNorthEast());
+            var bottomLeft = map.getProjection().fromLatLngToPoint(map.getBounds().getSouthWest());
+            var scale = Math.pow(2, map.getZoom());
+            var worldPoint = map.getProjection().fromLatLngToPoint(latLng);
+            return new google.maps.Point((worldPoint.x - bottomLeft.x) * scale, (worldPoint.y - topRight.y) * scale);
+        }
+    </script>
+}

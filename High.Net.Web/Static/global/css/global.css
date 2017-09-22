@@ -1,0 +1,101 @@
+@import url(//fonts.googleapis.com/css?family=Open+Sans);
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+}
+
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #7f7f7f;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+
+.highnet {
+    color: #000000;
+}
+
+/*ul,
+li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+ol, li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}*/
+
+h3 {
+    font-size: 18px;
+}
+
+.bx-next, .bx-prev {
+    display: inline-block;
+}
+
+/******************Global Classes*****************************/
+.border-block {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+img.placeholder {
+    border: 5px solid #f7f7f7;
+}
+
+/*******************List style removed from search pages*************/
+.listResult ul {
+    list-style: outside none none;
+    padding: 0 !important;
+}

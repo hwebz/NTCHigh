@@ -1,0 +1,116 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighConcrete.Pages
+
+@model PageViewModel<ProjectListingPage>
+
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var contentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+
+    var applicationList = contentLoader.GetChildren<ProjectListingPage>(Model.CurrentPage.ContentLink);
+    var projectItemPagesList = contentLoader.GetChildren<ProjectItemPage>(Model.CurrentPage.ContentLink);
+
+}
+
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                @if (projectItemPagesList.Count() == 0)
+                {
+                    <div class="section application-inner">
+                        @if (applicationList != null)
+                        {
+                            foreach (var item in applicationList)
+                            {
+                                var projectItemPages = contentLoader.GetDescendents(item.ContentLink).Where(x => contentLoader.Get<IContent>(x) is ProjectItemPage).Select(contentLoader.Get<ProjectItemPage>);
+                                if (projectItemPages.Count() > 0)
+                                {
+                                    int counter1 = 0;
+                                    <h3>@item.Name</h3>
+                                    foreach (var projectItem in projectItemPages.OrderByDescending(x => x.Created))
+                                    {
+                                        if (counter1 == 0)
+                                        {
+                                            @Html.Raw("<div class=\"row\">")
+                                        }
+                                        else if (counter1 > 0 && counter1 % 3 == 0)
+                                        {
+                                            @Html.Raw("</div><div class=\"row\">")
+                                        }
+                                        <div class="col-sm-4 col-md-4 col-lg-4">
+                                            <div class="application-inner-content">
+                                                <div class="application-inner-image">
+                                                    <a href="@Url.ContentUrl(projectItem.ContentLink)">
+                                                        @Html.PropertyFor(x => projectItem.PageImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 155, Height = 155, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "media-object img-responsive" })
+                                                    </a>
+
+                                                </div>
+                                                <div class="media-body project-copy">
+                                                    <a href="@Url.ContentUrl(projectItem.ContentLink)" target="_blank">
+                                                        <h3 class="media-heading">@projectItem.Name</h3>
+                                                    </a>
+                                                    <p>@projectItem.IntroText</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        counter1++;
+                                    }
+                                    @Html.Raw("</div>")
+                                }
+
+                            }
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="section application-inner">
+                        <h3>@Model.CurrentPage.Name</h3>
+                        @if (projectItemPagesList != null)
+                        {
+                            int counter2 = 0;
+                            foreach (var projectItem in projectItemPagesList)
+                            {
+                                if (counter2 == 0)
+                                {
+                                    @Html.Raw("<div class=\"row\">")
+                                }
+                                else if (counter2 > 0 && counter2 % 3 == 0)
+                                {
+                                    @Html.Raw("</div><div class=\"row\">")
+                                }
+                                <div class="col-sm-4 col-md-4 col-lg-4">
+                                    <div class="application-inner-content">
+                                        <div class="application-inner-image">
+                                            <a href="@Url.ContentUrl(projectItem.ContentLink)">
+                                                @Html.PropertyFor(x => projectItem.PageImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 155, Height = 155 }, CssClass = "media-object img-responsive" })
+                                            </a>
+                                        </div>
+                                        <div class="media-body project-copy">
+                                            <a href="@Url.ContentUrl(projectItem.ContentLink)">
+                                                <h3 class="media-heading">@projectItem.Name</h3>
+                                            </a>
+                                            <p>@projectItem.IntroText</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                counter2++;
+                            }
+                            @Html.Raw("</div>")
+                        }
+                    </div>
+                }
+                <div class="spacer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>
+
+

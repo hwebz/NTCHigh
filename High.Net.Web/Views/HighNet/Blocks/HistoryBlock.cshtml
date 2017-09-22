@@ -1,0 +1,34 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+
+@model HistoryBlock
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+<div class="spacer"></div>
+<div class="spacer"></div>
+<!-- News Slider Starts-->
+<div class="text-slider-wrapper history">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
+            <div class="text-slider">
+                <ul class="bxslider-text" data-slider-type="text">
+                    @if (Model.HistoryContent != null)
+                    {
+                        foreach (var contentItem in Model.HistoryContent.Items)
+                        {
+                            var item = contentLoader.Get<ImageTextBlock>(contentItem.ContentLink);
+                            <li>
+                                @Html.PropertyFor(x => item.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 350, Height = 280 }, CssClass = "history-image" })
+                                <h4>@item.Heading</h4>
+                                <p>@item.Text</p>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- News Slider Ends-->

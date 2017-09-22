@@ -1,0 +1,47 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.StructureCareUs.Pages
+@model PageViewModel<ServiceListingPage>
+@{
+    var repository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var serviceItems = repository.GetChildren<ServiceItemPage>(Model.CurrentPage.ContentLink);
+}
+
+@Html.Partial("~/Views/StructureCareUs/Shared/Banner.cshtml", Model)
+<div class="container">
+    <div class="service">
+        <div class="section-1">
+            @Html.PropertyFor(m => m.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+        </div>
+        <div class="clearfix"></div>
+        <div class="section-2">
+            @if (serviceItems != null)
+            {
+                int i = 0;
+                <div class="section-2">
+                    <div class="row">
+                        @foreach (var item in serviceItems)
+                        {
+                            <div class="col-md-3 col-sm-3 ">
+                                <div class="service-detail">
+                                    <a href="@Url.ContentUrl(item.ContentLink)">
+                                        @Html.PropertyFor(x => item.PageImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 215, Width = 260 }, CssClass = "img-responsive" })
+                                        <span>@item.Name</span>
+                                    </a>
+                                </div>
+                            </div>
+                            i++;
+                            if (i % 4 == 0)
+                            {
+                            <div class="clearfix"></div>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>
+

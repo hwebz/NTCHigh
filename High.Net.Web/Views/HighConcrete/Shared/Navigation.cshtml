@@ -1,0 +1,54 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighConcrete.Pages
+@using EPiServer.Web
+@using ImageVault.EPiServer
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+
+<!-- Navigation Starts-->
+<nav class="navbar navbar-default high-concrete-nav-bar">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="@(Model.CurrentPage.ContentLink == homePage.ContentLink ? "active" : "")"><a href="@Url.ContentUrl(homePage.ContentLink)">Home</a></li>
+                @Html.MenuList(EPiServer.Core.PageReference.StartPage,
+                @<li class="@(item.Selected ? "active" : "")@(item.HasChildren.Value ? "dropdown" : "")">
+                    <a href="@Url.ContentUrl(item.Page.ContentLink)">@item.Page.Name</a>
+                    @if (item.HasChildren.Value)
+                    {
+                        <a class="dropdown-toggle caret-dd" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a>
+                        var childItems = contentLoader.GetChildren<EPiServer.Core.PageData>(item.Page.ContentLink);
+                        <ul class="dropdown-menu">
+                            @foreach (var childItem in childItems)
+                            {
+                                if (childItem.VisibleInMenu)
+                                {
+                                    <li>@Html.PageLink(childItem)</li>
+                                }
+                            }
+                        </ul>
+                    }
+                </li>)
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<!-- Navigation Ends-->

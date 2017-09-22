@@ -1,0 +1,13 @@
+﻿@using EPiServer.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.RealEstateGroup.Blocks
+@using ImageVault.EPiServer
+@model ProfileImageBlock
+
+<div class="img-president">
+     @Html.PropertyFor(x => Model.ProfileImage, new { PropertySettings = new PropertyMediaSettings { Width = 106, Height = 134 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+    <h3>
+        @Html.PropertyFor(x => x.Name)
+    </h3>
+    @Html.PropertyFor(x => x.Designation)
+</div>

@@ -1,0 +1,121 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Core.Helpers
+@using High.Net.Models.HighConstructionCo.Pages
+@using ImageVault.EPiServer
+@model PageViewModel<ProjectItemPage>
+@{
+    var contentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+    var ServicesPages = contentLocator.GetAll<ContentPage>(PageReference.StartPage).Where(x => x.Name.Contains("Services"));
+    String url = String.Empty;
+    String[] CharacterSeparator = { "/", ",", "and" };
+    List<string> Services = new List<string>();
+    if (Model.CurrentPage.ServiceProvided != null)
+    {
+        foreach (var item in CharacterSeparator)
+        {
+            if (Model.CurrentPage.ServiceProvided.Contains(item))
+            {
+                string[] serivceName = Model.CurrentPage.ServiceProvided.Split(new string[] { item }, StringSplitOptions.None);
+                foreach (var Service in serivceName)
+                {
+                    Services.Add(Service);
+                }
+            }
+        }
+        if (Services.Count == 0)
+        {
+            Services.Add(Model.CurrentPage.ServiceProvided);
+        }
+    }
+     
+}
+
+@section SiteHeader{
+    <link href="~/Static/high-construction-co/css/banner.css" rel="stylesheet" />
+}
+<div class="container">
+    <div class="jcarousel-wrapper">
+        <div class="jcarousel">
+            <ul>
+                @if (Model.CurrentPage.ImageSlider != null)
+                {
+                    foreach (var item in Model.CurrentPage.ImageSlider)
+                    {
+
+                    <li data-url="@MediaHelpers.GetImageUrl(item, new { PropertySettings = new PropertyMediaSettings { Width = 1170, Height = 600 }, CssClass = "img-responsive" })">
+                        @Html.PropertyFor(x => item, new { PropertySettings = new PropertyMediaSettings { Width = 174, Height = 101, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                    </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="jcarousel-control-prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </div>
+        <div class="jcarousel-control-next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </div>
+    </div>
+</div>
+
+<!--about start-->
+<div class="management-inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div><span><b>Facility</b> : @Model.CurrentPage.facility</span></div>
+                <div><span><b>Size</b> : @Model.CurrentPage.Size</span></div>
+                <div><span><b>Location</b> : @Model.CurrentPage.Location</span></div>
+                <div>
+                    <div class="service-provided">
+                        <b>Services Provided</b> :
+                 @if (Services.Count > 0 || Model.CurrentPage.ServiceProvided != null)
+                 {
+                     var last = Services.Last();
+                     foreach (var Service in Services)
+                     {
+                         var ServicePage = ServicesPages.Where(x => x.Name.Contains(Service.Trim())).FirstOrDefault();
+                         if (ServicePage != null)
+                         {
+                             url = ((EPiServer.Core.PageData)(ServicePage)).LinkURL;
+                             if (!Service.Equals(last))
+                             {
+                     <p><a href="@( url.IsEmpty() ? "#" : Url.ContentUrl(url))">@Service.Trim()</a> ,</p>
+                             }
+                             else
+                             {
+                     <p><a href="@( url.IsEmpty() ? "#" : Url.ContentUrl(url))">@Service.Trim()</a></p>  
+                             }
+                         }
+                         else
+                         {
+                             if (!Service.Equals(last))
+                             {
+                     <p>@Service.Trim() ,</p> 
+                             }
+                             else
+                             {
+                     <p>@Service.Trim()</p>  
+                             }
+                         }
+                     }
+
+                 }
+                    </div>
+                </div>
+                <div class="spacer"></div>
+                <div>
+                    @Html.PropertyFor(x => x.CurrentPage.Description)
+                </div>
+            </div>
+    </div>
+</div>
+
+<!--about end-->
+@section SiteFooter{
+    <script src="~/Static/lib/jcarousel/jquery.jcarousel.min.js"></script>
+    @Html.IncludeVersionedJs("/Static/high-construction-co/js/banner.js")
+}
+

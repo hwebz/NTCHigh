@@ -1,0 +1,95 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Models.Associates.Pages
+@using ImageVault.EPiServer
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<!--slider start-->
+<div class="slider">
+    <div class="container">
+        <div class="jcarousel-wrapper">
+            <div class="ms-jcarousel">
+                <ul class="main-slider">
+                    @if (homePage.ImageSliders != null && homePage.ImageSliders.Any())
+                    {
+                        foreach (var item in homePage.ImageSliders)
+                        {
+                            <li>
+                                @Html.PropertyFor(x => item, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <a href="#" class="jcarousel-control-prev">
+                <img src="~/Static/associates/images/slider/left-arrow.png" />
+            </a>
+            <a href="#" class="jcarousel-control-next">
+                <img src="~/Static/associates/images/slider/right-arrow.png" />
+            </a>
+        </div>
+    </div>
+    @Html.Partial("~/Views/Shared/PropertySearch.cshtml", Model)
+</div>
+<!--slider end-->
+<!--block start-->
+<div class="container">
+    <div class="darkgrey-block">
+        <div class="call-us">
+            <div class="telephone">
+                <span class="telephone-icon"></span>
+                <span class="cname">Lancaster - </span>
+                @{
+                    string[] LancasterNumbers = homePage.LancasterNo.Split(',');
+                    foreach (var item in LancasterNumbers)
+                    {
+                    <a href="tel:@item">
+                        <strong>@item</strong>
+                    </a>
+                    <br />
+                    }
+                }
+            </div>
+            <div class="telephone">
+                <span class="telephone-icon"></span>
+                <span class="cname">Harrisburg - </span>
+                @{
+                    string[] HarrisburgNumbers = homePage.HarrisburgNo.Split(',');
+                    foreach (var item in HarrisburgNumbers)
+                    {
+                    <a href="tel:@item">
+                        <strong>@item</strong>
+                    </a>
+                    <br />
+                    }
+                }
+            </div>
+        </div>
+        <a class="help-you" href="@Url.ContentUrl(homePage.HelpPageLink)" @Html.EditAttributes(x => homePage.HelpPageLink)>How Can We Help You?</a>
+        <ul>
+            <li>
+                <a href="@Url.ContentUrl(homePage.FacebookLink)" @Html.EditAttributes(x => homePage.FacebookLink) target="_blank">
+                    <img alt="facebook" src="~/Static/associates/images/icon/fb.png" />
+                </a>
+            </li>
+            <li>
+                <a href="@Url.ContentUrl(homePage.YouTubeLink)" @Html.EditAttributes(x => homePage.YouTubeLink) target="_blank">
+                    <img alt="facebook" src="~/Static/associates/images/icon/youtube.png" />
+                </a>
+            </li>
+            <li>
+                <a href="@Url.ContentUrl(homePage.LinkedInLink)" @Html.EditAttributes(x => homePage.LinkedInLink) target="_blank">
+                    <img alt="facebook" src="~/Static/associates/images/icon/likdin.png" />
+                </a>
+            </li>
+
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--block end-->

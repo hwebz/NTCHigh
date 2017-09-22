@@ -1,0 +1,26 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@model  PageViewModel<High.Net.Models.Residential.Pages.ApplyNowPage>
+@section PageBannerSection{
+    @Html.Partial("~/Views/Residential/Shared/Banner.cshtml", Model)
+}
+@{
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+
+}
+<div class="spacer"></div>
+<div class="row">
+    @if (Model.CurrentPage.DocumentFile != null && Model.CurrentPage.EmailAddress != null)
+    {
+        var documentFile = client.Load<ImageVault.Common.Data.Media>(Model.CurrentPage.DocumentFile.Id).ToList();
+        if (documentFile.Count > 0)
+        {
+            <p><img src="~/Static/residential/images/bullet_adobe.gif" /><a target="_blank" href="@Url.ContentUrl(documentFile.FirstOrDefault().Url)">Please complete this application</a>, and email to <a href="mailto:@Model.CurrentPage.EmailAddress">@Model.CurrentPage.EmailAddress</a></p>
+        }
+    }
+</div>
+@Html.PropertyFor(x => x.CurrentPage.ContentBody, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+<div class="spacer"></div>
+
+

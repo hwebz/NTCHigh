@@ -1,0 +1,443 @@
+/**************************************/
+/* Document Defaults */
+/**************************************/
+
+body
+{
+       margin-left: 0px; 
+       font-family: Arial, Helvetica, Sans-serif;
+       font-size: 10pt;
+       font-style: normal;
+       font-weight: normal;
+       color: #000000;
+       background: "#FFFFFF";
+       letter-spacing: normal;
+       text-align: left;
+       text-indent: 0px;
+       word-spacing: normal;
+       adjust: left;
+}
+
+a:active
+{
+       color: #0000cc;
+}
+
+a:hover
+{
+       color: #e5043b;
+       font-family: Arial, Helvetica, Sans-serif;
+       font-size: 9pt;
+}
+
+a:link
+{
+       color: #003892;
+       font-family: Arial, Helvetica, Sans-serif;
+       font-size: 9pt;
+       font-weight: bolder;
+}
+
+a:visited
+{
+       color: #467df0;
+       font-family: Arial, Helvetica, Sans-serif;
+       font-size: 9pt;
+       font-weight: bolder;
+}
+
+/**************************************/
+/* Paragraph Styles */
+/**************************************/
+
+BLOCKQUOTE
+{ 
+       margin-left: 5px;
+       color: #000000;
+       font-family: Arial, Helvetica, Sans-serif;
+} 
+
+UL
+{
+       font-family: Arial, Helvetica, Sans-serif;
+       font-size: 10pt;
+       margin-left: 36px;
+}
+
+OL
+{
+       font-family: Arial, Helvetica, Sans-serif;
+       font-size: 10pt;
+       margin-left: 22px;
+}
+
+.Error
+{
+       font-family: Arial, Helvetica, Sans-serif;
+       font-size: 10pt;
+       margin-left: 10px;
+       align: left;
+       color: #FF0000
+}
+
+.Body
+{
+       margin-left: 20px;
+       margin-bottom: 0px;
+       font-family: Arial, Helvetica, Sans-serif;
+       font-size: 10pt;
+       align: left;
+}
+
+.BodyIndented
+{
+       font-family: Arial, Helvetica, Sans-serif;
+       font-size: 10pt;
+       margin-left: 40px;
+}
+
+.Label
+{
+       font-family: Arial, Helvetica, Sans-serif;
+       font-size: 10pt;
+       marginal-top: -10px;
+       margin-left: 0px;
+       margin-bottom: -10px;
+       align: left;
+       font-weight: bold;
+}
+
+.Heading1
+{
+       font-family: Arial, Helvetica, Sans-serif;
+       font-style: normal;
+       font-size: 16pt;
+       font-weight: bold;
+       text-align: left;
+       margin-top: 5px;
+       margin-bottom: 10px;
+       margin-left: 0px;
+       color: #003366;
+}
+
+.Heading2
+{
+       font-family: Arial, Helvetica, Sans-serif;
+       font-size: 16pt;
+       font-weight: normal;
+       color: #003366;
+}
+
+.Heading3
+{
+       font-family: Arial, Helvetica, Sans-serif;
+       font-size: 14pt;
+       font-weight: bold;
+       color: #003366;
+}
+
+.Heading4
+{
+       font-family: Arial, Helvetica, Sans-serif;
+       font-size: 12pt;
+       font-weight: bold;
+       margin-top: 20px;
+       font-style: normal;
+       color: #003366;
+}
+
+.NewHTMLPage
+{
+       font-family: Arial, Helvetica, Sans-serif;
+       font-style: normal;
+       font-size: 14pt;
+       font-weight: bold;
+       text-align: left;
+       margin-top: 5px;
+       margin-bottom: 10px;
+       margin-left: 0px;
+       color: #003366;
+}
+
+.RefPage
+{
+       text-align: left;
+       font-size: 14pt;
+       font-weight: bold;
+       color: #003366;
+}
+
+.SmartList1
+{
+       font-size: 10pt;
+       margin-left: 22px;
+}
+
+.BulletedDense
+{
+       font-size: 10pt;
+       margin-left: 0px;
+       align: left;
+}
+
+.BulletedDenseIntended
+{
+       font-size: 10pt;
+       margin-left: 25px;
+}
+
+.ProgramCode
+{
+       font-family: Courier;
+       font-size: 10pt;
+}
+
+.ProgramCodeLast
+{
+       font-family: Courier;
+       font-size: 10pt;
+       margin-bottom: 4px;
+}
+
+.GlossaryTerm
+{
+       font-size: 10pt;
+       font-weight: bold;
+       font-style: normal;
+       color: #003366;
+}
+
+.Definition
+{
+       margin-left: 300px;
+}
+
+.Term
+{
+       position: absolute;
+       left: 140px;
+       width: 170px;
+       overflow:hidden;
+       background:"#FFFFFF";
+       adjust: left;
+}
+
+.H1TOC
+{
+       font-size: 14pt;
+       margin-bottom: 6px;
+       margin-top: 10px;
+}
+
+.H1NoNumberTOC
+{
+       font-size: 14pt;
+}
+
+.H2TOC
+{
+       margin-top: 2px;
+       font-size: 12pt;
+       margin-left: 2px;
+       margin-bottom: 0px;
+}
+
+P.Anchor
+{
+       margin-left: 10px;
+}
+
+
+.GroupTitlesIX
+{
+       font-size: 16pt;
+       color: #003366;
+}
+
+.Title
+{
+       text-align: center;
+       font-size: 18pt;
+       color: #003366;
+       font-weight: bold;
+       margin-top: 20px;
+}
+
+.TOC1
+{
+       font-size: 13pt;
+       font-weight: bold;
+}
+
+.TOC2
+{
+       font-size: 11pt;
+}
+
+.TOC3
+{
+       font-size: 10pt;
+}
+
+.TOC4
+{
+       font-size: 9pt;
+}
+
+.TOC5
+{
+       font-size: 8pt;
+}
+
+/**************************************/
+/* Table styles */
+/**************************************/
+
+TABLE
+{
+       margin-top: 4px;
+       margin-left: 5px;
+       margin-bottom: 2px;
+}
+
+.Notebox
+{
+       margin-top: 4px;
+       margin-left: 20px;
+       margin-bottom: 2px;
+}
+
+.Codebox
+{
+       margin-top: 4px;
+       margin-left: 20px;
+       margin-bottom: 2px;
+}
+
+.generic
+{
+       margin-top: 4px;
+       margin-left: 20px;
+       margin-bottom: 2px;
+}
+
+/**************************************/
+/* Paragraph Styles for Tables*/
+/**************************************/
+
+.TableTitle
+{
+       text-align: left;
+       font-style: italic;
+       font-weight: bold;
+}
+
+.CellHeading
+{
+       text-align: left;
+       font-weight: bold;
+       color: #003366;
+}
+
+.CellBody
+{
+       font-size: 10pt;
+}
+
+TD P.Body
+{
+       margin-left: 0px;
+}
+
+/**************************************/
+/*   Character Styles                 */
+/**************************************/
+
+.Emphasis
+{
+       color: #000000;
+       font-style: italic;
+       font-weight: normal;
+       text-decoration: none; 
+       text-transform: none; 
+       vertical-align: baseline;
+}
+
+.FileName
+{
+       color: #000000;
+       font-style: normal;
+       font-weight: normal;
+       text-decoration: none; 
+       text-transform: none; 
+       vertical-align: baseline;
+}
+
+.FirstUse
+{
+       color: #000000;
+       font-style: italic;
+       font-weight: bold;
+       text-decoration: none;
+       text-transform: none;
+       vertical-align: baseline;
+}
+
+.GUI
+{
+      color: #000000;
+       font-style: normal;
+       font-weight: bold;
+       text-decoration: none; 
+       text-transform: none; 
+       vertical-align: baseline;
+}
+
+.ProgName
+{
+       color: #000000;
+       font-style: normal;
+       font-weight: bold;
+       text-decoration: none; 
+       text-transform: none; 
+       vertical-align: baseline;
+}
+
+.ProgText
+{
+       color: #000000;
+       font-style: normal;
+       font-weight: bold;
+       text-decoration: none; 
+       text-transform: none; 
+       vertical-align: baseline;
+}
+
+.Strong
+{
+       color: #000000;
+       color: #000000;
+       font-style: normal;
+       font-weight: bold;
+       text-decoration: none; 
+       text-transform: none; 
+       vertical-align: baseline;
+}
+       
+.x_normal
+{
+       color: #0000ff;
+       font-style: normal;
+       text-decoration: underline; 
+       text-transform: none; 
+       vertical-align: baseline;
+}
+
+.x_title
+{
+       color: #0000ff;
+       font-style: normal;
+       text-decoration: underline; 
+       text-transform: none; 
+       vertical-align: baseline;
+}

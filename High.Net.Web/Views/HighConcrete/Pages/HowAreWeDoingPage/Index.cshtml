@@ -1,0 +1,78 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcrete.Pages
+@using High.Net.Core
+
+@model High.Net.Models.HighConcrete.ViewModels.HowAreWeDoingModel
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="doing">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                <div class="section representative">
+                    @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", ChildrenCssClass = "passage", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+                    @if (ViewBag.SendingStatus == false)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5>Please take a moment to tell us about your experience on the new High Concrete Group web site.</h5>
+                                @using (Html.BeginForm(null, null, FormMethod.Post,
+                            new { @Class = "custom-form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.HowAreWeDoingForm.EasyToFind, new { @Class = "form-title" })<br />
+                                        <label class="lable-1">Disagree</label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.EasyToFind, "1") 1 </label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.EasyToFind, "2") 2 </label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.EasyToFind, "3") 3 </label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.EasyToFind, "4") 4 </label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.EasyToFind, "5") 5 </label>
+                                        <label class="lable-1">Agree</label>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.HowAreWeDoingForm.Accomplishment, new { @Class = "form-title" })<br />
+                                        <label class="lable-1">Disagree</label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.Accomplishment, "1") 1 </label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.Accomplishment, "2") 2 </label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.Accomplishment, "3") 3 </label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.Accomplishment, "4") 4 </label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.Accomplishment, "5") 5 </label>
+                                        <label class="lable-1">Agree</label>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.HowAreWeDoingForm.Recommendation, new { @Class = "form-title" })<br />
+                                        <label class="lable-1">Disagree</label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.Recommendation, "1") 1 </label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.Recommendation, "2") 2 </label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.Recommendation, "3") 3 </label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.Recommendation, "4") 4 </label>
+                                        <label class="radio-inline">@Html.RadioButtonFor(x => x.HowAreWeDoingForm.Recommendation, "5") 5 </label>
+                                        <label class="lable-1">Agree</label>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.HowAreWeDoingForm.RecommendationComment, new { @Class = "form-title" })<br />
+                                        @Html.TextAreaFor(x => x.HowAreWeDoingForm.RecommendationComment)
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Submit" class="btn btn-default">
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                @Html.PropertyFor(x=>x.CurrentPage.ThankYouMessage)
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

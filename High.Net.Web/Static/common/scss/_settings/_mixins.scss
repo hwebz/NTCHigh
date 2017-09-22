@@ -1,0 +1,59 @@
+// ------------------------------------------------------------------------- //
+// #MIXINS
+// ------------------------------------------------------------------------- //
+
+// Set opacity for elements that compatible with some older browsers
+@mixin set-opacity($value) {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$value*10+")";
+  -ms-filter: alpha($value*10);
+  filter: alpha(opacity=$value*10);
+  -moz-opacity: $value;
+  -khtml-opacity: $value;
+  opacity: $value;
+}
+
+@mixin block-spacing($desktop, $tablet) {
+    padding: $desktop;
+
+    @include respond-to-max($tabletSize) {
+        padding: $tablet;
+    }
+}
+
+@mixin header-title($fontSize, $fontSizeTablet) {
+    font-size: $fontSize;
+    color: $color-orange;
+    @extend %uppercase-text;
+    line-height: 1.5;
+
+    @include respond-to-max($hugeSize) {
+        font-size: $fontSizeTablet;
+    }
+}
+
+
+@mixin prefix($declarations, $prefixes: ()) {
+    @each $property, $value in $declarations {
+        @each $prefix in $prefixes {
+            #{'-' + $prefix + '-' + $property}: $value;
+        }
+        // Output standard non-prefixed declaration
+        #{$property}: $value;
+    }
+}
+
+@mixin header-background-gradient() {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&1+0,0+100 */
+    background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+}
+
+@mixin header-banner-background-gradient() {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,000000+100&0+0,1+100 */
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 50%, rgba(0,0,0,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 50%,rgba(0,0,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(0,0,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}

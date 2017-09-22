@@ -1,0 +1,52 @@
+﻿@using EPiServer.Core
+@using High.Net.Models.Shared.Pages
+@using ImageVault.EPiServer
+@model High.Net.Core.PageViewModel<NewsListingPage>
+@{
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var newsListPages = dataLocator.GetNewsFeed(Model.CurrentPage);
+}
+@Html.Partial("~/Views/GreenfieldArchitects/Shared/Banner.cshtml", Model.CurrentPage.BannerImage != null ? Model.CurrentPage.BannerImage : new ImageVault.EPiServer.MediaReference())
+<div class="container">
+    <div class="black-band">
+        <div class="container">
+            <h1>@Model.CurrentPage.Name</h1>
+        </div>
+    </div>
+    <div class="common-container">
+        <div class="news">
+            @if (newsListPages != null)
+            {
+                foreach (var item in newsListPages)
+                {
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="news-right-img">
+                                <div class="cal">
+                                    @if (item.NewsImage != null)
+                                    {
+                                        @Html.PropertyFor(x => item.NewsImage, new { CssClass = "img-responsive" })
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Static/global/images/news-placeholder-360X200.png" class="img-responsive placeholder" />
+                                    }
+                                </div>
+                                <div class="date">
+                                    <span class="glyphicon glyphicon-calendar news"><span class="date-text">@item.PostedDate.ToString("MMMM dd, yyyy")</span></span>
+                                </div>
+                            </div>
+                            <div class="text-center"><span>@item.ImageQuote</span></div>
+                        </div>
+                        <div class="col-md-8">
+                            <h2>@item.Name</h2>
+                            @Html.PropertyFor(x => item.NewsHighlight)
+                            <a class="detail-link" href="@Url.ContentUrl(item.ContentLink)">more +</a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcrete.Blocks
+
+@model ImageTextBlock
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+
+ @Html.PropertyFor(x=> x.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 155, Height = 157 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } , CssClass="" })
+ @Html.PropertyFor(x=> x.Text) 
+@if (Model.TargetLink != null)
+{
+    var page = contentLoader.Get<High.Net.Core.BasePageData>(Model.TargetLink);
+    if(page != null)
+    {
+        <p><a href="@Url.ContentUrl(Model.TargetLink)">@page.Name</a></p>
+    }
+}
+  

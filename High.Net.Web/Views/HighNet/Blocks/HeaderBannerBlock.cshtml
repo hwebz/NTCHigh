@@ -1,0 +1,40 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+
+@model HeaderBannerBlock
+@{
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+    var contentRepository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+
+    var shouldInitCarousel = Model.HeaderBanner != null && Model.HeaderBanner.Items.Any();
+}
+<div class="container">
+    <div id="reslidermain" class="@(shouldInitCarousel ? "carousel slide re-slide": null)" data-ride="carousel">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            @if (shouldInitCarousel)
+            {
+                foreach (var item in Model.HeaderBanner.Items)
+                {
+                    var currentItem = contentRepository.Get<HeaderBannerItemBlock>(item.ContentLink);
+                    <div class="item">
+                        <div class="re-banner" style="background-image: linear-gradient(transparent 75px, @Model.BackGroundColor 10px);">
+                            @Html.PropertyFor(x => currentItem.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 350, Width = 785, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                            <h2 style="color:@Model.TextColor">@(!string.IsNullOrEmpty(currentItem.Heading) ? Html.Raw(currentItem.Heading) : Html.Raw("&nbsp;"))</h2>
+                        </div>
+                    </div>
+                }
+            }
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#reslidermain" role="button" data-slide="prev">
+                <span class="al" aria-hidden="true">&#x2190;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#reslidermain" role="button" data-slide="next">
+                <span class="ar" aria-hidden="true">&#x2192;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+
+@model High.Net.Models.HighSteelStructure.ViewModels.AskHighSteelModel
+@section SiteHeader{
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+}
+<div class="container">
+    <div class="common-container advisor">
+        <div class="row">
+            @if (!Model.AskHighSteelForm.IsMailSendSuccessfully)
+            {
+                <div class="col-md-12">
+                    @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", ChildrenCssClass = "", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+                    <h5><strong>Part 1 - Contact Information:</strong></h5>
+                    @using (Html.BeginForm(null, null, FormMethod.Post,
+                    new { @Class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken();
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.AskHighSteelForm.FirstName, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.AskHighSteelForm.FirstName, new { @Class = "form-control" })
+                                <span class="req-field">*</span>
+                                <br />
+                                @Html.ValidationMessageFor(x => x.AskHighSteelForm.FirstName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.AskHighSteelForm.LastName, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.AskHighSteelForm.LastName, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.AskHighSteelForm.LastName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.AskHighSteelForm.Title, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.AskHighSteelForm.Title, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.AskHighSteelForm.Title)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.AskHighSteelForm.Company, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.AskHighSteelForm.Company, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.AskHighSteelForm.Company)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.AskHighSteelForm.EmailAddress, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.AskHighSteelForm.EmailAddress, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.AskHighSteelForm.EmailAddress)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.AskHighSteelForm.PhoneNumber, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.AskHighSteelForm.PhoneNumber, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.AskHighSteelForm.PhoneNumber)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.AskHighSteelForm.Subject, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.AskHighSteelForm.Subject, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.AskHighSteelForm.Subject)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.AskHighSteelForm.Question, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(x => x.AskHighSteelForm.Question, new { @Class = "form-control" })
+                            </div>
+                        </div>
+                        <br />
+                        <p>You can upload any documents we should use in reference to your request.</p>
+                    
+                        for (int i = 0; i < 5; i++)
+                        {
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label no-top" for="">Drawing #@(i + 1):</label>
+                                <div class="col-sm-6">
+                                    @Html.TextBox(string.Format("AskHighSteelForm.fileUpload[{0}]", i), null, new { type = "file" })
+                                </div>
+                            </div>
+                        }
+
+                        <br />
+                        <div class="advisor-para">
+                            <p>The information provided is for budget pricing and planning purposes only. By providing the information, High Steel is not extending an offer to sell or agreeing to enter a contract. The actual price will be determined by final design and market conditions then existing.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">Submit</button>
+                                <button type="button" class="btn btn-danger">Clear Form</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                @Model.CurrentPage.ThankYouMessage   
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+﻿$pre: 'leadership-pure-image';
+
+.#{$pre} {
+    @include block-spacing($block-spacing, $block-spacing-tablet);
+
+    .container {
+        > div:last-child > div {
+            @include respond-to-max($tabletSize) {
+                padding: 0;
+                overflow: hidden;
+            }
+        }
+    }
+
+    .#{$pre}__title {
+        h1 {
+            @extend %big-title;
+        }
+    }
+
+    .#{$pre}__image {
+        img {
+            width: 100%;
+            display: block;
+        }
+    }
+}

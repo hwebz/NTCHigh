@@ -1,0 +1,29 @@
+﻿.banner {
+    position: relative;
+    margin-top: $top-banner-top-spacing;
+    height: 350px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    overflow: hidden;
+
+    .banner-contents {
+        width: auto;
+        height: auto;
+        @extend %all-centered;
+
+        img {
+            display: block;
+            width: 300px;
+
+            @include respond-to-max(767px) {
+                -webkit-transform: scale(0.7);
+                -moz-transform: scale(0.7);
+                -ms-transform: scale(0.7);
+                -o-transform: scale(0.7);
+                transform: scale(0.7);
+            }
+        }
+    }
+}

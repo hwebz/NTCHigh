@@ -1,0 +1,13 @@
+﻿@using High.Net.Core
+@using High.Net.Models.HighNet.Pages
+
+@model PageViewModel<HomePage>
+@{ 
+
+    var highNetPage = Model.CurrentPage as HighNetPageData;
+    var imgBanner = highNetPage != null ? highNetPage.ImageBanner:null;
+    var imgBannerLogo = highNetPage != null ? highNetPage.ImageBannerLogo:null;
+}
+@Html.Partial("~/Views/Family/Shared/Banner.cshtml",Model.CurrentPage)   
+
+@Html.PropertyFor(x=>Model.CurrentPage.Content)

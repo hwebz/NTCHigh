@@ -1,0 +1,78 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighNet.Pages
+@using EPiServer.Web
+@using High.Net.Models.Shared.Pages
+
+@model IPageViewModel<BasePageData>
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+    var currentPage = Model.CurrentPage;
+}
+@Html.FullRefreshPropertiesMetaData(new[] { "LocationUrl" })
+<!-- Contact Us Strip -->
+@if (!(currentPage is ContactUsPage))
+{
+    <div class="contact-us-new">
+        <h2>@Html.PropertyFor(x => homePage.ContactHeader)</h2>
+        <p>  @Html.PropertyFor(x => homePage.ContactInfo)</p>
+        <a href="@Url.ContentUrl(homePage.ContactUsLink)" class="get-in-touch-btn">@Html.PropertyFor(x => homePage.ContactButtonText)</a>
+    </div>
+}
+
+<!-- Contact Us Strip ends -->
+<div class="container contact-us-wrapper">
+   
+
+    <!-- Footer Starts-->
+    <div class="row module">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            @if (homePage.BottomBarIconLinks != null)
+            {
+                <ul class="social-icon">
+                   @foreach(var item in homePage.BottomBarIconLinks)
+                   {
+                       <li>
+                           <a href="@Url.ContentUrl(item.Link)" class="s-icon">                             
+                           <img src="@(item.Icon!=null? Url.ContentUrl(item.Icon):"#")" alt="@item.AltText"></a>
+                       </li>                       
+                   }
+                </ul>
+            }
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            @if (homePage.FooterPageLinkCollection != null)
+            {
+                foreach (var item in homePage.FooterPageLinkCollection)
+                {
+                    <ul class="footer-links cf">
+                        @if (item.Links != null)
+                        {
+                            foreach (var linkItem in item.Links)
+                            {
+                                <li><a href="@Url.ContentUrl(linkItem.Href)">@linkItem.Text</a></li>
+                            }
+                        }
+
+                        @if (item.EndWithContactItem && !string.IsNullOrEmpty(homePage.Contact))
+                        {
+                            <li><a href="tel:@homePage.Contact">@Html.PropertyFor(x => homePage.Contact)</a></li>
+                        }
+                    </ul>
+                }
+            }
+            <br />
+        </div>
+    </div>
+    <!-- Footer Ends-->
+
+</div>
+<!-- Contact Us Strip ends -->
+<div class="application-form__popup mfp-hide" id="application-form">
+    @Html.PropertyFor(x => homePage.ApplicationForm)
+</div>
+
+
+

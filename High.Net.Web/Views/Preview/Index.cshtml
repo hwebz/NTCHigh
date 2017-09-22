@@ -1,0 +1,111 @@
+@using High.Net.Core
+@using High.Net.Web.Business.Helpers
+@model PreviewModel
+
+@if (Model.CurrentPage is High.Net.Models.Humanity.Pages.HumanityPageData)
+{
+    Layout = "~/Views/Humanity/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.SelfStorage.Pages.SelfStoragePageData)
+{
+    Layout = "~/Views/SelfStorage/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.Commercial.Pages.CommercialPageData)
+{
+    Layout = "~/Views/Commercial/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.Industries.Pages.IndustriesPageData)
+{
+    Layout = "~/Views/Industries/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.Residential.Pages.ResidentialPageData)
+{
+    Layout = "~/Views/Residential/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.Associates.Pages.AssociatesPageData)
+{
+    Layout = "~/Views/Associates/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.RealEstateGroup.Pages.RealEstateGroupPageData)
+{
+    Layout = "~/Views/RealEstateGroup/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.StructureCareUs.Pages.StructureCareUsPageData)
+{
+    Layout = "~/Views/StructureCareUs/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.SteelServiceCentre.Pages.SteelServiceCentrePageData)
+{
+    Layout = "~/Views/SteelServiceCentre/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.HighNet.Pages.HighNetPageData)
+{
+    var homePage = Model.CurrentPage.GetHomePage<High.Net.Models.HighNet.Pages.HomePage>();
+    var viewFolder = "HighNet";
+    if (homePage != null && homePage.SiteViewTemplate!=null && homePage.SiteViewTemplate!="HighNet")
+    {
+        viewFolder = homePage.SiteViewTemplate.Equals("Leadership") ? "Leadership" : "Family";
+    }
+    Layout = string.Format("~/Views/{0}/Layouts/_Site.cshtml", viewFolder);
+}
+
+@if (Model.CurrentPage is High.Net.Models.HighHotels.Pages.HighHotelsPageData)
+{
+    Layout = "~/Views/HighHotels/Layouts/_Site.cshtml";
+}
+
+@if (Model.CurrentPage is High.Net.Models.HighConcrete.Pages.HighConcretePageData)
+{
+    Layout = "~/Views/HighConcrete/Layouts/_Site.cshtml";
+}
+
+@if (Model.CurrentPage is High.Net.Models.HighAppraisal.Pages.HighAppraisalPageData)
+{
+    Layout = "~/Views/HighAppraisal/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.HighConcreteAccessories.Pages.HighConcreteAccessoriesPageData)
+{
+    Layout = "~/Views/HighConcreteAccessories/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.HighSteelStructure.Pages.HighSteelStructurePageData)
+{
+    Layout = "~/Views/HighSteelStructure/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.HighTransit.Pages.HighTransitPageData)
+{
+    Layout = "~/Views/HighTransit/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.GreenfieldArchitects.Pages.GreenfieldArchitectsPageData)
+{
+    Layout = "~/Views/GreenfieldArchitects/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.HighConstructionCo.Pages.HighConstructionCoPageData)
+{
+    Layout = "~/Views/HighConstructionCo/Layouts/_Site.cshtml";
+}
+@if (Model.CurrentPage is High.Net.Models.NewResidential.Pages.HomePage)
+{
+    Layout = "~/Views/NewResidential/Layouts/_Site.cshtml";
+}
+@foreach(var area in Model.Areas)
+{
+    if(area.Supported)
+    {
+        @Html.Partial("TemplateHint", string.Format(@Html.Translate("/preview/heading"), Model.PreviewContent.Name, @Html.Translate(area.AreaName)))
+        <div class="row preview clearfix">
+           @if (null != area.ContentArea && area.ContentArea.Items.Count > 0)
+           {
+            @Html.DisplayFor(x => area.ContentArea, new { Tag = area.AreaTag })
+           }
+        </div>
+    }
+    else
+    {
+        @Html.Partial("TemplateHint", string.Format(@Html.Translate("/preview/norenderer"), Model.PreviewContent.Name, @Html.Translate(area.AreaName)))
+    }
+}
+
+@if(!Model.Areas.Any())
+{
+    @Html.Partial("TemplateHint", string.Format(@Html.Translate("/preview/norendereratall"), Model.PreviewContent.Name))
+}

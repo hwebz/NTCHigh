@@ -1,0 +1,40 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcrete.Pages
+@using High.Net.Core
+
+@model PageViewModel<VideoListingPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var dataLocator= EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    
+    var videoItemPages = contentLoader.GetChildren<VideoItemPage>(Model.CurrentPage.ContentLink);
+    
+}
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <h2 class="sub-header">@Model.CurrentPage.Name</h2>
+    <div class="row">
+        @if (videoItemPages != null)
+        {
+            foreach (var item in videoItemPages)
+            {
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="media video">
+                    <div class="media-left">
+                        <a href="@Url.ContentUrl(item.ContentLink)">
+                            <img class="media-object" src="@dataLocator.GetYouTubeThumbnail(item.VideoLink)"/>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading">@item.Heading</h3>
+                        <p>@item.IntroText</p>
+                        <p class="cf pull-right"><a class="read-more-link" href="@Url.ContentUrl(item.ContentLink)">read more...</a></p>
+                    </div>
+                </div>
+            </div>
+        }
+        }
+    </div>
+    <div class="spacer"></div>
+</div>

@@ -1,0 +1,18 @@
+﻿mixin call_to_action(isButtonOnly, button1, button2)
+    div(class="residential-call-to-action", style="background-image: url('../images/call-to-action.jpg')")
+        div(class="container")
+            div(class="row")
+                div(class="col-xs-12 col-sm-12 col-md-12")
+                    div(class="residential-call-to-action__content")
+                        if (!isButtonOnly)
+                            h1 Ready to move in?
+                            p If you're ready to call Plantation Oaks home, click one of the links below
+
+                        a(class="call-to-action-btn", href="#")= button1
+                        a(class="call-to-action-btn", href="#")= button2
+                     
+                
+                            
+                    
+
+    

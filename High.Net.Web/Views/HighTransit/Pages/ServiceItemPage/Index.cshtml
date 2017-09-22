@@ -1,0 +1,14 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.HighTransit.Pages
+@model PageViewModel<ServiceItemPage>
+@Html.Partial("~/Views/HighTransit/Shared/Navigation.cshtml", Model)
+@Html.Partial("~/Views/HighTransit/Shared/Banner.cshtml")
+<div class="spacer"></div>
+<!--container start-->
+<div class="container">
+    <div class="sec what-we-houl">
+        @Html.PropertyFor(m => m.CurrentPage.MainContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFifthWidth } })
+        <div class="clearfix"></div>
+    </div>
+</div>

@@ -1,0 +1,273 @@
+﻿// ------------------------------------------------------------------------- //
+// #GLOBALS
+//
+// Global settings and spacing units.
+// ------------------------------------------------------------------------- //
+// Base settings (in pixels)
+$base-font-size-tablet: 16px;
+$base-font-size: 18px;
+$base-line-height: 24px;
+
+$top-banner-top-spacing: 77px;
+
+// Main navigation
+$li-font-size: 18px;
+
+// Footer
+$title-font-size: 34px;
+
+// Blocks
+$block-spacing: 100px 0;
+$block-spacing-tablet: 50px 0;
+
+$block-spacing-type-2: 30px 0;
+$block-spacing-type-2-tablet: 15px 0;
+
+// Testimonial & Call to Action
+$big-title-font-size: 85px;
+$big-title-font-size-tablet: 60px;
+$big-title-font-size-mobile: 45px;
+
+// Location
+$location-font-size: 45px;
+$address-font-size: 18px;
+
+// Category list
+$category-header-font-size: $location-font-size;
+$category-header-font-size-tablet: 35px;
+$photo-gallery-header-font-size: 65px;
+$photo-gallery-header-font-size-tablet: 40px;
+
+// Photo gallery
+$photo-gallery-title: 24px;
+$photo-gallery-title-tablet: 24px;
+
+// Room Slider
+$room-slider-header-font-size: $location-font-size;
+$room-slider-header-font-size-tablet: 30px;
+$room-slider-detail-font-size: 29px;
+$room-slider-detail-font-size-tablet: 21px;
+
+// Residents
+$residents-contact-information-font-size: $title-font-size;
+$residents-contact-information-font-size-tablet: 25px;
+
+// Event list
+$event-date-font-size: 70px;
+$event-date-font-size-tablet: 45px;
+$event-month-font-size: 40px;
+$event-month-font-size-tablet: 28px;
+
+// Font settings
+html {
+    font-size: 110%;
+}
+
+@media(min-width:60em) {
+    html {
+        font-size: 90%;
+    }
+}
+
+body {
+    @include set-font-size($base-font-size);
+    line-height: 24px;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    overflow-y: visible;
+
+    @include respond-to-max($hugeSize) {
+        font-size: $base-font-size-tablet;
+    }
+}
+
+ul {
+    line-height: 200%;
+    margin: 0;
+    padding: 0;
+}
+
+%common-link {
+    text-decoration: none;
+    &:hover {
+        @include set-opacity(0.5);
+        text-decoration: none;
+    }
+}
+
+%uppercase-text {
+    text-transform: uppercase;
+}
+
+%vertical-centered {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    -moz-transform: translate(0, -50%);
+    -o-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+}
+
+%horizontal-centered {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    -moz-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+}
+
+%all-centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-%50, -50%);
+}
+
+/* centered columns styles */
+%row-centered {
+    text-align: center;
+}
+
+%col-centered {
+    display: inline-block;
+    float: none;
+    /* reset the text-align */
+    text-align: left;
+    /* inline-block space fix */
+    @include respond-to-min($tabletSize) {
+        margin-right: -6px;
+    }
+
+    @include respond-to-max($tabletSize) {
+        margin-top: -6px;
+    }
+}
+
+// Big Title
+%big-title {
+    @extend %roboto-regular;
+    @extend %uppercase-text;
+    font-size: $big-title-font-size;
+    margin-bottom: 30px;
+    line-height: 1;
+
+    @include respond-to-max($hugeSize) {
+        font-size: $big-title-font-size-tablet;
+    }
+
+    @include respond-to-max($tabletSize) {
+        font-size: $big-title-font-size-mobile;
+    }
+}
+
+%medium-title {
+    @extend %uppercase-text;
+    font-size: $room-slider-header-font-size;
+    margin-bottom: 30px;
+    line-height: 1;
+
+    @include respond-to-max($hugeSize) {
+        font-size: $room-slider-header-font-size-tablet;
+    }
+}
+
+.fixed-background {
+    background-color: $color-white;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    @include set-opacity(0);
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -o-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+#residential-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+%block-bottom-border {
+    position: relative;
+
+    &:after {
+        content: '';
+        height: 5px;
+        width: 400px;
+        margin: 0 auto 0;
+        display: block;
+        background-color: $color-blue-gray;
+        @extend %horizontal-centered;
+        bottom: -2.5px;
+
+        @include respond-to-max($phonePortrait) {
+            width: 270px;
+        }
+    }
+}
+
+// Custom .container
+.container {
+    max-width: 100%;
+    width: auto;
+    margin: 0 85px;
+    overflow: hidden;
+
+    @include respond-to-max($largerSize) {
+        margin: 0 45px;
+    }
+
+    @include respond-to-max($desktopSize) {
+        margin: 0 30px;
+    }
+
+    @include respond-to-max($tabletSize) {
+        margin: 0;
+    }
+}
+
+.desktop {
+    display: none;
+    @include respond-to-max($largerSize) {
+        display: inline-block;
+    }
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.no-padding-top {
+    padding-top: 0;
+}
+
+.no-padding-left {
+    padding-left: 0;
+}
+
+.no-padding-bottom {
+    padding-bottom: 0;
+}
+
+.no-padding-right {
+    padding-right: 0;
+}
+
+.image-lightbox {
+    cursor: pointer;
+}

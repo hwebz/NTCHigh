@@ -1,0 +1,19 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Residential.Blocks
+@using EPiServer.ServiceLocation
+
+@model StaffBlock
+<div class="row">
+    <div class="col-md-12">
+        <div class="staff-info">
+            <div class="staff-img">
+                @Html.PropertyFor(x => Model.ProfilePhoto, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 190, Height = 190 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                <h3>@Html.PropertyFor(x => x.Name)</h3>
+            </div>
+            @Html.PropertyFor(x => x.Information)
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>
+

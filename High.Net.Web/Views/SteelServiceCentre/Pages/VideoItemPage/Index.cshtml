@@ -1,0 +1,50 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.SteelServiceCentre.Pages
+
+@model PageViewModel<VideoItemPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    var contentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+    
+    var VideoList = contentLocator.GetAll<VideoItemPage>(PageReference.StartPage).ToList().Take(5).Where(x=> x.ContentLink != Model.CurrentPage.ContentLink);
+}
+@Html.Partial("~/Views/SteelServiceCentre/Shared/Banner.cshtml", Model.CurrentPage)
+
+<div class="container">
+    <div class="video-listing">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <div class="video-frame">
+                    <iframe @Html.EditAttributes(x => x.CurrentPage.VideoLink)  height="345"src="@Url.ContentUrl(Model.CurrentPage.VideoLink)"></iframe>
+                    @Html.PropertyFor(x => x.CurrentPage.Text)
+                </div>
+                <div class="video-page">
+                    <div class="row">
+                        @foreach (var item in VideoList)
+                        {
+                            if (item.ContentLink != Model.CurrentPage.ContentLink)
+                            {
+                            <div class="col-md-6 col-sm-6">
+                                <div class="video-image">
+                                    <a href="@Url.ContentUrl(item.ContentLink)">
+                                        <img src="@dataLocator.GetYouTubeThumbnail(item.VideoLink)" /></a>
+                                    <a href="@Url.ContentUrl(item.ContentLink)">
+                                        <p><strong>@item.Heading</strong></p>
+                                    </a>
+                                    <p>@item.IntroText</p>
+                                </div>
+                            </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                @Html.PropertyFor(x => x.CurrentPage.SidebarContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+﻿@model High.Net.Core.ContentTypes.Media.ImageFile
+@if (Model != null)
+{
+    <img alt="@Model.AlternateText" class="img-responsive" src="@Url.ContentUrl(Model.ContentLink)" />
+}
+

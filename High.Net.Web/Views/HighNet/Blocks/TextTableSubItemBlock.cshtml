@@ -1,0 +1,12 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@using ImageVault.EPiServer
+
+@model  TextTableSubItemBlock
+
+<div class="tbl-txt-main">
+    <h4>@Html.PropertyFor(x => x.Heading) </h4>
+    @Html.PropertyFor(x => x.Body)
+    <a href="@Url.ContentUrl(@Model.Link)">@Html.PropertyFor(x => x.LinkText)</a>
+</div>

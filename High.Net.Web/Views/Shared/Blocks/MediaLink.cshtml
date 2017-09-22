@@ -1,0 +1,9 @@
+﻿@using High.Net.Core
+@using ImageVault.EPiServer
+@using High.Net.Core.ContentTypes.Blocks
+
+@model High.Net.Core.ContentTypes.Blocks.MediaLink
+
+<a href="@Url.ContentUrl(Model.PageUrl)" target="_blank">
+    @Html.PropertyFor(x => x.Media)
+</a>

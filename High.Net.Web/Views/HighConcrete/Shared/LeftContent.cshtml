@@ -1,0 +1,153 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighConcrete.Pages
+@using High.Net.Web.Business
+@using High.Net.Models.Shared.Pages
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var contentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<DataLocator>();
+
+    var homePage = contentLoader.Get<HomePage>(PageReference.StartPage);
+    var ProjectCategoryPage = contentLoader.GetChildren<ProjectCategoryPage>(PageReference.StartPage).FirstOrDefault();
+    var ProductCategoryPage = contentLoader.GetChildren<ProductCategoryPage>(PageReference.StartPage).FirstOrDefault();
+    
+    var newsListingPage = contentLoader.GetChildren<NewsListingPage>(PageReference.StartPage).FirstOrDefault();
+
+    var LatestNews = dataLocator.GetNewsFeed(newsListingPage).FirstOrDefault();
+    if(homePage.NewsWidgetHeadline != null)
+    {
+        LatestNews = contentLoader.Get<NewsItemPage>(homePage.NewsWidgetHeadline);
+    }
+    
+    var ContactUsPage = contentLocator.GetAll<High.Net.Models.Shared.Pages.ContactUsPage>(PageReference.StartPage).FirstOrDefault();
+    
+    var NewsletterPage = contentLocator.GetAll<High.Net.Models.HighConcrete.Pages.NewsLetterPage>(PageReference.StartPage).FirstOrDefault();
+}
+
+<div class="col-md-4 col-sm-4" id="leftContent">
+    @if (Model.CurrentPage.GetType().BaseType == typeof(ProjectListingPage) || Model.CurrentPage.GetType().BaseType == typeof(ProjectCategoryPage)
+        || Model.CurrentPage.GetType().BaseType == typeof(ProjectItemPage))
+    {
+        if (ProjectCategoryPage != null)
+        {
+            var ProjectCategoryList = contentLoader.GetChildren<LeftNavigationPage>(ProjectCategoryPage.ContentLink);
+            if (ProjectCategoryList.Count() > 0)
+            {
+                <div class="by-application">
+                    @foreach (var item in ProjectCategoryList)
+                    {
+                        if(item.DisplayInLeftNavigation)
+                        {
+                            <a href="@Url.ContentUrl(item.ContentLink)">
+                                <h4>@item.Name</h4>
+                            </a>
+                            var ProjectList = contentLoader.GetChildren<LeftNavigationPage>(item.ContentLink);
+                            if (ProjectList != null)
+                            {
+                                <ul>
+                                    @foreach (var projectItem in ProjectList)
+                                    {
+                                        if (projectItem.DisplayInLeftNavigation)
+                                        {
+                                            <li><a href="@Url.ContentUrl(projectItem.ContentLink)">@projectItem.Name</a></li>
+                                        }
+                                    }
+                                </ul>
+                            }
+                        }
+                    }
+                </div>
+            }
+            <div class="spacer"></div>
+        }
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(ProductCategoryPage) || Model.CurrentPage.GetType().BaseType == typeof(ProductListingPage)
+        || Model.CurrentPage.GetType().BaseType == typeof(ProductItemPage))
+    {
+        var ProductCategoryList = contentLoader.GetChildren<LeftNavigationPage>(ProductCategoryPage.ContentLink);
+        if (ProductCategoryList.Count() > 0)
+        {
+            <div class="by-application">
+                @foreach (var item in ProductCategoryList)
+                {
+                    if(item.DisplayInLeftNavigation)
+                    {
+                        <a href="@Url.ContentUrl(item.ContentLink)">
+                            <h4>@item.Name</h4>
+                        </a>
+                        var ProductList = contentLoader.GetChildren<LeftNavigationPage>(item.ContentLink);
+                        var ProductItem = contentLoader.GetChildren<LeftNavigationPage>(item.ContentLink);
+                        if (ProductList.Count() != 0)
+                        {
+                            <ul>
+                                @foreach (var projectItem in ProductList)
+                                {
+                                    if (projectItem.DisplayInLeftNavigation)
+                                    {
+                                        <li><a href="@Url.ContentUrl(projectItem.ContentLink)">@projectItem.Name</a></li>
+                                    }
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <ul>
+                                @foreach (var projectItem in ProductItem)
+                                {
+                                    if (projectItem.DisplayInLeftNavigation)
+                                    {
+                                        <li><a href="@Url.ContentUrl(projectItem.ContentLink)">@projectItem.Name</a></li>
+                                    }
+                                }
+                            </ul>
+                        }
+                    }
+                }
+            </div>
+        }
+        <div class="spacer"></div>
+    }
+
+    <div class="newsletter">
+        <h4>
+            <img src="~/Static/highconcrete/images/message-logo.png" />NEWSLETTER
+        </h4>
+        <div id="news">
+            @using (Html.BeginForm(null, null, FormMethod.Post,
+                                      new { action = Url.ContentUrl(NewsletterPage.ContentLink), enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <input id="Email" name="Email" class="form-control" type="text" placeholder="YOUR EMAIL ADDRESS" />
+                <div class="submit-btn">
+                    <button id="btnsubmit" type="submit" class="btn btn-default">SUBMIT</button>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="news-widget">
+        <h4>NEWS </h4>
+        @if (LatestNews != null)
+        {
+            <b>@LatestNews.Title</b>
+            <p>@LatestNews.NewsHighlight</p>
+            <p><a href="@Url.ContentUrl(LatestNews.ContentLink)">Read More...</a></p>
+        }
+    </div>
+    <div class="spacer"></div>
+</div>
+<script>
+    function validaton_success(data) {
+        if (!data.success) {
+            $('#lblvalidation').html("<p>Please enter valid email address.</p>");
+        }
+        else {
+            $("#news").html('');
+            $('#lblvalidation').html('');
+            $("#lblmessage").attr('style', 'display:block;color:white');
+        }
+    }
+</script>

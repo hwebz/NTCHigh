@@ -1,0 +1,82 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Residential.Pages
+@model IPageViewModel<BasePageData>
+@{
+    Layout = "~/Views/Shared/Layouts/_root.cshtml";
+    var repository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var homePage = repository.Get<HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+}
+
+@section Header
+{
+    @{
+        string url = homePage.FavIcon != null ? (client.Load<ImageVault.Common.Data.Media>(homePage.FavIcon.Id).ToList().Count > 0 ? client.Load<ImageVault.Common.Data.Media>(homePage.FavIcon.Id).ToList().FirstOrDefault().Url : string.Empty) : string.Empty;
+    }
+
+    <link rel="icon" type="image/ico" href="@url" />
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/bundles/bootstrap-css")
+    @Styles.Render("~/bundles/browserBlast-css")
+
+    @Styles.Render("~/bundles/owl-carousel")
+    @Styles.Render("~/bundles/residential-css")
+    @Styles.Render("~/bundles/global-css")
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '@homePage.GoogleAnalytics']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    @RenderSection("SiteHeader", required: false)
+
+    <!--
+        [if lt IE 9]>
+         <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+       <![endif]
+    -->
+}
+<div class="bentley-ridge">
+    @Html.Partial("~/Views/Residential/Shared/Header.cshtml", Model)
+    @Html.Partial("~/Views/Residential/Shared/Navigation.cshtml", Model)
+
+    @RenderSection("PageBannerSection", required: false)
+
+    <span class="spacer"></span>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                @RenderBody()
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                @Html.Partial("~/Views/Residential/Shared/SideBar.cshtml", Model)
+            </div>
+        </div>
+    </div>
+    @Html.Partial("~/Views/Residential/Shared/Footer.cshtml", Model)
+</div>
+@section Footer
+{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery.unobtrusive-ajax")
+    @Scripts.Render("~/bundles/bootstrap-js")
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/owl-carousel-js")
+    @Scripts.Render("~/bundles/browserBlast-js")
+    @Scripts.Render("~/bundles/easing")
+    @Scripts.Render("~/bundles/fitvids")
+    @Scripts.Render("~/bundles/bxslider")
+    @Scripts.Render("~/bundles/global-js")
+    @Scripts.Render("~/bundles/residential-js")
+    @RenderSection("SiteFooter", required: false)
+}

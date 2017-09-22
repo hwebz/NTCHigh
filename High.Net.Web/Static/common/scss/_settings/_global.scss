@@ -1,0 +1,90 @@
+﻿// ------------------------------------------------------------------------- //
+// #GLOBALS
+//
+// Global settings and spacing units.
+// ------------------------------------------------------------------------- //
+// Base settings (in pixels)
+
+// Font settings
+html {
+    font-size: 110%;
+}
+
+@media(min-width:60em) {
+    html {
+        font-size: 90%;
+    }
+}
+
+* {
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+
+ul {
+    line-height: 200%;
+    margin: 0;
+    padding: 0;
+}
+
+a, a:hover, a:active, a:visited, a:focus {
+    text-decoration: none;
+    outline: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+%common-link {
+    text-decoration: none;
+    &:hover {
+        @include set-opacity(0.5);
+        text-decoration: none;
+    }
+}
+
+%uppercase-text {
+    text-transform: uppercase;
+}
+
+%vertical-centered {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    -moz-transform: translate(0, -50%);
+    -o-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+}
+
+%horizontal-centered {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    -moz-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+}
+
+%all-centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+
+.image-lightbox {
+    cursor: pointer;
+}
+
+em, i {
+    font-style: italic !important;
+}

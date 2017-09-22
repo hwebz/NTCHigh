@@ -1,0 +1,18 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+
+@model High.Net.Models.HighConcrete.Blocks.ProductBlock
+
+<div class="panels-info">
+    <div class="media-top">
+        <a href="@Url.ContentUrl(Model.TargetLink)">
+            @Html.PropertyFor(x => x.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 116, Height = 116, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "media-object img-responsive" })
+        </a>
+    </div>
+    <div class="media-body project-copy">
+        <a href="@Url.ContentUrl(Model.TargetLink)">
+            <h3 class="media-heading bold">@Html.PropertyFor(m => m.Text)</h3>
+        </a>
+    </div>
+</div>
+

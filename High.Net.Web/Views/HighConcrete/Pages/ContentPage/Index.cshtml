@@ -1,0 +1,36 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcrete.Pages
+@using High.Net.Core
+
+@model PageViewModel<ContentPage>
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                <div class="section about">
+                    @Html.PropertyFor(x => x.CurrentPage.ContentArea, new
+                   {
+                       CssClass = "row",
+                       ChildrenCssClass = "passage",
+                       tag = Global.ContentAreaTags.FullWidth,
+                       Tags = new[]
+                       {
+                            Global.ContentAreaTags.FullWidth,
+                            Global.ContentAreaTags.TwoThirdsWidth,
+                            Global.ContentAreaTags.HalfWidth,
+                            Global.ContentAreaTags.OneThirdWidth,
+                            Global.ContentAreaTags.OneFourthWidth,
+                            Global.ContentAreaTags.OneFifthWidth,
+                            Global.ContentAreaTags.OneTwelfthWidth,
+                            Global.ContentAreaTags.NoRenderer
+                       }
+                   })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

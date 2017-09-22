@@ -1,0 +1,143 @@
+﻿$pre: 'leadership-footer';
+
+.#{$pre} {
+    background-color: $color-red;
+    padding: 20px 0;
+    color: $color-white;
+
+    @include respond-to-max($tabletSize) {
+        padding: 30px 0;
+    }
+
+    .container {
+        > div > div {
+            @include respond-to-min($tabletSize) {
+                padding-right: 0;
+            }
+
+            &:last-child {
+                padding-right: 15px;
+            }
+        }
+    }
+
+    .#{$pre}__company-outro {
+        > * {
+            width: 45%;
+            display: inline-block;
+
+            @include respond-to-max($tabletSize) {
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        img {
+            max-height: 42px;
+            width: auto;
+            vertical-align: bottom;
+            margin-right: 2%;
+
+            @include respond-to-max($tabletSize) {
+                margin: 0 auto 10px;
+                width: 185px;
+                max-width: auto;
+                max-height: 100% !important;
+            }
+        }
+
+        .#{$pre}__company-outro__address {
+            p {
+                @include set-font('%opensans-regular', 10px);
+                line-height: 16px;
+
+                @include respond-to-max($tabletSize) {
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+    .#{$pre}__nav {
+        @include respond-to-max($tabletSize) {
+            margin: 30px 0;
+        }
+
+        ul {
+            text-align: right;
+
+            @include respond-to-max($tabletSize) {
+                text-align: center;
+            }
+
+            li {
+                display: inline-block;
+
+                @include respond-to-max($tabletSize) {
+                    display: block;
+                }
+
+                a {
+                    display: block;
+                    color: $color-white;
+                    @include set-font('%opensans-regular', 10px);
+                    line-height: 6px;
+                    border-right: 1px solid $color-white;
+                    padding: 5px 15px;
+
+                    @include respond-to-max($tabletSize) {
+                        padding: 10px 0;
+                        border: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        line-height: inherit;
+                    }
+                }
+
+                &:last-child {
+                    a {
+                        border-right: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .#{$pre}__social {
+        @include respond-to-max($tabletSize) {
+            display: block;
+            text-align: center;
+        }
+
+        a {
+            img {
+                width: 20px;
+                height: 20px;
+                display: inline-block;
+                margin: 15px 15px 5px;
+                text-indent: -9999px;
+
+                @include respond-to-max($largerSize) {
+                    margin: 15px 9px 5px;
+                }
+
+                @include respond-to-max($desktopSize) {
+                    margin: 15px 4px 5px;
+                }
+
+                @include respond-to-max($tabletSize) {
+                    margin: 15px 15px 0 15px;
+                    width: 35px;
+                    height: 35px;
+                }
+            }
+        }
+    }
+
+    .container .row > div:last-child {
+        @include respond-to-max($desktopSize) {
+            padding-right: 0;
+        }
+    }
+}

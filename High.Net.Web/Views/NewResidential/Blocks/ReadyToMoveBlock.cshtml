@@ -1,0 +1,54 @@
+﻿@using EPiServer.Editor
+@using High.Net.Core
+@using High.Net.Core.Helpers
+@using ImageVault.EPiServer
+@using High.Net.Web.Business
+@model High.Net.Models.NewResidential.Blocks.ReadyToMoveBlock
+
+
+@{
+    var callToActionBg = MediaHelpers.GetImageUrl(Model.ImageBackground, new { PropertySettings = new PropertyMediaSettings { ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } });
+}
+
+<div class="residential-call-to-action" style="@(PageEditing.PageIsInEditMode ? "background-attachment:inherit;" : "");background-image: url('@callToActionBg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="residential-call-to-action__content">
+                    @if (!string.IsNullOrEmpty(Model.Header))
+                    {
+                        <h1>@Html.PropertyFor(x => x.Header)</h1>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Text))
+                    {
+                        <p>@Html.PropertyFor(x => x.Text)</p>
+                    }
+                    <a href="@Url.GetContentUrl(Model.ApplyNowUrl)" class="call-to-action-btn @Constants.ViewConstants.SiteColorApplyClass">
+                        @(string.IsNullOrEmpty(Model.ApplyNowText) ? Html.Raw("Apply now") : Html.PropertyFor(x => x.ApplyNowText))
+                    </a>
+                    <a href="@Url.GetContentUrl(Model.ScheduleTourUrl)?scheduleatour" class="call-to-action-btn @Constants.ViewConstants.SiteColorApplyClass">
+                        @(string.IsNullOrEmpty(Model.ScheduleText) ? Html.Raw("Schedule a Tour") : Html.PropertyFor(x => x.ScheduleText))
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var siteColor = document.getElementById("site-color").value;
+    if (siteColor != "") {
+        var callToActionBtns = document.getElementsByClassName("call-to-action-btn @Constants.ViewConstants.SiteColorApplyClass");
+        var totalBtns = callToActionBtns.length;
+        if (totalBtns > 0) {
+            for (var i = 0; i < totalBtns; i++) {
+                callToActionBtns[i].style.borderColor = siteColor;
+            }
+            var styleNode = document.createElement("style");
+            var style = document.createTextNode(".call-to-action-btn:before { background:" + siteColor + "}");
+            styleNode.appendChild(style);
+            document.head.appendChild(styleNode);
+        }
+    }
+</script>

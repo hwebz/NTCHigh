@@ -1,0 +1,29 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Pages
+@using High.Net.Core
+
+@model PageViewModel<CommonItemPage>
+
+@Html.Partial("~/Views/HighNet/Shared/Banner.cshtml")
+<div class="main">
+    <div class="container white-section">
+        <div class="news">
+            <div class="row">
+                <div class="col-md-8 col-sm-8 item-list">
+                    <h3>@Html.PropertyFor(x => x.CurrentPage.Name)</h3>
+                    @Html.PropertyFor(x => x.CurrentPage.ItemDescription)
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="news-right-img">
+                        <div class="cal">
+                            @Html.PropertyFor(x => x.CurrentPage.PageImage)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

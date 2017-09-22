@@ -1,0 +1,82 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Pages
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+
+@model PageViewModel<CommonListingPage>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+
+    var CommonListingChildrenPage = contentLoader.GetChildren<BasePageData>(Model.CurrentPage.ContentLink);
+}
+
+@Html.Partial("~/Views/HighNet/Shared/Banner.cshtml")
+<div class="main">
+    <div class="container white-section">
+        <div class="news">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <h4>@Html.PropertyFor(x => x.CurrentPage.PageDescription)</h4>
+                </div>
+            </div>
+            @foreach (var item in CommonListingChildrenPage)
+            {
+                if (item.GetType().BaseType == typeof(CommonListingPage))
+                {
+                    var commonItemPages = contentLoader.GetChildren<CommonItemPage>(item.ContentLink);
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <h3>@item.Name</h3>
+                    </div>
+                </div>
+                <div class="spacer"></div>
+                    if (commonItemPages != null)
+                    {
+                        foreach (var commonItemPage in commonItemPages)
+                        {
+                <div class="row">
+                    @if (commonItemPage.IntroImage != null)
+                    {
+                        <div class="col-md-4 col-sm-4">
+                            <div class="news-right-img">
+                                <div class="cal">
+                                    @Html.PropertyFor(x => commonItemPage.IntroImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 150, Height = 80, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-md-8">
+                        <h3><a href="@Url.ContentUrl(commonItemPage.ContentLink)">@commonItemPage.Name</a></h3>
+                        <p>@commonItemPage.IntroText</p>
+                    </div>
+                </div>
+                        }
+                    }
+                }
+                else
+                {
+                    var commonItemPage = contentLoader.Get<CommonItemPage>(item.ContentLink);
+                <div class="row">
+                    @if (commonItemPage.IntroImage != null)
+                    {
+                        <div class="col-md-4 col-sm-4">
+                            <div class="news-right-img">
+                                <div class="cal">
+                                  @Html.PropertyFor(x => commonItemPage.IntroImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 150, Height = 80, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                                </div>
+                            </div>
+                        </div>
+                        
+                    }
+                    <div class="col-md-8">
+                        <h3><a href="@Url.ContentUrl(commonItemPage.ContentLink)">@commonItemPage.Name</a></h3>
+                        <p>@commonItemPage.IntroText</p>
+                    </div>
+                </div>
+                }
+            }
+        </div>
+    </div>
+</div>

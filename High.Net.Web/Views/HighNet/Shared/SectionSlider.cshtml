@@ -1,0 +1,77 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighNet.Pages
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(Model.CurrentPage.ContentLink);
+}
+
+
+<div class="container">
+    <div id="tcb-testimonial-carousel" class="carousel slide  testimonial-slide" data-ride="carousel">
+        <!-- Indicators -->
+        <!-- Wrapper for slides -->
+        <div class="testimonial-head">
+            <h2>@Html.PropertyFor(x => homePage.SectionTitle) </h2>
+            <p>@Html.PropertyFor(x => homePage.SectionIntro)</p>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="quote-test">
+                    <img src="~/Static/highnet/images/homepg//quotes-test.png" />
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="carousel-inner">
+                    @{int j = 0;}
+                    @if (homePage.SectionSlider != null)
+                    {
+                        foreach (var contentItem in homePage.SectionSlider.Items)
+                        {
+
+                            var item = contentLoader.Get<High.Net.Models.HighNet.Blocks.TestimonialBlock>(contentItem.ContentLink);
+                            <div class="item @(j==0?"active":"")">
+                                <div class="row">
+
+                                    <div class="col-sm-12">
+                                        <div class="test-content">
+                                            <p>@Html.PropertyFor(x => item.Quote)</p>
+                                            <span class="desig">@Html.PropertyFor(x => item.Name)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        j++;
+                        }
+                    }
+
+                </div>
+
+                <ol class="carousel-indicators">
+                    @if (homePage.SectionSlider != null)
+                    {
+
+                        for (int i = 0; i < homePage.SectionSlider.Items.Count(); i++)
+                        {
+                            <li data-target="#tcb-testimonial-carousel" data-slide-to="@i" class="@(i==0?"active":"")"></li>
+                          
+                        }
+                    }
+                </ol>
+                <div class="test-slider-nav">
+                    <a class="left carousel-control" href="#tcb-testimonial-carousel" data-slide="prev"> <span class="ar-left">&#x2190;</span> </a>
+                    <a class="right carousel-control" href="#tcb-testimonial-carousel" data-slide="next"> <span class="ar-right">&#x2192;</span> </a>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Controls -->
+
+    </div>
+
+
+</div>

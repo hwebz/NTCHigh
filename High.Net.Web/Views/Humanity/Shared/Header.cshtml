@@ -1,0 +1,28 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Humanity.Pages
+@using EPiServer.Web
+@using ImageVault.EPiServer
+
+@model IPageViewModel<BasePageData>
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<div class="header">
+    <div class="container">
+        <div class="main-logo">
+            <a href="@Url.ContentUrl(homePage.ContentLink)">
+                @Html.PropertyFor(x => homePage.SiteLogo, new { CssClass = "img-responsive" })
+                @*@Html.PropertyFor(x => homePage.SiteLogo, new { PropertySettings = new PropertyMediaSettings { Width = 100, Height = 100 }, CssClass = "img-responsive" })*@
+            </a>
+        </div>
+        <div class="header-text">
+            @Html.PropertyFor(x => homePage.HeaderText)
+        </div>
+        <div class="abc-logo">
+            @Html.PropertyFor(x => homePage.BroadcastNewsLogoImage)
+        </div>
+    </div>
+</div>

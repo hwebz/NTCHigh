@@ -1,0 +1,116 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Constants
+@using RO = High.Net.Models.Rollover.Pages
+@model IPageViewModel<BasePageData>
+@{
+    var ContentLocator = ServiceLocator.Current.GetInstance<ContentLocator>();
+    var propertyType = ContentLocator.GetCategories(PropertyCategories.PropertyType);
+    var Location = ContentLocator.GetCategories(PropertyCategories.Location);
+    var ListingType = ContentLocator.GetCategories(PropertyCategories.ListingType);
+    var corporateCenters = High.Net.Models.Business.SelectionFactory.SelectCorporateCenter.GetCorporateCenter();
+
+    var contentRepository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+
+    var propertyListPage = contentRepository.GetChildren<High.Net.Models.Shared.Pages.PropertyListingPage>(PageReference.StartPage).FirstOrDefault();
+    if (Model.CurrentPage.GetType().BaseType == typeof(RO.HomePage))
+    {
+        propertyListPage = contentRepository.GetChildren<High.Net.Models.Shared.Pages.PropertyListingPage>(Model.CurrentPage.ContentLink).FirstOrDefault();
+    }
+}
+<!-- Search Property Starts-->
+<div class="ps-widget">
+    <div class="container">
+        <div class="formWrapper">
+            <p class="form-header text-center">Property Search</p>
+            @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(propertyListPage != null ? propertyListPage.ContentLink : EPiServer.Core.PageReference.StartPage) }))
+            {
+                <div class="row">
+                    @if (ListingType != null)
+                    {
+                        foreach (var item in ListingType.Categories)
+                        {
+                        <div class="col-xs-@(12 / ListingType.Categories.Count) col-sm-@(12 / ListingType.Categories.Count) col-md-@(12 / ListingType.Categories.Count)">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="ListingType" value="@item.Name">@item.Description</label>
+                            </div>
+                        </div>
+                        }
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>Property Type</label>
+                            <select class="form-control" name="propertyType" id="propertyType">
+                                <option value="-1">All</option>
+                                @if (propertyType != null)
+                                {
+                                    foreach (var item in propertyType.Categories)
+                                    {
+                                    <option value="@item.Name">@item.Description</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label>Search By Location</label>
+                            <select class="form-control" name="location" id="location">
+                                <option value="-1">All</option>
+                                @if (Location != null)
+                                {
+                                    foreach (var item in Location.Categories)
+                                    {
+                                    <option value="@item.Name">@item.Description</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @if (contentRepository.Get<BasePageData>(Model.CurrentPage.ContentLink).GetType().BaseType != typeof(High.Net.Models.Commercial.Pages.HomePage))
+                    {
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label>Corporate Center</label>
+                                <select class="form-control" name="RootPage">
+                                    <option value="@PageReference.RootPage">All</option>
+                                    @foreach (var item in corporateCenters)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label>Keyword</label>
+                                <input type="text" name="keywords" class="form-control">
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <input type="hidden" name="RootPage" value="@EPiServer.Core.PageReference.StartPage.ID" />
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Keyword</label>
+                                <input type="text" name="keywords" class="form-control">
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-warning search-btn" value="Search Property">Search Property</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- Search Property Ends-->

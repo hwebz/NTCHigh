@@ -1,0 +1,146 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighSteelStructure.Pages
+@using High.Net.Models.HighSteelStructure.ViewModels
+@using High.Net.Core
+
+@model PlantTourPageModel
+
+<div class="container">
+    <div class="common-container advisor">
+        <div class="row">
+            @if (!Model._PlantTourPageForm.IsMailSendSuccessfully)
+            {
+                <div class="col-md-12">
+                    @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", ChildrenCssClass = "", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+                    @using (Html.BeginForm(null, null, FormMethod.Post,
+                    new { @Class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken();
+                        <div class="form-group">
+                            @Html.LabelFor(x => x._PlantTourPageForm.FirstName, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x._PlantTourPageForm.FirstName, new { @Class = "form-control" })
+                                <span class="req-field">*</span>
+                                <br />
+                                @Html.ValidationMessageFor(x => x._PlantTourPageForm.FirstName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x._PlantTourPageForm.LastName, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x._PlantTourPageForm.LastName, new { @Class = "form-control" })
+                                <span class="req-field">*</span>
+                                <br />
+                                @Html.ValidationMessageFor(x => x._PlantTourPageForm.LastName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x._PlantTourPageForm.CompanyName, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x._PlantTourPageForm.CompanyName, new { @Class = "form-control" })
+                                <span class="req-field">*</span>
+                                <br />
+                                @Html.ValidationMessageFor(x => x._PlantTourPageForm.LastName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x._PlantTourPageForm.MailingAddress, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x._PlantTourPageForm.MailingAddress, new { @Class = "form-control" })
+                                <span class="req-field">*</span>
+                                <br />
+                                @Html.ValidationMessageFor(x => x._PlantTourPageForm.MailingAddress)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x._PlantTourPageForm.City, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x._PlantTourPageForm.City, new { @Class = "form-control" })
+                                <span class="req-field">*</span>
+                                <br />
+                                @Html.ValidationMessageFor(x => x._PlantTourPageForm.City)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x._PlantTourPageForm.State, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x._PlantTourPageForm.State, new { @Class = "form-control" })
+                                <span class="req-field">*</span>
+                                <br />
+                                @Html.ValidationMessageFor(x => x._PlantTourPageForm.State)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x._PlantTourPageForm.BusinessClassification, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                               @Html.DropDownList("_PlantTourPageForm.BusinessClassification", new List<SelectListItem>
+                                {
+                                    new SelectListItem(){ Text= "Project Owner", Value = "Project Owner"},
+                                    new SelectListItem(){ Text= "Design Consultant", Value = "Design Consultant"},
+                                    new SelectListItem(){ Text= "General Contractor", Value = "General Contractor"},
+                                    new SelectListItem(){ Text= "Academic", Value = "Academic"}
+                                }, "-- Select --", new { @Class = "form-control classification" })
+                                <span class="req-field">*</span>
+                                <br />
+                                @Html.ValidationMessageFor(x => x._PlantTourPageForm.BusinessClassification)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x._PlantTourPageForm.ZipCode, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x._PlantTourPageForm.ZipCode, new { @Class = "form-control" })
+                                <span class="req-field">*</span>
+                                <br />
+                                @Html.ValidationMessageFor(x => x._PlantTourPageForm.ZipCode)
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            @Html.LabelFor(x => x._PlantTourPageForm.EmailAddress, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x._PlantTourPageForm.EmailAddress, new { @Class = "form-control" })
+                                <span class="req-field">*</span>
+                                <br />
+                                @Html.ValidationMessageFor(x => x._PlantTourPageForm.EmailAddress)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x._PlantTourPageForm.PhoneNumberWithAreaCode, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x._PlantTourPageForm.PhoneNumberWithAreaCode, new { @Class = "form-control" })
+                                <span class="req-field">*</span>
+                                <br />
+                                @Html.ValidationMessageFor(x => x._PlantTourPageForm.PhoneNumberWithAreaCode)
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            @Html.LabelFor(x => x._PlantTourPageForm.HowDidYouHearAboutThisEvent, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x._PlantTourPageForm.HowDidYouHearAboutThisEvent, new { @Class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x._PlantTourPageForm.Note, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(x => x._PlantTourPageForm.Note, new { @Class = "form-control" })
+                            </div>
+                        </div>
+                        
+                        <br />
+                       
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">Submit</button>
+                                <button type="reset" class="btn btn-danger">Clear Form</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                @Model.CurrentPage.ThankYouMessage   
+            }
+        </div>
+    </div>
+</div>

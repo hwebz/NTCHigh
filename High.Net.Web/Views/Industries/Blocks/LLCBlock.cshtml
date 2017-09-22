@@ -1,0 +1,11 @@
+﻿@using High.Net.Models.Industries.Blocks
+@using High.Net.Core
+@using ImageVault.EPiServer
+@model LLCBlock
+
+<a href="@Url.ContentUrl(Model.PageUrl)" target="_blank">
+    <div class="port-block">
+        @Html.PropertyFor(x => x.LLCImage, new { PropertySettings = new PropertyMediaSettings { Width = 205, Height = 206 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+        <h4>@Html.PropertyFor(x => x.Heading)</h4>
+    </div>
+</a>

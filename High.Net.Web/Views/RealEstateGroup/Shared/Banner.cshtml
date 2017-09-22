@@ -1,0 +1,392 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using ImageVault.EPiServer
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var repository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+
+    var homePage = contentLoader.Get<High.Net.Models.RealEstateGroup.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+<div class="hero-banner">
+    <!--SLIDER 1 start-->
+    @if (homePage.ContentLink.ID == Model.CurrentPage.ContentLink.ID)
+    {
+        <div class="img-slider" @Html.EditAttributes(m => homePage.ImageSliders)>
+            <ul class="bxslider-img" data-slider-type="img">
+                @if (homePage.ImageSliders != null)
+                {
+                    foreach (var item in homePage.ImageSliders)
+                    {
+                        <li>
+                            @Html.PropertyFor(x => item, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.NewsListingPage))
+    {
+        var _NewsListingPage = repository.Get<High.Net.Models.Shared.Pages.NewsListingPage>(Model.CurrentPage.ContentLink);
+        <div class="slider">
+            <div class="banner">
+                <div class="banner-img">
+                    @if (_NewsListingPage.BannerImage != null)
+                    {
+                        @Html.PropertyFor(x => _NewsListingPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    else
+                    {
+                        @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    <div class="main-quote">
+                        <div class="container">
+                            <div class="page-title">
+                                <h1>@Model.CurrentPage.Name</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.NewsItemPage))
+    {
+        var _NewsItemPage = repository.Get<High.Net.Models.Shared.Pages.NewsItemPage>(Model.CurrentPage.ContentLink);
+        var _NewsListingPage = repository.Get<High.Net.Models.Shared.Pages.NewsListingPage>(Model.CurrentPage.ParentLink);
+        <div class="slider">
+            <div class="banner">
+                <div class="banner-img">
+                    @if (_NewsItemPage.BannerImage != null)
+                    {
+                        @Html.PropertyFor(x => _NewsItemPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    else if (_NewsListingPage.BannerImage != null)
+                    {
+                        @Html.PropertyFor(x => _NewsListingPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    else
+                    {
+                        @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    <div class="main-quote">
+                        <div class="container">
+                            <div class="page-title">
+                                <h1>@Model.CurrentPage.Name</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.ContactUsPage))
+    {
+        var _ContactUsPage = repository.Get<High.Net.Models.Shared.Pages.ContactUsPage>(Model.CurrentPage.ContentLink);
+        <div class="slider">
+            <div class="banner">
+                <div class="banner-img">
+                    @if (_ContactUsPage.BannerImage != null)
+                    {
+                        @Html.PropertyFor(x => _ContactUsPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    else
+                    {
+                        @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    <div class="main-quote">
+                        <div class="container">
+                            <div class="page-title">
+                                <h1>@Model.CurrentPage.Name</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.PropertyListingPage))
+    {
+        var _PropertyListingPage = repository.Get<High.Net.Models.Shared.Pages.PropertyListingPage>(Model.CurrentPage.ContentLink);
+        <div class="slider">
+            <div class="banner">
+                <div class="banner-img">
+                    @if (_PropertyListingPage.BannerImage != null)
+                    {
+                        @Html.PropertyFor(x => _PropertyListingPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    else
+                    {
+                        @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    <div class="main-quote">
+                        <div class="container">
+                            <div class="page-title">
+                                <h1>@Model.CurrentPage.Name</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.PropertyTypePage))
+    {
+        var _PropertyTypePage = repository.Get<High.Net.Models.Shared.Pages.PropertyTypePage>(Model.CurrentPage.ContentLink);
+        <div class="slider">
+            <div class="banner">
+                <div class="banner-img">
+                    @if (_PropertyTypePage.BannerImage != null)
+                    {
+                        @Html.PropertyFor(x => _PropertyTypePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    else
+                    {
+                        @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    <div class="main-quote">
+                        <div class="container">
+                            <div class="page-title">
+                                <h1>@Model.CurrentPage.Name</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.PropertyPage))
+    {
+        var _PropertyPage = repository.Get<High.Net.Models.Shared.Pages.PropertyPage>(Model.CurrentPage.ContentLink);
+        <div class="slider">
+            <div class="banner">
+                <div class="banner-img">
+                    @if (_PropertyPage.BannerImage != null)
+                    {
+                        @Html.PropertyFor(x => _PropertyPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    else
+                    {
+                        @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    <div class="main-quote">
+                        <div class="container">
+                            <div class="page-title">
+                                <h1>@Model.CurrentPage.Name</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.ProjectPortfolioListingPage))
+    {
+        var _ProjectPortfolioListingPage = repository.Get<High.Net.Models.Shared.Pages.ProjectPortfolioListingPage>(Model.CurrentPage.ContentLink);
+        <div class="slider">
+            <div class="banner">
+                <div class="banner-img">
+                    @if (_ProjectPortfolioListingPage.BannerImage != null)
+                    {
+                        @Html.PropertyFor(x => _ProjectPortfolioListingPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    else
+                    {
+                        @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    <div class="main-quote">
+                        <div class="container">
+                            <div class="page-title">
+                                <h1>@Model.CurrentPage.Name</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.SearchPage))
+    {
+        var _searchPage = repository.Get<High.Net.Models.Shared.Pages.SearchPage>(Model.CurrentPage.ContentLink);
+        <div class="slider">
+            <div class="banner">
+                <div class="banner-img">
+                    @if (_searchPage.BannerImage != null)
+                    {
+                        @Html.PropertyFor(x => _searchPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    else
+                    {
+                        @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    <div class="main-quote">
+                        <div class="container">
+                            <div class="page-title">
+                                <h1>@Model.CurrentPage.Name</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.LocationPage))
+    {
+        var _locationPage = repository.Get<High.Net.Models.Shared.Pages.LocationPage>(Model.CurrentPage.ContentLink);
+        <div class="slider">
+            <div class="banner">
+                <div class="banner-img">
+                    @if (_locationPage.BannerImage != null)
+                    {
+                        @Html.PropertyFor(x => _locationPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    else
+                    {
+                        @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    <div class="main-quote">
+                        <div class="container">
+                            <div class="page-title">
+                                <h1>@Model.CurrentPage.Name</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.RealEstateGroup.Pages.RealEstateMattersPage))
+    {
+        var _RealEstateMattersPage = repository.Get<High.Net.Models.RealEstateGroup.Pages.RealEstateMattersPage>(Model.CurrentPage.ContentLink);
+        <div class="">
+            <div class="">
+                <div class="">
+                    @if (_RealEstateMattersPage.BannerImage != null)
+                    {
+                        var image = client.Load<ImageVault.Common.Data.WebMedia>(_RealEstateMattersPage.BannerImage.Id).FirstOrDefault().Url;
+                        @*<div class="prallax-banner ">
+                                <div class="prallax-img slide-para" id="slide2-para" style="background-image: url(@image)">
+
+                                    <h1>Organizing for the future</h1>
+                                </div>style="background-image: url(@image)"
+                            </div>*@
+
+
+
+                        <div class="prallax-banner ">
+                            <div class="p-img">
+                                <img class="img-responsive" src="@image" alt="Alternate Text" />
+                            </div>
+                            <div class="container">
+                                <h2>@Html.PropertyFor(x => _RealEstateMattersPage.BannerText) </h2>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                        <div class="main-quote">
+                            <div class="container">
+                                <div class="page-title">
+                                    <h1>@Model.CurrentPage.Name</h1>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        var _CurrentPage = repository.Get<High.Net.Models.RealEstateGroup.Pages.RealEstateGroupPageData>(Model.CurrentPage.ContentLink);
+        <div class="slider">
+            <div class="banner">
+                <div class="banner-img">
+                    @if (_CurrentPage.BannerImage != null)
+                    {
+                        @Html.PropertyFor(x => _CurrentPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    else
+                    {
+                        @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                    }
+                    <div class="main-quote">
+                        <div class="container">
+                            <div class="page-title">
+                                <h1>@Model.CurrentPage.Name</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <!--SLIDER 1 end-->
+    <!-- graybox start-->
+    <div class="container">
+        <div class="darkgrey-block">
+            <div class="call-us">
+                <span class="telephone"><strong><a href="tel:@homePage.PhoneNumber">@Html.PropertyFor(m => homePage.PhoneNumber)</a></strong></span>
+            </div>
+            <div class="social-icon">
+                <ul>
+                    @if (Model.CurrentPage.GetType().BaseType != typeof(High.Net.Models.Shared.Pages.NewsItemPage) && Model.CurrentPage.GetType().BaseType != typeof(High.Net.Models.Shared.Pages.NewsListingPage) && Model.CurrentPage.GetType().BaseType != typeof(High.Net.Models.RealEstateGroup.Pages.ProfileListingPage) && Model.CurrentPage.GetType().BaseType != typeof(High.Net.Models.RealEstateGroup.Pages.ProfileItemPage))
+                    {
+                        if (homePage.FBUrl != null)
+                        {
+                            <li>
+                                <a href="@Url.ContentUrl(homePage.FBUrl)">
+                                    <img alt="facebook" src="~/Static/real-estate-group/images/icon/fb.png" @Html.EditAttributes(x => homePage.FBUrl) />
+                                </a>
+                            </li>
+                        }
+
+                    }
+
+                    @if (homePage.LinkedinUrl != null)
+                    {
+                        <li>
+                            <a href="@Url.ContentUrl(homePage.LinkedinUrl)">
+                                <img alt="linkedin" src="~/Static/real-estate-group/images/icon/likdin.png" @Html.EditAttributes(x => homePage.LinkedinUrl) />
+                            </a>
+                        </li>
+                    }
+
+                    @if (homePage.TwitterUrl != null)
+                    {
+                        <li>
+                            <a href="@Url.ContentUrl(homePage.TwitterUrl)">
+                                <img alt="twitter" src="~/Static/real-estate-group/images/icon/twitter.png" @Html.EditAttributes(x => homePage.TwitterUrl) />
+                            </a>
+                        </li>
+                    }
+                    @if (homePage.GoogleUrl != null)
+                    {
+                        <li>
+                            <a href="@Url.ContentUrl(homePage.GoogleUrl)">
+                                <img alt="g-plus" src="~/Static/real-estate-group/images/icon/g-plus.png" @Html.EditAttributes(x => homePage.GoogleUrl) />
+                            </a>
+                        </li>
+                    }
+                    @if (homePage.PinInterestUrl != null)
+                    {
+                        <li>
+                            <a href="@Url.ContentUrl(homePage.PinInterestUrl)">
+                                <img alt="pin-it" src="~/Static/real-estate-group/images/icon/pin-it.png" @Html.EditAttributes(x => homePage.PinInterestUrl) />
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- graybox start-->
+    @Html.Partial("~/Views/Shared/PropertySearch.cshtml", Model)
+</div>

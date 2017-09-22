@@ -1,0 +1,59 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.Commercial.Pages
+
+@model PageViewModel<BrokerListingPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var contentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+
+    var highAssociateHomePage = contentLoader.GetChildren<High.Net.Models.Associates.Pages.HomePage>(PageReference.RootPage).FirstOrDefault();
+    int i = 0;
+}
+@Html.Partial("~/Views/Commercial/Shared/Banner.cshtml", Model.CurrentPage.Name)
+<div class="spacer"></div>
+<div class="container">
+    <div class="row">
+        <div class="broker-info">
+            @if (highAssociateHomePage != null)
+            {
+                var BrokerListPage = contentLocator.GetAll<High.Net.Models.Associates.Pages.BrokerListPage>(highAssociateHomePage.ContentLink).FirstOrDefault();
+                if (BrokerListPage != null)
+                {
+                    var BrokerList = contentLoader.GetChildren<High.Net.Models.Associates.Pages.BrokerPage>(BrokerListPage.ContentLink);
+                    if (BrokerList.Any())
+                    {
+                        foreach (var broker in BrokerList.GroupBy(x => x.Location))
+                        {
+                            <h3 class="black bold">@broker.Key</h3>
+                            foreach (var item in broker)
+                            {
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="character-img">
+                                        @Html.PropertyFor(x => item.ProfilePhoto)
+                                    </div>
+                                    <div class="broker-profile">
+                                        <strong class="black">@item.Name</strong>
+                                        <p>@item.Designation</p>
+                                        <p>@item.SkypeContact</p>
+                                        <p>@item.MobileContact</p>
+                                        <p><a href="mailto:@item.EmailAddress">@item.EmailAddress</a></p>
+                                        <a href="@Url.ContentUrl(item.ContentLink)">Profile</a>
+                                    </div>
+                                </div>
+                                i++;
+                                if (i % 3 == 0)
+                                {
+                                    <div class="clearfix"></div>
+                                }
+                            }
+                            <div class="clearfix"></div>
+                        }
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

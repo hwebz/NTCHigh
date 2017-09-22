@@ -1,0 +1,140 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.GreenfieldArchitects.Pages
+@using ImageVault.EPiServer
+
+@model PageViewModel<HomePage>
+
+@Html.Partial("~/Views/GreenfieldArchitects/Shared/Carousel.cshtml", Model)
+@{
+    var repo = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var contentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+
+    var newsItems = contentLocator.GetAll<High.Net.Models.Shared.Pages.NewsItemPage>(EPiServer.Core.PageReference.StartPage);
+}
+<!--service start-->
+<div class="container width-960">
+    <div class="row row-padd">
+        @if (Model.CurrentPage.ServiceRoot != null)
+        {
+            var serviceItems = repo.GetChildren<ServicePage>(Model.CurrentPage.ServiceRoot);
+            if (serviceItems != null)
+            {
+                foreach (var item in serviceItems)
+                {
+                    if (item.PageIcon != null && item.PageImage != null)
+                    {
+                        var PageImage = client.Load<ImageVault.Common.Data.WebMedia>(item.PageImage.Id).ToList();
+                        if (PageImage.Count > 0)
+                        {
+                            <div class="col-lg-4 col-sm-4">
+                                <a href="@Url.ContentUrl(item.ContentLink)">
+                                    <div class="padd-11" style="background: #ffffff url('@Url.ContentUrl(PageImage[0].Url)') repeat scroll 0 0;">
+                                        @Html.PropertyFor(x => item.PageIcon, new { PropertySettings = new PropertyMediaSettings { Height = 290, Width = 210 }, CssClass = "img1 img-responsive" })<br />
+                                        <h2>@Html.PropertyFor(x => item.Name)</h2>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    }
+                }
+            }
+        }
+        <!--feature end-->
+    </div>
+</div>
+<!--service end-->
+<!--property start-->
+@if (Model.CurrentPage.FeaturedWorkLinks != null)
+{
+    int counter = 0;
+    <div class="property gray-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12">
+                    <h2 class="white">Featured Projects</h2>
+                    <br />
+                    @foreach (var Item in Model.CurrentPage.FeaturedWorkLinks)
+                    {
+                        var content = EPiServer.Web.Routing.UrlResolver.Current.Route(new EPiServer.UrlBuilder(Item.Href));
+                        var portfolioItemPage = repo.Get<PortfolioItemPage>(content.ContentLink);
+
+                        if (counter == 0)
+                        {
+                        @Html.Raw("<div class=\"row\">")
+                        }
+                        else if (counter > 0 && counter % 4 == 0)
+                        {
+                        @Html.Raw("</div><div class=\"row\">")
+                        }
+                        if (portfolioItemPage.PageImage != null)
+                        {
+                        <div class="col-sm-3 no-padding">
+                            <div class="box">
+                                @Html.PropertyFor(x => portfolioItemPage.PageImage, new { PropertySettings = new PropertyMediaSettings { Width = 240, Height = 180, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                                <div class="zoom-icon">
+                                    <a href="@Url.ContentUrl(portfolioItemPage.ContentLink)">
+                                        <h2><i class="icon-search"></i></h2>
+                                    </a>
+                                    <p>@portfolioItemPage.Name @portfolioItemPage.Location</p>
+                                </div>
+                            </div>
+                        </div>
+                            counter++;
+                        }
+                    }
+                    @Html.Raw("</div>")
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<!--property end-->
+<!--Video / Latest News start-->
+<div class="container">
+    <div class="row mid-box">
+        <div class="col-lg-6">
+            <h2 class="r-work">Videos</h2>
+            <iframe width="100%" height="315" src="@Url.ContentUrl(Model.CurrentPage.VideoDetails.VideoUrl)" frameborder="0" allowfullscreen></iframe>
+            <p class="justify">
+                <strong>@Html.PropertyFor(x => x.CurrentPage.VideoDetails.Heading)</strong>
+            </p>
+            @Html.PropertyFor(x => x.CurrentPage.VideoDetails.Description)
+        </div>
+        <div class="col-lg-6">
+            <h2 class="r-work">Latest News</h2>
+            <div class="panel-body">
+                <div class="tab-content tasi-tab">
+                    <div id="news" class="tab-pane active">
+                        @if (newsItems != null)
+                        {
+                            foreach (var item in newsItems.OrderBy(x => x.Created).Take(3))
+                            {
+                            <article class="media">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-2 col-sm-2 col-xs-3 no-right-padd">
+                                        <a class="pull-left thumb p-thumb">
+                                            <div class="date1">
+                                                @item.PostedDate.ToString("dd MMM")
+                                            </div>
+                                            @Html.PropertyFor(x => item.NewsImage, new { PropertySettings = new PropertyMediaSettings { Width = 140, Height = 130, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-8 col-md-10 col-sm-10  col-xs-9 no-left-padd">
+                                        <div class="media-body">
+                                            <a href="@Url.ContentUrl(item.ContentLink)" class="p-head">@item.Name</a>
+                                            <p><a class="pull-right" href="@Url.ContentUrl(item.ContentLink)">read more...</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Video / Latest News end-->

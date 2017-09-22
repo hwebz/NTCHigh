@@ -1,0 +1,95 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Shared.Pages
+@using High.Net.Core;
+
+@model PageViewModel<NewsListingPage>
+@{
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var newsItemPages = dataLocator.GetNewsFeed(Model.CurrentPage);
+}
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                <div class="section news">
+                    @if (newsItemPages != null)
+                    {
+                        int Counter = 1;
+                        foreach (var item in newsItemPages)
+                        {
+                            if (Counter % 2 != 0)
+                            {
+                                <div class="row">
+                                    <div class="@(item.NewsImage != null ? "col-md-7 col-sm-7" : "col-md-12 col-sm-12")">
+                                        <div class="news-content">
+                                            <a href="@Url.ContentUrl(item.ContentLink)"><h3>@item.Title</h3></a>
+                                            @item.NewsHighlight
+                                        </div>
+                                    </div>
+                                    @if (item.NewsImage != null)
+                                    {
+                                        <div class="col-md-5 col-sm-5">
+                                            <div class="imahe-with-pic">
+                                                <a href="@Url.ContentUrl(item.ContentLink)">
+                                                    @if (item.NewsImage != null)
+                                                    {
+                                                        @Html.PropertyFor(x => item.NewsImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 295, Height = 295, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Static/global/images/news-placeholder-295X295.jpg" class="placeholder"/>
+                                                    }
+                                                </a>
+                                                <div class="date">
+                                                    <span class="glyphicon glyphicon-calendar news"><span class="date-text">  @item.PostedDate.ToString("MMMM dd, yyyy")</span></span>
+                                                </div>
+                                            </div>
+                                            <p>@item.ImageQuote</p>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    @if (item.NewsImage != null)
+                                    {
+                                        <div class="col-md-5 col-sm-5">
+                                            <div class="imahe-with-pic">
+                                                <a href="@Url.ContentUrl(item.ContentLink)">
+                                                    @if (item.NewsImage != null)
+                                                    {
+                                                        @Html.PropertyFor(x => item.NewsImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 295 } })
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Static/global/images/news-placeholder-295X295.jpg" class="placeholder"/>
+                                                    }
+                                                </a>
+                                                <div class="date">
+                                                    <span class="glyphicon glyphicon-calendar news"><span class="date-text">  @item.PostedDate.ToString("MMMM dd, yyyy")</span></span>
+                                                </div>
+                                            </div>
+                                            <p>@item.ImageQuote</p>
+                                        </div>
+                                    }
+                                    <div class="@(item.NewsImage != null ? "col-md-7 col-sm-7" : "col-md-12 col-sm-12")">
+                                        <div class="news-content">
+                                            <a href="@Url.ContentUrl(item.ContentLink)"><h3>@item.Title</h3></a>
+                                            @item.NewsHighlight
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            Counter++;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

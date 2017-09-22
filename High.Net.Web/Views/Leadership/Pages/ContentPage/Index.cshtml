@@ -1,0 +1,34 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web
+@using High.Net.Core
+@using High.Net.Core.Extentions
+@using High.Net.Core.Helpers
+@using High.Net.Models.HighNet.Pages
+@using High.Net.Models.NewResidential.Blocks
+@using High.Net.Web.Business.Helpers
+
+@model PageViewModel<ContentPage>
+    
+<div class="leadership-header-banner type-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="leadership-header-banner__text">
+                    <h1>@Html.PropertyFor(x => Model.CurrentPage.BannerTitle)</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Html.PropertyFor(x=>x.CurrentPage.ContentArea)
+@{
+    var startPage = SiteDefinition.Current.StartPage.GetContent<HomePage>();
+    var mapblockLink = !startPage.Content.IsNullOrEmpty()? startPage.Content.FilteredItems.FirstOrDefault(x => x.ContentLink.GetContent<GoogleMapSingleLocationBlock>() != null):null;
+    if (mapblockLink != null)
+    {
+        var mapBlockItem = mapblockLink.ContentLink.GetContent<GoogleMapSingleLocationBlock>();
+        @Html.DisplayFor(x => mapBlockItem)
+    }
+}

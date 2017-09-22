@@ -1,0 +1,49 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Residential.Blocks
+
+@model PlanTypeBlock
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var mediaRepo = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+}
+
+<div class="panel-heading" role="tab" id="heading@(Model.GetHashCode())">
+    <h4 class="panel-title">
+        <a class="accordion-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#@Model.GetHashCode()" aria-expanded="false" aria-controls="@Model.GetHashCode()">
+            @Model.Heading
+        </a>
+    </h4>
+</div>
+<div id="@Model.GetHashCode()" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading@(Model.GetHashCode())">
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tr>
+                    <td>
+                        <h4>LAYOUT</h4>
+                    </td>
+                    <td>
+                        <h4>RENT*</h4>
+                    </td>
+                    <td>
+                        <h4>DEPOSIT*</h4>
+                    </td>
+                    <td>
+                        <h4>BEDS/BATH</h4>
+                    </td>
+                    <td>
+                        <h4>SIZE*</h4>
+                    </td>
+                </tr>
+                @Html.PropertyFor(x => x.FloorPlanArea, new { CustomTag = "tbody", tag = Global.ContentAreaTags.NoRenderer })
+            </table>
+            <button type="button" class="btn btn-top">BACK TO TOP</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
+

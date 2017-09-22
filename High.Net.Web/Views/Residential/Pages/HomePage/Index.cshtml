@@ -1,0 +1,44 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Residential.Pages
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+
+@model PageViewModel<HomePage>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var ReviewPageType = contentLoader.GetChildren<ReviewListingPage>(Model.CurrentPage.ContentLink).FirstOrDefault();
+    List<ReviewPage> ReviewList = new List<ReviewPage>();
+    if (ReviewPageType != null)
+    {
+        ReviewList = contentLoader.GetChildren<ReviewPage>(ReviewPageType.ContentLink).ToList();
+    }
+}
+
+@section PageBannerSection
+{
+    @Html.Partial("~/Views/Residential/Shared/Carousel.cshtml", Model)
+}
+@Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+@if (ReviewList.Count > 0)
+{
+    <div class="border-block">
+        <h3 class="share-item res-rev">
+            <a href="#">Resident Reviews </a>
+        </h3>
+        <div class="section resident-review">
+            @foreach (var item in ReviewList.Take(2))
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="reviwes">
+                            <strong>@item.Heading</strong>
+                            <p class="review-content">@item.IntroText</p>
+                            <p>@item.Created.ToString("d MMMM yyyy")</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

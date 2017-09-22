@@ -1,0 +1,50 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.GreenfieldArchitects.Pages
+@using ImageVault.EPiServer
+
+@model PageViewModel<PortfolioListingPage>
+
+@Html.Partial("~/Views/GreenfieldArchitects/Shared/Banner.cshtml", Model.CurrentPage.PageBanner != null ? Model.CurrentPage.PageBanner : new ImageVault.EPiServer.MediaReference())
+@{
+    var repo = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var PortfolioItemPages = repo.GetChildren<PortfolioItemPage>(Model.CurrentPage.ContentLink);
+}
+<div class="container">
+    <div class="black-band">
+        <div class="container">
+            <h1>@Model.CurrentPage.Name</h1>
+        </div>
+    </div>
+
+    <div class="common-container">
+        <div class="portfolio-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.PropertyFor(x => x.CurrentPage.Description)
+                    <ul>
+                        @if (PortfolioItemPages != null)
+                        {
+                            int counter = 1;
+                            foreach (var item in PortfolioItemPages)
+                            {
+                                <li>
+                                    <a href="@Url.ContentUrl(item.ContentLink)">
+                                        @Html.PropertyFor(x => item.PageImage, new { PropertySettings = new PropertyMediaSettings { Width = 223, Height = 145, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                                        <span>@item.ProjectName</span>
+                                        @item.Location
+                                    </a>
+                                </li>
+                                if (counter % 4 == 0)
+                                {
+                                    <div class="clearfix"></div>
+                                }
+                                counter++;
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

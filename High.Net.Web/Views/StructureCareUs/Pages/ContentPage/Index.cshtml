@@ -1,0 +1,13 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.StructureCareUs.Pages
+
+@model PageViewModel<ContentPage>
+
+@Html.Partial("~/Views/StructureCareUs/Shared/Banner.cshtml", Model)
+<div class="container" @Html.EditAttributes(m => m.CurrentPage.PageContentArea)>
+    <div class="about">
+        @Html.PropertyFor(m => m.CurrentPage.PageContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+    </div>
+</div>
+

@@ -1,0 +1,99 @@
+﻿@using EPiServer.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.RealEstateGroup.Blocks
+@model LocationBlock
+
+<style>
+    #map-container {
+        height: 600px;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    #map {
+        border: 1px solid #000000;
+        height: 600px;
+        width: 100%;
+    }
+
+    #legend {
+        font-size: 12px;
+        line-height: 34px;
+        list-style: outside none none;
+        margin: 0;
+        padding: 0;
+    }
+
+        #legend li {
+            float: left;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+
+            #legend li span {
+                display: block;
+                float: left;
+                height: 34px;
+                margin-right: 4px;
+                overflow: hidden;
+                width: 10px;
+            }
+
+            #legend li img {
+                height: 17px;
+                vertical-align: middle;
+            }
+
+    .content {
+        font-size: 12px;
+        width: 250px;
+        color: #000000;
+    }
+
+        .content a {
+            text-decoration: none;
+        }
+
+            .content a:hover {
+                text-decoration: underline;
+            }
+
+        .content .title {
+            font-size: 14px;
+        }
+
+        .content .url {
+            padding-top: 8px;
+        }
+</style>
+<div class="spacer"></div>
+@if (Model.LocationData != null)
+{
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+    var locationData = client.Load<ImageVault.Common.Data.Media>(Model.LocationData.Id).ToList();
+    if (locationData.Count > 0)
+    {
+        <input type="hidden" id="locationData" value="@Url.ContentUrl(locationData.FirstOrDefault().Url)" />
+    }
+}
+<div class="map-container">
+    <div class="row">
+        <div class="col-md-12">
+            <ul id="legend">
+                <li><span><img src="~/Static/global/location-images/red.png" alt="red"></span>Corporate Office</li>
+                <li><span><img src="~/Static/global/location-images/green.png" alt="green"></span>Corporate Ctr</li>
+                <li><span><img src="~/Static/global/location-images/yellow.png" alt="yellow"></span>Shopping Ctr</li>
+                <li><span><img src="~/Static/global/location-images/purple.png" alt="purple"></span>Hotel</li>
+                <li><span><img src="~/Static/global/location-images/orange.png" alt="orange"></span>Self Storage</li>
+                <li><span><img src="~/Static/global/location-images/blue.png" alt="blue"></span>Apartment Community</li>
+                <li><span><img src="~/Static/global/location-images/brown.png" alt="bown"></span>Manufactured Home Community</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="map"></div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

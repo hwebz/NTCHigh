@@ -1,0 +1,11 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Associates.Pages
+
+@model PageViewModel<ContentPage>
+
+@Html.Partial("~/Views/Associates/Shared/Banner.cshtml")
+<div class="spacer"></div>
+<div class="container">
+    @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+</div>

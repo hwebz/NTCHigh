@@ -1,0 +1,27 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.HighTransit.Pages
+@using ImageVault.EPiServer
+@model PageViewModel<ServiceListingPage>
+@Html.Partial("~/Views/HighTransit/Shared/Navigation.cshtml", Model)
+@Html.Partial("~/Views/HighTransit/Shared/Banner.cshtml")
+<div class="spacer"></div>
+<div class="container">
+    <div class="sec service">
+        <div class="row">
+            @if (Model.CurrentPage.PageImage != null)
+            {
+                <div class="col-md-6 col-sm-6">
+                    <div class="service-image">
+                        @Html.PropertyFor(x => Model.CurrentPage.PageImage, new { PropertySettings = new PropertyMediaSettings { Width = 555, Height = 555 }, CssClass = "img-responsive" })
+                    </div>
+                </div>
+            }
+            <div class="col-md-6 col-sm-6">
+                <div class="service-para">
+                    @Html.PropertyFor(m => m.CurrentPage.PageDescription)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcrete.Blocks
+@using High.Net.Core
+@model ExpandCollapseBlock
+
+<div class="accordion" id="accordion@(Model.GetHashCode())">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <h5>
+                <strong>
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion@(Model.GetHashCode())" href="#collapse@(Model.GetHashCode())">
+                        @Html.PropertyFor(x => x.Heading)
+                    </a>
+                </strong>
+            </h5>
+        </div>
+        <div id="collapse@(Model.GetHashCode())" class="accordion-body collapse">
+            <div class="accordion-inner">
+                @Html.PropertyFor(x => x.ItemBody, new
+                   {
+                       CssClass = "row",
+                       tag = Global.ContentAreaTags.FullWidth,
+                       Tags = new[]
+                       {
+                            Global.ContentAreaTags.FullWidth,
+                            Global.ContentAreaTags.TwoThirdsWidth,
+                            Global.ContentAreaTags.HalfWidth,
+                            Global.ContentAreaTags.OneThirdWidth,
+                            Global.ContentAreaTags.OneFourthWidth,
+                            Global.ContentAreaTags.OneFifthWidth,
+                            Global.ContentAreaTags.OneTwelfthWidth,
+                            Global.ContentAreaTags.NoRenderer
+                       }
+                   })
+            </div>
+        </div>
+    </div>
+</div>

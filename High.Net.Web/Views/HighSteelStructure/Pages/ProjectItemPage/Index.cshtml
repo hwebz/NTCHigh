@@ -1,0 +1,88 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighSteelStructure.Pages
+@using ImageVault.Client.Query
+@using ImageVault.Common.Data
+@model PageViewModel<ProjectItemPage>
+@{
+    int i = 1;
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+}
+@section SiteHeader
+{
+    @Styles.Render("~/bundles/highsteel-thumbcss")
+}
+
+<div class="container">
+    <div class="common-container proj-gallery">
+        <div class="row">
+            <div class="col-md-12">
+                @if (Model.CurrentPage.Slider != null)
+                {
+                    <div class="gallery">
+                        <div class="clearfix"></div>
+                        <div class="slider-conatiner" id="slider1_container">
+                            <div class="sliders" u="slides">
+                                @foreach (var item in Model.CurrentPage.Slider)
+                                {
+                                    var image = client.Load<ImageVault.Common.Data.WebMedia>(item.Id).Resize(675, 380).ToList();
+                                    var thumbImage = client.Load<ImageVault.Common.Data.WebMedia>(item.Id).Resize(180, 180, ImageVault.Common.Data.ResizeMode.ScaleToFill).ToList();
+                                    var media = client.Query<High.Net.Core.Attributes.MediaMetaData>().Where(m => m.Id == item.Id).FirstOrDefault();
+                                    if (image.Any() && thumbImage.Any())
+                                    {
+                                    <div>
+                                        <img u="image" src="@Url.ContentUrl(image.FirstOrDefault().Url)" />
+                                        <img u="thumb" src="@Url.ContentUrl(thumbImage.FirstOrDefault().Url)" />
+                                    </div>
+                                    }
+                                }
+                            </div>
+                            <div u="thumbnavigator" class="jssort02" style="right: 0; bottom: 0px;">
+                                <div u="slides" style="cursor: default;">
+                                    <div u="prototype" class="p">
+                                        <div class="w">
+                                            <div u="thumbnailtemplate" class="t"></div>
+                                        </div>
+                                        <div class="c"></div>
+                                    </div>
+                                </div>
+                                <span u="arrowleft" id="arrowleft" class="arrow" style="position: absolute;"></span>
+                                <span u="arrowright" id="arrowright" class="arrow" style="position: absolute;"></span>
+                            </div>
+                        </div>
+                        @foreach (var item in Model.CurrentPage.Slider)
+                        {
+                            var media = client.Query<High.Net.Core.Attributes.MediaMetaData>().Where(m => m.Id == item.Id).FirstOrDefault();
+                            if (!String.IsNullOrEmpty(media.Caption))
+                            {
+                            <div class="abc">
+                                <div class="slider-title pull-left">
+                                    <p id="title-@i" style="display: none">@media.Caption</p>
+                                </div>
+                            </div>
+                            }
+
+                            i++;
+                        }
+                        <div class="right-pag" u="thumbnavigator">
+                            <img id="btn-prev" src="~/Static/high-steel-structure/img/icon/left-arrow.jpg" />
+                            <img id="btn-next" src="~/Static/high-steel-structure/img/icon/right-arrow.jpg" />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                }
+
+                <h3 class="page-title">@Html.PropertyFor(x => x.CurrentPage.Heading)</h3>
+                @Html.PropertyFor(x => x.CurrentPage.Description)
+            </div>
+        </div>
+    </div>
+</div>
+
+@section SiteFooter
+{
+    @Scripts.Render("~/bundles/jssor")
+    @Scripts.Render("~/bundles/highsteel-thumbjs")
+}

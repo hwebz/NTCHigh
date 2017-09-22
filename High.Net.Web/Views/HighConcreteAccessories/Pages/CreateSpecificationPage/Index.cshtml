@@ -1,0 +1,165 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+
+@model High.Net.Models.HighConcreteAccessories.ViewModels.CreateSpecificationPageModel
+@{
+    int j = 0;
+}
+
+<div class="specification">
+    <div class="container">
+        <div class="row">
+            @if (!Model.createSpecificationPageForm.IsFormSubmitted)
+            {
+                <div class="col-md-12">
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { @Class = "custom-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="step">
+                            <div class="step-title"><span>Step 1: </span>Choose a product</div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-5 col-xs-6">
+                                    <div class="form-group">
+                                        @Html.RadioButtonFor(x => x.createSpecificationPageForm.ProductType, "Full Line")<label>Full Line</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-5 col-xs-6">
+                                    <div class="form-group">
+                                        @Html.RadioButtonFor(x => x.createSpecificationPageForm.ProductType, "Individual Products")<label>Individual Products</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+
+                            @for (int i = 0; i < Model.createSpecificationPageForm.ListProducts.Count; i++)
+                            {
+                                if (j != Model.createSpecificationPageForm.ListProducts.Count || j > Model.createSpecificationPageForm.ListProducts.Count)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-5">
+                                            <div class="form-group">
+                                                @Html.CheckBoxFor(x => x.createSpecificationPageForm.ListProducts[j].Checked)<label>@Model.createSpecificationPageForm.ListProducts[j].Name</label>
+                                                @Html.HiddenFor(x => x.createSpecificationPageForm.ListProducts[j].Name)
+                                            </div>
+                                        </div>
+                                        @{
+                                    j = j + 1;
+                                        }
+                                        <div class="col-md-4 col-sm-5">
+                                            <div class="form-group">
+                                                @Html.CheckBoxFor(x => x.createSpecificationPageForm.ListProducts[j].Checked)<label>@Model.createSpecificationPageForm.ListProducts[j].Name</label>
+                                                @Html.HiddenFor(x => x.createSpecificationPageForm.ListProducts[j].Name)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    j++;
+                                }
+                            }
+                        </div>
+                        <div class="step">
+                            <div class="step-title"><span>Step 2: </span>Optional Project Header</div>
+                            <div class="form-group">
+                                <label>Project Name:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationPageForm.ProjectName, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Street Address 1:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationPageForm.StreetAddress1, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Street Address 2:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationPageForm.StreetAddress2, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>City:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationPageForm.City, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>State:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationPageForm.State, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Zip Code:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationPageForm.ZipCode, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Project Size:</label>
+                                @Html.DropDownList("ProjectSize", new List<SelectListItem>()
+                                    {
+                                        new SelectListItem(){ Text= "Up to 99,999 Sq. Ft.", Value = "Up to 99,999 Sq. Ft."},
+                                        new SelectListItem(){ Text= "100,000 to 249,999 Sq. Ft.", Value = "100,000 to 249,999 Sq. Ft."},
+                                        new SelectListItem(){ Text= "250,000 to 499,999 Sq. Ft.", Value = "250,000 to 499,999 Sq. Ft."},
+                                        new SelectListItem(){ Text= "500,000 Sq. Ft. or more", Value = "500,000 Sq. Ft. or more"},
+                                    }, "-- Select --", new { @Class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Firm Name:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationPageForm.FirmName, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Firm Contact:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationPageForm.FirmContact, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Firm Email:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationPageForm.FirmEmail, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.createSpecificationPageForm.FirmEmail)
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-title"><span>Step 3: </span>Create Specification</div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        @Html.RadioButtonFor(x => x.createSpecificationPageForm.SpecificationType, "Three-part specification")<label>Three-part specification</label>
+                                    </div>
+                                    <div class="col-md-1 col-sm-3"></div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        @Html.RadioButtonFor(x => x.createSpecificationPageForm.SpecificationType, "Product section only")<label>Product section only</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        @Html.RadioButtonFor(x => x.createSpecificationPageForm.DocumentFormat, "CSI 1995 format")<label>CSI 1995 format</label>
+                                    </div>
+                                    <div class="col-md-1 col-sm-3"></div>
+                                    <div class="col-md-2 col-sm-3 col-xs-6">
+                                        @Html.RadioButtonFor(x => x.createSpecificationPageForm.DocumentFormat, "CSI 2004 format")<label>CSI 2004 format</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-3 col-xs-4">
+                                        @Html.RadioButtonFor(x => x.createSpecificationPageForm.DocumentType, "DOC")<label>DOC</label>
+                                    </div>
+                                    <div class="col-md-2 col-sm-3 col-xs-4">
+                                        @Html.RadioButtonFor(x => x.createSpecificationPageForm.DocumentType, "PDF")<label>PDF</label>
+                                    </div>
+                                    <div class="col-md-2 col-sm-3 col-xs-4">
+                                        @Html.RadioButtonFor(x => x.createSpecificationPageForm.DocumentType, "HTML")<label>HTML</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Submit" class="btn btn-default" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="col-md-12">
+                    <div class="step">
+                        <br />
+                        @Model.CurrentPage.ThankYouMessage
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

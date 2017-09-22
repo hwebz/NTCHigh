@@ -1,0 +1,719 @@
+﻿@using High.Net.Core
+@using EPiServer.Web
+@using High.Net.Models.HighSteelStructure.ViewModels
+
+@model ShippingAdvisorPageModel
+
+@section SiteHeader
+{
+ @Styles.Render("~/bundles/bootstrap-datetimepicker-css")
+
+    <style>
+        span.field-validation-error {
+            color: red;
+        }
+
+        .req-field {
+            margin-left: 10px;
+        }
+    </style>
+}
+<div class="container">
+    <div class="common-container advisor">
+        <div class="row">
+            @if (!Model.ShippingAdvisorPageForm.IsFormSubmitted && !Model.ShippingAdvisorPageForm.IsPreviewPage)
+            {
+                <div class="col-md-12">
+                    <h3>Shipping Evaluation Form</h3>
+                    <p><span class="req-field">*</span> Indicates a required field</p>
+                    <h5><strong>Part 1 - Contact Information:</strong></h5>
+                    @using (Html.BeginForm(null, null, FormMethod.Post,
+                        new { @Class = "form-horizontal", @enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input id="ShippingAdvisorPageForm_IsPreviewPage" name="ShippingAdvisorPageForm.IsPreviewPage" type="hidden" value="True">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputEmail3">First Name:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.FirstName, new { @class = "form-control" })<span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.FirstName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Last Name:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.LastName, new { @class = "form-control" })<span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.LastName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Title:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.Title, new { @class = "form-control" })<span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.Title)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Company:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.CompanyName, new { @class = "form-control" })<span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.CompanyName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Phone Number:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.PhoneNumber, new { @class = "form-control" })<span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.PhoneNumber)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Email Address:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.EmailAddress, new { @class = "form-control" })<span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.EmailAddress)
+                            </div>
+                        </div>
+                        <br />
+                        <h5><strong>Part 2 - Project Information:</strong></h5>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputEmail3">Project  Name:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.ProjectName, new { @class = "form-control" })<span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.ProjectName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Scheduled Construction Letting Date:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.LettingDate, new { @class = "form-control input-group datetimepicker" })<span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.LettingDate)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Project Country:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.ProjectCountry, new { @class = "form-control" })<span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.ProjectCountry)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Project State / Province:</label>
+                            <div class="col-sm-2">
+                                @Html.DropDownList("ShippingAdvisorPageForm.ProjectState", new List<SelectListItem>(){
+                                        new SelectListItem(){ Text= "CT", Value = "CT"},
+                                        new SelectListItem(){ Text= "DC", Value = "DC"},
+                                        new SelectListItem(){ Text= "DE", Value = "DE"},
+                                        new SelectListItem(){ Text= "IL", Value = "IL"},
+                                        new SelectListItem(){ Text= "IN", Value = "IN"},
+                                        new SelectListItem(){ Text= "KY", Value = "KY"},
+                                        new SelectListItem(){ Text= "MA", Value = "MA"},
+                                        new SelectListItem(){ Text= "MD", Value = "MD"},
+                                        new SelectListItem(){ Text= "ME", Value = "ME"},
+                                        new SelectListItem(){ Text= "MI", Value = "MI"},
+                                        new SelectListItem(){ Text= "MN", Value = "MN"},
+                                        new SelectListItem(){ Text= "NC", Value = "NC"},
+                                        new SelectListItem(){ Text= "NH", Value = "NH"},
+                                        new SelectListItem(){ Text= "NJ", Value = "NJ"},
+                                        new SelectListItem(){ Text= "NY (City)", Value = "NY (City)"},
+                                        new SelectListItem(){ Text= "NY (State)", Value = "NY (State)"},
+                                        new SelectListItem(){ Text= "OH", Value = "OH"},
+                                        new SelectListItem(){ Text= "PA", Value = "PA"},
+                                        new SelectListItem(){ Text= "RI", Value = "RI"},
+                                        new SelectListItem(){ Text= "TN", Value = "TN"},
+                                        new SelectListItem(){ Text= "VA", Value = "VA"},
+                                        new SelectListItem(){ Text= "VT", Value = "VT"},
+                                        new SelectListItem(){ Text= "WV", Value = "WV"},
+                                        new SelectListItem(){ Text= "AB", Value = "AB"},
+                                        new SelectListItem(){ Text= "BC", Value = "BC"},
+                                        new SelectListItem(){ Text= "MB", Value = "MB"},
+                                        new SelectListItem(){ Text= "NB", Value = "NB"},
+                                        new SelectListItem(){ Text= "NS", Value = "NS"},
+                                        new SelectListItem(){ Text= "ON", Value = "ON"},
+                                        new SelectListItem(){ Text= "QC", Value = "QC"},
+                                        new SelectListItem(){ Text= "SK", Value = "SK"},
+                                        new SelectListItem(){ Text= "Not Listed", Value = "Not Listed"}
+                                        }, "---Select---", new { @Class = "form-control" })
+                            </div>
+                            <div class="col-sm-8 col-xs-10">
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.ProjectStateName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for=""></label>
+                            <label class="col-sm-2 control-label text-left" for="">State, if not listed</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.ProjectStateName, new { @class = "form-control" })<span class="req-field">*</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Route Number: <span class="small-text">(If project is not a bridge, type N/A)</span></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.RouteNumber, new { @class = "form-control" })<span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.RouteNumber)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Road or Body of Water Bridge is to Cross:<span class="small-text"> (If project is not a bridge, type N/A)</span></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.WaterBridgeCross, new { @class = "form-control" })<span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.WaterBridgeCross)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Steel Delivery Date:</label>
+                            <div class="col-sm-2">
+                                <span>Quarter:</span>
+                                @Html.DropDownList("ShippingAdvisorPageForm.DeliveryDateQuarter", new List<SelectListItem>() {
+                                    new SelectListItem(){ Text="1" , Value="1" },
+                                    new SelectListItem(){ Text="2" , Value="2" },
+                                    new SelectListItem(){ Text="3" , Value="3" },
+                                    new SelectListItem(){ Text="4" , Value="4" }
+                               }, "---Select---", new { @Class = "form-control no-float" })
+                            </div>
+                            <div class="col-sm-2">
+                                <span>Year:</span>
+                                @Html.DropDownListFor(x => x.ShippingAdvisorPageForm.DeliveryDateYear, Model.ShippingAdvisorPageForm.DeliveryDateYears, "---Select---", new { @Class = "form-control no-float" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">
+                                Est. Total Steel Weight<br />
+                                (in tons):
+                            </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.TotalEstSteelWeight, new { @class = "form-control" })<span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.TotalEstSteelWeight)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Number of Pieces:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.NumberofPieces, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Owner's Project Number:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.OwnersProjectNumber, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Description:</label>
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(x => x.ShippingAdvisorPageForm.Description, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <br />
+                        <h5><strong>Part 3 - Material Description:</strong></h5>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Type of Girder:</label>
+                            <div class="col-sm-3">
+                                @Html.DropDownList("ShippingAdvisorPageForm.TypeOfGirder", new List<SelectListItem>() {
+                                    new SelectListItem(){ Text="Straight" , Value="Straight" },
+                                    new SelectListItem(){ Text="Curved" , Value="Curved" },
+                                    new SelectListItem(){ Text="Haunched" , Value="Haunched" },
+                                    new SelectListItem(){ Text="Box" , Value="Box" },
+                                    new SelectListItem(){ Text="Tub" , Value="Tub" },
+                                    new SelectListItem(){ Text="Railroad" , Value="Railroad" },
+                                    new SelectListItem(){ Text="Rolled Beam" , Value="Rolled Beam" },
+                                    new SelectListItem(){ Text=" Metal Building Frame" , Value=" Metal Building Frame" },
+                                    new SelectListItem(){ Text="Truss" , Value="Truss" }
+                               }, "---Select---", new { @Class = "form-control" })
+                            </div>
+                            <span class="req-field">*</span>
+                            <div style="display: inline">
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.TypeOfGirder)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label"></label>
+                            <label for="" class="col-sm-2 control-label text-left"><span class="small-text">if curved, radius of curve :</span></label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.GirderName, new { @class = "form-control" })<br />
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderName)
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DropDownList("ShippingAdvisorPageForm.GirderMeasures", new List<SelectListItem>() {
+                                new SelectListItem(){ Text="feet" , Value="feet" },
+                                new SelectListItem(){ Text="meters" , Value="meters" }
+                             }, "---Select---", new { @Class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderMeasures)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 text-right">
+                                <h5><strong>Longest Girder</strong></h5>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Length:</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.GirderLongestLength, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderLongestLength)
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DropDownList("ShippingAdvisorPageForm.GirderLongestLengthMeasures", new List<SelectListItem>() {
+                                new SelectListItem(){ Text="feet" , Value="feet" },
+                                new SelectListItem(){ Text="meters" , Value="meters" }
+                             }, "---Select---", new { @Class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderLongestLengthMeasures)
+                            </div>
+                            <span class="req-field">*</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Height:</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.GirderLongestHeight, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderLongestHeight)
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DropDownList("ShippingAdvisorPageForm.GirderLongestHeightMeasures", new List<SelectListItem>() {
+                                new SelectListItem(){ Text="inches" , Value="inches" },
+                                new SelectListItem(){ Text="centimeters" , Value="centimeters" }
+                             }, "---Select---", new { @Class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderLongestHeightMeasures)
+                            </div>
+                            <span class="req-field">*</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Width:</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.GirderLongestWidth, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderLongestWidth)
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DropDownList("ShippingAdvisorPageForm.GirderLongestWidthMeasures", new List<SelectListItem>() {
+                                new SelectListItem(){ Text="inches" , Value="inches" },
+                                new SelectListItem(){ Text="centimeters" , Value="centimeters" }
+                             }, "---Select---", new { @Class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderLongestWidthMeasures)
+                            </div>
+                            <span class="req-field">*</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Weight:</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.GirderLongestWeight, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderLongestWeight)
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DropDownList("ShippingAdvisorPageForm.GirderLongestWeightMeasures", new List<SelectListItem>() {
+                                new SelectListItem(){ Text="English ton(s)" , Value="Englsh" },
+                                new SelectListItem(){ Text="Metric ton(s)" , Value="Metric" }
+                             }, "---Select---", new { @Class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderLongestWeightMeasures)
+                            </div>
+                            <span class="req-field">*</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Radius of curve (if applicable):</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.GirderLongestRadiusofcurve, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderLongestRadiusofcurve)
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DropDownList("ShippingAdvisorPageForm.GirderLongestRadiusofcurveMeasures", new List<SelectListItem>() {
+                                new SelectListItem(){ Text="feet" , Value="feet" },
+                                new SelectListItem(){ Text="meters" , Value="meters" }
+                             }, "---Select---", new { @Class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderLongestRadiusofcurveMeasures)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 text-right">
+                                <h5><strong>Heaviest Girder</strong></h5>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Length:</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.GirderHeaviestLength, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderHeaviestLength)
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DropDownList("ShippingAdvisorPageForm.GirderHeaviestLengthMeasures", new List<SelectListItem>() {
+                                new SelectListItem(){ Text="feet" , Value="feet" },
+                                new SelectListItem(){ Text="meters" , Value="meters" }
+                             }, "---Select---", new { @Class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderHeaviestLengthMeasures)
+                            </div>
+                            <span class="req-field">*</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Height:</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.GirderHeaviestHeight, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderHeaviestHeight)
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DropDownList("ShippingAdvisorPageForm.GirderHeaviestHeightMeasures", new List<SelectListItem>() {
+                                new SelectListItem(){ Text="inches" , Value="inches" },
+                                new SelectListItem(){ Text="centimeters" , Value="centimeters" }
+                             }, "---Select---", new { @Class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderHeaviestHeightMeasures)
+                            </div>
+                            <span class="req-field">*</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Width:</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.GirderHeaviestWidth, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderHeaviestWidth)
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DropDownList("ShippingAdvisorPageForm.GirderHeaviestWidthMeasures", new List<SelectListItem>() {
+                                new SelectListItem(){ Text="inches" , Value="inches" },
+                                new SelectListItem(){ Text="centimeters" , Value="centimeters" }
+                             }, "---Select---", new { @Class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderHeaviestWidthMeasures)
+                            </div>
+                            <span class="req-field">*</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Weight:</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.GirderHeaviestWeight, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderHeaviestWeight)
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DropDownList("ShippingAdvisorPageForm.GirderHeaviestWeightMeasures", new List<SelectListItem>() {
+                                new SelectListItem(){ Text="English ton(s)" , Value="Englsh" },
+                                new SelectListItem(){ Text="Metric ton(s)" , Value="Metric" }
+                             }, "---Select---", new { @Class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderHeaviestWeightMeasures)
+                            </div>
+                            <span class="req-field">*</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Radius of curve (if applicable):</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(x => x.ShippingAdvisorPageForm.GirderHeaviestRadiusofcurve, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderHeaviestRadiusofcurve)
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DropDownList("ShippingAdvisorPageForm.GirderHeaviestRadiusofcurveMeasures", new List<SelectListItem>() {
+                                new SelectListItem(){ Text="feet" , Value="feet" },
+                                new SelectListItem(){ Text="meters" , Value="meters" }
+                             }, "---Select---", new { @Class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ShippingAdvisorPageForm.GirderHeaviestRadiusofcurveMeasures)
+                            </div>
+                        </div>
+                        <br />
+                        <div class="advisor-para">
+                            <p>Please note any additional information that should be considered in the box below.</p>
+                        </div>
+                        <div class="comment-box">
+                            @Html.TextAreaFor(x => x.ShippingAdvisorPageForm.Note, new { rows = 5 })
+                        </div>
+                        <div class="clearfix"></div>
+                        <p>Please note, the location and size of some jobs require an in-depth analysis of possible routes, including routing checks, loading analysis and dealings with applicable routing agencies. If your job requires such an analysis, we will contact you to discuss the costs involved.</p>
+                        <p>The information provided is for budget pricing and planning purposes only. By providing the information, High Steel is not extending an offer to sell or agreeing to enter a contract. The actual price will be determined by final design and market conditions then existing.</p>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">Finish and Review</button>
+                                <button type="reset" class="btn btn-danger">Clear Form</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else if (Model.ShippingAdvisorPageForm.IsPreviewPage)
+            {
+                <div class="col-md-12">
+                    <h3>Shipping Evaluation Form</h3>
+                    <p><span class="req-field">*</span> Indicates a required field</p>
+                    <h5><strong>Part 1 - Contact Information:</strong></h5>
+                    @using (Html.BeginForm(null, null, FormMethod.Post,
+                        new { @Class = "form-horizontal", @enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input id="ShippingAdvisorPageForm_IsPreviewPage" name="ShippingAdvisorPageForm.IsPreviewPage" type="hidden" value="False">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputEmail3">First Name:</label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.FirstName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Last Name:</label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.LastName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Title:</label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.Title, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Company:</label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.CompanyName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Phone Number:</label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.PhoneNumber, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Email Address:</label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.EmailAddress, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <br />
+                        <h5><strong>Part 2 - Project Information:</strong></h5>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputEmail3">Project  Name:</label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.ProjectName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Scheduled Construction Letting Date:</label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.LettingDate, new { @class = "form-control input-group datetimepicker" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Project Country:</label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.ProjectCountry, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        if (Model.ShippingAdvisorPageForm.ProjectState != null)
+                        {
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="inputPassword3">Project State / Province:</label>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.ProjectState, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        }
+                        else
+                        {
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for=""></label>
+                            <label class="col-sm-2 control-label text-left" for="">State, if not listed</label>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.ProjectStateName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        }
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Route Number: <span class="small-text">(If project is not a bridge, type N/A)</span></label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.RouteNumber, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Road or Body of Water Bridge is to Cross:<span class="small-text"> (If project is not a bridge, type N/A)</span></label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.WaterBridgeCross, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Steel Delivery Date:</label>
+                            <div class="col-sm-2">
+                                <span>Quarter:</span>
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.DeliveryDateQuarter, new { @class = "form-control no-float" })
+                            </div>
+                            <div class="col-sm-2">
+                                <span>Year:</span>
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.DeliveryDateYear, new { @class = "form-control no-float" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">
+                                Est. Total Steel Weight<br />
+                                (in tons):
+                            </label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.TotalEstSteelWeight, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Number of Pieces:</label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.NumberofPieces, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Owner's Project Number:</label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.OwnersProjectNumber, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Description:</label>
+                            <div class="col-sm-6">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.Description, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <br />
+                        <h5><strong>Part 3 - Material Description:</strong></h5>
+                        if (Model.ShippingAdvisorPageForm.TypeOfGirder != null)
+                        {
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Type of Girder:</label>
+                            <div class="col-sm-3">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.TypeOfGirder, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        }
+                        else
+                        {
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label"></label>
+                            <label for="" class="col-sm-2 control-label text-left"><span class="small-text">if curved, radius of curve :</span></label>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderName, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderMeasures, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        }
+                        <div class="form-group">
+                            <div class="col-sm-2 text-right">
+                                <h5><strong>Longest Girder</strong></h5>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Length:</label>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderLongestLength, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderLongestLengthMeasures, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Height:</label>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderLongestHeight, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderLongestHeightMeasures, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Width:</label>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderLongestWidth, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderLongestWidthMeasures, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Weight:</label>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderLongestWeight, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderLongestWeightMeasures, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Radius of curve (if applicable):</label>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderLongestRadiusofcurve, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderLongestRadiusofcurveMeasures, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 text-right">
+                                <h5><strong>Heaviest Girder</strong></h5>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Length:</label>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderHeaviestLength, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderHeaviestLengthMeasures, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Height:</label>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderHeaviestHeight, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderHeaviestHeightMeasures, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Width:</label>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderHeaviestWidth, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderHeaviestWidthMeasures, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Weight:</label>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderHeaviestWeight, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderHeaviestWeightMeasures, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-top" for="">Radius of curve (if applicable):</label>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderHeaviestRadiusofcurve, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.GirderHeaviestRadiusofcurveMeasures, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="comment-box">
+                            @Html.DisplayHiddenFor(x => x.ShippingAdvisorPageForm.Note)
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">Submit</button>
+                                @if (Request.UrlReferrer != null)
+                                {
+                                    <a class="btn btn-danger" onclick="history.go(-1); return false;" href="#">Make Changes</a>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="col-md-12">
+                    @Html.PropertyFor(x => x.CurrentPage.ThankYouMessage)
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section SiteFooter
+{
+      @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/bootstrap-datetimepicker-js")
+    <script type="text/javascript">
+        $(function () {
+            $('.datetimepicker').datetimepicker({
+                viewMode: 'years',
+                format: 'MM/DD/YYYY'
+            });
+        });
+    </script>
+    @Scripts.Render("~/bundles/MvcFoolproofValidation-js")
+}

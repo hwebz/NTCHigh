@@ -1,0 +1,65 @@
+﻿nav.navbar {
+    display: none;
+}
+
+#leftContent {
+    display: none;
+}
+
+#productContent {
+    width: 100%;
+}
+
+.banner {
+    display: none;
+}
+
+.orange-band {
+    display: none;
+}
+
+.get-join {
+    display: none;
+}
+
+.jssort02 {
+    display: none;
+}
+
+.sliders {
+    border: none;
+}
+
+.right-pag {
+    display: none;
+}
+
+.main-logo.pull-left.cf {
+    float: left !important;
+}
+
+p strong {
+    font-weight: normal;
+    font-size: 20px;
+}
+
+.print-content {
+    display: none;
+}
+
+.contact-details {
+    display: none;
+}
+
+.footer {
+    display: none;
+}
+
+a {
+    outline: none;
+}
+
+.sliders img {
+    width: 100%;
+    margin: 0 auto;
+}

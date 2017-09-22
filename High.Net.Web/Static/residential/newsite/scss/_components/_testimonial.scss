@@ -1,0 +1,25 @@
+﻿$pre: 'residential-testimonial';
+
+.#{$pre} {
+    background: $color-green-gray;
+    padding: 60px 0;
+    color: $color-white;
+
+    @include respond-to-max($tabletSize) {
+        padding: 30px 0;
+    }
+
+    .#{$pre}__wrapper {
+        text-align: center;
+
+        h1 {
+            @extend %big-title;
+            margin-bottom: 0;
+            color: $color-white;
+        }
+
+        p {
+            line-height: 2;
+        }
+    }
+}

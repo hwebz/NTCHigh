@@ -1,0 +1,126 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Residential.Pages
+
+@model PageViewModel<EventListingPage>
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var eventsItem = contentLoader.GetChildren<EventPage>(Model.CurrentPage.ContentLink);
+}
+@section PageBannerSection
+{
+    @Html.Partial("~/Views/Residential/Shared/Banner.cshtml", Model)
+}
+<ul class="nav nav-tabs tabs-event">
+    <li class="active events-tab A"><a data-toggle="tab" href="#Coming-cources">Upcoming Events</a></li>
+    <li class="events-tab B"><a data-toggle="tab" href="#past-courses">Past Events </a></li>
+</ul>
+
+<div class="tab-content">
+    @if (eventsItem.Any())
+    {
+        <div id="past-courses" class="tab-pane fade">
+            @foreach (var item in eventsItem)
+            {
+                if (item.endDate < DateTime.Today)
+                {
+                    <div class="past-courses">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="Events">
+                                    <div class="calender">
+                                        <div class="cal-month">@item.startDate.ToString("MMM")</div>
+                                        <div class="cal-day">@item.startDate.Date.Day</div>
+                                    </div>
+                                    <h2>@item.eventName</h2>
+                                    <div class="clearfix"></div>
+                                    <p><strong>Start Date :</strong>@item.startDate.ToString("dd-MMM-yy") <strong>End Date : </strong>@item.endDate.ToString("dd-MMM-yy")</p>
+                                    @if (item.Days != null)
+                                    {
+                                        <p><strong>Days : </strong>@item.Days</p>
+                                    }
+                                    @if (item.Time != null)
+                                    {
+                                        <p><strong>Time : </strong>@item.Time</p>
+                                    }
+                                    @if (item.Location != null)
+                                    {
+                                        <p><strong>Location : </strong>@item.Location</p>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-4">
+                                <div class="Event-img">
+                                    @Html.PropertyFor(x => item.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 220, Height = 155 }, CssClass = "img-responsive" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-para-sec">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="event-para">
+                                        <p>@item.introText</p>
+                                        <a class="event-detail pull-right" href="@Url.ContentUrl(item.ContentLink)">VIEW DETAILS</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div id="Coming-cources" class="tab-pane fade in active">
+            @foreach (var item in eventsItem)
+            {
+                if (item.endDate > DateTime.Today)
+                {
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="Events">
+                                <div class="calender">
+                                    <div class="cal-month">@item.startDate.ToString("MMM")</div>
+                                    <div class="cal-day">@item.startDate.Date.Day</div>
+                                </div>
+                                <h2>@item.eventName</h2>
+                                <div class="clearfix"></div>
+                                <p><strong>Start Date :</strong>@item.startDate.ToString("dd-MMM-yy") <strong>End Date : </strong>@item.endDate.ToString("dd-MMM-yy")</p>
+                                @if (item.Days != null)
+                                {
+                                    <p><strong>Days : </strong>@item.Days</p>
+                                }
+                                @if (item.Time != null)
+                                {
+                                    <p><strong>Time : </strong>@item.Time</p>
+                                }
+                                @if (item.Location != null)
+                                {
+                                    <p><strong>Location : </strong>@item.Location</p>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-4">
+                            <div class="Event-img">
+                                @Html.PropertyFor(x => item.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 225, Height = 160, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-para-sec">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="event-para">
+                                    <p>@item.introText</p>
+                                    <a class="event-detail pull-right" href="@Url.ContentUrl(item.ContentLink)">VIEW DETAILS</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    }
+</div>

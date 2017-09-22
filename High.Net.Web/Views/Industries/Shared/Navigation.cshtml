@@ -1,0 +1,59 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using ImageVault.EPiServer
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<High.Net.Models.Industries.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+@model IPageViewModel<BasePageData>
+<div class="header-bottom">
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">
+                    @Html.PropertyFor(x => homePage.SiteLogo, new { PropertySettings = new PropertyMediaSettings { Width = 194, Height = 45 }, CssClass = "img-responsive" })
+                </a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="@(homePage.ContentLink == Model.CurrentPage.ContentLink ? "active" : "")">
+                        <a class="@(Model.CurrentPage.ContentLink.CompareToIgnoreWorkID(SiteDefinition.Current.StartPage) ? "active" : null)" href="@Url.ContentUrl(SiteDefinition.Current.StartPage)">Home</a>
+                    </li>
+                    @Html.MenuList(SiteDefinition.Current.StartPage,
+                    @<li class="@(item.Selected ? "active" : "")">
+                        @if (item.HasChildren.Value)
+                        {
+                            @Html.PageLink(item.Page)
+                            <a class="dropdown-toggle caret-dd" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                @{var childItems = contentLoader.GetChildren<BasePageData>(item.Page.ContentLink);}
+                                @foreach (var childItem in childItems)
+                                {
+                                    if (childItem.VisibleInMenu)
+                                    {
+                                        <li>@Html.PageLink(childItem)</li>
+                                    }
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <a href="@Url.ContentUrl(item.Page.ContentLink)">@item.Page.Name</a>
+                        }
+                    </li>)
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </nav>
+    </div>
+</div>
+
+

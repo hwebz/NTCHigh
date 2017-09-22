@@ -1,0 +1,100 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.SteelServiceCentre.Pages
+
+@model PageViewModel<ProjectItemPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+@Html.FullRefreshPropertiesMetaData(new[] { "ContentArea" })
+@section SiteHeader
+{
+    <link href="~/Static/steel-service-centre/css/jcarousel.responsive.css" rel="stylesheet" />
+}
+
+@Html.Partial("~/Views/SteelServiceCentre/Shared/Banner.cshtml", Model.CurrentPage)
+
+<div class="container">
+    <div class="proj-gallery">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="jc-container">
+                    <div class="jcarousel-wrapper">
+                        <div class="jcarousel">
+                            <ul>
+                                @if (Model.CurrentPage.ProjectImageSlider != null)
+                                {
+                                    foreach (var item in Model.CurrentPage.ProjectImageSlider)
+                                    {
+                                        <li>
+                                            @Html.PropertyFor(x => item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width =361 , Height=357 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill  }, CssClass = "img-responsive" })
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <a href="#" class="jcarousel-control-prev">
+                            <img src="~/Static/steel-service-centre/images/icon/left-arrow1.png" />
+                        </a>
+                        <a href="#" class="jcarousel-control-next">
+                            <img src="~/Static/steel-service-centre/images/icon/right-arrow1.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="description">
+                    <h3>@Html.PropertyFor(x => x.CurrentPage.ProjectName)</h3>
+                    <span>@Html.PropertyFor(x => x.CurrentPage.ProjectOwner)</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="prod-panel" @Html.EditAttributes(x => x.CurrentPage.ContentArea)>
+                    @if (Model.CurrentPage.ContentArea != null)
+                    {
+                        <ul class="nav nav-tabs">
+                            @foreach (var contentItem in Model.CurrentPage.ContentArea.Items)
+                            {
+                                var item = contentLoader.Get<High.Net.Models.SteelServiceCentre.Blocks.TextBlock>(contentItem.ContentLink);
+                                if (Model.CurrentPage.ContentArea.Items[0].ContentLink == contentItem.ContentLink)
+                                {
+                                    <li class="active"><a data-toggle="tab" href="#tabs@(contentItem.ContentLink)">@item.Heading</a></li>
+                                }
+                                else
+                                {
+                                    <li class=""><a data-toggle="tab" href="#tabs@(contentItem.ContentLink)">@item.Heading</a></li>
+                                }
+                            }
+                        </ul>
+                        <div class="tab-content">
+                            @foreach (var contentItem in Model.CurrentPage.ContentArea.Items)
+                            {
+                                var item = contentLoader.Get<High.Net.Models.SteelServiceCentre.Blocks.TextBlock>(contentItem.ContentLink);
+                                if (Model.CurrentPage.ContentArea.Items[0].ContentLink == contentItem.ContentLink)
+                                {
+                                    <div id="tabs@(contentItem.ContentLink)" class="tab-pane fade in active">
+                                        @item.Text
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div id="tabs@(contentItem.ContentLink)" class="tab-pane fade in">
+                                        @item.Text
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section SiteFooter
+{
+    <script src="~/Static/steel-service-centre/js/jcarousel.responsive.js"></script>
+}

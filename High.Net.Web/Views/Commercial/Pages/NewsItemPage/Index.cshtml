@@ -1,0 +1,60 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Shared.Pages
+@model PageViewModel<NewsItemPage>
+@Html.Partial("~/Views/Commercial/Shared/Banner.cshtml", Model.CurrentPage.Name)
+<div class="spacer"></div>
+<div class="container">
+    <div class="sec-newsdetails">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-content news-details">
+                    <div class="row">
+                        <div class="col-sm-2 news-img-new">
+                            <div class="newsdetail-sec-img">
+                                @if (Model.CurrentPage.NewsImage != null)
+                                {
+                                    @Html.PropertyFor(x => x.CurrentPage.NewsImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 115, Height = 115 }, CssClass = "img-responsive" })
+                                }
+                                else
+                                {
+                                    <img class="img-responsive placeholder" src="~/Static/global/images/news-placeholder-115X115.jpg" />
+                                }
+                                @if (Model.CurrentPage.ImageQuote != null)
+                                {
+                                    <p>@Model.CurrentPage.ImageQuote</p>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="newsdetail-para">
+                                <p>
+                                    <strong>
+                                        @if (Model.CurrentPage.Title != null)
+                                        {
+                                            @Model.CurrentPage.Title
+                                        }
+                                        else
+                                        {
+                                            @Model.CurrentPage.Name
+                                        }
+                                    </strong><span class="date-month">
+                                        on
+                                        <span class="glyphicon glyphicon-calendar"></span>@Model.CurrentPage.PostedDate.ToString("MMMM dd, yyyy")
+                                    </span>
+                                </p>
+                                @Html.PropertyFor(x => x.CurrentPage.NewsContent)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>
+<!-- About LLC Starts-->
+<!-- About LLC Ends-->
+<div class="spacer"></div>
+<div class="spacer"></div>
+

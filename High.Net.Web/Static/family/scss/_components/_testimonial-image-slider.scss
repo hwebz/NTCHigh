@@ -1,0 +1,138 @@
+﻿$pre: 'leadership-testimonial-slider';
+
+.#{$pre} {
+    @include block-spacing($block-spacing, $block-spacing-tablet-2);
+
+    .#{$pre}__title {
+        h3 {
+            @extend %big-title;
+        }
+    }
+
+    .#{$pre}__main {
+        position: relative;
+
+        .#{$pre}__slider {
+            position: relative;
+
+            .slick-list {
+
+                .slick-track {
+                    .slick-slide {
+
+                        .#{$pre}__slider-item__wrapper {
+                            margin-top: 55px;
+                        }
+                    }
+                }
+
+                @include respond-to-min($tabletSize) {
+                    .slick-track {
+                        .slick-slide {
+                            position: relative;
+
+                            .#{$pre}__slider-item__wrapper {
+                                height: 485px;
+                                overflow: hidden;
+                                position: relative;
+                                margin: 0;
+
+                                .#{$pre}__slider-item__pos {
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 100px;
+                                    @include prefix(( transform: translate(0, -50%) ), webkit moz ms o);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .#{$pre}__slider-item {
+
+                @include respond-to-max($tabletSize) {
+                    padding: 0 !important;
+                }
+
+                .#{$pre}__slider-item__image {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 485px;
+                    width: 100%;
+                    background: transparent url('../images/testiomonial-slider-bg.jpg') no-repeat center center;
+                    background-size: cover;
+
+                    @include respond-to-max($tabletSize) {
+                        position: initial;
+                        height: 275px;
+                    }
+                }
+
+                h3 {
+                    @extend %testimonial-heading;
+
+                    &:after {
+                        display: none;
+                        @include respond-to-max($tabletSize) {
+                            top: -25px;
+                        }
+                    }
+                }
+            }
+
+            .slick-dots {
+                @extend %horizontal-centered;
+                bottom: auto;
+                top: calc(100% + 20px);
+            }
+
+            .slick-arrow {
+                &.slick-prev {
+                    @include respond-to-min($desktopSize) {
+                        left: 3%;
+                    }
+
+                    @include respond-to-max($desktopSize) {
+                        left: 4%;
+                    }
+
+                    @include respond-to-min($largerSize) {
+                        left: 5%;
+                    }
+
+                    @include respond-to-min($extraLargeSize) {
+                        left: 12%;
+                    }
+
+                    @include respond-to-min($hugeSize) {
+                        left: 15%;
+                    }
+                }
+
+                &.slick-next {
+                    @include respond-to-min($desktopSize) {
+                        right: 3%;
+                    }
+
+                    @include respond-to-max($desktopSize) {
+                        right: 4%;
+                    }
+
+                    @include respond-to-min($largerSize) {
+                        right: 5%;
+                    }
+
+                    @include respond-to-min($extraLargeSize) {
+                        right: 12%;
+                    }
+
+                    @include respond-to-min($hugeSize) {
+                        right: 18%;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,85 @@
+﻿@using High.Net.Core
+
+@{
+    Layout = "~/Views/Shared/Layouts/_root.cshtml";
+}
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentloader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentloader.Get<High.Net.Models.HighTransit.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+
+@section Header
+{
+    <link type="image/ico" href="~/Static/global/favicon/favicon.ico" rel="icon">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/bundles/bootstrap-css")
+    <!--external css-->
+    @Styles.Render("~/bundles/fontawesome-css")
+    @Styles.Render("~/bundles/browserBlast-css")
+
+    <!-- Custom styles for this template -->
+    @Styles.Render("~/bundles/global-css")
+    @Styles.Render("~/bundles/hightransit-css")
+  
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '@homePage.GoogleAnalytics']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    @RenderSection("SiteHeader", required: false)
+
+    <!--
+      [if lt IE 9]>
+       <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+       <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+     <![endif]
+  -->
+    @Styles.Render("~/bundles/hightransitCarousel-css")
+    
+}
+<div class="container-1000">
+    @Html.Partial("~/Views/HighTransit/Shared/Header.cshtml", Model)
+
+    @RenderBody()
+
+    @Html.Partial("~/Views/HighTransit/Shared/Footer.cshtml", Model)
+</div>
+@section Footer
+{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap-js")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/browserBlast-js")
+    @Scripts.Render("~/bundles/bxslider")
+    @Scripts.Render("~/bundles/fitvids")
+    @Scripts.Render("~/bundles/global-js")
+    @Scripts.Render("~/bundles/hightransit-js")
+    @Scripts.Render("~/bundles/hightransitCarousel-js")
+   
+    <script type="text/javascript">
+        $(function () {
+            $('.crsl-items').carousel({
+                visible: 3,
+                itemMinWidth: 180,
+                itemEqualHeight: 370,
+                itemMargin: 9,
+            });
+
+            $("").on('click', function (e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+    @RenderSection("SiteFooter", required: false)
+
+}
+

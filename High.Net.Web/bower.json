@@ -1,0 +1,27 @@
+{
+  "name": "high.net.web",
+  "description": "See the documentation at <http://imagevault.se/doc> for more information.",
+  "main": "/",
+  "authors": [
+    "linh1987 <linh1987@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "modernizr": "2.8.3",
+    "bootstrap": "^3.3.7",
+    "jquery": "1.11.3",
+    "jquery-migrate": "1.0.0",
+    "jquery-validation": "jquery.validation#1.14.0",
+    "eonasdan-bootstrap-datetimepicker": "4.17.37",
+    "moment": "2.10.6",
+    "font-awesome": "3.2.1"
+  }
+}

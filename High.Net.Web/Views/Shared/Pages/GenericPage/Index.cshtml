@@ -1,0 +1,39 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using System.Drawing
+
+@model High.Net.Core.PageViewModel<High.Net.Models.Shared.Pages.GenericPage>
+@{
+    var ContentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+    var container = ContentLocator.GetCategories(High.Net.Models.Constants.PropertyCategories.ContainerStyle).Categories;
+    var containerStyle = container.Where(x => x.Name.Equals(Model.CurrentPage.SelectContainerType)).Select(x => x.Description).FirstOrDefault();
+}
+
+@section Header{
+    @Styles.Render("~/bundles/bootstrap-css")
+    @Styles.Render("~/bundles/generic-css")
+}
+
+@if (Model.CurrentPage.SelectBackgroundColor.Equals(System.Drawing.Color.Black.Name))
+{
+    @Html.Raw("<div class='blk-background'>")
+}
+
+<div class="@containerStyle">
+    @Html.PropertyFor(m => m.CurrentPage.HeaderContentArea, new { CssClass = @Model.CurrentPage.SelectBackgroundColor.Equals(System.Drawing.Color.Black.Name) ? "row white-back" : "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth } })
+    @Html.PropertyFor(m => m.CurrentPage.BodyContentArea, new { CssClass = @Model.CurrentPage.SelectBackgroundColor.Equals(System.Drawing.Color.Black.Name) ? "row white-back" : "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth } })
+    @Html.PropertyFor(m => m.CurrentPage.FooterContentArea, new { CssClass = @Model.CurrentPage.SelectBackgroundColor.Equals(System.Drawing.Color.Black.Name) ? "row white-back" : "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth } })
+</div>
+
+@if (Model.CurrentPage.SelectBackgroundColor.Equals(System.Drawing.Color.Black.Name))
+{
+    @Html.Raw("</div>")
+}
+
+@section Footer{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/MapAreaResponsive-js")
+    <script>
+        $('map').imageMapResize();
+    </script>
+}

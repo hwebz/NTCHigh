@@ -1,0 +1,58 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighHotels.Pages
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<div class="container">
+    <div class="property white-bg padd">
+
+        <div class="navbar-collapse collapse ">
+            <ul class="nav navbar-nav">
+               <li class="active"><a class="no-padding" href="@Url.ContentUrl(homePage.ContentLink)"><div class="home-container"><i class="icon-home" style="font-size:26px;"></i></div></a></li>
+                 @Html.MenuList(PageReference.StartPage,
+                    @<li class="@(item.Selected ? "active" : "")@(item.HasChildren.Value ? "dropdown" : "")" )>
+                        @if (!item.HasChildren.Value)
+                          {
+                    <a href="@Url.ContentUrl(item.Page.ContentLink)">@item.Page.Name</a>
+                          }
+                          else
+                          {
+                    <a class="navitem" href="@Url.ContentUrl(item.Page.ContentLink)">@item.Page.Name</a>
+                              var firstLevelchilditems = contentLoader.GetChildren<BasePageData>(item.Page.ContentLink);
+                    <a class="dropdown-toggle caret-dd" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        @foreach (var citem in firstLevelchilditems)
+                                  {
+                                      if (citem.VisibleInMenu)
+                                      {
+                                          var childitems = contentLoader.GetChildren<BasePageData>(citem.ContentLink);
+                                          if (childitems != null)
+                                          {
+                                <li><a href="@Url.ContentUrl(citem.ContentLink)">@citem.Name</a></li>
+                                              foreach (var subitem in childitems)
+                                              {
+                                                  if(subitem.VisibleInMenu)
+                                                  {
+                                <li><a href="@Url.ContentUrl(subitem.ContentLink)">@subitem.Name</a></li>
+                                                  }
+                                              }
+                                          }
+                                          else
+                                          {
+                                <li><a href="@Url.ContentUrl(citem.ContentLink)">@citem.Name</a></li>
+                                          }
+                                      }
+                                  }
+                    </ul>
+                          }
+                    </li>)
+            </ul>
+        </div>
+
+    </div>
+</div>

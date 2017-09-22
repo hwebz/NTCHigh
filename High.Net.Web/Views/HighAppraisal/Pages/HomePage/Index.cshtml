@@ -1,0 +1,111 @@
+﻿@using EPiServer.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Core
+@using High.Net.Models.HighAppraisal.Pages
+@using ImageVault.EPiServer
+
+@model PageViewModel<HomePage>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    // var videoListingPage = contentLoader.GetChildren<VideoListingPage>(Model.CurrentPage.ContentLink).FirstOrDefault();
+    var NewsListingPage = contentLoader.GetChildren<High.Net.Models.Shared.Pages.NewsListingPage>(Model.CurrentPage.ContentLink).FirstOrDefault();
+}
+@Html.Partial("~/Views/HighAppraisal/Shared/Carousel.cshtml", Model)
+@Html.FullRefreshPropertiesMetaData(new[] { "ContentArea" })
+
+<div class="property ">
+    <div class="container">
+        <div class="row">
+            @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.OneFourthWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+        </div>
+    </div>
+</div>
+
+<!--property start-->
+<div class="property green-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.PropertyFor(x => x.CurrentPage.AboutContent)
+            </div>
+            @*<div class="col-lg-6">
+                    @if (videoListingPage != null)
+                    {
+                        var videoItemPages = contentLoader.GetChildren<VideoItemPage>(videoListingPage.ContentLink);
+                        if (videoItemPages != null)
+                        {
+                            <h2 class="r-work white">Latest Videos</h2>
+                            <div class="panel-body">
+                                <div class="tab-content tasi-tab">
+                                    <div id="news" class="tab-pane active">
+                                        @foreach (var item in videoItemPages.Take(2))
+                                        {
+                                            <article class="media">
+                                                <a class="pull-left thumb p-thumb">
+                                                    <img = src="@dataLocator.GetYouTubeThumbnail(item.VideoLink)" />
+                                                </a>
+                                                <div class="media-body">
+                                                    <a href="@Url.ContentUrl(item.ContentLink)" class="p-head white"><strong>@item.Heading</strong></a>
+                                                    <p class="white">
+                                                        @item.IntroText<br />
+                                                        <a href="@Url.ContentUrl(item.ContentLink)" class="white">read more...</a>
+                                                    </p>
+
+                                                </div>
+                                            </article>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>*@
+        </div>
+
+    </div>
+</div>
+<!--property end-->
+
+<div class="container">
+    <div class="row mid-box-1">
+        @if (NewsListingPage != null)
+        {
+            var NewsItemPages = contentLoader.GetChildren<High.Net.Models.Shared.Pages.NewsItemPage>(NewsListingPage.ContentLink);
+            if (NewsItemPages != null)
+            {
+                <h2 style="text-align: center;">Latest News</h2>
+                foreach (var item in NewsItemPages)
+                {
+                    <div class="col-lg-6">
+                        <div class="panel-body">
+                            <div class="tab-content tasi-tab">
+                                <div id="news" class="tab-pane active">
+                                    <article class="media">
+                                        <a class="pull-left thumb p-thumb">
+                                            @if (item.NewsImage != null)
+                                            {
+                                                @Html.PropertyFor(x => item.NewsImage, new { PropertySettings = new PropertyMediaSettings { Width = 166, Height = 172, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                                            }
+                                            else
+                                            {
+                                                <img class="img-responsive" src="~/Static/global/images/news-placeholder-150X150.jpg" />
+                                            }
+                                        </a>
+                                        <div class="media-body">
+                                            @item.PostedDate.ToString("dd MMMM yyyy") <br />
+                                            <a href="@Url.ContentUrl(item.ContentLink)" class="p-head"><strong>@item.Title</strong></a>
+                                            @item.NewsHighlight<br />
+                                            <a href="@Url.ContentUrl(item.ContentLink)">read more...</a>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>

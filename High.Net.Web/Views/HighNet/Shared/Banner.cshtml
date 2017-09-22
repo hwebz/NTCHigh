@@ -1,0 +1,91 @@
+﻿@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighNet.Pages
+@using EPiServer.Web
+@using ImageVault.EPiServer
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+
+<!-- Banner Start -->
+<div class="top-banner">
+    @if ((Model.CurrentPage.GetType().BaseType).BaseType != typeof(BasePageData))
+    {
+        var CurrentPage = contentLoader.Get<HighNetPageData>(Model.CurrentPage.ContentLink);
+        if (CurrentPage.ImageBanner != null)
+        {
+            @Html.PropertyFor(x => CurrentPage.ImageBanner, new { PropertySettings = new PropertyMediaSettings { Width = 1400, Height = 361 }, CssClass = "img-responsive" })
+        }
+        else
+        {
+            @Html.PropertyFor(x => homePage.ImageBanner, new { PropertySettings = new PropertyMediaSettings { Width = 1400, Height = 361 }, CssClass = "img-responsive" })
+        }
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.LocationPage))
+    {
+        var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.LocationPage>(Model.CurrentPage.ContentLink);
+        if (CurrentPage.BannerImage != null)
+        {
+            @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1400, Height = 361 }, CssClass = "img-responsive" })
+        }
+        else
+        {
+            @Html.PropertyFor(x => homePage.ImageBanner, new { PropertySettings = new PropertyMediaSettings { Width = 1400, Height = 361 }, CssClass = "img-responsive" })
+        }
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.NewsListingPage))
+    {
+        var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.NewsListingPage>(Model.CurrentPage.ContentLink);
+        if (CurrentPage.BannerImage != null)
+        {
+            @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1400, Height = 361 }, CssClass = "img-responsive" })
+        }
+        else
+        {
+            @Html.PropertyFor(x => homePage.ImageBanner, new { PropertySettings = new PropertyMediaSettings { Width = 1400, Height = 361 }, CssClass = "img-responsive" })
+        }
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.ContactUsPage))
+    {
+        var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.ContactUsPage>(Model.CurrentPage.ContentLink);
+        if (CurrentPage.BannerImage != null)
+        {
+            @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1400, Height = 361 }, CssClass = "img-responsive" })
+        }
+        else
+        {
+            @Html.PropertyFor(x => homePage.ImageBanner, new { PropertySettings = new PropertyMediaSettings { Width = 1400, Height = 361 }, CssClass = "img-responsive" })
+        }
+    }
+    else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.NewsItemPage))
+    {
+        var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.NewsItemPage>(Model.CurrentPage.ContentLink);
+        var parentPage = contentLoader.Get<High.Net.Models.Shared.Pages.NewsListingPage>(Model.CurrentPage.ParentLink);
+        if (CurrentPage.BannerImage != null)
+        {
+            @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1400, Height = 361 }, CssClass = "img-responsive" })
+        }
+        else if (parentPage.BannerImage != null)
+        {
+            @Html.PropertyFor(x => parentPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1400, Height = 361 }, CssClass = "img-responsive" })
+        }
+        else
+        {
+            @Html.PropertyFor(x => homePage.ImageBanner, new { PropertySettings = new PropertyMediaSettings { Width = 1400, Height = 361 }, CssClass = "img-responsive" })
+        }
+    }
+    else
+    {
+        @Html.PropertyFor(x => homePage.ImageBanner, new { PropertySettings = new PropertyMediaSettings { Width = 1400, Height = 361 }, CssClass = "img-responsive" })
+    }
+</div>
+<!-- Banner Ends-->
+<div class="container page-heading">
+    <div class="red-band">
+        <h1>@Model.CurrentPage.Name</h1>
+    </div>
+</div>

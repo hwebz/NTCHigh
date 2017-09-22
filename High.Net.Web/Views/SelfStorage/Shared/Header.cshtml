@@ -1,0 +1,53 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using EPiServer.Core
+@using ImageVault.EPiServer
+@using High.Net.Models.SelfStorage.Pages
+
+@model IPageViewModel<BasePageData>
+@Html.FullRefreshPropertiesMetaData(new[] { "FacebookLink", "TwitterLink", "TenantLogin", "CurrentSpecialLink" })
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var Checkhomepage = contentLoader.GetAncestors(Model.CurrentPage.ContentLink).Where(x => contentLoader.Get<IContent>(x.ContentLink) is HomePage).Count();
+}
+
+@if (Model.CurrentPage.ContentLink.ID == SiteDefinition.Current.StartPage.ID || Checkhomepage != 0)
+{
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+    <div class="header">
+        <div class="container">
+            <div class="main-logo">
+                <a href="@Url.ContentUrl(homePage.ContentLink)">
+                    @Html.PropertyFor(x => homePage.SiteLogo)
+                </a>
+            </div>
+            <div class="social">
+                <span class="skpe-no">@Html.PropertyFor(x => homePage.ContactNo)</span>
+                <span @Html.EditAttributes(x => homePage.FacebookLink)>
+                    <a target="_blank" href="@Url.ContentUrl(homePage.FacebookLink)">
+                        <img src="~/Static/self-storage/images/icons/fb_sm.png" />
+                    </a>
+                </span>
+                <span @Html.EditAttributes(x => homePage.TwitterLink)>
+                    <a target="_blank" href="@Url.ContentUrl(homePage.TwitterLink)">
+                        <img src="~/Static/self-storage/images/icons/twitter_sm.png" />
+                    </a>
+                </span>
+            </div>
+            <div class="right-logo">
+                <p @Html.EditAttributes(m => homePage.TenantLogin)>
+                    <a class="login" target="_blank" href="@Url.ContentUrl(homePage.TenantLogin)"><b>TENANT LOG IN</b></a>
+                </p>
+                <p class="special" @Html.EditAttributes(m => homePage.CurrentSpecialLink)>
+                    <a href="@Url.ContentUrl(homePage.CurrentSpecialLink)" class="title-2">
+                        Click HERE for
+                        <br />
+                        Current Specials
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,24 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Industries.Pages
+@using High.Net.Core
+@using ImageVault.EPiServer
+@model PageViewModel<CommonItemPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+<div class="container">
+    @Html.Partial("~/Views/Industries/Shared/Banner.cshtml")
+    <div class="sec-cc">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="photo-cc">
+                    @Html.PropertyFor(x => Model.CurrentPage.PageImage, new { PropertySettings = new PropertyMediaSettings { Width = 205, Height = 80 } })
+                </div>
+                @Model.CurrentPage.ItemDescription
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>

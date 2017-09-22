@@ -1,0 +1,28 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.HighHotels.Pages
+@model IPageViewModel<VideoItemPage>
+@Html.Partial("~/Views/HighHotels/Shared/Banner.cshtml")
+<div class="spacer"></div>
+<!--container start-->
+<div class="container">
+    <div class="row">
+        <div class="col-md=12 col-sm-12">
+            <div class="video-inner-content">
+                @*<h2 class="blue">@Html.PropertyFor(x=> x.CurrentPage.Heading)</h2>*@
+                <div class="video-frame" @Html.EditAttributes(x=> x.CurrentPage.VideoLink)>
+                    <iframe width="600" height="345" frameborder="0" src="@Url.ContentUrl(Model.CurrentPage.VideoLink)" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="video-innerpara">
+                @Html.PropertyFor(x=> x.CurrentPage.Description)
+            </div>
+        </div>
+    </div>
+</div>
+<!--container end-->

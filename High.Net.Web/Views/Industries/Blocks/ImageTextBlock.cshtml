@@ -1,0 +1,14 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Industries.Blocks
+@using ImageVault.EPiServer
+@model ImageTextBlock
+
+<div class="sec-family">
+    <div class="family-photo">
+        @Html.PropertyFor(x => Model.Image, new { PropertySettings = new PropertyMediaSettings { Width = 477, Height = 319 }, CssClass = "img-responsive" })
+        @Model.Description
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="spacer"></div>

@@ -1,0 +1,36 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighConcrete.Pages
+
+@model PageViewModel<TeamItemPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                <div class="col-md-3 col-sm-3">
+                    <b>@Html.PropertyFor(x => x.CurrentPage.PersonName)</b>
+                    <div>
+                        @Html.PropertyFor(x => Model.CurrentPage.ProfilePhoto, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 142 , Height = 181 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                    </div>
+                    <p>@Html.PropertyFor(x => x.CurrentPage.Designation)</p>
+                    <p><a href="tel:@Model.CurrentPage.TelephoneContact">@Html.PropertyFor(x => x.CurrentPage.TelephoneContact)</a></p>
+                    <p><a href="tel:@Model.CurrentPage.MobileContact">@Html.PropertyFor(x => x.CurrentPage.MobileContact)</a></p>
+                    @Html.PropertyFor(x => x.CurrentPage.EmailAddress)
+                </div>
+                <div class="col-md-9 col-sm-9">
+                    @Html.PropertyFor(x => x.CurrentPage.Description)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>
+
+
+

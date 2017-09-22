@@ -1,0 +1,49 @@
+﻿@using High.Net.Models.Shared.Blocks
+@using ImageVault.EPiServer
+@using High.Net.Web.Business.Helpers
+@using EPiServer.Core
+
+@model TestimonialSliderBlock
+
+@if(Model.TestimonialItems==null || !Model.TestimonialItems.Any())
+{
+    return;
+}
+
+@helper renderTestimonialText(string title, XhtmlString content){
+    if (!string.IsNullOrEmpty(title))
+    {
+            <h3>@title</h3>
+    }
+    else
+    {        
+            @content
+    }
+}
+
+<div class="leadership-testimonial-slider">
+    <div class="container">
+        <div class="row">
+            <div class="leadership-testimonial-slider__slider">
+                @foreach (var item in Model.TestimonialItems)
+                {
+                    <div class="leadership-testimonial-slider__slider-item">
+                        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                           <h3>
+                               @if(item.Content!=null && !string.IsNullOrWhiteSpace(item.Content.ToString()))
+                               {
+                                   @Html.PropertyFor(x=>item.Content)
+                               }
+                               else
+                               {
+                                   @Html.PropertyFor(x=>item.Title)
+                               }
+                           </h3>
+                        </div>
+                    </div>
+                }              
+                
+            </div>
+        </div>
+    </div>
+</div>

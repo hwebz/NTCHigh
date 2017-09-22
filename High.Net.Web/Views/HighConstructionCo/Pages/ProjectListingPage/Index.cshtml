@@ -1,0 +1,41 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighConstructionCo.Pages
+@using ImageVault.EPiServer
+
+@model PageViewModel<ProjectListingPage>
+@{
+    var contentloader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var projectListingPages = contentloader.GetChildren<ProjectItemPage>(Model.CurrentPage.ContentLink);
+}
+<div class="spacer"></div>
+<div class="project-assets commercial-assets">
+    <div class="container">
+        @Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.ThreeFourthWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.OneThirdWidth } })
+        <ul>
+            @if (projectListingPages != null)
+            {
+                int counter = 1;
+                foreach (var item in projectListingPages)
+                {
+                    <li>
+                        <a href="@Url.ContentUrl(item.ContentLink)">
+                            @Html.PropertyFor(x => item.PageImage, new { PropertySettings = new PropertyMediaSettings { Width=231 , Height=231 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                            <div class="add">
+                                <h4>@item.Name</h4>
+                                <p>@item.Location</p>
+                            </div>
+                        </a>
+                    </li>
+                    if (counter % 4 == 0)
+                    {
+                        <div class="clearfix"></div>
+                    }
+                    counter++;
+                }
+            }
+        </ul>
+    </div>
+</div>

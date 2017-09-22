@@ -1,0 +1,61 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighConcrete.Pages
+
+@model PageViewModel<ProjectCategoryPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var contentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+
+    var ProjectListPagesCategory1 = contentLoader.GetChildren<ProjectListingPage>(Model.CurrentPage.ContentLink);
+}
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                <div class="section application">
+                    @if (ProjectListPagesCategory1 != null)
+                    {
+                        foreach (var ProjectCategory1 in ProjectListPagesCategory1)
+                        {
+                            var ProjectListPagesCategory2 = contentLoader.GetChildren<ProjectListingPage>(ProjectCategory1.ContentLink);
+                            {
+                                <h2>@ProjectCategory1.Name</h2>
+                                foreach (var ProjectCategory2 in ProjectListPagesCategory2)
+                                {
+                                     var projectItemPagesList = contentLoader.GetDescendents(ProjectCategory2.ContentLink).Where(x => contentLoader.Get<IContent>(x) is ProjectItemPage).Select(contentLoader.Get<ProjectItemPage>);
+                                     <h3>@ProjectCategory2.Name</h3>
+                                     <div class="row">
+                                <div class="application-content">
+                                    @if (projectItemPagesList != null)
+                                    {
+                                        int counter = 1;
+                                        foreach (var childItem in projectItemPagesList)
+                                        {
+                                            <div class="col-md-3 col-sm-3">
+                                                <a href="@Url.ContentUrl(childItem.ContentLink)">
+                                                    @Html.PropertyFor(x => childItem.PageImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 155, Height = 155, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                                                    <p>@childItem.Name</p>
+                                                </a>
+                                            </div>
+                                            if (counter % 4 == 0)
+                                            {
+                                                <div class="clearfix"></div>
+                                            }
+                                            counter++;
+                                        }
+                                    }
+                                </div>
+                            </div>
+                                }
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+﻿include ../blocks/shared/text-content.jade
+include ../blocks/shared/location.jade
+
+div(class="page neighborhood-page")
+    include ../blocks/shared/header.jade
+    include ../blocks/shared/banner.jade
+    +text_contents_("Neighborhood")
+    include ../blocks/shared/neighborhood-photo-gallery.jade
+    +location_(false, true, "no-border")
+    include ../blocks/shared/footer-type-2.jade

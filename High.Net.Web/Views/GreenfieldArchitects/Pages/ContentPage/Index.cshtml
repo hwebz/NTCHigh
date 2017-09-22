@@ -1,0 +1,23 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.GreenfieldArchitects.Pages
+
+@model PageViewModel<ContentPage>
+
+@Html.Partial("~/Views/GreenfieldArchitects/Shared/Banner.cshtml", Model.CurrentPage.PageBanner != null ? Model.CurrentPage.PageBanner : new ImageVault.EPiServer.MediaReference())
+
+
+<div class="container">
+<div class="black-band">
+    <div class="container">
+        <h1>@Model.CurrentPage.Name</h1>
+    </div>
+</div>
+
+
+    <div class="common-container">
+        <div class="about">
+            @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+        </div>
+    </div>
+</div>

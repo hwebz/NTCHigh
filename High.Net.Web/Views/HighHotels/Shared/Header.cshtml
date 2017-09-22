@@ -1,0 +1,29 @@
+﻿@using EPiServer.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Models.HighHotels.Pages
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+
+<header class="header-frontend">
+    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <div class="col-lg-2 col-md-6 col-sm-8 col-xs-8">
+                    <a class="navbar-brand" href="/">
+                        @Html.PropertyFor(x => homePage.SiteLogo, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width=385 , Height = 82} })
+                    </a>
+                </div>
+                <div class="col-lg-10 col-md-6 col-sm-4 col-xs-4">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

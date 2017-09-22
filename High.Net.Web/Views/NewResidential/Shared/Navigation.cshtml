@@ -1,0 +1,39 @@
+﻿@using High.Net.Core
+@using High.Net.Web.Business.Helpers;
+
+@model IPageViewModel<BasePageData>
+@{
+    var menuItems = MenuHelpers.GetMenu(Model.CurrentPage, true, true);
+    var homePage = Model.CurrentPage.GetHomePage<High.Net.Models.NewResidential.Pages.HomePage>();
+    
+}
+
+<div class="residential-header sticky-header fixed">
+    <div class="residential-header__logo">
+        <a href="@Url.ContentUrl(homePage.ContentLink)">@Html.PropertyFor(x => homePage.SiteLogo, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 300, Height = 55 } })</a>
+    @*<img src="~/dist/residential/images/logo.png" alt="High Associates Residential">*@
+    </div>
+    <div class="residential-header__right-nav">
+        <div class="residential-header__right-nav-wrapper">
+            <a href="#" class="residential-header__toggle-button desktop"><span></span><span></span><span></span></a>
+            <ul class="residential-header__nav">
+                @foreach (var item in menuItems)
+                {
+                    <li class="@(item.IsActive ? "active" : "")">
+                        <a href="@item.Url">@item.MenuText</a> 
+                        @if (item.Children != null && item.Children.Any())
+                        {
+                            <ul class="residential-header__subnav">
+                                @foreach (var child in item.Children)
+                                {
+                                    <li><a href="@child.Url">@child.MenuText</a></li>
+                                }
+                            </ul>
+                        }
+                    </li>
+                }
+
+            </ul>
+        </div>
+    </div>
+</div>

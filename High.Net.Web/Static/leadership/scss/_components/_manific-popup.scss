@@ -1,0 +1,120 @@
+﻿.mfp-wrap {
+    overflow: hidden;
+    overflow-y: visible;
+
+    .mfp-container {
+        .mfp-content {
+            .mfp-close {
+                width: 35px;
+                height: 35px;
+                padding-top: 40px;
+                overflow: hidden;
+                right: 15px;
+                top: -60px;
+                background: transparent url('../images/close-icon.png') no-repeat center center;
+                background-size: contain;
+
+                @include respond-to-max($tabletSize) {
+                    width: 25px;
+                    height: 25px;
+                }
+                /*&:before, &:after {
+                    content: '';
+                    border: 1px solid $color-white;
+                    background-color: $color-white;
+                    border-radius: 2px;
+                    width: 100%;
+                    position: absolute;
+                }
+
+                &:before {
+                    @include prefix(( transform: rotate(-45deg) translate(7px, -23px) ), webkit moz ms o);
+                }
+
+                &:after {
+                    @include prefix(( transform: rotate(45deg) translate(-34px, 4px) ), webkit moz ms o);
+                }*/
+            }
+
+            .mfp-iframe {
+            }
+
+            figure {
+                .mfp-img {
+                    box-shadow: 0 0 8px rgba(0,0,0,0.6);
+                    padding: 0;
+                    margin-bottom: 45px;
+                    max-height: 80vh !important;
+                }
+
+                .mfp-bottom-bar {
+                    .mfp-title, .mfp-counter {
+                        @include set-font('%opensans-regular', $base-font-size);
+                        line-height: $base-line-height !important;
+                        margin-top: 60px;
+                        width: 70%;
+                        margin-bottom: 30px;
+
+                        @include respond-to-max($tabletSize) {
+                            font-size: $base-font-size-tablet;
+                            line-height: $base-line-height-tablet !important;
+                            width: 100%;
+                        }
+                    }
+
+                    .mfp-counter {
+                        width: 100%;
+                        text-align: center;
+                        margin: 15px 0;
+
+                        @include respond-to-max($tabletSize) {
+                        }
+                    }
+                }
+
+                figcaption {
+                    min-width: 768px;
+                }
+            }
+
+            .mfp-figure {
+                &:after {
+                    display: none;
+                }
+            }
+        }
+
+        .mfp-arrow {
+            opacity: 1;
+            color: $color-white;
+            top: auto;
+            left: auto;
+            bottom: auto;
+            top: auto;
+            margin-top: -60px;
+            @include prefix(( transform: none ), webkit moz ms o);
+
+            &:before, &:after {
+                position: inherit;
+                margin: 0;
+                content: '';
+                border: none;
+                background: none;
+            }
+
+            &.mfp-arrow-left {
+                text-align: left;
+                padding-left: 20px;
+                background: transparent url('../images/arrow-left.png') no-repeat center left;
+                background-size: 12px;
+            }
+
+            &.mfp-arrow-right {
+                text-align: right;
+                padding-right: 20px;
+                background: transparent url('../images/arrow-right.png') no-repeat center right;
+                background-size: 12px;
+            }
+        }
+    }
+}

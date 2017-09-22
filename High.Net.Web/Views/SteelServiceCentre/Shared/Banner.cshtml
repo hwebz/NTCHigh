@@ -1,0 +1,61 @@
+﻿@using EPiServer.Web
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.SteelServiceCentre.Pages
+@model BasePageData
+@{
+    var dataLocator = ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+    var Breadcrumb = dataLocator.GetAncestors(Model.ContentLink);
+}
+
+<div class="banner">
+    @if (Model.GetType().BaseType.BaseType != typeof(BasePageData))
+    {
+        var CurrentPage = contentLoader.Get<SteelServiceCentrePageData>(Model.ContentLink);
+        if (CurrentPage.BannerImage != null)
+        {
+            @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+        }
+        else
+        {
+            if (homePage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+            }
+        }
+    }
+    else
+    {
+        if (homePage.BannerImage != null)
+        {
+           @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+        }
+    }
+    <div class="container">
+        <h1 class="banner-title">@Model.Name</h1>
+    </div>
+</div>
+
+<!-- banner end -->
+<div class="grey-band">
+    <div class="container">
+        <div class="sub-menu">
+            @foreach (var item in Breadcrumb)
+            {
+                if (item.ContentLink == homePage.ContentLink)
+                {
+                    <a href="@Url.ContentUrl(item.ContentLink)">Home</a> <span> > </span>
+                }
+                else
+                {
+                    <a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a> <span> > </span>
+                }
+            }
+            <a href="@Url.ContentUrl(Model.ContentLink)">@Model.Name</a>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

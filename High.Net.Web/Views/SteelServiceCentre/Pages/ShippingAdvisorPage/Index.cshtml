@@ -1,0 +1,418 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.SteelServiceCentre.Pages
+
+@model PageViewModel<ShippingAdvisorPage>
+
+@Html.Partial("~/Views/SteelServiceCentre/Shared/Banner.cshtml", Model.CurrentPage)
+<div class="container">
+    <div class="shipping-adv">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-part1">
+                            <h4 class="blue">Shipping Evaluation Form </h4>
+                            <h4 class="blue">Part 1 - Contact Information:</h4>
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="email">First Name:*</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="email">Last Name:*</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="email">Title:*</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="email">Company:*</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="email">Phone number:*</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="email">Email Address:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="form-part2">
+                            <h4 class="blue">Part 2 - Project Information:</h4>
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2">Project Name:*</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-5">Scheduled Construction Letting Date: * </label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+
+                                    <label class="control-label text-center col-sm-1">/</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                    <label class="control-label col-sm-2">*(mm/yyyy)</label>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-3">Project County: * </label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-3" for="">Project State / Province:</label>
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="sel1">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                    <label class="control-label col-sm-3" for="">State, if not listed: *</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-6" for="">Route Number: (If project is not a bridge, type N/A) *</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-5" for="">Road or Body of Water Bridge is to Cross:<label> (If project is not a bridge, type N/A)</label></label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-3" for="">Steel Delivery Location:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-3" for="">Steel Delivery Date: </label>
+                                    <label class="control-label col-sm-1" for="">Quarter: </label>
+                                    <div class="col-sm-2">
+                                        <select class="form-control" id="sel1">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                    <label class="control-label col-sm-1" for="">Year:</label>
+                                    <div class="col-sm-2">
+                                        <select class="form-control" id="sel1">
+                                            <option>2015</option>
+                                            <option>2016</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-4" for="">Est. Total Steel Weight (in tons):*</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-3" for="">Number of Pieces:*</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="">Project Owner:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-3" for="">Owner's Project Number: </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="">Description: </label>
+                                    <div class="col-sm-7">
+                                        <textarea class="form-control" rows="5" id=""></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-1-12">
+                        <div class="form-part3">
+                            <h4 class="blue">Part 3 - Material Description: </h4>
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-3" for="email">Type of Girder: *</label>
+                                    <div class="col-sm-2">
+                                        <select class="form-control" id="">
+                                            <option>1 </option>
+                                            <option>2016</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+
+                                    <label class="control-label col-sm-3" for="">if curved, radius of curve:</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <select class="form-control" id="">
+                                            <option>Straight </option>
+                                            <option>2016</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <p><strong>Longest Glider </strong></p>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="email">Length: *</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="">
+                                            <option>Feet</option>
+                                            <option>2016</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="email">Height: *</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="">
+                                            <option>Inches</option>
+                                            <option>2016</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="email">Width: *</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="">
+                                            <option>Inches</option>
+                                            <option>2016</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="email">Weight: *</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="">
+                                            <option>Metric ton(s)</option>
+                                            <option>2016</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-4" for="email">Radius of curve (if applicable) :</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="">
+                                            <option>Feet</option>
+                                            <option>2016</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <p><strong>Heaviest Girder </strong></p>
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="email">Length: *</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="">
+                                            <option>Feet</option>
+                                            <option>2016</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="email">Height: *</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="">
+                                            <option>Inches</option>
+                                            <option>2016</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="email">Width: *</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="">
+                                            <option>Inches</option>
+                                            <option>2016</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-2" for="email">Weight: *</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="">
+                                            <option>Metric ton(s)</option>
+                                            <option>2016</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group shipping">
+                                    <label class="control-label col-sm-4" for="email">Radius of curve (if applicable) :</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="" placeholder="" />
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="">
+                                            <option>Feet</option>
+                                            <option>2016</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <p>Please note any additional information that should be considered in the box below. </p>
+
+                                <div class="form-group shipping">
+                                    <div class="col-sm-7">
+                                        <textarea class="form-control" rows="5" id=""></textarea>
+                                    </div>
+                                </div>
+                                <p>Please note, the location and size of some jobs require an in-depth analysis of possible routes, including routing checks, loading analysis and dealings with applicable routing agencies. If your job requires such an analysis, we will contact you to discuss the costs involved.</p>
+                                <p>The information provided is for budget pricing and planning purposes only. By providing the infor-mation, High Steel is not extending an offer to sell or agreeing to enter a contract. The actual price will be determined by final design and market conditions then existing. </p>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="spacer"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <button type="button" class="btn btn-warning shipping-btn">Finish and Review </button>
+                        <button type="button" class="btn btn-warning shipping-btn">Clear From </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                @Html.PropertyFor(x => x.CurrentPage.SidebarContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+            </div>
+        </div>
+    </div>
+</div>

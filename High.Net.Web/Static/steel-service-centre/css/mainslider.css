@@ -1,0 +1,105 @@
+﻿.main-carousel {
+    height: 360px;
+    left: 0;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    top: 0;
+    width: 100% !important;
+    max-height: 350px;
+}
+
+.slider {
+    cursor: pointer;
+    height: 360px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.main-carousel .slider img {
+    margin: 0 auto;
+    display: block;
+    width: auto !important;
+}
+/* jssor slider bullet navigator skin 05 css */
+/*
+            .jssorb05 div           (normal)
+            .jssorb05 div:hover     (normal mouseover)
+            .jssorb05 .av           (active)
+            .jssorb05 .av:hover     (active mouseover)
+            .jssorb05 .dn           (mousedown)
+            */
+/*.jssorb05 {
+    position: absolute;
+        bottom: 60px;
+        left: 9%;
+        display:none;
+}*/
+
+.jssorb05 {
+    bottom: 30px;
+    margin: 0 auto;
+    position: absolute;
+    right: 50%;
+    display:none;
+}
+
+    .jssorb05 div, .jssorb05 div:hover, .jssorb05 .av {
+        background: white none repeat scroll 0 0;
+        border-radius: 50%;
+        cursor: pointer;
+        float: left;
+        height: 10px;
+        letter-spacing: 6px !important;
+        margin-right: 0;
+        overflow: hidden;
+        position: relative !important;
+        width: 10px;
+    }
+
+    .jssorb05 div {
+        background-position: -98px -7px;
+    }
+
+        .jssorb05 div:hover, .jssorb05 .av:hover {
+            background-position: -8px -7px;
+        }
+
+    .jssorb05 .av {
+        background-position: -8px -7px;
+    }
+
+    .jssorb05 .dn, .jssorb05 .dn:hover {
+        background-position: -97px -7px;
+    }
+
+    .jssorb05 .av {
+        background: graytext none repeat scroll 0 0 !important;
+    }
+
+
+.slider > div {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+
+#main-carousel > div {
+    transform: none !important;
+}
+
+.slider img {
+    height: auto !important;
+    right: 0;
+    width: auto !important;
+}
+
+
+/*@media (max-width:991px) {
+    .main-carousel {
+        max-height: 345px;
+    }
+}*/

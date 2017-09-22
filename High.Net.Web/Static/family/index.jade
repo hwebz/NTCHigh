@@ -1,0 +1,50 @@
+﻿extends layouts/root.jade
+
+block title
+    title Index
+
+block css
+    link(href="css/styles.min.css", charset="utf-8", rel="stylesheet")
+
+block content
+    div(class="container")
+        h2 Blocks
+        ul(class="list-group")
+            li(class="list-group-item")
+                a(href="blocks/header.html") Header block
+            li(class="list-group-item")
+                a(href="blocks/header-banner.html") Header banner block
+            li(class="list-group-item")
+                a(href="blocks/two-columns.html") Two columns block
+            li(class="list-group-item")
+                a(href="blocks/testimonial-image-slider.html") Testimonial image slider block
+            li(class="list-group-item")
+                a(href="blocks/two-columns-with-form.html") Two columns with form block
+            li(class="list-group-item")
+                a(href="blocks/article-slider.html") Article slider block
+            li(class="list-group-item")
+                a(href="blocks/logo-wall.html") Logo wall block
+            li(class="list-group-item")
+                a(href="blocks/pure-image.html") Pure image block
+            li(class="list-group-item")
+                a(href="blocks/footer.html") Footer block
+            
+    div(class="container")
+        h2 Pages
+        ul(class="list-group")
+            li(class="list-group-item")
+                a(href="pages/home.html") Home page
+            li(class="list-group-item")
+                a(href="pages/about.html") About page
+            li(class="list-group-item")
+                a(href="pages/focus-area.html") Focus area page
+            li(class="list-group-item")
+                a(href="pages/partners.html") Parnters page
+            li(class="list-group-item")
+                a(href="pages/how-we-work.html") How we work page
+            li(class="list-group-item")
+                a(href="pages/extra-give.html") Extraordinary Give page
+            
+
+block js
+    script(src="scripts/scripts.min.js")

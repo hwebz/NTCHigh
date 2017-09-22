@@ -1,0 +1,44 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Models.SelfStorage.Pages
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+    var container = contentLoader.GetChildren<High.Net.Models.Shared.Pages.ContainerPage>(SiteDefinition.Current.StartPage).FirstOrDefault();
+}
+<div class="partner">
+    <div class="container" @Html.EditAttributes(x => homePage.Partners)>
+        <ul>
+            @Html.DisplayFor(x => homePage.Partners, new { ChildrenCustomTagName = "li", tag = "PartnerItems", })
+        </ul>
+    </div>
+</div>
+<div class="footer">
+    <div class="container inner-footer">
+        <div class="left-footer">
+            <ul>
+                <li><a href="@Url.ContentUrl(SiteDefinition.Current.StartPage)">Home</a></li>
+                @Html.MenuList(SiteDefinition.Current.StartPage,
+                @<li>
+                    @Html.PageLink(item.Page)
+                </li>)
+            </ul>
+            <div class="clearfix"></div>
+            <p>
+                @homePage.Name | @Html.PropertyFor(x => homePage.Address) |<span> @Html.PropertyFor(x => homePage.ContactNo) </span>|
+                @if (container != null)
+                {
+                    @Html.MenuList(container.ContentLink, @<span>@Html.PageLink(item.Page) | </span>)
+                }
+            </p>
+        </div>
+        <div class="right-footer">
+            <a href="@Url.ContentUrl(homePage.HighAssociatesLink.PageUrl)" @Html.EditAttributes(x => homePage.HighAssociatesLink)>
+                @Html.PropertyFor(x => homePage.HighAssociatesLink.Media)
+            </a>
+        </div>
+    </div>
+</div>

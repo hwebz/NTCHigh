@@ -1,0 +1,26 @@
+﻿@using EPiServer.Core
+@using High.Net.Models.HighTransit.Blocks
+@using ImageVault.Client.Query
+@model EquipmentDetailsBlock
+@{
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+}
+<div class="equip-detail-content">
+    <p><strong>@Html.PropertyFor(m => m.Heading) </strong></p>
+    <p>@Html.PropertyFor(m => m.ShortDescription)</p>
+    @if (Model.EquipmentImage != null)
+    {
+        var equipImg = client.Load<ImageVault.Common.Data.WebMedia>(Model.EquipmentImage.Id).Resize(1282, 185).ToList();
+        if (equipImg.Count > 0)
+        {
+            <p><a class="group2" href="@Url.ContentUrl(equipImg.FirstOrDefault().Url)" title=""></a></p>
+            var equipImgthumb = client.Load<ImageVault.Common.Data.WebMedia>(Model.EquipmentImage.Id).Resize(562, 80).ToList();
+            <p>
+                <a class="group2" href="@Url.ContentUrl(equipImg.FirstOrDefault().Url)" title="">
+                    <img class="img-responsive" src="@Url.ContentUrl(equipImgthumb.FirstOrDefault().Url)" />
+                </a>
+            </p>
+        }
+    }
+</div>
+<div class="spacer"></div>

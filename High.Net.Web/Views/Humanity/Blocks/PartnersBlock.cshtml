@@ -1,0 +1,34 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+
+@model High.Net.Models.Humanity.Blocks.PartnersBlock
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+<div class="article-top"></div>
+<div class="article-middle">
+    <h4 class="heading">
+        <a class="title">@Html.PropertyFor(m => m.Title)</a>
+    </h4>
+    @Html.PropertyFor(m => m.Text)
+
+    @if (Model.PartnersContentArea.Items.Any())
+    {
+        <ul class="partner-ul">
+            @foreach (var item in Model.PartnersContentArea.Items)
+            {
+                var partner = contentLoader.Get<High.Net.Core.ContentTypes.Blocks.MediaLink>(item.ContentLink);
+                <li>
+                    <a href="@Url.ContentUrl(partner.PageUrl)" target="_blank">
+                        @Html.PropertyFor(x => partner.Media, new { CssClass = "img-responsive" })
+                    </a>
+                </li>
+            }
+        </ul>
+        <div class="clearfix"></div>
+        <br />
+        <br />
+    }
+</div>
+<div class="article-bottom"></div>
+

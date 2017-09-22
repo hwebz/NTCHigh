@@ -1,0 +1,89 @@
+﻿.jcarousel-wrapper {
+    margin: 20px auto;
+    position: relative;
+    /*border: 10px solid #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+    -moz-box-shadow: 0 0 2px #999;
+    box-shadow: 0 0 2px #999;*/
+}
+
+/** Carousel **/
+
+.jcarousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+    .jcarousel ul {
+        width: 20000em;
+        position: relative;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+        .jcarousel ul li {
+            background: #5e5e5e none repeat scroll 0 0;
+            border: 1px solid #fff;
+            box-sizing: border-box;
+            float: left;
+            position: relative;
+        }
+
+            .jcarousel ul li img {
+                display: block;
+                width: 100%;
+            }
+
+            .jcarousel ul li .img-no {
+                bottom: 12px;
+                color: #fff;
+                font-size: 18px;
+                font-weight: 600;
+                margin: 0 10px;
+                position: absolute;
+                z-index: 1;
+            }
+
+.c {
+    background: #ff0000 none repeat scroll 0 0;
+    display: none;
+    height: 98%;
+    margin: 5px;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    z-index: 0;
+}
+
+.jcarousel ul li:hover > .c {
+    display: block;
+}
+
+/** Carousel Controls **/
+
+.jcarousel-control-prev,
+.jcarousel-control-next {
+    behavior: url(../css/PIE.htc);
+    /*box-shadow: 0 0 4px #f0efe7;*/
+    color: #fff;
+    font: 24px/27px Arial,sans-serif;
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    top: 50%;
+    width: 40px;
+}
+
+.jcarousel-control-prev {
+    left: -60px;
+}
+
+.jcarousel-control-next {
+    right: -60px;
+}

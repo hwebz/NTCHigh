@@ -1,0 +1,8 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighSteelStructure.Blocks
+@model ImageTextBlock
+<div class="product_services">
+    @Html.PropertyFor(x => x.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1120 }, CssClass = "img-responsive" })
+    @Html.PropertyFor(x => x.Text)
+</div>

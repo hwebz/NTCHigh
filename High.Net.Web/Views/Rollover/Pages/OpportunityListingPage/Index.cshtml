@@ -1,0 +1,72 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.Web
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Rollover.Pages
+
+@model PageViewModel<OpportunityListingPage>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var opportunityItemPage = contentLoader.GetChildren<OpportunityItemPage>(Model.CurrentPage.ContentLink);
+}
+<div class="main-section">
+    <div class="spacer"></div>
+    <div class="container">
+        <div class="opportunity">
+            @foreach (var item in opportunityItemPage)
+            {
+                <div class="row">
+                    <div class="col-md-3 col-sm-3">
+                        @Html.PropertyFor(x => item.PortfolioImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 205, Height = 250 }, CssClass = "img-responsive" })
+                    </div>
+
+                    @if (item.TotalSF != null || item.OpenedYear != null || item.Availability != null)
+                    {
+                        <div class="col-md-6 col-sm-6">
+                            <div class="section-1">
+                                <h4 class="title">
+                                    @Html.PropertyFor(m => item.Title) <span>- @Html.PropertyFor(m => item.SubTitle) </span>
+                                </h4>
+                                @Html.PropertyFor(m => item.IntroText)
+                                <br />
+                                <p><a href="@Url.ContentUrl(item.ContentLink)" class="profile-link">Property Profile</a></p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="section-2">
+                                @if (item.TotalSF != null)
+                                {
+                                    <p><strong>Total SF: </strong>@Html.PropertyFor(m => item.TotalSF)</p>
+                                }
+                                @if (item.OpenedYear != null)
+                                {
+                                    <p><strong>Opened: </strong>@Html.PropertyFor(m => item.OpenedYear)</p>
+                                }
+                                @if (item.Availability != null)
+                                {
+                                    <p><strong>Availability: </strong></p>
+                                    <p>@Html.PropertyFor(m => item.Availability)</p>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-9 col-sm-9">
+                            <div class="section-1">
+                                <h4 class="title">
+                                    @Html.PropertyFor(m => item.Title) <span>- @Html.PropertyFor(m => item.SubTitle) </span>
+                                </h4>
+                                @Html.PropertyFor(m => item.IntroText)
+                                <br />
+                                <p><a href="@Url.ContentUrl(item.ContentLink)" class="profile-link">Property Profile</a></p>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="spacer"></div>
+            }
+        </div>
+    </div>
+</div>

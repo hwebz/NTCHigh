@@ -1,0 +1,86 @@
+﻿@using EPiServer.ServiceLocation
+@using High.Net.Models.HighConcrete.Pages
+@using EPiServer.Web
+@using ImageVault.EPiServer
+
+@model High.Net.Core.IPageViewModel<High.Net.Core.BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+    bool IsBannerRendered = false;
+}
+<!--  Banner Start -->
+<div class="banner">
+    <div class="banner-img">
+        @if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.NewsListingPage))
+        {
+            var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.NewsListingPage>(Model.CurrentPage.ContentLink);
+            if (CurrentPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+                IsBannerRendered = true;
+            }
+        }
+        else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.NewsItemPage))
+        {
+            var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.NewsItemPage>(Model.CurrentPage.ContentLink);
+            if (CurrentPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+                IsBannerRendered = true;
+            }
+        }
+        else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.ContactUsPage))
+        {
+            var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.ContactUsPage>(Model.CurrentPage.ContentLink);
+            if (CurrentPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+                IsBannerRendered = true;
+            }
+        }
+        else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.SearchPage))
+        {
+            var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.SearchPage>(Model.CurrentPage.ContentLink);
+            if (CurrentPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+                IsBannerRendered = true;
+            }
+        }
+        else
+        {
+            var CurrentPage = contentLoader.Get<HighConcretePageData>(Model.CurrentPage.ContentLink);
+            if (CurrentPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+                IsBannerRendered = true;
+            }
+        }
+        @if (!IsBannerRendered)
+        {
+            @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+        }
+        <div class="main-quote">
+            <div class="container">
+                <h1>@Model.CurrentPage.Name</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  Banner Ends-->
+<!-- request Quote band start-->
+<div class="orange-band">
+    <div class="">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <p class="req-quote">@Html.PropertyFor(x => homePage.QuoteText)</p>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <a href="@Url.ContentUrl(homePage.GetQuoteLink)" @Html.EditAttributes(x => homePage.GetQuoteLink) class="btn-quote">Get a Quote</a>
+                <a href="@Url.ContentUrl(homePage.RequestLink)" @Html.EditAttributes(x => homePage.RequestLink) class="btn-quote">Request For Sample</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

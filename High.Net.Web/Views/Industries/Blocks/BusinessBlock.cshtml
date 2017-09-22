@@ -1,0 +1,21 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Industries.Blocks
+
+@model BusinessBlock
+
+
+<div class="col-md-5 col-sm-5">
+    <div class="sec-img">
+        <a href="@Url.ContentUrl(Model.PageUrl)" target="_blank">
+            @Html.PropertyFor(x => x.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 195, Height = 195, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+        </a>
+    </div>
+</div>
+<div class="col-md-7 col-sm-7">
+    <div class="location-address">
+        <a href="@Url.ContentUrl(Model.PageUrl)" target="_blank"><h4>@Html.PropertyFor(x => x.Heading) </h4></a>
+        @Html.PropertyFor(x => x.Text)
+    </div>
+</div>
+

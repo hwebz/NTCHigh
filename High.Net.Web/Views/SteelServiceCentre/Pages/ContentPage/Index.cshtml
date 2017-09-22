@@ -1,0 +1,35 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.SteelServiceCentre.Pages
+
+@model PageViewModel<ContentPage>
+
+@section SiteHeader
+{
+    @Styles.Render("~/bundles/HsscjcarouselResponsive-css")
+}
+@Html.Partial("~/Views/SteelServiceCentre/Shared/Banner.cshtml", Model.CurrentPage)
+<div class="container">
+    <div class="about">
+        @if (!Model.CurrentPage.IsSideBar)
+        {
+            @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+        }
+        else
+        {
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+            </div>  
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                @Html.PropertyFor(x => x.CurrentPage.SidebarContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+            </div>
+        }
+    </div>
+    <div class="spacer"></div>
+</div>
+
+@section SiteFooter
+{
+    @Scripts.Render("~/bundles/HsscjcarouselResponsive-Js")
+}
+

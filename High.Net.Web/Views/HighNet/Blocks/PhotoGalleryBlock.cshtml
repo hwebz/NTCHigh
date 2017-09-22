@@ -1,0 +1,75 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@using ImageVault.EPiServer
+
+@model  PhotoGalleryBlock
+@{
+
+    var ContentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+
+}
+<div class="spacer"></div>
+<div id="tms-testimonial-carousel" class="carousel slide" data-ride="carousel">
+    @if (Model.PhotoGalleryContentArea != null && Model.PhotoGalleryContentArea.Items.Any())
+    {
+         <!-- Indicators -->
+        <ol class="carousel-indicators">
+            @{
+                var j = 0;
+                var y = 0;
+            }
+            @foreach (var item in @Model.PhotoGalleryContentArea.Items)
+            {
+                j++;
+                var activeClass = j == 1 ? "active" : "";
+                <li data-target="#tms-testimonial-carousel" data-slide-to="@y" class="@activeClass"></li>
+                y++;
+
+            }
+            @*<li data-target="#tms-testimonial-carousel" data-slide-to="1"></li>
+                <li data-target="#tms-testimonial-carousel" data-slide-to="2"></li>*@
+        </ol>
+    <!-- Wrapper for slides -->
+                <div class="carousel-inner re-pgal">
+                    @{
+                        var i = 0;
+                    }
+                    @if (Model.PhotoGalleryContentArea != null)
+                    {
+                        foreach (var item in @Model.PhotoGalleryContentArea.Items)
+                        {
+                            i++;
+                            var data = ContentLoader.Get<PhotoGalleryItemBlock>(item.ContentLink);
+                            if(data==null) { continue;}
+                            //var ImgData = client.Load<ImageVault.Common.Data.Media>(data.Image.Id).ToList();
+                            var activeClass = i == 1 ? "active" : "";
+
+                            <div class="item @activeClass">
+                                <div class="image">
+                                    @Html.PropertyFor(x => data.Image, new { PropertySettings = new PropertyMediaSettings { Width = 783, Height = 346 }, CssClass = "img-responsive" })
+                                </div>
+                                @*<img class="img-responsive" src="@Url.ContentUrl(ImgData.FirstOrDefault().Url)" />*@
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="pto-gal-back" style="background-image: linear-gradient(left, transparent 15%, @Model.BackGroundColor 10px, @Model.BackGroundColor 100%); background-image: -webkit-linear-gradient(left, transparent 15%, @Model.BackGroundColor 10px, @Model.BackGroundColor 100%); background-image: -moz-linear-gradient(left, transparent 15%, @Model.BackGroundColor 10px, @Model.BackGroundColor 100%); background-image: -ms-linear-gradient(left, transparent 15%, @Model.BackGroundColor 10px, @Model.BackGroundColor 100%); background-image: -o-linear-gradient(left, transparent 15%, @Model.BackGroundColor 10px, @Model.BackGroundColor 100%);">
+                                            <p>
+                                                @data.HtmlText
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+    <!-- Controls -->
+                        <div class="test-slider-nav">
+                            <a class="left carousel-control" href="#tms-testimonial-carousel" data-slide="prev"> <span class="ar-left">←</span> </a>
+                            <a class="right carousel-control" href="#tms-testimonial-carousel" data-slide="next"> <span class="ar-right">→</span> </a>
+                        </div>
+                        }
+   
+</div>
+<div class="spacer"></div>

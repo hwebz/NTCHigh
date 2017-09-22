@@ -1,0 +1,61 @@
+@import url(//fonts.googleapis.com/css?family=Open+Sans);
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+}
+
+
+* {
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+.mceContentBody {
+    font-size: 14px;
+}
+
+p {
+    EditMenuName: Paragraph;
+}
+
+h1 {
+    EditMenuTitle: Heading Styles;
+    EditMenuName: Heading 1;
+}
+
+h2 {
+    EditMenuName: Heading 2;
+}
+
+h3 {
+    EditMenuName: Chem;
+}
+
+.open-sans {
+    ChangeElementType: true;
+    EditMenuName: Text paragraph;
+    font-family: "georgia, palatino";
+}
+.red-button {
+    EditMenuTitle: Button;
+    EditMenuName: Button;
+    ChangeElementType: true;
+    color: #fff;
+    font-size: 20px;
+    background-color: #ed1c24;
+    width: 80%;
+    border-radius: 50px;
+    text-align: center;
+    padding: 10px;
+    display: block;
+    margin: 15px auto;
+    border: 0;
+    outline: 0;
+}

@@ -1,0 +1,32 @@
+﻿@using EPiServer.Core
+@using High.Net.Models.Rollover.Blocks
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Constants
+@model FindASpaceBlock
+@{
+    var contentRepo = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var ContentLocator = ServiceLocator.Current.GetInstance<ContentLocator>();
+    var propertyType = ContentLocator.GetCategories(PropertyCategories.PropertyType);
+    var ListingType = ContentLocator.GetCategories(PropertyCategories.ListingType);
+}
+@using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get,
+    new { @action = Url.ContentUrl(Model.PropertySearchPage), id = Model.PropertyLocationName }))
+{
+    for (int i = 0; i < ListingType.Categories.Count; i++)
+    {
+        <input type="hidden" name="ListingType[@i]" value="@ListingType.Categories[i].Name" />
+    }
+    for (int i = 0; i < propertyType.Categories.Count; i++)
+    {
+        <input type="hidden" name="PropertyType[@i]" value="@propertyType.Categories[i].Name" />
+    }
+    <input type="hidden" name="Location" value="@Model.Location" />
+    <input type="hidden" name="RootPage" value="@PageReference.RootPage" />
+    <div class="apartment">
+        <a href="Javascript:void(0)" onclick="document.getElementById('@Model.PropertyLocationName').submit();">
+            @Html.PropertyFor(x => Model.PropertyImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 360, Height = 250, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+            <h3 class="slogan">@Model.PropertyLocationName</h3>
+        </a>
+    </div>
+}

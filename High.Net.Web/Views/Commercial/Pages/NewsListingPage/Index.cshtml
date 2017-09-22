@@ -1,0 +1,64 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Shared.Pages
+
+@model PageViewModel<NewsListingPage>
+@{
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var newsItems = dataLocator.GetNewsFeed(Model.CurrentPage);
+}
+@Html.Partial("~/Views/Commercial/Shared/Banner.cshtml", Model.CurrentPage.Name)
+<div class="spacer"></div>
+<div class="container">
+    @Html.PropertyFor(m => m.CurrentPage.MainContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+
+    @if (newsItems != null)
+    {
+        foreach (var item in newsItems)
+        {
+            <div class="sec-news">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-content news">
+                            <div class="news-sec-img">
+                                @if (item.NewsImage != null)
+                                {
+                                    @Html.PropertyFor(x => item.NewsImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 115, Height = 115 }, CssClass = "img-responsive" })
+                                }
+                                else
+                                {
+                                    <img class="img-responsive placeholder" src="~/Static/global/images/news-placeholder-115X115.jpg" />
+                                }
+                                @if (item.ImageQuote != null)
+                                {
+                                    <p>@item.ImageQuote</p>
+                                }
+                            </div>
+                            <p>
+                                <strong>
+                                    @if (item.Title != null)
+                                    {
+                                        @item.Title
+                                    }
+                                    else
+                                    {
+                                        @item.Name
+                                    }
+                                </strong><span class="date-month">on <span class="glyphicon glyphicon-calendar"></span>@item.PostedDate.ToString("MMMM dd, yyyy")</span>
+                            </p>
+                            @item.NewsHighlight
+                            <a class="read-more float-right" href="@Url.ContentUrl(item.ContentLink)">read more...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+<div class="spacer"></div>
+<!-- About LLC Starts-->
+<!-- About LLC Ends-->
+<div class="spacer"></div>
+<div class="spacer"></div>
+

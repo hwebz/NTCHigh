@@ -1,0 +1,23 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Humanity.Pages
+
+@model PageViewModel<ToolkitPage>
+
+@if (ViewBag.LoginStatus)
+{
+    @Html.PropertyFor(x => x.CurrentPage.ContentArea, new
+    {
+        CssClass = "row",
+        tag = Global.ContentAreaTags.FullWidth,
+        Tags = new[] 
+        {
+            Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, 
+            Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth 
+        }
+    })
+}
+else
+{
+    @Html.Partial("~/Views/Humanity/Shared/LoginForm.cshtml", new High.Net.Models.Humanity.ViewModels.UserModel())
+}

@@ -1,0 +1,48 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.Shared.Pages
+
+@model PageViewModel<NewsListingPage>
+@{
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var newsItemPages = dataLocator.GetNewsFeed(Model.CurrentPage);
+}
+
+<div class="container">
+    <div class="news">
+        @if (newsItemPages != null)
+        {
+            <h3 class="page-title">High Steel Press Releases</h3>
+            foreach (var item in newsItemPages)
+            {
+                <div class="sec-news">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="section-content">
+                                <div class="news-sec-img">
+                                    @if (item.NewsImage != null)
+                                    {
+                                        @Html.PropertyFor(x => item.NewsImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 150, Height = 150 }, CssClass = "img-responsive" })
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Static/global/images/news-placeholder-150X150.jpg" class="img-responsive placeholder" />
+                                    }
+                                    @if (item.ImageQuote != null)
+                                    {
+                                        <p>@item.ImageQuote</p>
+                                    }
+                                </div>
+                                <h2><strong>@item.Title</strong> <span class="date-month">on <span class="glyphicon glyphicon-calendar"></span> @item.PostedDate.ToString("MMMM dd, yyyy") </span></h2>
+                                @item.NewsHighlight
+                                <a class="read-more float-right" href="@Url.ContentUrl(item.ContentLink)">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,60 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.HighConcreteAccessories.Pages
+@using ImageVault.EPiServer
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    
+    var homePage = contentLoader.Get<HomePage>(PageReference.StartPage);       
+}
+
+@if (Model.CurrentPage.ContentLink.ID == homePage.ContentLink.ID)
+{
+    <div class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <p class="quote">
+                        @Html.PropertyFor(x => homePage.BannerText)
+                    </p>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="banner-img">
+                       @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width=474, Height = 255 }, CssClass = "img-responsive big-accessories" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <p class="quote">
+                        @Html.PropertyFor(x => homePage.BannerText)
+                    </p>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="banner-img">
+                        @Html.PropertyFor(x => homePage.BannerImage, new { CssClass = "img-responsive big-accessories" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>@Model.CurrentPage.Name
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div> 
+}

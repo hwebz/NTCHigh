@@ -1,0 +1,12 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.HighTransit.Blocks
+
+@model InnerEquipmentBlock
+
+<div class="container">
+    <div class="equip-detail">
+        @Html.PropertyFor(m => m.EquipmentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+        <div class="spacer"></div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+
+@model High.Net.Models.Shared.ViewModels.PropertyPageModel
+
+@Html.Partial("~/Views/Shared/SearchCriteria.cshtml", Model, new ViewDataDictionary { { "IsGlobal", true } })

@@ -1,0 +1,15 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Core
+@model NumberListContentItemBlock
+
+<div class="num-list-blok">
+    <div class="large-num" style="color:@Model.BackGroundColor">
+        <p>@Html.PropertyFor(x => x.BackgroundChar)</p>
+    </div>
+    <div class="num-cont">
+        <h2>@Html.PropertyFor(x => x.Heading)</h2>
+        @Html.PropertyFor(x => x.HtmlText)
+    </div>
+</div>

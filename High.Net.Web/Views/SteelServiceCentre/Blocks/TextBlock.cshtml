@@ -1,0 +1,13 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.SteelServiceCentre.Blocks
+
+@model TextBlock
+
+<div class="about-para">
+    <h3>@Html.PropertyFor(x=> x.Heading)
+    </h3>
+    @Html.PropertyFor(x=> x.Text)
+</div>
+

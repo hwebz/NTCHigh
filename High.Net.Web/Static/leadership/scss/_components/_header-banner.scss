@@ -1,0 +1,175 @@
+﻿$pre: 'leadership-header-banner';
+
+%logo-text-position {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: block;
+    width: 500px;
+
+    @include respond-to-max($largerSize) {
+        width: 360px;
+    }
+
+    @include respond-to-max($tabletSize) {
+        width: 250px;
+        top: 60%;
+        left: 50%;
+        @include prefix(( transform: translate(-50%, 0) ), webkit moz ms o);
+    }
+}
+
+.#{$pre} {
+    background: $color-black url('../images/banner-background-1.jpg') no-repeat center right;
+    background-size: cover !important;
+    height: 650px;
+    overflow: hidden;
+    position: relative;
+
+    @include respond-to-max($desktopSize) {
+        background: $color-black url('../images/banner-background-2.jpg') no-repeat center right;
+        background-size: cover !important;
+    }
+
+    @include respond-to-max($tabletSize) {
+        height: 400px;
+    }
+
+    @include respond-to-max($phoneLandscape) {
+        background: $color-black url('../images/banner-background-3.jpg') no-repeat center center;
+        background-size: cover !important;
+    }
+
+    .container {
+        height: 100%;
+        position: relative;
+
+        > div > div {
+            position: inherit;
+        }
+    }
+
+    &:after {
+        content: '';
+        width: 120vw;
+        height: 60vh;
+        position: absolute;
+        left: 0;
+        top: 590px;
+        z-index: 1;
+        background-color: $color-white;
+        @include prefix(( transform: rotate(-3deg) ), webkit moz ms o);
+
+        @include respond-to-min($fullHDSize) {
+            top: 530px;
+        }
+
+        @include respond-to-max($largerSize) {
+            top: 610px;
+        }
+
+        @include respond-to-max($desktopSize) {
+            top: 618px;
+        }
+
+        @include respond-to-max($tabletSize) {
+            @include prefix(( transform: rotate(-4deg) ), webkit moz ms o);
+            top: 370px;
+        }
+    }
+
+    .#{$pre}__logo {
+        @extend %vertical-centered;
+        @extend %logo-text-position;
+
+        img {
+            width: 100%;
+            display: block;
+
+            @include respond-to-max($tabletSize) {
+                width: 80%;
+                margin: 0 auto;
+            }
+        }
+    }
+
+    .#{$pre}__text {
+        display: none;
+
+        h1 {
+            @include set-font('%droidserif-bold', 64px);
+            color: $color-white;
+            line-height: 1.2;
+
+            @include respond-to-max($largerSize) {
+                font-size: 45px;
+            }
+
+            @include respond-to-max($tabletSize) {
+                font-size: 34px;
+                line-height: 42px;
+            }
+        }
+    }
+
+    &.type-2 {
+        height: 500px;
+        /*background-position: center center !important;*/
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            @include header-banner-background-gradient();
+        }
+
+        @include respond-to-max($tabletSize) {
+            height: 250px;
+        }
+
+        &:after {
+            top: 440px;
+
+            @include respond-to-min($fullHDSize) {
+                top: 380px;
+            }
+
+            @include respond-to-max($largerSize) {
+                top: 460;
+            }
+
+            @include respond-to-max($desktopSize) {
+                top: 468px;
+            }
+
+            @include respond-to-max($tabletSize) {
+                @include prefix(( transform: rotate(-4deg) ), webkit moz ms o);
+                top: 210px;
+            }
+
+            @include respond-to-max($phonePortrait) {
+                top: 230px;
+            }
+        }
+
+        .#{$pre}__text {
+            @extend %logo-text-position;
+            @include prefix(( transform: none ), webkit moz ms o);
+            top: auto !important;
+            bottom: 20%;
+            left: auto !important;
+            width: 95%;
+
+            @include respond-to-min($fullHDSize) {
+                bottom: 30%;
+            }
+
+            h1 {
+            }
+        }
+    }
+}

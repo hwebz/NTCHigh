@@ -1,0 +1,42 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.SteelServiceCentre.Pages
+
+@model PageViewModel<BrokerListPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var brokersList = contentLoader.GetChildren<BrokerPage>(Model.CurrentPage.ContentLink).ToList().GroupBy(x => x.Team);
+}
+
+@Html.Partial("~/Views/SteelServiceCentre/Shared/Banner.cshtml", Model.CurrentPage)
+<div class="container">
+    @foreach (var Team in brokersList)
+    {
+        int i = 1;
+        <div class="row">
+            <div class="team-info">
+                <h2>@Team.Key</h2>
+                @foreach (var item in Team)
+                {
+                    <div class="col-md-4 col-sm-4">
+                        <div class="character-img">
+                            @Html.PropertyFor(x => item.ProfilePhoto, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 84, Height = 115 } })
+                        </div>
+                        <div class="team-profile">
+                            <p><strong class="black">@item.Name</strong></p>
+                            <p><strong class="black">@item.Designation</strong></p>
+                            <p><a href="tel:@item.SkypeContact">@item.SkypeContact</a></p>
+                            <p>cell:<a href="tel:@item.MobileContact">@item.MobileContact</a></p>
+                            <p><a href="mailto:@item.MobileContact">@item.EmailAddress</a></p>
+                            <p><a href="@Url.ContentUrl(item.ContentLink)">Profile</a></p>
+                        </div>
+                    </div>
+                    if (i % 3 == 0)
+                    { <div class="clearfix"></div>}
+                    i++;
+                }
+            </div>
+        </div>
+    }
+</div>

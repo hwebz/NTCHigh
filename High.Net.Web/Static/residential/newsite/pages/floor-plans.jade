@@ -1,0 +1,28 @@
+﻿extends ../layouts/root.jade
+include ../blocks/shared/text-content.jade
+
+block title
+    title Floor Plans
+
+block content
+    div#residential-wrapper
+        // Header block
+        include ../blocks/shared/header.jade
+
+        // Banner block
+        include ../blocks/shared/banner.jade
+
+        // Text content
+        +text_contents_("Floor Plans")
+
+        // Room slider block
+        include ../blocks/shared/room-slider.jade
+
+        // Room slider block
+        include ../blocks/shared/room-slider.jade
+
+        // Room slider block
+        include ../blocks/shared/room-slider.jade
+
+        // Footer type 2 block
+        include ../blocks/shared/footer-type-2.jade

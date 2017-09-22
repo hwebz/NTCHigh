@@ -1,0 +1,68 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.Web
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighTransit.Pages
+
+@model IPageViewModel<BasePageData>
+
+@{
+    var repository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var homePage = repository.Get<HomePage>(SiteDefinition.Current.StartPage);
+    var pages = repository.GetChildren<BasePageData>(homePage.ContentLink).Where(x => x.VisibleInMenu == true);    
+}
+<!--footer start-->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-sm-3">
+                <ul>
+                    <li><a href="@Url.ContentUrl(homePage.ContentLink)">Home</a></li>
+                    @foreach (var item in pages.Take(4))
+                    {
+                        <li><a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="col-lg-3 col-sm-3">
+                <ul>
+                    @foreach (var item in pages.Skip(4))
+                    {
+                        <li><a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a></li>
+                    }
+                    @if (homePage.FooterPages != null)
+                    {
+                        foreach (var item in homePage.FooterPages)
+                        {
+                            <li> @Html.ContentLink(item)</li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="col-lg-3 col-sm-3">
+                <h1>Address</h1>
+                <a href="@Url.ContentUrl(homePage.ContentLink)">
+                    <p>
+                        @homePage.Name
+                        <br />
+                        @Html.PropertyFor(m => homePage.Address)
+                    </p>
+                </a>
+            </div>
+            <div class="col-lg-3 col-sm-3">
+                <h1>Phone number</h1>
+                <a href="tel:@homePage.PhoneNumber">
+                    <p>
+                        @Html.PropertyFor(m => homePage.PhoneNumber)<br />
+                    </p>
+                </a>
+            </div>
+                  <a class="top-quote" href="@Url.ContentUrl(homePage.NewsLetterLink)" @Html.EditAttributes(m => homePage.NewsLetterLink)>
+                    <div class="">
+                        <img src="~/Static/high-transit/img/request_quote.png" alt="subscribe to newsletter">&nbsp;Subscribe To Newsletter
+                    </div>
+                </a>
+        </div>
+    </div>
+</footer>
+<!--footer end-->

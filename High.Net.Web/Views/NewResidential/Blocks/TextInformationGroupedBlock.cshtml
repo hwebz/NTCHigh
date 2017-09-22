@@ -1,0 +1,33 @@
+﻿@using High.Net.Models.NewResidential.Blocks
+@using High.Net.Web.Business
+
+@model TextInformationGroupedBlock
+@if (Model.Content == null || !Model.Content.Any()) { return; }
+ @{ 
+     var cssClassInSmallDevice = Model.Content.Count() % 3 == 0 ? "col-sm-4" :"col-sm-3";
+     var cssClassInMediumDevice = Model.Content.Count() % 3 == 0 ? "col-sd-4" : "col-md-3";
+ }
+
+<div class="residential-category-list page-contents type-2">
+    <div class="container">
+        <div class="category-list__wrapper row">
+            @foreach (var item in Model.Content)
+            {
+                <div class="category-list__item col-xs-12 @cssClassInSmallDevice @cssClassInMediumDevice">
+                    <h3 class="@Constants.ViewConstants.SiteColorApplyClass">@Html.PropertyFor(x => item.Title)</h3>
+                    @Html.PropertyFor(x => item.Content)
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var siteColor = document.getElementById("site-color").value;
+    if (siteColor != "") {
+        var itemTitles = document.querySelectorAll(" h3."+"@Constants.ViewConstants.SiteColorApplyClass");
+        for (var i = 0; i < itemTitles.length; i++) {
+            itemTitles[i].style.color = siteColor;
+        }
+    }
+</script>

@@ -1,0 +1,14 @@
+<package>
+  <metadata>
+    <id>HighNet</id>
+    <version>1.0.0.0</version>
+    <authors>bien.tran</authors>
+    <owners>High LLC</owners>
+    <projectUrl>http://high.net</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Description</description>
+    <releaseNotes>Notes</releaseNotes>
+  </metadata>
+  <files>
+  </files>
+</package>

@@ -1,0 +1,31 @@
+﻿@using EPiServer.Core;
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighConstructionCo.Pages
+@using ImageVault.EPiServer
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homepage = contentLoader.Get<HomePage>(PageReference.StartPage);
+
+}
+<!--header start-->
+<header class="header-frontend">
+    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                  @Html.PropertyFor(x => homepage.SiteLogo , new { PropertySettings = new PropertyMediaSettings { Width=322, Height = 46 }, CssClass = "img-responsive" })
+                </a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            @Html.Partial("~/Views/HighConstructionCo/Shared/Navigation.cshtml", Model)
+        </div>
+    </div>
+</header>
+<!--header end-->

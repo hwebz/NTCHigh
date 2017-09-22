@@ -1,0 +1,174 @@
+﻿$pre: 'residential-service-gallery';
+
+%thumnail-wrapper {
+    height: 400px;
+    width: 100%;
+    background-color: $color-white;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    @include respond-to-max($largerSize) {
+        height: 300px;
+    }
+
+    @include respond-to-max($desktopSize) {
+        height: 250px;
+    }
+
+    @include respond-to-max($tabletSize) {
+        height: 350px;
+    }
+
+    @include respond-to-max($phonePortrait) {
+        height: 250px;
+    }
+}
+
+.#{$pre} {
+    @include block-spacing($block-spacing-type-2, $block-spacing-type-2-tablet);
+    background: $color-white;
+    overflow: hidden;
+
+    .row {
+        @extend %row-centered;
+
+        > div {
+            @extend %col-centered;
+        }
+    }
+
+    .#{$pre}__header {
+        h2 {
+            @include header-title($photo-gallery-header-font-size, $photo-gallery-header-font-size-tablet);
+            text-align: center;
+        }
+    }
+
+    .container {
+        .row {
+            > div {
+                vertical-align: top;
+                margin-bottom: 65px;
+
+                @include respond-to-max($tabletSize) {
+                    margin-bottom: 100px;
+                }
+            }
+        }
+    }
+
+
+    .#{$pre}__item {
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        -ms-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        position: relative;
+
+        .#{$pre}__title {
+            background-color: $color-black-half;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            @extend %uppercase-text;
+            color: $color-white;
+            text-align: center;
+            padding: 15px;
+            font-size: $photo-gallery-title;
+
+            @include respond-to-max($tabletSize) {
+                font-size: $photo-gallery-title-tablet;
+            }
+        }
+
+        .#{$pre}__thumbnail {
+            @extend %thumnail-wrapper;
+
+            > a {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .#{$pre}__content {
+            text-align: center;
+            margin-top: 25px;
+
+            h3 {
+                @extend %roboto-bold;
+                @extend %uppercase-text;
+                color: $color-dark-blue;
+                font-size: 25px;
+                margin: 0 0 25px 0;
+
+                @include respond-to-min($hugeSize) {
+                    font-size: $title-font-size;
+                }
+            }
+
+            p {
+            }
+
+            .#{$pre}__more-btn {
+                @extend %roboto-bold;
+                @extend %common-link;
+                @extend %uppercase-text;
+                background-color: $color-orange;
+                color: $color-white;
+                display: inline-block;
+                padding: 10px 30px;
+                @extend %horizontal-centered;
+                bottom: -65px;
+            }
+        }
+    }
+
+    &.photo-gallery {
+        .#{$pre}__item {
+            overflow: hidden;
+
+            .#{$pre}__title {
+                z-index: 2;
+            }
+
+            .#{$pre}__thumbnail {
+                position: relative;
+
+                img {
+                    @extend %all-centered;
+                }
+            }
+
+            &:hover {
+                -webkit-transform: scale(1.02);
+                -moz-transform: scale(1.02);
+                -o-transform: scale(1.02);
+                -ms-transform: scale(1.02);
+                transform: scale(1.02);
+                z-index: 5;
+                cursor: pointer;
+            }
+        }
+
+        .container {
+            .row {
+                > div {
+                    margin-bottom: 30px;
+                }
+            }
+        }
+    }
+}
+
+.fillwidth {
+    width: 100%;
+    height: auto;
+}
+
+.fillheight {
+    height: 100%;
+    width: auto;
+}

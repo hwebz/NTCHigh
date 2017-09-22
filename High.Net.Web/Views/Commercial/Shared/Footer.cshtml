@@ -1,0 +1,47 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Commercial.Pages
+@using EPiServer.Web
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+
+<!-- Footer Starts-->
+<div class="footer">
+    <div class="container">
+        <div class="footer-links cf">
+            <ul class="footer-links-wrapper cf">
+                @if (homePage.FooterPageLinks != null)
+                {
+                    foreach (var item in homePage.FooterPageLinks)
+                    {
+                        <li class="item"><a target="_new" href="@Url.ContentUrl(item.Href)"   onclick="return pop_up(this, 'Pop Up')">@item.Text</a></li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Footer Ends-->
+
+<script type="text/javascript">
+	function pop_up(hyperlink, window_name)
+	{
+		if (! window.focus)
+			return true;
+		var href;
+		if (typeof(hyperlink) == 'string')
+			href=hyperlink;
+		else
+			href=hyperlink.href;
+		window.open(
+			href,
+			window_name,
+			'width=600,height=600,toolbar=no, scrollbars=yes'
+		);
+		return false;
+	}
+</script>

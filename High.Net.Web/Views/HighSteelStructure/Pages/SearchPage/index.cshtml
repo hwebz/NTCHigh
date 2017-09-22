@@ -1,0 +1,60 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.HighSteelStructure.Pages
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@model High.Net.Web.Business.ViewModels.SearchContentModel
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<div class="container">
+    <div class="common-container about">
+        <div class="row">
+            <div class="col-md-12">
+                @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl) }))
+                {
+                    <input class="search-input" id="q" type="text" value="@Model.SearchQuery" name="q">
+                    <input class="btn search-button" type="submit" value="Search">
+                }
+                @if (Model.Results != null)
+                {
+                    if (!string.IsNullOrEmpty(Model.SearchQuery))
+                    {
+                        <p>Your Search for <i>@Model.SearchQuery resulted in @Model.Results.TotalMatching hits</i></p>
+                    }
+                    else
+                    {
+                        <p>Total hits: @Model.Results.TotalMatching</p>
+                    }
+                    <div class="listResult">
+                        <ul>
+                            @foreach (var hit in Model.Results)
+                            {
+                                <li>
+                                    <h4><a href="@hit.Url">@Html.Raw(hit.Title)</a></h4>
+                                    <p>@Html.Raw(hit.Excerpt)</p>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="pag">
+                        <ul class="pagination">
+                            @foreach (var pagerLink in Model.PagerLinks)
+                            {
+                                if (pagerLink.IsActivePage)
+                                {
+                                    <li class="active"><a href="#">@pagerLink.LinkText</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.RouteLink(pagerLink.LinkText, pagerLink.Route)</li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                }<br><br>
+            </div>
+        </div>
+    </div>
+</div>

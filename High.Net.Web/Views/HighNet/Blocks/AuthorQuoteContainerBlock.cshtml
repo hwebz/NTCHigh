@@ -1,0 +1,49 @@
+﻿@using High.Net.Models.HighNet.Blocks
+@using ImageVault.EPiServer
+@using High.Net.Web.Business.Helpers
+
+
+@model AuthorQuoteContainerBlock
+
+@if(Model.AuthorQuoteItems==null || Model.AuthorQuoteItems.FilteredItems==null || !Model.AuthorQuoteItems.FilteredItems.Any())
+{
+    return;
+}
+
+@{ 
+    var carouselId = Guid.NewGuid();
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+}
+
+
+<div class="img-slider-new">
+    <div class="carousel slide" id="@carouselId" data-ride="carousel">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            @{int i = 0;}
+            @foreach (var contentItem in Model.AuthorQuoteItems.FilteredItems)
+            {               
+                var item = contentItem.ContentLink.GetContent<AuthorQuoteBlock>();
+                if (item != null)
+                {
+                    var backgroundImage = item.BackgroundImage != null ? client.Load<ImageVault.Common.Data.WebMedia>(item.BackgroundImage.Id).FirstOrDefault() : null;
+                    var backgroundImageStyle = backgroundImage == null ? string.Empty : "background-image: url('" + Url.ContentUrl(backgroundImage.Url) + "');";
+                    <div class="item @(i == 0 ? "active" : "")">
+                        <div class="slider-back" style="@backgroundImageStyle">
+                            <div class="human-pic-slider container">
+                                @Html.PropertyFor(x => item.AuthorImage, new { PropertySettings = new PropertyMediaSettings { Width = 585, Height = 540, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                                <span class="quotes"></span>
+                                <h2>@Html.PropertyFor(x => item.Quote)</h2>
+                                <p>
+                                    @Html.PropertyFor(x => item.Author)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    i++;
+                }
+            }
+        </div>
+        <!-- Carousel Ends-->
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Residential.Pages
+@using EPiServer.Web
+
+@model PageViewModel<ReviewListingPage>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var ReviewList = contentLoader.GetChildren<ReviewPage>(Model.CurrentPage.ContentLink);
+}
+@section PageBannerSection
+{
+    @Html.Partial("~/Views/Residential/Shared/Banner.cshtml", Model)
+}
+<div class="section resident-review">
+    @foreach (var item in ReviewList)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="reviwes">
+                    <strong>@item.Heading</strong>
+                    <p class="review-content">@item.IntroText</p>
+                    <p>@item.Created.ToString("d MMMM yyyy")</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

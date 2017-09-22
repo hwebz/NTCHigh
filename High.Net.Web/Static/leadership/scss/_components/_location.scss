@@ -1,0 +1,354 @@
+﻿$pre: 'leadership-location';
+$preForm: 'contact-form-popup';
+
+.#{$pre} {
+    height: 725px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+
+    &:after {
+        content: '';
+        width: 120vw;
+        height: 60vh;
+        position: absolute;
+        z-index: 2;
+        left: 0;
+        bottom: 665px;
+        background-color: $color-white;
+        @include prefix(( transform: rotate(3deg) ), webkit moz ms o);
+
+        @include respond-to-min($fullHDSize) {
+            bottom: 605px;
+        }
+
+        @include respond-to-max($largerSize) {
+            bottom: 685px;
+        }
+
+        @include respond-to-max($desktopSize) {
+            bottom: 693px;
+        }
+
+        @include respond-to-max($tabletSize) {
+            @include prefix(( transform: rotate(7deg) ), webkit moz ms o);
+            bottom: 670px;
+        }
+    }
+
+    ##{$pre}__map {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+
+    .container {
+        height: 100%;
+        position: relative;
+
+        > div > div {
+            position: inherit;
+        }
+    }
+
+    ##{$pre}__information-box {
+        @extend %vertical-centered;
+        margin-top: 30px;
+        left: 0;
+        z-index: 2;
+        width: 525px;
+        background-color: $color-white;
+        box-shadow: 0 0 5px $color-black-half;
+        padding: 35px;
+
+        @include respond-to-max($tabletSize) {
+            top: auto;
+            bottom: 1.8%;
+            left: 50%;
+            @include prefix(( transform: translate(-50%, 0) ), webkit moz ms o);
+            width: 96%;
+            padding: 25px;
+            max-width: 525px;
+        }
+
+        h3 {
+            @extend %medium-title;
+            text-align: left;
+        }
+
+        p {
+            text-align: center;
+            font-size: 100%;
+            /*@include respond-to-max($tabletSize) {
+                line-height: $base-line-height-tablet;
+            }
+
+            &.detail {
+                margin-bottom: 20px;
+            }
+
+            &.small {
+                font-size: $base-font-size-tablet;
+                text-align: center;
+            }*/
+
+            &.detail {
+                text-align: left;
+            }
+        }
+
+        a {
+            @include respond-to-max($tabletSize) {
+                margin: 10px auto;
+            }
+        }
+    }
+}
+
+%badge {
+    background: $color-light-green;
+    padding: 10px 15px;
+    width: calc(100% - 30px);
+    font-size: 16px;
+    color: white;
+    margin-bottom: 15px;
+}
+
+%input-field {
+    background-color: $color-light-gray;
+    outline: none;
+    border: none;
+    display: block;
+    padding: 10px;
+    width: 100%;
+
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: $color-darker-gray;
+        font-size: 18px;
+    }
+
+    ::-moz-placeholder { /* Firefox 19+ */
+        color: $color-darker-gray;
+        font-size: 18px;
+    }
+
+    :-ms-input-placeholder { /* IE 10+ */
+        color: $color-darker-gray;
+        font-size: 18px;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+        color: $color-darker-gray;
+        font-size: 18px;
+    }
+}
+
+##{$preForm} {
+    padding: 40px;
+    max-width: 1000px;
+    
+    @include respond-to-max($tabletSize) {
+        max-width: 420px;
+    }
+
+    @include respond-to-max($tabletSize) {
+        padding: 20px;
+    }
+
+    .#{$preForm}__title {
+        h1 {
+            @extend %medium-title;
+
+            @include respond-to-max($desktopSize) {
+                max-width: 90%;
+            }
+        }
+    }
+
+    .#{$preForm}__inputs {
+        .#{$preForm}__input {
+            margin-bottom: 20px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            label {
+                @extend %opensans-regular;
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            input, textarea {
+                @extend %input-field;
+            }
+
+            textarea {
+                resize: none;
+                height: 150px;
+            }
+        }
+    }
+
+    .#{$preForm}__action {
+        text-align: center;
+        margin-top: 30px;
+
+        p {
+            text-align: left;
+        }
+
+        input {
+            margin-top: 30px;
+        }
+    }
+
+    .mfp-close {
+        top: 15px;
+        background: transparent url('../images/close-icon-black.png') no-repeat center center;
+        background-size: contain;
+
+        /*&:before, &:after {
+            border-color: $color-black;
+            background-color: $color-black;
+        }*/
+    }
+
+    .success-message {
+        @extend %badge;
+    }
+
+    .textboxelementblock {
+        label {
+            @extend %opensans-regular;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            @extend %input-field;
+        }
+
+        textarea {
+            resize: none;
+            height: 150px;
+        }
+    }
+
+    .Form__Element__ValidationError {
+        @extend %badge;
+        background-color: $color-red;
+        margin: 10px 0;
+        width: 100%;
+        display: none !important;
+    }
+
+    .textareaelementblock {
+        label {
+            @extend %opensans-regular;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        textarea {
+            @extend %input-field;
+            resize: none;
+            height: 150px;
+        }
+    }
+
+    .Form__Description {
+        margin-top: 30px;
+    }
+
+    .submitbuttonelementblock {
+        margin-top: 30px;
+
+        .send-applicatin-btn {
+            text-align: center;
+
+            button {
+                @extend .leadership-btn;
+            }
+        }
+    }
+
+    .Form__MainBody {
+        .Form__Element {
+            .col-xs-12 {
+                &:first-child {
+                    .block {
+                        &:last-child {
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .caption-validate-failed,
+    .leadership-form-message {
+        color: $color-red;
+    }
+
+    .form-captcha-validate-failed {
+        border: 2px solid #ed1c24;
+    }
+
+    .leadership-form-message {
+        text-align: center;
+        margin-top: 25px;
+
+        &.success {
+            color: $color-light-gray-2;
+        }
+    }
+}
+
+.importantRule{
+    display:block !important;
+}
+// Remove watermark from Google Map
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display: none;
+}
+
+.gmnoprint div {
+    background: none !important;
+}
+
+a[title^="Click to see this area"] {
+    display: none !important;
+}
+
+##{$pre}__map[data-center^="false"] {
+    .gm-style-pbc {
+        .gm-style-pbt {
+            margin-top: 60px;
+
+            @include respond-to-min($tabletSize) {
+                text-align: right !important;
+            }
+
+            @include respond-to-max($tabletSize) {
+                right: auto !important;
+                text-align: center;
+                top: 17%;
+                @include prefix(( transform: none ), webkit moz ms o);
+                left: 0;
+            }
+
+            @include respond-to-max($desktopSize) {
+                right: 15px !important;
+            }
+
+            @include respond-to-min($desktopSize) {
+                right: 10% !important;
+            }
+        }
+    }
+}

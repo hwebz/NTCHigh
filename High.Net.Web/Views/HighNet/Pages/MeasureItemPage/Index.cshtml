@@ -1,0 +1,28 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Pages
+@using High.Net.Core
+@using ImageVault.EPiServer
+
+@model PageViewModel<MeasureItemPage>
+
+@Html.Partial("~/Views/HighNet/Shared/Banner.cshtml")
+<div class="main">
+    <div class="container white-section">
+        <div class="community">
+            <div class="com-seation">
+                <div class="row">
+                    <div class="col-md-3 col-sm-3">
+                        <div class="com-img">
+                           @Html.PropertyFor(x => Model.CurrentPage.Image, new { PropertySettings = new PropertyMediaSettings { Width=175, Height = 174 }, CssClass = "img-responsive" })
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-sm-9">
+                        <p>@Html.PropertyFor(x => x.CurrentPage.Text)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

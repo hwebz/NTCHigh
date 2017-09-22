@@ -1,0 +1,206 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.SteelServiceCentre.Pages
+@using EPiServer.Core
+@model PageViewModel<HomePage>
+@{
+    var contentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var brokerListingPage = contentLocator.GetAll<BrokerListPage>(EPiServer.Core.PageReference.StartPage).FirstOrDefault();
+    var videoListingPage = contentLocator.GetAll<VideoListingPage>(EPiServer.Core.PageReference.StartPage).FirstOrDefault();
+}
+@Html.FullRefreshPropertiesMetaData(new[] { "ValueServicesBlock", "ServicesContentArea" })
+
+@Html.Partial("~/Views/SteelServiceCentre/Shared/Carousel.cshtml", Model)
+<div class="grey-band"></div>
+<!--product start-->
+<div class="our-product">
+    <div class="container">
+        <p class="title">Our Products</p>
+        <div class="row" @Html.EditAttributes(x => x.CurrentPage.ServicesContentArea)>
+            @if (Model.CurrentPage.ServicesContentArea != null)
+            {
+                foreach (var contentItem in Model.CurrentPage.ServicesContentArea.Items)
+                {
+                <div class="col-md-4 col-sm-4">
+                    @{var item = contentLoader.Get<High.Net.Models.SteelServiceCentre.Blocks.ServicesBlock>(contentItem.ContentLink);
+                        <a href="@Url.ContentUrl(item.LandingPage)">
+                            <div class="pdt-block">
+                                @Html.PropertyFor(x => item.ServiceImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 325, Height = 201, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                                <p class="pname">@item.Heading</p>
+                            </div>
+                        </a>
+                    }
+                </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+<!--product end-->
+<!--sales-team start-->
+@if (brokerListingPage != null)
+{
+    var brokers = contentLocator.GetAll<BrokerPage>(brokerListingPage.ContentLink).ToList();
+    <div class="sales-team">
+        <div class="container">
+            <a href="@Url.ContentUrl(brokerListingPage.ContentLink)">
+                <p class="title">@brokerListingPage.Name</p>
+            </a>
+            @if (brokers.Count > 0)
+            {
+                <div class="jcarousel-wrapper">
+                    <div class="jcarousel">
+                        <ul>
+                            @foreach (var item in brokers)
+                            {
+                                <li>
+                                    <div class="character">
+                                        @Html.PropertyFor(x => item.ProfilePhoto, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 84, Height = 115 } })
+                                    </div>
+                                    <div class="profile">
+                                        <strong>@item.Name</strong>
+                                        <p>@item.Designation - @item.SkypeContact</p>
+                                        <p>@(item.MobileContact != null ? Html.Raw("cell: " + item.MobileContact) : null)</p>
+                                        <p>@item.EmailAddress</p>
+                                        <p><a href="@Url.ContentUrl(item.ContentLink)">Profile</a></p>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <a href="#" class="jcarousel-control-prev">
+                        <img src="~/Static/steel-service-centre/images/icon/left-arrow.png" />
+                    </a>
+                    <a href="#" class="jcarousel-control-next">
+                        <img src="~/Static/steel-service-centre/images/icon/right-arrow.png" />
+                    </a>
+                    <p class="jcarousel-pagination"></p>
+                </div>
+            }
+        </div>
+    </div>
+}
+<!--sales-team end-->
+<!--services start-->
+<div class="service">
+    <div class="container" @Html.EditAttributes(x => x.CurrentPage.ValueServicesBlock)>
+        <p class="title">Value - Added Processing Services</p>
+        <ul>
+            @if (Model.CurrentPage.ValueServicesBlock != null)
+            {
+                foreach (var contentItem in Model.CurrentPage.ValueServicesBlock.Items)
+                {
+                    var item = contentLoader.Get<High.Net.Models.SteelServiceCentre.Blocks.ImageTextBlock>(contentItem.ContentLink);
+                <li>
+                    <div class="block-service">
+                        @Html.PropertyFor(x => item.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 75, Width = 75, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "responsive" })
+                        <p>
+                            <strong>@item.Heading</strong>
+                        </p>
+                        <p class="content">
+                            @item.Description
+                        </p>
+                        <p><a href="@Url.ContentUrl(item.TargetLink)">read more...</a></p>
+                    </div>
+                </li>
+                }
+            }
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--slider2 start-->
+<div class="gallery">
+    <div class="container">
+        <p class="title">Videos</p>
+        <div class="vid-container">
+            <div class="row">
+                @if (videoListingPage != null)
+                {
+                    var videos = contentLocator.GetAll<VideoItemPage>(videoListingPage.ContentLink);
+                   
+                    <div class="col-md-9 col-sm-8 no-right-padd">
+                        <div class="iframe-new">
+                            @foreach (var item in videos.Take(1))
+                            {
+                                <iframe width="720" height="400" frameborder="0" scrolling="no" id="vid_frame"  style="z-index: 0;" phidecontrols="0" phandler="ytiframe" src="@Url.ContentUrl(item.VideoLink)"></iframe>
+                            }
+                        </div>
+
+                    </div>
+                    <div class="col-md-3 col-sm-4 no-left-padd">
+                        <div class="list-thumb">
+                            @foreach (var item in videos)
+                            {
+                    
+                                <div class="vid-item" onclick="document.getElementById('vid_frame').src = '@Url.ContentUrl(item.VideoLink)'">
+                                    <div class="thumb">
+                                        <img src="@dataLocator.GetYouTubeThumbnail(item.VideoLink)" alt="" />
+                                    </div>
+                                    <p class="thumb-head">@item.Heading</p>
+                                    <p class="thumb-text">
+                                        @item.IntroText
+                                    </p>
+                                </div>
+                        
+                            }
+                        </div>
+                        <div class="next-prev-btn">
+                            <span onclick="prv();" class="glyphicon glyphicon-menu-left prv"></span>
+                            <span onclick="nxt();" class="glyphicon glyphicon-menu-right nxt"></span>
+                        </div>
+
+                    </div>
+                       
+                }
+
+            </div>
+
+            <div class="arrows">
+                <div class="arrow-left">
+                    <span>Prev</span>
+                </div>
+                <div class="arrow-right">
+                    <span>Next</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--slider2 end-->
+
+@section SiteFooter
+{
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script>
+        $(function () {
+            $('.arrow-right').click(function () {
+                $('.vid-item.active').next().addClass('active');
+                $('.vid-item.active').prev().removeClass('active');
+            });
+
+            $('.arrow-left').click(function () {
+                $('.vid-item.active').prev().addClass('active');
+                $('.vid-item.active').next().removeClass('active');
+            });
+
+            $(".vid-item:first-child").addClass('active');
+        });
+    </script>
+    <script>
+        function nxt() {
+            if ($('.vid-item.active ~ .vid-item').size() > 3) {
+                $('.vid-item.active').next().addClass('active').animate({ height: 'show' });
+                $('.vid-item.active').prev().removeClass('active').animate({ height: 'hide' });
+            }
+        };
+
+        function prv() {
+            $('.vid-item.active').prev().addClass('active').animate({ height: 'show' });
+            $('.vid-item.active').next().removeClass('active').animate({ height: 'show' });
+        };
+    </script>
+}

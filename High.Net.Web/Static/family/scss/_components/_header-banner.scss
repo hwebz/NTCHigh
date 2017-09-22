@@ -1,0 +1,182 @@
+﻿$pre: 'leadership-header-banner';
+
+%logo-text-position {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: block;
+    width: 500px;
+
+    @include respond-to-max($largerSize) {
+        width: 360px;
+    }
+
+    @include respond-to-max($tabletSize) {
+        width: 250px;
+        top: 70%;
+        left: 50%;
+        @include prefix(( transform: translate(-50%, 0) ), webkit moz ms o);
+    }
+}
+
+%text-block {
+    color: $color-black;
+    margin: 35px 0 35px 0;
+
+
+    @include respond-to-min($tabletSize) {
+        color: $color-white;
+        position: absolute;
+        bottom: 50px;
+        left: 0;
+        max-width: 44%;
+        margin: 0;
+    }
+}
+
+.#{$pre} {
+    overflow: hidden;
+    position: relative;
+
+    @include respond-to-min($tabletSize) {
+        height: 100vh;
+    }
+
+    @include respond-to-min-max($tabletSize, $largerSize) {
+        height: 500px;
+    }
+
+    .#{$pre}__image {
+        /*background: $color-black url('../images/banner-background-1.jpg') no-repeat center center;
+        background-size: cover !important;*/
+        width: 100%;
+        height: 225px;
+
+        @include respond-to-min($tabletSize) {
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        @include respond-to-min-max($tabletSize, $largerSize) {
+            height: 500px;
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 225px;
+            display: block;
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,ffffff+50,000000+100&1+0,0+20,0+50,0+80,1+100 */
+            background: -moz-linear-gradient(top, rgba(0,0,0,0.7) 0%, rgba(102,102,102,0) 20%, rgba(255,255,255,0) 50%, rgba(102,102,102,0) 80%, rgba(0,0,0,0.7) 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, rgba(0,0,0,0.7) 0%,rgba(102,102,102,0) 20%,rgba(255,255,255,0) 50%,rgba(102,102,102,0) 80%,rgba(0,0,0,0.7) 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(102,102,102,0) 20%,rgba(255,255,255,0) 50%,rgba(102,102,102,0) 80%,rgba(0,0,0,0.7) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+            @include respond-to-min($tabletSize) {
+                height: 100vh;
+            }
+
+            @include respond-to-min-max($tabletSize, $largerSize) {
+                height: 500px;
+            }
+        }
+    }
+
+    .container {
+        height: 100%;
+        position: relative;
+
+        > div > div {
+            position: inherit;
+        }
+    }
+
+    .#{$pre}__logo {
+        @extend %vertical-centered;
+        @extend %logo-text-position;
+
+        img {
+            width: 100%;
+            display: block;
+        }
+    }
+
+    .#{$pre}__text {
+        @extend %text-block;
+
+        h1 {
+            @include set-font('%zillaslab-semibold', $header-banner-h1-font-size);
+            color: $color-white;
+            line-height: 42px;
+
+            @include respond-to-max($largerSize) {
+                font-size: $header-banner-h1-font-size-desktop;
+            }
+
+            @include respond-to-max($tabletSize) {
+                font-size: $header-banner-h1-font-size-tablet;
+                line-height: 1.2;
+                color: $color-black;
+            }
+        }
+
+        p {
+            @include set-font('%opensans-regular', 20px);
+            line-height: 1.3;
+            margin-top: 20px;
+
+            @include respond-to-max($tabletSize) {
+                font-size: 16px;
+            }
+
+            &.italic {
+                @include set-font('%opensans-italic', 22px);
+
+                @include respond-to-max($tabletSize) {
+                    font-size: 16px;
+                }
+            }
+
+            > em {
+                @include set-font('%opensans-italic', 22px);
+
+                @include respond-to-max($tabletSize) {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    .#{$pre}__testimonial {
+        @extend %text-block;
+
+        h3 {
+            @extend %testimonial-heading;
+        }
+    }
+
+    .#{$pre}__cursor {
+        color: $color-white;
+        @extend %horizontal-centered;
+        bottom: 50px;
+        background: transparent url('../images/arrow-down.png') no-repeat bottom center;
+        background-size: 32px;
+        cursor: pointer;
+        min-width: 40px;
+        min-height: 25px;
+
+        @include respond-to-max($tabletSize) {
+            display: none;
+        }
+
+        p {
+            @include set-font('%opensans-italic', 14px);
+            line-height: 1;
+            padding-bottom: 25px;
+        }
+    }
+}

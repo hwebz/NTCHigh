@@ -1,0 +1,38 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.SteelServiceCentre.Pages
+
+@model PageViewModel<ProjectListingPage>
+@{
+    var contentRepository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+
+    var ProjectItemPageList = contentRepository.GetChildren<ProjectItemPage>(Model.CurrentPage.ContentLink).ToList();
+}
+
+@Html.Partial("~/Views/SteelServiceCentre/Shared/Banner.cshtml", Model.CurrentPage)
+
+<div class="container">
+    <div class="proj-gallery">
+        <div class="row">
+            @if (ProjectItemPageList != null)
+            {
+                foreach (var item in ProjectItemPageList)
+                {
+                    <div class="col-md-4 col-sm-4">
+                        <div class="img-section">
+                            @Html.PropertyFor(x => item.ProjectImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width=418 , Height=278 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                            <span>@item.ProjectIntroText</span>
+                        </div>
+                        <div class="detail-section">
+                            <h3>@item.ProjectName</h3>
+                            <span>@item.ProjectOwner</span>
+                            <p>@item.ProjectIntroText</p>
+                            <a class="Read-more-btn" href="@Url.ContentUrl(item.ContentLink)">READ MORE</a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,61 @@
+﻿@using High.Net.Models.Shared.Blocks
+
+@model TextColumnBlock
+
+@if (Model.ColumnContent == null || !Model.ColumnContent.Any()) { return; }
+
+@{
+    var smCss = Model.ColumnContent.Count > 1 ? "col-sm-6" : "col-sm-12";
+    var mdCss = Model.ColumnContent.Count > 2 ? "col-md-3" : string.Format("col-md-{0}", 12 / Model.ColumnContent.Count);
+}
+
+
+@helper renderBlockHeader(TextColumnBlock currentBlock, string smallDeviceCss, string mediumDeviceCss)
+{
+    if (!string.IsNullOrEmpty(currentBlock.Header))
+    {
+            <div class="row">
+                @if (currentBlock.HeaderPosition == 0 || currentBlock.ColumnContent.Count == 1)
+                {
+                    <div class="col-xs-12 @smallDeviceCss @mediumDeviceCss">
+                        <div class="leadership-two-columns__title">
+                            <h1>Lorem ipsum dolor sit amet, consectetur</h1>
+                        </div>
+                    </div>
+
+                }
+                else
+                {
+                    for (int i = 0; i < Math.Min(currentBlock.HeaderPosition, currentBlock.ColumnContent.Count()); i++)
+                    {
+
+                        <div class="col-xs-12 @smallDeviceCss @mediumDeviceCss">
+                            @if (currentBlock.HeaderPosition == (i + 1))
+                            {
+                                <div class="leadership-two-columns__title">
+                                    <h1>@currentBlock.Header</h1>
+                                </div>
+                            }
+                        </div>
+                    }
+                }
+            </div>
+    }
+}
+
+<div class="leadership-two-columns">
+    <div class="container">
+        @renderBlockHeader(Model, smCss, mdCss)
+
+        <div class="row">
+            @foreach (var item in Model.ColumnContent)
+            {
+                <div class="col-xs-12 @smCss @mdCss">
+                    <div class="leadership-two-columns__details">
+                        @Html.PropertyFor(x => item.Content)
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

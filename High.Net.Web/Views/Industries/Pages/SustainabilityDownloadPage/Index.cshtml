@@ -1,0 +1,76 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@model High.Net.Models.Industries.ViewModels.SustainabilityDownloadModel
+@section SiteHeader{
+<style>
+    .field-validation-error {
+        color: red;
+    }
+</style>
+}
+<div class="container">
+    @Html.Partial("~/Views/Industries/Shared/Banner.cshtml")
+    <div class="center-white">
+        <div class="row">
+            @if (!Model.SustainabilityDownloadForm.IsMailSendSuccessfully)
+            {
+            <div class="col-md-12">
+                <div class="download-form">
+                    @Html.PropertyFor(x => x.CurrentPage.TopContentArea, new { CssClass = "row", ChildrenCssClass = "", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+
+                    @using (Html.BeginForm(null, null, FormMethod.Post,
+                    new { @Class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                    @Html.AntiForgeryToken();
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.SustainabilityDownloadForm.FirstName, new { @Class = "col-sm-2 control-label" })
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(x => x.SustainabilityDownloadForm.FirstName, new { @Class = "form-control" })
+                            <span class="req-field">*</span>
+                            <div class="clearfix"></div>
+
+                            @Html.ValidationMessageFor(x => x.SustainabilityDownloadForm.FirstName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.SustainabilityDownloadForm.LastName, new { @Class = "col-sm-2 control-label" })
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(x => x.SustainabilityDownloadForm.LastName, new { @Class = "form-control" })
+                            <span class="req-field">*</span>
+                            <div class="clearfix"></div>
+                            @Html.ValidationMessageFor(x => x.SustainabilityDownloadForm.LastName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.SustainabilityDownloadForm.EmailAddress, new { @Class = "col-sm-2 control-label" })
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(x => x.SustainabilityDownloadForm.EmailAddress, new { @Class = "form-control" })
+                            <span class="req-field">*</span>
+                            <div class="clearfix"></div>
+                            @Html.ValidationMessageFor(x => x.SustainabilityDownloadForm.EmailAddress)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-6">
+                            @Html.CheckBoxFor(x => x.SustainabilityDownloadForm.SignUpForMail) Would you like to sign up on our mailing list?
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Download</button>
+                        </div>
+                    </div>
+
+                    @Html.PropertyFor(x => x.CurrentPage.BottomContentArea, new { CssClass = "row", ChildrenCssClass = "", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+                    }
+                </div>
+            </div>
+            }
+            else
+            {
+            @Model.CurrentPage.ThankYouMessage
+            }
+        </div>
+    </div>
+</div>

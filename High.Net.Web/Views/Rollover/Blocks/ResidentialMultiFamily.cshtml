@@ -1,0 +1,38 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.Rollover.Blocks
+@using High.Net.Core.Extentions
+@model ResidentialMultiFamily
+@{
+    var contentRepo = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var contentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+
+    var multifamilySites = contentRepo.GetChildren<High.Net.Models.Residential.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.RootPage).Where(x => x.Location != null);
+    var findAnApartmentPage = contentLocator.GetAll<High.Net.Models.Rollover.Pages.FindAnApartmentPage>(PageReference.StartPage).FirstOrDefault();
+}
+@if (multifamilySites != null)
+{
+    <div class="asset-services" style="margin-bottom:20px">
+        <h2 class="title">
+            Find an Apartment
+        </h2>
+        @*<hr class="blue-border">*@
+        <div class="row">
+            @foreach (var items in multifamilySites.GroupBy(x => x.Location))
+            {
+                <div class="col-md-4 col-sm-4">
+                    <div class="apartment">
+                        <a href="@((findAnApartmentPage != null) ? (Url.ContentUrl(findAnApartmentPage.ContentLink) + "?q=" + items.Key) : "#")">
+                            @if (items.First().SiteImage != null)
+                            {
+                                @Html.PropertyFor(x => items.First().SiteImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 360, Height = 250, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                            }
+                            <h3 class="slogan">@Html.PropertyFor(x => items.Key)</h3>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="clearfix"></div>
+    </div>
+}

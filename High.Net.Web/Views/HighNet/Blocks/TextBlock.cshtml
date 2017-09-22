@@ -1,0 +1,13 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighNet.Blocks
+
+@model TextBlock
+
+@if (Model.Heading != null)
+{
+   <h3 class="executive -title"> @Html.PropertyFor(x=> x.Heading)</h3>
+}
+ @Html.PropertyFor(x=> x.Descripiton)
+<div class="spacer"></div>

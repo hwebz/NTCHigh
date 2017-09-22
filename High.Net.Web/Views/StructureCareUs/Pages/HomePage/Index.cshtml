@@ -1,0 +1,156 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.StructureCareUs.Pages
+
+@model PageViewModel<HomePage>
+@{
+    var contentLocator = ServiceLocator.Current.GetInstance<ContentLocator>();
+    var repository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+
+    var serviceListingPage = repository.GetChildren<ServiceListingPage>(Model.CurrentPage.ContentLink);
+    var allServiceItems = contentLocator.GetAll<ServiceItemPage>(Model.CurrentPage.ContentLink);
+}
+<body class="structure-care">
+    <!-- Hero Banner Start -->
+    <div class="hero-banner">
+        <!-- Carousel Start -->
+        <div class="img-slider" @Html.EditAttributes(m => Model.CurrentPage.Slider)>
+            <ul class="bxslider-img" data-slider-type="img">
+                @if (Model.CurrentPage.ContentLink != null)
+                {
+                    foreach (var item in Model.CurrentPage.Slider)
+                    {
+                    <li>
+                        @Html.PropertyFor(x => item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 390, Width = 1400 }, CssClass = "img-responsive" })
+                    </li>
+                    }
+                }
+            </ul>
+        </div>
+        <!-- Carousel Ends-->
+    </div>
+    <!-- Hero Banner Ends-->
+    <div class="spacer"></div>
+
+    <!-- News Listing Starts-->
+    <div class="container news" @Html.EditAttributes(x => x.CurrentPage.ServiceListingPage)>
+        @if (Model.CurrentPage.ServiceListingPage != null)
+        {
+            var serviceListPage = repository.Get<ServiceListingPage>(Model.CurrentPage.ServiceListingPage);
+            var serviceItems = repository.GetChildren<ServiceItemPage>(Model.CurrentPage.ServiceListingPage);
+            int i = 0;
+            <h2 class="sub-header text-center">@Html.PropertyFor(m => serviceListPage.Name)</h2>
+            <div class="row">
+                @foreach (var item in serviceItems)
+                {
+                    <a href="@Url.ContentUrl(item.ContentLink)">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="media list-item">
+                                <div class="parking-structure-para">
+                                    @Html.PropertyFor(x => item.PageIcon, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 80, Width = 80, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                                    <h4>@Html.PropertyFor(x => item.Name)</h4>
+                                    <p>@Html.PropertyFor(x => item.IntroText)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    i++;
+                    if (i % 2 == 0) { <div class="clearfix"></div>}
+                }
+            </div>
+        }
+    </div>
+    <!-- News Listing Ends-->
+
+    <div class="spacer"></div>
+
+    <!-- Philosophy Starts-->
+    <div class="philosophy-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-5">
+                    @Html.PropertyFor(x => x.CurrentPage.AboutUsImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 270, Width = 460 }, CssClass = "img-responsive" })
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-7">
+                    <div class="philosophy-text">
+                        @Html.PropertyFor(m => m.CurrentPage.AboutUsText)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Philosophy Ends-->
+    @*    <div class="spacer"></div>
+
+            <!-- Projects Starts-->
+            <div class="container">
+                <h2 class="sub-header text-center">Projects</h2>
+                <div>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Show All</a></li>
+                        @if (serviceListingPage != null)
+                        {
+                            foreach (var item in serviceListingPage)
+                            {
+                            <li role="presentation"><a href="#@item.ContentLink.ID" aria-controls="profile" role="tab" data-toggle="tab">@item.Name</a></li>
+                            }
+                        }
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active custom-tab" id="home">
+                            <div class="row">
+                                @foreach (var serviceitem in allServiceItems)
+                                {
+                                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                                        <div class="media list-item">
+                                            <div class="media-top">
+                                                <a href="@Url.ContentUrl(serviceitem.ContentLink)">
+                                                    @Html.PropertyFor(m => serviceitem.PageImage, new { CssClass = "media-object img-responsive" })
+                                                </a>
+                                            </div>
+                                            <div class="media-body project-copy">
+                                                <h3 class="media-heading">@serviceitem.Name</h3>
+                                                <p>@serviceitem.IntroText</p>
+                                                <p class="cf"><a href="@Url.ContentUrl(serviceitem.ContentLink)" class="read-more-link pull-right">read more...</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        @foreach (var item in serviceListingPage)
+                        {
+                            var serviceItems = repository.GetChildren<ServiceItemPage>(item.ContentLink);
+
+                            <div role="tabpanel" class="tab-pane fade custom-tab" id="@item.ContentLink.ID">
+                                <div class="row">
+                                    @foreach (var serviceitem in serviceItems)
+                                    {
+                                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                                            <div class="media list-item">
+                                                <div class="media-top">
+                                                    <a href="@Url.ContentUrl(serviceitem.ContentLink)">
+                                                        @Html.PropertyFor(m => serviceitem.PageImage, new { CssClass = "media-object img-responsive" })
+                                                    </a>
+                                                </div>
+                                                <div class="media-body project-copy">
+                                                    <h3 class="media-heading">@serviceitem.Name</h3>
+                                                    <p>@serviceitem.IntroText</p>
+                                                    <p class="cf"><a href="@Url.ContentUrl(serviceitem.ContentLink)" class="read-more-link pull-right">read more...</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+        </div>
+            <!-- Projects Ends-->*@
+</body>

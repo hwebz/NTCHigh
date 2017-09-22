@@ -1,0 +1,37 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.Shared.Pages
+@using ImageVault.EPiServer
+@model PageViewModel<NewsItemPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+<div class="news ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-8">
+                <h2><strong>@Html.PropertyFor(x => x.CurrentPage.Title)</strong></h2>
+                @Html.PropertyFor(x => x.CurrentPage.NewsContent)
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="news-right-img">
+                    <div class="cal">
+                        @if (Model.CurrentPage.NewsImage != null)
+                        {
+                            @Html.PropertyFor(x => x.CurrentPage.NewsImage, new { PropertySettings = new PropertyMediaSettings { Width = 290, Height = 190 }, CssClass = "img-responsive" })
+                        }
+                        else
+                        {
+                            <img src="~/Static/global/images/news-placeholder-290X190.jpg" class="img-responsive placeholder" />
+                        }
+                    </div>
+                    <div class="date">
+                        <span class="glyphicon glyphicon-calendar news"><span class="date-text">@Model.CurrentPage.PostedDate.ToString("MMMM dd, yyyy")</span></span>
+                    </div>
+                </div>
+                <p class="text-center">@Model.CurrentPage.ImageQuote</p>
+            </div>
+        </div>
+    </div>
+</div>

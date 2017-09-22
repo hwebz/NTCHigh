@@ -1,0 +1,120 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Core.Helpers
+@using High.Net.Models.HighConcrete.Pages
+@using ImageVault.Client.Query
+@model PageViewModel<ProductItemPage>
+@{
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(ContentReference.StartPage);
+}
+@section SiteHeader{
+    @Styles.Render("~/bundles/highconcreteProductBanner-css")
+    <link href="@Styles.Url("~/bundles/highConcretePrintCutSheetCss")" rel="stylesheet" type="text/css" media="print" /> 
+}
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8" id="productContent">
+                <div class="section application">
+
+                    <!--slider2 start-->
+                    <div class="proj-item-popup">
+                        <div tabindex="-1" class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <img class="loader" src="~/Static/highconcrete/images/icon/loading.gif" />
+                                    <div class="modal-body">
+                                        <a title="">
+                                            <img class="thumbnail img-responsive" src="" />
+                                        </a>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-default" data-dismiss="modal" style="display:none !important">X</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jcarousel-wrapper">
+                        <div class="jcarousel">
+                            <ul>
+                                @if (Model.CurrentPage.Images != null)
+                                {
+                                    foreach (var item in Model.CurrentPage.Images)
+                                    {
+                                    <li data-url="@MediaHelpers.GetImageUrl(item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height=500 }, CssClass = "img-responsive" })">
+                                        @Html.PropertyFor(x => item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 100, Height = 100, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "thumbnail img-responsive" })
+                                    </li>            
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <div class="jcarousel-control-prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </div>
+                        <div class="jcarousel-control-next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <!--slider2 end-->
+
+                    @Html.PropertyFor(x => x.CurrentPage.MainContentArea, new
+                       {
+                           CssClass = "row",
+                           tag = Global.ContentAreaTags.FullWidth,
+                           Tags = new[]
+                           {
+                                Global.ContentAreaTags.FullWidth,
+                                Global.ContentAreaTags.TwoThirdsWidth,
+                                Global.ContentAreaTags.HalfWidth,
+                                Global.ContentAreaTags.OneThirdWidth,
+                                Global.ContentAreaTags.OneFourthWidth,
+                                Global.ContentAreaTags.OneFifthWidth,
+                                Global.ContentAreaTags.OneTwelfthWidth,
+                                Global.ContentAreaTags.NoRenderer
+                           }
+                       })
+                    <br />
+                    <div class="print-content">
+                        @Html.PropertyFor(x => homePage.ProductColorSelector)
+                    </div>
+                </div>
+            </div>
+
+            <div class="spacer"></div>
+
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>
+@section SiteFooter{
+    @Scripts.Render("~/bundles/highconcreteProductBanner-js")
+    @Scripts.Render("~/bundles/jcarousel")
+    <script>
+        $(document).ready(function () {
+            $('.thumbnail').click(function () {
+                $('.modal-body > a').attr('title',$(this).parent('a').attr("title"));
+                $('.modal-body img').attr('src', $(this).parent().data("url"));
+                $('#myModal').modal({ show: true });
+            });
+
+            $("#myModal").on("shown.bs.modal", function (e) {
+                $(this).find('.modal-body img').load(function () {
+                    $('.modal-body img').show();
+                    $('.modal-footer button').show();
+                });
+            });
+
+            $('#myModal').on('hidden.bs.modal', function () {
+                $('.modal-footer button').hide();
+                $('.modal-body img').hide();
+            });
+        });
+    </script>
+}

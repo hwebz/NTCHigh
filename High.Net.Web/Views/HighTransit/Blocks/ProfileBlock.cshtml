@@ -1,0 +1,13 @@
+﻿@using EPiServer.Core
+@using High.Net.Models.HighTransit.Blocks
+@using ImageVault.EPiServer
+@model ProfileBlock
+
+<div class="sec about">
+    <div class="character-image">
+        @Html.PropertyFor(x => Model.PersonImage, new { PropertySettings = new PropertyMediaSettings { Width = 164, Height = 211 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+        <h4>@Html.PropertyFor(m => m.PersonName)</h4>
+        <p>@Html.PropertyFor(m => m.PersonDesignation)</p>
+    </div>
+</div>
+

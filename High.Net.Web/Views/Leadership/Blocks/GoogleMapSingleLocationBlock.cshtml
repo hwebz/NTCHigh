@@ -1,0 +1,28 @@
+﻿@using EPiServer.Web.Mvc.Html
+
+@model High.Net.Models.NewResidential.Blocks.GoogleMapSingleLocationBlock
+@{
+    string lat = string.Empty;
+    string lng = string.Empty;
+    if (!string.IsNullOrEmpty(Model.ComplexCoordinates))
+    {
+        lat = Model.ComplexCoordinates.Split(',')[0];
+        lng = Model.ComplexCoordinates.Split(',')[1];
+    }
+}
+<div class="leadership-location">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12.col-sm-12.col-md-12">
+                <div id="leadership-location__information-box">
+                    @Html.PropertyFor(x=>Model.Description)
+                    <a id="message-us" href="#contact-form-popup" class="leadership-btn">@Html.PropertyFor(x=>Model.ContactUsButton)</a>
+                    <p class="small">Or give us a call.</p>
+                    <a id="call-us" href="tel:@Model.CallUsButton" class="leadership-btn type-2">@Html.PropertyFor(x=>Model.CallUsButton)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="leadership-location__map" data-lat="@lat"  data-long="@lng" data-center="false"></div>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDzzAFqbA5agZEi5uy5dWGjN_k8oqiOKrc"></script>

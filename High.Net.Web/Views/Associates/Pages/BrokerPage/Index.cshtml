@@ -1,0 +1,25 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Associates.Pages
+@using ImageVault.EPiServer
+@model PageViewModel<BrokerPage>
+
+@Html.Partial("~/Views/Associates/Shared/Banner.cshtml")
+<div class="container">
+    <div class="full-profile">
+        <h2 class="broker-title">@Html.PropertyFor(x => x.CurrentPage.Name) @Html.PropertyFor(x => x.CurrentPage.Designation)</h2>
+        <div class="profile-img">
+            @Html.PropertyFor(x => x.CurrentPage.ProfilePhoto, new { PropertySettings = new PropertyMediaSettings { Width = 86, Height = 114 } })
+        </div>
+        <div class="profile-para">
+            <p>@Html.PropertyFor(x => x.CurrentPage.Description)</p>
+            <p>@Html.PropertyFor(x => x.CurrentPage.SkypeContact)</p>
+            @if (Model.CurrentPage.MobileContact != null)
+            {
+                <p>Cell: @Html.PropertyFor(x => x.CurrentPage.MobileContact)</p>
+            }
+            <p><a href="mailto:@Model.CurrentPage.EmailAddress" @Html.EditAttributes(x => x.CurrentPage.EmailAddress)>@Model.CurrentPage.EmailAddress</a></p>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

@@ -1,0 +1,95 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@model High.Net.Models.HighSteelStructure.ViewModels.TechnicalResourcesModel
+@section SiteHeader{
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+}
+<div class="container">
+    <div class="common-container advisor">
+        <div class="row">
+            <div class="col-md-12">
+                 @if(Model.TechnicalResourcesForm.IsMailSendSuccessfully)
+                    {
+                         @Model.CurrentPage.ThankYouMessage
+                    }
+                @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", ChildrenCssClass = "", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+                <div class="row">
+                @if(!Model.TechnicalResourcesForm.IsMailSendSuccessfully)
+                {
+                    <div class="col-md-12">
+                    @using (Html.BeginForm(null, null, FormMethod.Post,
+                    new { @Class = "form-horizontal", @enctype = "multipart/form-data" }))
+                    { 
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.TechnicalResourcesForm.FirstName, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.TechnicalResourcesForm.FirstName, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.TechnicalResourcesForm.FirstName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.TechnicalResourcesForm.LastName, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.TechnicalResourcesForm.LastName, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.TechnicalResourcesForm.LastName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.TechnicalResourcesForm.EmailAddress, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.TechnicalResourcesForm.EmailAddress, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.TechnicalResourcesForm.EmailAddress)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.TechnicalResourcesForm.PhoneNumber, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.TechnicalResourcesForm.PhoneNumber, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.TechnicalResourcesForm.PhoneNumber)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.TechnicalResourcesForm.CompanyName, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.TechnicalResourcesForm.CompanyName, new { @Class = "form-control" })
+                                <span class="req-field">*</span><br />
+                                @Html.ValidationMessageFor(x => x.TechnicalResourcesForm.CompanyName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.TechnicalResourcesForm.CompanyAddress, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(x => x.TechnicalResourcesForm.CompanyAddress, new { @Class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.TechnicalResourcesForm.PurposeOfRequest, new { @Class = "col-sm-2 control-label" })
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(x => x.TechnicalResourcesForm.PurposeOfRequest, new { @Class = "form-control" })
+                                <p>Please tell us why you would like to use the FTP system.</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">Submit</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

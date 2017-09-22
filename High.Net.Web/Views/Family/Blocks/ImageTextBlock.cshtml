@@ -1,0 +1,11 @@
+﻿@using High.Net.Models.HighNet.Blocks
+
+@model ImageTextBlock
+
+@{ 
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+    var imgMedia =Model.Image!=null? client.Load<ImageVault.Common.Data.WebMedia>(Model.Image.Id).FirstOrDefault() : null;
+    var imgUrl = imgMedia != null ? imgMedia.Url : string.Empty;
+}
+
+<div class="leadership-pure-image" style="background:transparent url(@imgUrl) no-repeat center center;  background-size:cover"></div>

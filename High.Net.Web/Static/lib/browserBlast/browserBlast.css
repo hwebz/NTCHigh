@@ -1,0 +1,33 @@
+/* ---------------------------------------- 
+    BrowserBlast by @markgdyr
+    markgoodyear.com
+---------------------------------------- */
+#browserblast {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+	font-size: 14px;
+    font-family: 'vectipedebkregular';
+    font-weight: bold;
+    line-height: 40px;
+    color: #000;
+    text-align: center;
+    background: #FAF4AF;
+    border-bottom: 2px solid #D4C790;
+}
+    #browserblast a {
+        color: #f17836;
+        text-decoration: underline;
+    }
+
+/*  
+To prevent the banner overlapping content
+.unsupported-browser is appened to the HTML tag
+so you can push it down. The margin should be
+total hight of the banner (height + border).
+*/
+.unsupported-browser {
+    margin-top: 42px;
+}

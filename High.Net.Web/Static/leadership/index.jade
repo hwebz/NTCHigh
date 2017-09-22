@@ -1,0 +1,54 @@
+﻿extends layouts/root.jade
+
+block title
+    title Index
+
+block css
+    link(href="css/styles.min.css", charset="utf-8", rel="stylesheet")
+
+block content
+    div(class="container")
+        h2 Blocks
+        ul(class="list-group")
+            li(class="list-group-item")
+                a(href="blocks/header.html") Header block
+            li(class="list-group-item")
+                a(href="blocks/header-banner.html") Header banner block
+            li(class="list-group-item")
+                a(href="blocks/two-columns.html") Two columns block
+            li(class="list-group-item")
+                a(href="blocks/video-popup.html") Video popup block
+            li(class="list-group-item")
+                a(href="blocks/carousel-slider.html") Carousel slider block
+            li(class="list-group-item")
+                a(href="blocks/testimonial-slider.html") Testimonial slider block
+            li(class="list-group-item")
+                a(href="blocks/bulleted-list.html") Bulleted list block
+            li(class="list-group-item")
+                a(href="blocks/photo-slider.html") Photo slider block
+            li(class="list-group-item")
+                a(href="blocks/pure-image.html") Pure image block
+            li(class="list-group-item")
+                a(href="blocks/location.html") Location block
+            li(class="list-group-item")
+                a(href="blocks/footer.html") Footer block
+            
+    div(class="container")
+        h2 Pages
+        ul(class="list-group")
+            li(class="list-group-item")
+                a(href="pages/home.html") Home page
+            li(class="list-group-item")
+                a(href="pages/about.html") About page
+            li(class="list-group-item")
+                a(href="pages/family-foundation.html") Family foundation page
+            li(class="list-group-item")
+                a(href="pages/high-legacy.html") High legacy page
+            li(class="list-group-item")
+                a(href="pages/high-story.html") High story page
+            li(class="list-group-item")
+                a(href="pages/the-facility.html") The facility page
+            
+
+block js
+    script(src="scripts/scripts.min.js")

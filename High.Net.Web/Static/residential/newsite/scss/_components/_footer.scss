@@ -1,0 +1,88 @@
+$pre: "residential-footer";
+
+.#{$pre} {
+    background: $color-white;
+
+    .#{$pre}__information {
+        @include block-spacing($block-spacing, $block-spacing-tablet);
+        border-top: 5px solid $color-orange;
+
+        .#{$pre}__information-block {
+            @include respond-to-max($desktopSize) {
+                margin-bottom: 30px;
+            }
+
+            h3 {
+                @extend %roboto-bold;
+                @extend %uppercase-text;
+                font-size: 25px;
+                line-height: 1.2;
+                margin: 0 0 25px 0;
+
+                @include respond-to-min($hugeSize) {
+                    font-size: $title-font-size;
+                }
+            }
+
+            p {
+                margin-bottom: 10px;
+                line-height: 1.7;
+            }
+
+            strong {
+                @extend %roboto-bold;
+            }
+        }
+    }
+
+    &.type-2 {
+        .#{$pre}__information {
+            background-color: $color-light-pink;
+        }
+    }
+
+    .#{$pre}__copyright {
+        background: $color-black;
+        color: $color-white;
+        padding: 20px 0;
+
+        @include respond-to-max($tabletSize) {
+            text-align: center;
+        }
+
+        a {
+            display: inline-block;
+            width: 64px;
+            height: 64px;
+            text-align: center;
+
+            img {
+                vertical-align: middle;
+            }
+        }
+
+        .#{$pre}__copyright-left {
+            @include respond-to-max($tabletSize) {
+                margin-bottom: 20px;
+            }
+
+            p {
+                display: block;
+                text-align: center;
+                margin-top: 20px;
+
+                @include respond-to-max($tabletSize) {
+                    margin-top: 13px;
+                }
+            }
+        }
+
+        .#{$pre}__copyright-right {
+            text-align: right;
+
+            @include respond-to-max($tabletSize) {
+                text-align: center;
+            }
+        }
+    }
+}

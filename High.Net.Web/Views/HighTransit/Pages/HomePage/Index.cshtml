@@ -1,0 +1,211 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.Web
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighTransit.Pages
+@using ImageVault.EPiServer
+
+@model PageViewModel<HomePage>
+@{
+    var dataLocator = ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    var contentLocator = ServiceLocator.Current.GetInstance<ContentLocator>();
+    var contentRepo = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+
+    var videoItemPage = contentLocator.GetAll<VideoItemPage>(Model.CurrentPage.ContentLink);
+    var projectItemPage = contentLocator.GetAll<ProjectItemPage>(Model.CurrentPage.ContentLink);
+    var projectList = contentLocator.GetAll<ProjectListingPage>(Model.CurrentPage.ContentLink).FirstOrDefault();
+}
+@Html.Partial("~/Views/HighTransit/Shared/Navigation.cshtml", Model)
+<!-- revolution slider start -->
+@if (Model.CurrentPage.Slider != null)
+{
+    <div class="container">
+        <div class="hero-banner">
+            <!-- Carousel Start -->
+            <div class="img-slider">
+                <ul class="bxslider-img" data-slider-type="img">
+                    @foreach (var image in Model.CurrentPage.Slider)
+                    {
+                        <li>
+                            @Html.PropertyFor(x => image, new { PropertySettings = new PropertyMediaSettings { Width = 1000, Height = 360 }, CssClass = "img-responsive" })
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+<!-- revolution slider end -->
+
+<!--- start-->
+<div style="background-color: #000000;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!--feature start-->
+                <div class="feature-head">
+                    <!--<h1>welcome to flatlab</h1>-->
+                    @Html.PropertyFor(m => m.CurrentPage.IntroText)
+                    <div class="white">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4">
+                                <div class="logo-img" @Html.EditAttributes(m => Model.CurrentPage.PMTA)>
+                                    <a href="@Url.ContentUrl(Model.CurrentPage.PMTA.PageUrl)">
+                                        @Html.PropertyFor(x => Model.CurrentPage.PMTA.Media, new { PropertySettings = new PropertyMediaSettings { Width = 200, Height = 82 } })
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="logo-img" @Html.EditAttributes(m => Model.CurrentPage.SCRA)>
+                                    <a href="@Url.ContentUrl(Model.CurrentPage.SCRA.PageUrl)">
+                                        @Html.PropertyFor(x => Model.CurrentPage.SCRA.Media, new { PropertySettings = new PropertyMediaSettings { Width = 200, Height = 87 } })
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="logo-img" @Html.EditAttributes(m => Model.CurrentPage.ATA)>
+                                    <a href="@Url.ContentUrl(Model.CurrentPage.ATA.PageUrl)">
+                                        @Html.PropertyFor(x => Model.CurrentPage.ATA.Media, new { PropertySettings = new PropertyMediaSettings { Width = 100, Height = 75 } })
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.CurrentPage.ServicePageLink != null)
+{
+    var serviceItems = contentRepo.GetChildren<ServiceItemPage>(Model.CurrentPage.ServicePageLink);
+    <div class="container feature2-head">
+        <div class="row">
+            <h2>Handling Complexity</h2>
+            @foreach (var item in serviceItems)
+            {
+                <div class="col-lg-3 col-sm-3">
+                    <section>
+                        <div class="f-box">
+                            <!--<i class=" icon-desktop"></i>-->
+                            @Html.PropertyFor(x => item.PageIcon, new { PropertySettings = new PropertyMediaSettings { Width = 205, Height = 160, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                        </div>
+                        <h3>@item.Name</h3>
+                        <p class="f-text">@Html.PropertyFor(m => item.PageIntroText)</p>
+                        <a href="@Url.ContentUrl(item.ContentLink)">read more...</a>
+                    </section>
+                </div>
+            }
+            <!--feature end-->
+        </div>
+    </div>
+}
+
+@if (projectItemPage != null)
+{
+    <div class="pg_background" style="background-color: #c3c3c4;">
+        <div class="container">
+            <!--recent work start-->
+            <div class="row">
+                <div class="col-lg-12" style="padding-left: 0 !important; padding-right: 0 !important;">
+                    @if (projectList != null)
+                    {
+                        <h2 class="r-work">@projectList.Name</h2>
+                    }
+                    <div id="w">
+                        <nav class="slidernav">
+                            <div id="navbtns" class="clearfix">
+                                <a href="#" class="previous">prev</a>
+                                <a href="#" class="next">next</a>
+                            </div>
+                        </nav>
+                        <div class="crsl-items" data-navigation="navbtns">
+                            <div class="crsl-wrap">
+                                @foreach (var item in projectItemPage)
+                                {
+                                    <div class="crsl-item">
+                                        <div class="thumbnail">
+                                            @Html.PropertyFor(x => item.PageIcon, new { PropertySettings = new PropertyMediaSettings { Width = 291, Height = 276, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                        </div>
+                                        <h3>@item.Name</h3>
+
+                                        <p>@Html.PropertyFor(m => item.PageIntroText)</p>
+
+                                        <p class="readmore"><a href="@Url.ContentUrl(item.ContentLink)">Read More &raquo;</a></p>
+                                    </div>
+                                    <!-- post #1 -->
+                                }
+                            </div>
+                            <!--  .crsl-wrap -->
+                        </div>
+                        <!--  .crsl-items -->
+                    </div>
+                </div>
+            </div>
+            <!--recent work end-->
+        </div>
+    </div>
+}
+
+<div class="clients">
+    <div class="container">
+        @Html.PropertyFor(m => m.CurrentPage.MapArea, new { CssClass = "row", tag = Global.ContentAreaTags.NoRenderer, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFifthWidth } })
+    </div>
+</div>
+
+@if (videoItemPage != null)
+{
+    <div class="container">
+        <!--clients start-->
+        <div class="clients">
+            <div class="container">
+                <div class="row">
+                    <div class="">
+                        <h2 class="r-work2">Latest Videos</h2>
+                        @if (videoItemPage.First().VideoLink != null)
+                        {
+                            <div class="col-lg-6" style="padding: 0;">
+                                <iframe id="video" class="video" width="100%" height="400" src="@Url.ContentUrl(videoItemPage.First().VideoLink)" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        }
+                        <div class="col-lg-6" style="padding: 0;">
+                            @foreach (var item in videoItemPage.Take(3))
+                            {
+                                <div class="col-lg-12 col-sm-4 video-thumb" style="padding: 0;">
+                                    @if (item.VideoLink != null)
+                                    {
+                                        <div class="col-lg-4 col-xs-12">
+                                            <a onclick="doAction( '@Url.ContentUrl(item.VideoLink)');">
+                                                <img src="@Url.ContentUrl(dataLocator.GetYouTubeThumbnail(item.VideoLink))" /></a>
+                                        </div>
+                                    
+                                        <div class="col-lg-8">
+                                            <div class="video-header">
+                                                <a onclick="doAction( '@Url.ContentUrl(item.VideoLink)');">@item.Name</a>
+                                                <p class="video-text">@Html.PropertyFor(m => item.VideoIntro)</p>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<!--container end-->
+@section SiteFooter
+    {
+    <script type="text/javascript">
+        var url = "";
+        function doAction(url) {
+            //alert(url);
+
+            //$('#video').src(url);
+            document.getElementById('video').src = url;
+        }
+    </script>
+}

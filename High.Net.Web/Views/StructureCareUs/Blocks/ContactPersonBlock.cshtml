@@ -1,0 +1,15 @@
+﻿@using EPiServer.Core
+@using High.Net.Models.StructureCareUs.Blocks
+@model ContactPersonBlock
+
+<div class="team-info">
+    <div class="character-img">
+        @Html.PropertyFor(m => m.PersonImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 153 }, CssClass = "img-responsive" })
+    </div>
+    <div class="team-profile">
+        @Html.PropertyFor(m => m.Text)
+    </div>
+    <div class="clear"></div>
+</div>
+
+

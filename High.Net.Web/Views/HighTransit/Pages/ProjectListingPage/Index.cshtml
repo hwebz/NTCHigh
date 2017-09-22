@@ -1,0 +1,42 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighTransit.Pages
+@using ImageVault.EPiServer
+@model PageViewModel<ProjectListingPage>
+@{
+    var repository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+
+    var projectItemPages = repository.GetChildren<ProjectItemPage>(Model.CurrentPage.ContentLink).ToList();
+}
+@Html.Partial("~/Views/HighTransit/Shared/Navigation.cshtml", Model)
+@Html.Partial("~/Views/HighTransit/Shared/Banner.cshtml")
+<div class="spacer"></div>
+<div class="container">
+    <div class="sec proj-gallery">
+        <p>@Html.PropertyFor(m => m.CurrentPage.ShortText) </p>
+        @if (projectItemPages != null)
+        {
+            int i = 0;
+            <div class="row">
+                @foreach (var item in projectItemPages)
+                {
+                    <div class="col-md-4 col-sm-4">
+                        <div class="image-proj-gallery">
+                            @Html.PropertyFor(x => item.PageIcon, new { PropertySettings = new PropertyMediaSettings { Width = 360, Height = 340, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                            <h3>@item.Name</h3>
+                            <p>@Html.PropertyFor(m => item.PageIntroText)</p>
+                            <a class="read-more" href="@Url.ContentUrl(item.ContentLink)">Read more...</a>
+                        </div>
+                        <div class="spacer"></div>
+                    </div>
+                    i++;
+                    if (i % 3 == 0)
+                    {
+                    <div class="clearfix"></div>
+                    }
+                }
+            </div>
+        }
+    </div>
+</div>

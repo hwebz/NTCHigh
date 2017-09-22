@@ -1,0 +1,36 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.RealEstateGroup.Pages
+@using EPiServer.Web
+@using ImageVault.EPiServer
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<!-- header start-->
+<div class="header">
+    <div class="header-bottom">
+        <div class="container">
+            <div class="main-logo">
+                <a href="@Url.ContentUrl(homePage.ContentLink)">
+                    @Html.PropertyFor(x => homePage.SiteLogo, new { PropertySettings = new PropertyMediaSettings { Width = 327, Height = 43 }, CssClass = "img-responsive" })
+                </a>
+            </div>
+            <div class="right-side">
+                <div class="search-box">
+                    @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl) }))
+                    {
+                        <input type="text" placeholder="Search for..." class="search-text" name="q" />
+                        <button type="submit" class="search-btn-icon">
+                            <img src="~/Static/real-estate-group/images/icon/search-logo.png" />
+                        </button>
+                    }
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- header end-->

@@ -1,0 +1,53 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.SteelServiceCentre.Blocks
+@using ImageVault.Client.Query
+
+@model ImageGalleryBlock
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+}
+
+<div class="proj-gallery">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="jc-container">
+                @if (Model.ImageGalleryContent != null)
+                {
+                    <div class="jcarousel-wrapper">
+                        <div class="jcarousel">
+                            <ul>
+                                @foreach (var contentItem in Model.ImageGalleryContent.Items)
+                                {
+                                    var item = contentLoader.Get<ImageTextBlock>(contentItem.ContentLink);
+                                    if (item.Image != null)
+                                    {
+                                        var slideImage = client.Load<ImageVault.Common.Data.WebMedia>(item.Image.Id).Resize(1120, 490).ToList();
+                                        if (slideImage.Count > 0)
+                                        {
+                                    <li>
+                                        <div>
+                                            <img u="image" src="@Url.ContentUrl(slideImage.FirstOrDefault().Url)" />
+                                            <p class="img-text text-center">@item.Description</p>
+                                        </div>
+                                    </li>
+                                        }
+                                    }
+                                }
+
+                            </ul>
+                        </div>
+                        <a href="#" class="jcarousel-control-prev">
+                       <img src="/Static/steel-service-centre/images/icon/left-arrow.png">
+                        </a>
+                        <a href="#" class="jcarousel-control-next">
+                            <img src="/Static/steel-service-centre/images/icon/right-arrow.png">
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

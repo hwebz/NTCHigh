@@ -1,0 +1,15 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@using ImageVault.EPiServer
+@using High.Net.Core
+
+@model TextTableBlock
+
+@{
+    var ContentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+
+<h3 class="txt-tbl-head">@Html.PropertyFor(x => x.MainHeading)</h3>
+@Html.PropertyFor(x => x.TextTableContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.ThreeFourthWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth, Global.ContentAreaTags.OneFifthWidth, Global.ContentAreaTags.OneTwelfthWidth } })
+<div class="spacer"></div>

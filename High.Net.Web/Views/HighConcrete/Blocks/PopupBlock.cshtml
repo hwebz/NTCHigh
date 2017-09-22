@@ -1,0 +1,47 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcrete.Blocks
+
+@model PopupBlock
+<a href="javascript:void(0)" class="orange-link" data-toggle="modal" data-target="#Modal@(Model.GetHashCode())">@Html.PropertyFor(x => x.Heading)</a>
+<span>
+    @if (Model.ID != null)
+    {
+        @Html.Raw(", ") @Html.PropertyFor(x => x.ID)
+    }
+    @for (int i = 0; i < Model.Rating; i++)
+    {
+        <img src="~/Static/highconcrete/images/specs_grey_bg.gif" alt="Rating_@i" />
+    }
+</span>
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel@(Model.GetHashCode())" id="Modal@(Model.GetHashCode())">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @if (Model.ID != null)
+            {
+                <div class="modal-header">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <h4 class="modal-title" id="ModalLabel@(Model.GetHashCode())">@Model.ID</h4>
+                </div>
+            }
+            else
+            {
+                <div class="modal-header">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <h4 class="modal-title" id="ModalLabel@(Model.GetHashCode())">@Model.Heading</h4>
+                </div>
+            }
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @if (Model.ID != null)
+                        {
+                            <h4>@Html.PropertyFor(x => x.Heading)</h4>
+                        }
+                        @Html.PropertyFor(x => x.PopupContent)
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

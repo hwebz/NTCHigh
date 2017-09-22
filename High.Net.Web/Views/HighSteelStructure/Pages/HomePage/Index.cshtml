@@ -1,0 +1,224 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.Shared.Pages
+@using High.Net.Models.HighSteelStructure.Pages
+@model PageViewModel<HomePage>
+@{
+    var contentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var projectCategoryPage = contentLoader.GetChildren<ProjectCategoryPage>(Model.CurrentPage.ContentLink).FirstOrDefault();
+
+    var videoListingPage = contentLoader.GetChildren<VideoListingPage>(Model.CurrentPage.ContentLink).FirstOrDefault();
+
+    var NewsItemPages = contentLocator.GetAll<NewsItemPage>(Model.CurrentPage.ContentLink).ToList();
+}
+
+<div class="container">
+    <div class="row">
+        <!--feature start-->
+        <div class="col-lg-12 col-sm-12 ">
+            <div class="text-center feature-head">
+                <h1>@Html.PropertyFor(x => x.CurrentPage.FeaturesHeading)</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row" @Html.EditAttributes(x => x.CurrentPage.MainContentArea)>
+        @if (Model.CurrentPage.MainContentArea != null)
+        {
+            foreach (var contentItem in Model.CurrentPage.MainContentArea.Items)
+            {
+                var item = contentLoader.Get<High.Net.Models.HighSteelStructure.Blocks.ProductsBlock>(contentItem.ContentLink);
+            <div class="col-lg-6 col-sm-6">
+                <div class="row">
+                    <div class="col-md-7 col-sm-7">
+                        <div class="post_2_box">
+                            <a href="@Url.ContentUrl(item.LinkPage)">
+                                @Html.PropertyFor(x => item.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 312, Height = 234 } })
+                            </a>
+                            <h2>@Html.PropertyFor(x => item.Heading)</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-5">
+                        <div class="post_2_box">
+                            <!--<p class="f-text"><b>Steel Fabrication For Bridge</b></p>-->
+                            <p class="f-text">@Html.PropertyFor(x => item.IntroText)</p>
+                            @if (item.LinkPage != null)
+                            {
+                                <p class="f-text"><b><a href="@Url.ContentUrl(item.LinkPage)">Read More</a></b></p>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            }
+        }
+    </div>
+</div>
+
+<div class="container">
+    @Html.PropertyFor(x => x.CurrentPage.ProductServicesContent, new { CssClass = "row", tag = Global.ContentAreaTags.HalfWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.ThreeFourthWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+</div>
+
+<!--property start-->
+<div class="property gray-bg">
+    <div class="container">
+        <!--portfolio start-->
+        @if (projectCategoryPage != null)
+        {
+            var projectListingPage = contentLoader.GetChildren<ProjectListingPage>(projectCategoryPage.ContentLink);
+            if (projectListingPage != null)
+            {
+            <div class="gallery-container">
+                <div class="col-lg-4 col-sm-4">
+                    <h2 class="r-work">@projectCategoryPage.Name</h2>
+                </div>
+                <div class="col-lg-12 col-sm-12">
+                    <ul id="filters" class="list-unstyled">
+                        @foreach (var item in projectListingPage)
+                        {
+                            <li><a href="#" data-filter=".@item.Name.Replace(" ", "").Replace("&", "")">@item.Name</a></li>
+                        }
+                    </ul>
+                </div>
+                <div id="gallery" class="col-4">
+                    @foreach (var item in projectListingPage)
+                    {
+                        var projectItemPages = contentLoader.GetChildren<ProjectItemPage>(item.ContentLink);
+
+                        if (projectItemPages.Count() != 0)
+                        {
+                            foreach (var projectItem in projectItemPages)
+                            {
+                        <a data-zl-popup="link" href="@Url.ContentUrl(projectItem.ContentLink)">
+                            <div class="element @item.Name.Replace(" ", "").Replace("&", "") item view view-tenth" data-zlname="reverse-effect">
+                                @Html.PropertyFor(x => projectItem.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 260, Height = 230, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                <div class="mask">
+                                    <h2>@projectItem.Name</h2>
+
+                                </div>
+                            </div>
+                        </a>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+            }
+        }
+    </div>
+    <!--portfolio end-->
+</div>
+
+<!--property end-->
+<div class="property gray-bg1">
+    <div class="container">
+        <div class="col-lg-6">
+            <!--testimonial start-->
+            @if (videoListingPage != null)
+            {
+                var videoItemPages = contentLoader.GetChildren<VideoItemPage>(videoListingPage.ContentLink).ToList();
+                if (videoItemPages.Count > 0)
+                {
+                    int videoCounter = 0;
+                <div class="about-testimonial boxed-style about-flexslider ">
+                    <section class="slider">
+                        <h3><strong>Latest Video</strong></h3>
+                        <br />
+                        <div class="flexslider">
+                            <ul class="slides about-flex-slides">
+                                @foreach (var item in videoItemPages)
+                                {
+                                    if (videoCounter == 0)
+                                    {
+                                    @Html.Raw("<li>")
+                                    }
+                                    else if (videoCounter > 0 && videoCounter % 2 == 0)
+                                    {
+                                    @Html.Raw("</li><li>")
+                                    }
+                                    <article class="media">
+                                        <div class="col-lg-3 col-sm-3">
+                                            <img src="@dataLocator.GetYouTubeThumbnail(item.VideoLink)">
+                                        </div>
+                                        <div class="col-lg-9 col-sm-9">
+                                            <div class="media-body">
+                                                @item.IntroText<br />
+                                                <p>
+                                                    <span><a href="@Url.ContentUrl(item.ContentLink)">Read More</a></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    videoCounter++;
+                                }
+                                @Html.Raw("</li>")
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+                }
+            }
+            <!--testimonial end-->
+        </div>
+        <div class="col-lg-6">
+            <!--testimonial start-->
+            <div class="about-testimonial boxed-style about-flexslider ">
+                @if (NewsItemPages.Count > 0)
+                {
+                    int counter = 0;
+                    <section class="slider">
+                        <h3><strong>Latest News</strong></h3>
+                        <br />
+                        <div class="flexslider">
+                            <ul class="slides about-flex-slides">
+                                @foreach (var item in NewsItemPages)
+                                {
+                                        @*if (counter == 0)
+                                        {
+                                            @Html.Raw("<li>")
+                                        }
+                                        else if (counter > 0 && counter % 2 == 0)
+                                        {
+                                            @Html.Raw("</li><li>")
+                                        }*@
+                                    <li>
+                                        <article class="media">
+                                            <div class="col-lg-3 col-sm-3">
+                                                @if (item.NewsImage != null)
+                                                {
+                                                    @Html.PropertyFor(x => item.NewsImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 90, Height = 90 } })
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Static/global/images/news-placeholder-115X115.jpg" class="placeholder" />
+                                                }
+                                            </div>
+                                            <div class="col-lg-9 col-sm-9">
+                                                <div class="media-body">
+                                                    <p>@item.Title</p>
+                                                    <p>@item.PostedDate.ToString("MMMM dd, yyyy")</p>
+                                                    @item.NewsHighlight
+                                                    <br />
+                                                    <p>
+                                                        <span><a href="@Url.ContentUrl(item.ContentLink)">Read More</a></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </li>
+                                    //counter++;
+                                }
+                                @*@Html.Raw("</li>")*@
+                            </ul>
+                        </div>
+                    </section>
+                }
+            </div>
+            <!--testimonial end-->
+        </div>
+    </div>
+</div>

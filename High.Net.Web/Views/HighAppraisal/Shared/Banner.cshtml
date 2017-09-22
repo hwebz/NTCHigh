@@ -1,0 +1,40 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Web.Business
+@using HAPP = High.Net.Models.HighAppraisal.Pages
+@using ImageVault.EPiServer
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var repository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var dataLocator = ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var siteHomePage = repository.GetAncestors(Model.CurrentPage.ContentLink).Where(x => x.GetType().BaseType == typeof(HAPP.HomePage)).FirstOrDefault() as HAPP.HomePage;
+    var Breadcrumb = dataLocator.GetAncestors(Model.CurrentPage.ContentLink).Skip(2);
+}
+<div class="image-banner">
+    @Html.PropertyFor(x => siteHomePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1400, Height = 419 }, CssClass = "img-responsive" })
+</div>
+
+<!-- revolution slider end -->
+<div class="green-band">
+    <div class="container">
+        <h1 class="banner-title pull-left">@Model.CurrentPage.Name</h1>
+        <div class="sub-menu">
+            @foreach (var item in Breadcrumb)
+            {
+                if (item.ContentLink == siteHomePage.ContentLink)
+                {
+                    <a href="@Url.ContentUrl(item.ContentLink)">Home</a> <span> > </span>
+                }
+                else
+                {
+                    <a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a> <span> > </span>
+                }
+            }
+            <a href="@Url.ContentUrl(Model.CurrentPage.ContentLink)">@Model.CurrentPage.Name</a>
+        </div>
+    </div>
+</div>
+

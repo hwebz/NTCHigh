@@ -1,0 +1,54 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcrete.Pages
+@using High.Net.Core
+@model PageViewModel<EventListingPage>
+@{
+    var _contentRepo = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var eventItems = _contentRepo.GetChildren<EventItemPage>(Model.CurrentPage.ContentLink).Where(x => x.StartDate.Date == DateTime.Now.Date);
+}
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                <div class="section about">
+                    @if (eventItems.Count() > 0)
+                    {
+                        <p>
+                            <strong>Events for @DateTime.Now.ToString("MMMM") @DateTime.Now.Day, @DateTime.Now.Year</strong> <br />
+                            <span>Click the highlighted dates to see events.</span>
+                        </p>                        
+                        foreach (var item in eventItems)
+                        {
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <p><strong><a class="orange-link" href="@Url.ContentUrl(item.ContentLink)">@item.EventTitle</a></strong></p>
+                                    <p>
+                                        <span>@item.StartDate.ToString("MMM dd, yyyy hh:mm tt") - @item.EndDate.ToString("MMM dd, yyyy hh:mm tt")</span> -
+                                        <span>@item.Location</span>
+                                    </p>                                    
+                                    @item.ShortDescription
+                                    <a class="orange-link" href="@Url.ContentUrl(item.ContentLink)">more</a>
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.PropertyFor(x => item.Photo, new { CssClass = "img-responsive" })
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>There are no events to display for @DateTime.Now.ToString("MMMM") @DateTime.Now.Day, @DateTime.Now.Year.</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

@@ -1,0 +1,62 @@
+﻿@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.NewResidential.Blocks
+@using High.Net.Web.Business.Helpers
+@using High.Net.Web.Business
+
+@model UtilityConnectionsBlock
+<div class="residential-services">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="residential-services__header">
+                    <h2>@Html.PropertyFor(x => Model.Title)</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="residential-services__wrapper">
+                @if (Model.ConnectionItems != null && Model.ConnectionItems.FilteredItems.Any())
+                {
+                    foreach (var item in Model.ConnectionItems.FilteredItems)
+                    {
+                        var connectionBlockItem = item.ContentLink.GetContent<UtilityConnectionItemBlock>();
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="residential-services__item">
+                                <a href="@Url.GetContentUrl(connectionBlockItem.Url)" target="_blank" class="utility-icon @Constants.ViewConstants.SiteColorApplyClass">
+                                    @Html.PropertyFor(x => connectionBlockItem.Icon)
+                                </a>
+                                <div class="residential-services__description">
+                                    <a href="@Url.GetContentUrl(connectionBlockItem.Url)" target="_blank">
+                                        <h3 class="@Constants.ViewConstants.SiteColorApplyClass">@Html.PropertyFor(x => connectionBlockItem.Name)</h3>
+                                    </a>
+                                    <div class="residential-services__detail">
+                                        @Html.PropertyFor(x => connectionBlockItem.Detail)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.ConnectionItems != null && Model.ConnectionItems.FilteredItems.Any())
+{
+    <script type="text/javascript">
+        var siteColor = document.getElementById("site-color").value;
+        if (siteColor != "") {
+            var icons = document.querySelectorAll(" a.utility-icon.@Constants.ViewConstants.SiteColorApplyClass");
+            for (var i = 0; i < icons.length; i++) {
+            icons[i].style.backgroundColor = siteColor;
+        }
+
+        var itemTitles = document.querySelectorAll("h3.@Constants.ViewConstants.SiteColorApplyClass");
+        for (var i = 0; i < itemTitles.length; i++) {
+            itemTitles[i].style.color = siteColor;
+        }
+    }
+    </script>
+}

@@ -1,0 +1,325 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using EPiServer.ServiceLocation
+@using ImageVault.Client.Query
+
+@model High.Net.Core.PageViewModel<High.Net.Models.Shared.Pages.PropertyPage>
+@{
+    Layout = "~/Views/Commercial/Layouts/_Site.cshtml";
+    var contentRepository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var contentLocator = ServiceLocator.Current.GetInstance<High.Net.Core.ContentLocator>();
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+
+    var propertyListingPage = contentRepository.GetChildren<High.Net.Models.Shared.Pages.PropertyListingPage>(EPiServer.Web.SiteDefinition.Current.StartPage).FirstOrDefault();
+    var homePage = contentRepository.Get<High.Net.Models.Commercial.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+    var highAssociatesHomePage = contentRepository.GetChildren<High.Net.Models.Associates.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.RootPage).FirstOrDefault();
+
+    var bannerImage = new ImageVault.EPiServer.MediaReference();
+    if (propertyListingPage.BannerImage != null && propertyListingPage.BannerImage.Id > 0)
+    {
+        bannerImage = propertyListingPage.BannerImage;
+    }
+    else
+    {
+        bannerImage = homePage.SiteBannerImage;
+    }
+}
+<!-- Carousel Start -->
+<div class="banner">
+    <div class="banner-img">
+        @Html.PropertyFor(x => bannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+        <div class="main-quote">
+            <div class="container">
+                <h1>@Model.CurrentPage.Name</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Carousel Ends-->
+<!-- Contact Us Strip -->
+<nav class="module contact-us">
+    <div class="container">
+        <div class="row">
+            <div class="contact-us-item col-xs-12 col-sm-4 col-md-5 col-lg-5 cf">
+                <span class="icon address-icon"></span>
+                <span class="icon-txt">@Html.PropertyFor(x => homePage.Address)</span>
+            </div>
+            <div class="contact-us-item col-xs-12 col-sm-3 col-md-2 col-lg-2 cf">
+                <span class="icon mobile-icon"></span>
+                <span class="icon-txt"><a href="tel:@homePage.ContactNumber">@Html.PropertyFor(x => homePage.ContactNumber)</a></span>
+            </div>
+            <div class="contact-us-item col-xs-12 col-sm-4 col-md-4 col-lg-3 cf">
+                <span class="icon email-icon"></span>
+                <span class="icon-txt"><a href="mailto:@homePage.EmailId">@Html.PropertyFor(x => homePage.EmailId)</a></span>
+            </div>
+            <div class="contact-us-item col-xs-12 col-sm-1 col-md-1 col-lg-0 cf">
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Contact Us Strip ends -->
+<div class="spacer"></div>
+
+<div class="container prop-search">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>@Html.PropertyFor(x => x.CurrentPage.PropertyName)</h2>
+            <p>
+                @(Model.CurrentPage.City != null ? Model.CurrentPage.City + ", " : null)@(Model.CurrentPage.County != null ? Model.CurrentPage.County + ", " : null)@Model.CurrentPage.State @Model.CurrentPage.ZipCode
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        @if (Model.CurrentPage.PageImage != null)
+        {
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.PropertyFor(x => x.CurrentPage.PageImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 350, Width = 550, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "properties-img" })
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-md-6">
+            <div class="map-frame">
+                <iframe src="https://maps.google.com/maps?q=@Model.CurrentPage.Coordinates.Latitude,@Model.CurrentPage.Coordinates.Longitude&hl=es;z=14&amp;output=embed" class="colonial-img"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    @if (Model.CurrentPage.PropertyType != "Land")
+                    {
+                        <div class="row">
+                            <div class="col-md-12"><label>Available Sq. Ft.: </label><span> @Html.PropertyFor(x => x.CurrentPage.Size)</span></div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-md-12"><label>Available Acres: </label><span> @Html.PropertyFor(x => x.CurrentPage.Acres)</span></div>
+                    </div>
+                    @if (Model.CurrentPage.ListingType == "For Sale")
+                    {
+                        if (Model.CurrentPage.Price != null && Model.CurrentPage.Price != "0")
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>For Sale </label><br />
+                                    <label>Sale Price: </label><span> $@Html.PropertyFor(x => x.CurrentPage.Price)</span>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        if (Model.CurrentPage.Rent != 0)
+                        {
+                            <div class="row">
+                                <div class="col-md-12"><label>Lease Rate: </label><span> $@Html.PropertyFor(x => x.CurrentPage.Rent)</span></div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 bi">
+                    @*<h2>Building Information</h2>*@
+                    <h2>
+                        @(Model.CurrentPage.PropertyType == "Land" ? "Land" : "Building") Information
+                    </h2>
+                    @if (Model.CurrentPage.WarehouseMfgSqFt != null)
+                    {
+                        <div>
+                            <label>Warehouse Sq. Ft.:</label><span>@Html.PropertyFor(x => x.CurrentPage.WarehouseMfgSqFt)</span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.Construction != null)
+                    {
+                        <div>
+                            <label>Construction:</label><span>@Html.PropertyFor(x => x.CurrentPage.Construction)</span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.CeilingHeight != null)
+                    {
+                        <div>
+                            <label>Ceiling Height:</label><span>@Html.PropertyFor(x => x.CurrentPage.CeilingHeight)</span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.Heating != null)
+                    {
+                        <div>
+                            <label>Heating:</label><span>@Html.PropertyFor(x => x.CurrentPage.Heating)</span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.Electric != null)
+                    {
+                        <div>
+                            <label>Electric:</label>@Html.PropertyFor(x => x.CurrentPage.Electric)<span></span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.Sprinkler != null)
+                    {
+                        <div>
+                            <label>Sprinklers:</label><span>@Html.PropertyFor(x => x.CurrentPage.Sprinkler)</span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.CAM != null)
+                    {
+                        <div>
+                            <label>CAM:</label><span>@Html.PropertyFor(x => x.CurrentPage.CAM)</span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.OverheadDoors != null)
+                    {
+                        <div>
+                            <label>Overhead Doors:</label><span>@Html.PropertyFor(x => x.CurrentPage.OverheadDoors)</span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.DockDoors != null)
+                    {
+                        <div>
+                            <label>Dock Doors:</label><span>@Html.PropertyFor(x => x.CurrentPage.DockDoors)</span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.Water != null)
+                    {
+                        <div>
+                            <label>Water:</label><span>@Html.PropertyFor(x => x.CurrentPage.Water)</span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.Sewer != null)
+                    {
+                        <div>
+                            <label>Sewer</label><span>@Html.PropertyFor(x => x.CurrentPage.Sewer)</span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.Parking != null)
+                    {
+                        <div>
+                            <label>Parking:</label><span>@Html.PropertyFor(x => x.CurrentPage.Parking)</span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.Acres != null)
+                    {
+                        <div>
+                            <label>Acres:</label><span>@Html.PropertyFor(x => x.CurrentPage.Acres)</span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.Zoning != null)
+                    {
+                        <div>
+                            <label>Zoning:</label><span>@Html.PropertyFor(x => x.CurrentPage.Zoning)</span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.Municipality != null)
+                    {
+                        <div>
+                            <label>Municipality:</label><span>@Html.PropertyFor(x => x.CurrentPage.Municipality)</span>
+                        </div>
+                    }
+                    @if (Model.CurrentPage.Location != null)
+                    {
+                        <div>
+                            <label>Location:</label><span>@Html.PropertyFor(x => x.CurrentPage.Location)</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Contact</h2>
+                    @if (Model.CurrentPage.ResponsibleBroker != null && Model.CurrentPage.ResponsibleBroker != "highassoicates" && Model.CurrentPage.ResponsibleBroker != "highassoc")
+                    {
+                        if (highAssociatesHomePage != null)
+                        {
+                            var responsibleBroker = contentLocator.GetAll<High.Net.Models.Associates.Pages.BrokerPage>(highAssociatesHomePage.ContentLink).Where(x => x.EmailAddress != null && x.EmailAddress.ToLower() == (Model.CurrentPage.ResponsibleBroker.ToLower() + "@high.net")).FirstOrDefault();
+                            if (responsibleBroker != null)
+                            {
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        @Html.PropertyFor(x => responsibleBroker.ProfilePhoto, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 85, Height = 115, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive profile-img" })
+                                        @responsibleBroker.Name    <br />
+                                        <a href="tel:@responsibleBroker.SkypeContact">@responsibleBroker.SkypeContact</a>    <br />
+                                        <a href="mailto:@responsibleBroker.EmailAddress">@responsibleBroker.EmailAddress</a><br />
+                                        <a href="@Url.ContentUrl(responsibleBroker.ContentLink)" target="@(EPiServer.Web.SiteDefinition.Current.StartPage != highAssociatesHomePage.ContentLink ? "_blank" : null)">Profile</a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                    else if (Model.CurrentPage.ResponsibleBroker != null && (Model.CurrentPage.ResponsibleBroker == "highassoicates" && Model.CurrentPage.ResponsibleBroker != "highassoc"))
+                    {
+                        if (highAssociatesHomePage != null)
+                        {
+                            var responsibleBroker = contentLocator.GetAll<High.Net.Models.Associates.Pages.BrokerPage>(highAssociatesHomePage.ContentLink).Where(x => x.EmailAddress != null && x.EmailAddress.ToLower() == "lgood@high.net").FirstOrDefault();
+                            if (responsibleBroker != null)
+                            {
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        @Html.PropertyFor(x => responsibleBroker.ProfilePhoto, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 85, Height = 115, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive profile-img" })
+                                        @responsibleBroker.Name    <br />
+                                        <a href="tel:@responsibleBroker.SkypeContact">@responsibleBroker.SkypeContact</a>    <br />
+                                        <a href="emailto:@responsibleBroker.EmailAddress">@responsibleBroker.EmailAddress</a><br />
+                                        <a href="@Url.ContentUrl(responsibleBroker.ContentLink)" target="@(EPiServer.Web.SiteDefinition.Current.StartPage != highAssociatesHomePage.ContentLink ? "_blank" : null)">Profile</a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                    else if (Model.CurrentPage.ResponsibleBroker != null && (Model.CurrentPage.ResponsibleBroker != "highassoicates" && Model.CurrentPage.ResponsibleBroker == "highassoc"))
+                    {
+                        if (highAssociatesHomePage != null)
+                        {
+                            var brokerListPage = contentLocator.GetAll<High.Net.Models.Associates.Pages.BrokerListPage>(highAssociatesHomePage.ContentLink).FirstOrDefault();
+                            <div class="row">
+                                <div class="col-md-8">
+                                    @Html.PropertyFor(x => highAssociatesHomePage.SiteLogo, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 300, Height = 55 }, CssClass = "img-responsive" })
+                                </div>
+                                <div class="col-md-6">
+                                    Leasing Department   <br />
+                                    @foreach (var item in highAssociatesHomePage.LancasterNo.Split(','))
+                                    {
+                                        <a href="tel:@item">@item</a>    <br />
+                                    }
+                                    <a href="emailto:highassociates@high.net">highassociates@high.net</a><br />
+                                    @if (brokerListPage != null)
+                                    {
+                                        <a href="@Url.ContentUrl(brokerListPage.ContentLink)" target="@(EPiServer.Web.SiteDefinition.Current.StartPage != highAssociatesHomePage.ContentLink ? "_blank" : null)">Profile</a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    @if (Model.CurrentPage.VideoURL != null)
+                    {
+                        <h2>Video</h2>
+                        <iframe src="@Model.CurrentPage.VideoURL" class="" style="width:100%;height:300px"></iframe>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="spacer"></div>
+            @if (Model.CurrentPage.PDFDocument != null)
+            {
+                var propertyDetail = client.Load<ImageVault.Common.Data.Media>(Model.CurrentPage.PDFDocument.Id).ToList();
+                if (propertyDetail.Count > 0)
+                {
+                    <a href="@Url.ContentUrl(propertyDetail.FirstOrDefault().Url)" target="_blank"><h2>Full Property Details</h2></a>
+                }
+            }
+            @Html.PropertyFor(x => propertyListingPage.PropertyDeclaration)
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>
+<div class="spacer"></div>

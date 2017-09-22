@@ -1,0 +1,22 @@
+﻿extends ../layouts/root.jade
+include ../blocks/shared/text-content.jade
+
+block title
+    title FAQ
+
+block content
+    div#residential-wrapper
+        // Header block
+        include ../blocks/shared/header.jade
+
+        // Banner block
+        include ../blocks/shared/banner.jade
+
+        // Text content block
+        +text_contents_("Frequently Asked Questions")
+
+        // FAQ block
+        include ../blocks/shared/faq.jade
+    
+        // Footer type 2 block
+        include ../blocks/shared/footer-type-2.jade

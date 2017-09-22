@@ -1,0 +1,54 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using EPiServer.Core
+@using HAPP = High.Net.Models.HighAppraisal.Pages
+@using HA = High.Net.Models.Associates.Pages
+
+@model IPageViewModel<BasePageData>
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var repository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    HAPP.HomePage currentHomepage;
+    if (Model.CurrentPage.GetType().BaseType == typeof(HAPP.HomePage))
+    {
+        currentHomepage = contentLoader.Get<HAPP.HomePage>(Model.CurrentPage.ContentLink) as HAPP.HomePage;
+    }
+    else
+    {
+        currentHomepage = repository.GetAncestors(Model.CurrentPage.ContentLink).Where(x => x.GetType().BaseType == typeof(HAPP.HomePage)).FirstOrDefault() as HAPP.HomePage;
+    }
+}
+
+@*<header class="header inner-page">
+    <div class="container">
+        <div class="top-header">
+            <h5>
+                <img src="~/Static/high-apprisal/img/phone.png" alt="" />&nbsp;<a href="tel:@currentHomepage.PhoneNumber">@Html.PropertyFor(x => currentHomepage.PhoneNumber)</a></h5>
+            <div id="white">
+                @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(currentHomepage.SearchPageUrl), @Class = "navbar-form navbar-right" }))
+                {
+                    <input name="q" type="text" size="40" placeholder="Search..." />
+                    <a href="#"><span class="glyphicon glyphicon-search"></span></a>
+                }
+            </div>
+        </div>
+    </div>
+</header>*@
+
+<header class="header inner-page">
+    <div class="container">
+        <div class="top-header">
+            <h5>
+                <img src="~/Static/high-apprisal/img/phone.png" alt="" />&nbsp;<a href="tel:@currentHomepage.PhoneNumber">@Html.PropertyFor(x => currentHomepage.PhoneNumber)</a></h5>
+            <div id="white">
+                @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(currentHomepage.SearchPageUrl), @Class = "" }))
+                {
+                    <input name="q" type="text" size="40" placeholder="Search..." />
+                    <button class="glyphicon glyphicon-search"></button>
+                }
+            </div>
+        </div>
+    </div>
+</header>

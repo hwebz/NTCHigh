@@ -1,0 +1,25 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Core
+@using ImageVault.Client
+@model FeaturePositionBlock
+@{
+    var client = ClientFactory.GetSdkClient();
+    var backgroundImage = Model.BackgroundImage != null ? client.Load<ImageVault.Common.Data.WebMedia>(Model.BackgroundImage.Id).FirstOrDefault() : null;
+}
+
+<div class="feaured-pos" style="background-image: url(@(backgroundImage != null ? Url.ContentUrl(backgroundImage.Url) : ""))">
+    <div class="container">
+        <div class="feaured-pos-head">
+            <h2>@Model.Title</h2>
+            <a href="@Url.ContentUrl(Model.SeeAllPositionLink)">SEE ALL POSITIONS</a>
+            <div class="clearfix"></div>
+        </div>
+        @Html.PropertyFor(x => x.FeaturePositionItems, new { CssClass = "row", ChildrenCssClass = "reborder", tag = Global.ContentAreaTags.OneThirdWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.ThreeFourthWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth, Global.ContentAreaTags.OneFifthWidth, Global.ContentAreaTags.OneTwelfthWidth } })
+        <a href="@Url.ContentUrl(Model.SeeAllPositionLink)" class="see-all">
+            SEE ALL POSITIONS
+        </a>
+    </div>
+</div>
+<div class="spacer"></div>

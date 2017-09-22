@@ -1,0 +1,26 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.HighHotels.Pages
+@model PageViewModel<ContentPage>
+
+@Html.Partial("~/Views/HighHotels/Shared/Banner.cshtml")
+<div class="container">
+    @Html.PropertyFor(m => m.CurrentPage.PageContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+</div>
+
+@section SiteFooter
+{
+    <script>
+        $(function () {
+            if ($('#rightCarousel .carousel-inner .item').size() <= 1) {
+                $('#rightCarousel .carousel-control').hide();
+            }
+        });
+
+        $(function () {
+            if ($('#leftCarousel .carousel-inner .item').size() <= 1) {
+                $('#leftCarousel .carousel-control').hide();
+            }
+        });
+    </script>
+}

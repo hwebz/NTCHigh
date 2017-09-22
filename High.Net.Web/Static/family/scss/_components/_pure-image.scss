@@ -1,0 +1,14 @@
+﻿$pre: 'leadership-pure-image';
+$block-height: 450px;
+$block-height-tablet: 275px;
+
+.#{$pre} {
+    @include block-spacing($block-spacing, $block-spacing-tablet);
+    height: $block-height;
+    background: transparent url('../images/pure-image.jpg') no-repeat center center;
+    background-size: cover;
+
+    @include respond-to-max($tabletSize) {
+        height: $block-height-tablet;
+    }
+}

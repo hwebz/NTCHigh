@@ -1,0 +1,324 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighConcrete.Pages
+
+@model PageViewModel<HomePage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var contentLocater = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var VideoListPage = contentLoader.GetChildren<VideoListingPage>(Model.CurrentPage.ContentLink).FirstOrDefault();
+    var homePage = contentLoader.Get<HomePage>(PageReference.StartPage);
+    var projectCategoryPage = contentLocater.GetAll<ProjectCategoryPage>(PageReference.StartPage).FirstOrDefault();
+    var portfolioItemCount = homePage.PorfolioProjectCount > 0 ? homePage.PorfolioProjectCount : 1;
+    var VideoCount = homePage.VideoCount > 0 ? homePage.VideoCount : 1;
+
+
+}
+@Html.FullRefreshPropertiesMetaData(new[] { "QuickLinks" })
+@Html.Partial("~/Views/HighConcrete/Shared/Carousel.cshtml", Model)
+<div class="">
+    <div class="module" @Html.EditAttributes(x => x.CurrentPage.QuickLinksContent)>
+        @if (Model.CurrentPage.QuickLinksContent != null)
+        {
+            int i = 1;
+            <ul class="nav nav-tabs about-product" role="tablist">
+                @foreach (var contentItem in Model.CurrentPage.QuickLinksContent.Items)
+                {
+                    var item = contentLoader.Get<High.Net.Models.HighConcrete.Blocks.QuickLinkBlock>(contentItem.ContentLink);
+                    if (i == 1)
+                    {
+                        <li class="active" role="presentation"><a href="#@item.GetHashCode()" aria-controls="home" role="tab" data-toggle="tab">@item.Heading</a> <span class="caret pannel-caret"></span></li>
+                        i++;
+                    }
+                    else
+                    {
+                        <li role="presentation"><a href="#@item.GetHashCode()" aria-controls="home" role="tab" data-toggle="tab">@item.Heading</a> <span class="caret pannel-caret"></span></li>
+                    }
+                }
+            </ul>
+            int j = 1;
+            <div class="tab-content">
+                @foreach (var contentItem in Model.CurrentPage.QuickLinksContent.Items)
+                {
+                    var item = contentLoader.Get<High.Net.Models.HighConcrete.Blocks.QuickLinkBlock>(contentItem.ContentLink);
+                    if (item.PlaceHolder != null)
+                    {
+
+                        <div role="tabpanel" class="@(j == 1 ? "tab-pane fade in active custom-tab" : "tab-pane fade custom-tab") " id="@item.GetHashCode()">
+                            <div class="row">
+                                @foreach (var subitem in item.PlaceHolder.Items)
+                                {
+                                    var childItem = contentLoader.Get<High.Net.Models.HighConcrete.Blocks.ImageTextBlock>(subitem.ContentLink);
+
+                                    if (childItem != null)
+                                    {
+                                        if (childItem.Image == null)
+                                        {
+                                            if (j == 1)
+                                            {
+                                                <div class="col-xs-12">
+                                                    <div class="panels-info">
+                                                        @Html.PropertyFor(x => childItem.Text)
+                                                    </div>
+                                                </div>
+                                                j++;
+                                            }
+                                            else
+                                            {
+                                                <div class="col-xs-12">
+                                                    <div class="panels-info">
+                                                        @Html.PropertyFor(x => childItem.Text)
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                                                <div class="panels-info">
+                                                    @if (childItem.OpenLinkInNewWindow)
+                                                    {
+                                                        <div class="media-top">
+                                                            <a href="@Url.ContentUrl(childItem.TargetLink)" target="_blank">
+                                                                @Html.PropertyFor(x => childItem.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 116, Width = 116, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "media-object img-responsive" })
+                                                            </a>
+                                                        </div>
+                                                        <div class="media-body project-copy">
+                                                            <a href="@Url.ContentUrl(childItem.TargetLink)" target="_blank">
+                                                                <h3 class="media-heading bold">@childItem.Text</h3>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="media-top">
+                                                            <a href="@Url.ContentUrl(childItem.TargetLink)">
+                                                                @Html.PropertyFor(x => childItem.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 116, Width = 116, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "media-object img-responsive" })
+                                                            </a>
+                                                        </div>
+                                                        <div class="media-body project-copy">
+                                                            <a href="@Url.ContentUrl(childItem.TargetLink)">
+                                                                <h3 class="media-heading bold">@childItem.Text</h3>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        }
+
+    </div>
+</div>
+<div class="spacer"></div>
+
+<div class="">
+    @if (VideoListPage != null)
+    {
+        var VideoList = contentLoader.GetChildren<VideoItemPage>(VideoListPage.ContentLink).OrderByDescending(x => x.Created).Take(VideoCount);
+        <h2 class="sub-header">@Html.PropertyFor(x=>x.CurrentPage.VideoTitle)</h2>
+        <div class="row">
+            @if (VideoList != null)
+            {
+                foreach (var item in VideoList)
+                {
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="media video">
+                            <div class="media-left">
+                                <a href="@Url.ContentUrl(item.ContentLink)">
+                                    <img class="media-object" src="@Url.ContentUrl(dataLocator.GetYouTubeThumbnail(item.VideoLink))" />
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h3 class="media-heading">@item.Heading</h3>
+                                <p>@item.IntroText</p>
+                                <p class="cf pull-right"><a class="read-more-link" href="@Url.ContentUrl(item.ContentLink)">read more...</a></p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    }
+</div>
+<!-- Listing Module Ends-->
+<div class="spacer"></div>
+
+<!-- request Quote band start-->
+<div class="orange-band">
+    <div class="">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <p class="req-quote">@Html.PropertyFor(x => x.CurrentPage.QuoteText)</p>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <a href="@Url.ContentUrl(Model.CurrentPage.GetQuoteLink)" @Html.EditAttributes(x => x.CurrentPage.GetQuoteLink) class="btn-quote">Get a Quote</a>
+                <a href="@Url.ContentUrl(Model.CurrentPage.RequestLink)" @Html.EditAttributes(x => x.CurrentPage.RequestLink) class="btn-quote">Request For Sample</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>
+
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                @Html.PropertyFor(x => x.CurrentPage.SocialContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.OneThirdWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>
+
+<div class="">
+    <div class="portfolio">
+        @if (projectCategoryPage != null)
+        {
+            var projectListBarFirst = contentLoader.GetChildren<ProjectListingPage>(projectCategoryPage.ContentLink);
+            <h2 class="sub-header">PORTFOLIO</h2>
+            if (projectListBarFirst != null)
+            {
+                <ul id="filterOptions" class="nav nav-tabs all-portfolio abc">
+                    <li class="active"><a href="#" class="all">All</a></li>
+                    @foreach (var ListBarFirst in projectListBarFirst)
+                    {
+                        if (dataLocator.CheckForProjectPages(ListBarFirst.ContentLink))
+                        {
+                            <li>
+                                <a href="#" class="@(ListBarFirst.Name.Replace(" ", ""))">@ListBarFirst.Name</a>
+                                @{var ProjectListBarSecond = contentLoader.GetChildren<ProjectListingPage>(ListBarFirst.ContentLink).ToList();
+                                if (ProjectListBarSecond.Count != 0)
+                                {
+                                    <div class="sub-items double-line">
+                                        <ul class="sub-list nav nav-tabs all-portfolio  inner-nav">
+                                            @foreach (var item in ProjectListBarSecond)
+                                            {
+                                                if (dataLocator.CheckForProjectPages(item.ContentLink))
+                                                {
+                                                    <li><a href="#" class="@(item.Name.Replace(" ", ""))">@item.Name</a></li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                }}
+                            </li>
+                        }
+                    }
+                </ul>
+            }
+        }
+        @if (projectCategoryPage != null)
+        {
+            var projectListBarFirst = contentLoader.GetChildren<ProjectListingPage>(projectCategoryPage.ContentLink);
+            if (projectListBarFirst != null)
+            {
+
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div id="ourHolder">
+                        @foreach (var ListBarFirst in projectListBarFirst)
+                        {
+                            var ProjectListBarSecond = contentLoader.GetChildren<ProjectListingPage>(ListBarFirst.ContentLink).ToList();
+                            if (ProjectListBarSecond.Count != 0)
+                            {
+                                foreach (var ListBarSecond in ProjectListBarSecond)
+                                {
+                                    var ProjectItemPages = contentLocater.GetAll<ProjectItemPage>(ListBarSecond.ContentLink).OrderByDescending(x => x.Created).Take(portfolioItemCount);
+                                    <div class="item @(ListBarFirst.Name.Replace(" ", "")) @(ListBarSecond.Name.Replace(" ", ""))">
+                                        <div class="">
+                                            @foreach (var item in ProjectItemPages)
+                                            {
+                                                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                                                    <a href="@Url.ContentUrl(item.ContentLink)" target="_blank">
+                                                        <div class="media list-item">
+                                                            <div class="media-top port">
+                                                                @*<a href="@Url.ContentUrl(item.ContentLink)" target="_blank">*@
+                                                                @Html.PropertyFor(x => item.PageImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 246, Width = 242, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "media-object img-responsive" })
+                                                                @*</a>*@
+                                                            </div>
+                                                            <div class="media-body project-copy port">
+                                                                <h3 class="media-heading">@item.Name</h3>
+                                                                <p>@item.IntroText</p>
+                                                                <p class="cf">@*<a href="@Url.ContentUrl(item.ContentLink)" target="_blank" class="read-more-link">*@read more...@*</a>*@</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+<div class="spacer"></div>
+@section SiteFooter
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#filterOptions li a').click(function () {
+                // fetch the class of the clicked item
+                var ourClass = $(this).attr('class');
+
+                // reset the active class on all the buttons
+                $('#filterOptions li').removeClass('active');
+                // update the active state on our clicked button
+                $(this).parent().addClass('active');
+
+                if (ourClass == 'all') {
+                    // show all our items
+                    $('#ourHolder').children('div.item').show();
+                }
+                else {
+                    // hide all elements that don't share ourClass
+                    $('#ourHolder').children('div:not(.' + ourClass + ')').hide();
+                    // show all elements that do share ourClass
+                    $('#ourHolder').children('div.' + ourClass).show();
+                }
+                return false;
+            });
+
+            $('ul.all-portfolio.inner-nav a').click(function () {
+                $(this).parent().parent().parent().parent().addClass('active');
+            });
+        });
+    </script>
+    <script>
+        var maxHeight = 0;
+        $(".media-body.project-copy.port").each(function () {
+            if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+        });
+
+        $(".media-body.project-copy.port").height(maxHeight);
+
+
+        var maxHeight = 0;
+        $(".media-top.port").each(function () {
+            if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+        });
+
+        $(".media-top.port").height(maxHeight);
+    </script>
+}
+
+
+

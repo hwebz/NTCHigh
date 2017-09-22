@@ -1,0 +1,64 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Shared.Pages
+@using High.Net.Core
+@using ImageVault.EPiServer
+
+@model PageViewModel<NewsListingPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var NewsItems = dataLocator.GetNewsFeed(Model.CurrentPage);
+}
+@Html.Partial("~/Views/HighNet/Shared/Banner.cshtml", Model)
+<div class="main">
+    <div class="container white-section">
+        <div class="news">
+            @if (NewsItems != null)
+            {
+                foreach (var item in NewsItems)
+                {
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="news-right-img">
+                                @if (item.NewsImage != null)
+                                {
+                                    <div class="cal">
+                                        @Html.PropertyFor(x => item.NewsImage, new { PropertySettings = new PropertyMediaSettings { Width = 300, Height = 200 }, CssClass = "img-responsive" })
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="cal">
+                                        <img src="~/Static/global/images/news-placeholder-360X200.png" class="img-responsive placeholder" />
+                                    </div>
+                                }
+                                <div class="date">
+                                    <span class="glyphicon glyphicon-calendar news">
+                                        <span class="date-text">@item.PostedDate.ToString("MMMM dd, yyyy")</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="img-quote text-center">
+                                <p>@item.ImageQuote</p>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h2>@item.Title</h2>
+                            @{
+                                var SitePage = contentLoader.GetAncestors(item.ContentLink).Where(x => x.GetType().BaseType.Name == "HomePage").FirstOrDefault();
+                                if (SitePage != null)
+                                {
+                                    <b>@SitePage.Name</b>
+                                }
+                            }
+                            <p>@item.NewsHighlight</p>
+                            <a class="detail-link" href="@Url.ContentUrl(item.ContentLink)">more +</a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

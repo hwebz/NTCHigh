@@ -1,0 +1,33 @@
+﻿@using High.Net.Core
+@using High.Net.Models.HighNet.Pages
+@using EPiServer.ServiceLocation
+
+@model PageViewModel<HomePage>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var dataLocator = ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+}
+<div class="main">
+    @Html.PropertyFor(x=>x.CurrentPage.Content)    
+</div>
+
+@section SiteFooter{
+    <script>
+        $(function () {
+            $(".gallery-pager a").click(function () {
+                if ($("#vid_frame").length>0) {
+                    $("#vid_frame").attr('src', $(this).attr('src'));
+                } else {
+                    var iframe = document.createElement("iframe");
+                    iframe.setAttribute("id", "vid_frame");
+                    iframe.setAttribute("frameborder", "0");
+                    iframe.setAttribute("allowfullscreen", "");
+                    iframe.setAttribute("src", $(this).attr('src'));
+
+                    $(".youtube-wrapper").empty();
+                    $(".youtube-wrapper").append(iframe);
+                }
+            });
+        });
+    </script>
+}

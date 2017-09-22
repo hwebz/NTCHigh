@@ -1,0 +1,7 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Humanity.Pages
+
+@model PageViewModel<ContentPage>
+
+@Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })

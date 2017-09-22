@@ -1,0 +1,19 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Core
+@model LogoWallBlock
+
+
+<div class="logo-wall">
+    <h2>@Html.PropertyFor(x => x.WallHeading)</h2>
+    @Html.PropertyFor(x => x.LogoWallItems, new { CssClass = "row logo-items", ChildrenCssClass = "col-xs-6", tag = Global.ContentAreaTags.OneFourthWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.ThreeFourthWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth, Global.ContentAreaTags.OneFifthWidth, Global.ContentAreaTags.OneTwelfthWidth } })
+    @if (Model.LogoWallItems != null)
+    {
+        if (Model.LogoWallItems.Count > 12)
+        {
+            <button id="loadMore" class="get-in-touch-btn no-margin">LOAD MORE</button>
+        }
+    }    
+</div>
+<div class="spacer"></div>

@@ -1,0 +1,43 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.Shared.Pages
+@model PageViewModel<NewsItemPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+<div class="container">
+    <div class="common-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-content news-details">
+                    <div class="row">
+                        <div class="col-sm-2 news-img-new">
+                            <div class="newsdetail-sec-img">
+                                @if (Model.CurrentPage.NewsImage != null)
+                                {
+                                    @Html.PropertyFor(x => x.CurrentPage.NewsImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 150, Height = 150 }, CssClass = "img-responsive" })
+                                }
+                                else
+                                {
+                                    <img src="~/Static/global/images/news-placeholder-150X150.jpg" class="img-responsive placeholder" />
+                                }
+                                @if (Model.CurrentPage.ImageQuote != null)
+                                {
+                                    <p>@Model.CurrentPage.ImageQuote</p>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="newsdetail-para">
+                                <h2><strong>@Html.PropertyFor(x => x.CurrentPage.Title)</strong></h2>
+                                <p class="date-month">on <span class="glyphicon glyphicon-calendar"></span> @Model.CurrentPage.PostedDate.ToString("MMMM dd, yyyy") </p>
+                                @Html.PropertyFor(x => x.CurrentPage.NewsContent)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

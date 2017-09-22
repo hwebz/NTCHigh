@@ -1,0 +1,41 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Rollover.Pages
+@using EPiServer.ServiceLocation
+
+@model PageViewModel<ServiceListingPage>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var ServiceItems = contentLoader.GetChildren<ServiceItemPage>(Model.CurrentPage.ContentLink);
+}
+@section SiteHeader{
+    <style>
+        .image-services {
+            padding: 0 0 15px;
+        }
+    </style>
+}
+<div class="spacer"></div>
+<!-- section content start-->
+<div class="main-section">
+    <div class="container">
+        <div class="content services">
+            <div class="row">
+                @if (ServiceItems != null)
+                {
+                    foreach (var item in ServiceItems)
+                    {
+                        <div class="col-md-4 col-sm-4">
+                            <div class="image-services">
+                                @Html.PropertyFor(x => item.ServiceImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 235 }, CssClass = "img-responsive" })
+                                <h3>@Html.PropertyFor(x => item.Heading)</h3>
+                                @Html.PropertyFor(x => item.ServiceDescription)
+                                <a href="@Url.ContentUrl(item.ContentLink)" class="read-more">Read more...</a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+﻿@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Core
+@using High.Net.Core.Helpers
+
+@model ImageTextBlock
+
+<div class="leadership-pure-image">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="leadership-pure-image__title">
+                    <h1 @Html.EditAttributes(x=>x.Heading)>@Model.Heading.ToLineBreakString()</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="leadership-pure-image__image">
+                    @{ var largeImageUrl = MediaHelpers.GetImageUrl(Model.Image);}
+                    @Html.PropertyFor(x => x.Image, new {CssClass = "image-lightbox",dataImage= largeImageUrl })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web
+@using EPiServer.ServiceLocation
+@using High.Net.Models.StructureCareUs.Pages
+@using High.Net.Core
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var homePage = contentLoader.Get<High.Net.Models.StructureCareUs.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+
+<div class="footer">
+    <div class="container">
+        <div class="footer-links cf">
+            <ul class="footer-links-wrapper">
+                <li class="item">
+                    <a href="@Url.ContentUrl(SiteDefinition.Current.StartPage)">Home</a>
+                </li>
+                @Html.MenuList(SiteDefinition.Current.StartPage,
+                @<li class="item">
+                    @Html.PageLink(item.Page, null, new { @class = item.Selected ? "active" : null })
+                </li>)
+            </ul>
+            <ul class="footer-links-wrapper address">
+                <li class="item">@Html.PropertyFor(m => homePage.FooterDetails)</li>
+                <li class="item">@Html.PropertyFor(m => homePage.ContactAddress)</li>
+                @if (homePage.FooterPages != null)
+                {
+                    foreach (var item in homePage.FooterPages)
+                    {
+                    <li class="item">
+                        <a href="@Url.ContentUrl(item.Href)">@item.Text</a>
+                    </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>

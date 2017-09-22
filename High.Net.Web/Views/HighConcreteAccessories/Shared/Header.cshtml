@@ -1,0 +1,62 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.HighConcreteAccessories.Pages
+@using ImageVault.EPiServer
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var homePage = contentLoader.Get<HomePage>(PageReference.StartPage);
+}
+
+<div class="header">
+    <div class="container">
+        <div class="header-top">
+            <div class="right">
+                <a href="@homePage.ViewCartURL">View Cart</a>
+                <a href="@homePage.MyAccountUrl">My Account</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="header-middle">
+            <div class="main-logo">
+                <a href="/">
+                    @Html.PropertyFor(x => homePage.SiteLogo, new { PropertySettings = new PropertyMediaSettings { Width=253, Height = 44 } })
+                </a>
+            </div>
+            <div class="tools">
+                  @Html.PropertyFor(x => homePage.HeaderImage, new { PropertySettings = new PropertyMediaSettings { Width=300, Height = 44 }, CssClass = "img-responsive" })
+            </div>
+            <div class="search">
+                <div class="searchcotainer span4">
+                    <form method="get" class="form-inline" action="https://store.highconcreteaccessories.com/catalogsearch/result/" id="search_mini_form">
+                        <div class="form-search form-group">
+                            <label for="search">Search:</label>
+                            <input type="text" maxlength="128" class="input-text form-control" value="" name="q" id="search" autocomplete="off">
+                            <button class="button btn btn-default btn-search" title="Search" type="submit"><span><span>Search</span></span></button>
+                            <div class="search-autocomplete" id="search_autocomplete" style="display: none;"></div>
+                            <script type="text/javascript">
+                                //&lt;![CDATA[
+                                    var searchForm = new Varien.searchForm('search_mini_form', 'search', 'Search entire store here...');
+                                    searchForm.initAutocomplete('https://store.highconcreteaccessories.com/catalogsearch/ajax/suggest/', 'search_autocomplete');
+                                //]]&gt;
+                            </script>
+                        </div>
+                    </form>
+
+
+                </div>
+                @*<form class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="" placeholder="Search entire store here" />
+                    </div>
+                    <button type="submit" class="btn btn-default btn-search">Search</button>
+                </form>*@              
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="header-bottom">
+            @Html.Partial("~/Views/HighConcreteAccessories/Shared/Navigation.cshtml", Model)
+        </div>
+    </div>
+</div>

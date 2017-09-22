@@ -1,0 +1,11 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighNet.Blocks
+
+
+@model StaticQuoteBlock
+
+<div class="re-banner-tag" style="background-image: linear-gradient(right, transparent 33%, @Model.BackGroundColor 10px, @Model.BackGroundColor 100%);background-image: -webkit-linear-gradient(right, transparent 33%,@Model.BackGroundColor 10px,@Model.BackGroundColor 100%); background-image: -moz-linear-gradient(right, transparent 33%,@Model.BackGroundColor 10px, @Model.BackGroundColor 100%); background-image: -ms-linear-gradient(right, transparent 33%, @Model.BackGroundColor 10px, @Model.BackGroundColor 100%); background-image: -o-linear-gradient(right, transparent 33%,@Model.BackGroundColor 10px,@Model.BackGroundColor 100%);">
+    <h4 style="color:@Model.FontColor">@Html.PropertyFor(x => x.Text)</h4>
+</div>

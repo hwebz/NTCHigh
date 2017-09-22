@@ -1,0 +1,60 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighHotels.Pages
+@using High.Net.Core
+@using EPiServer.DataAbstraction
+@using High.Net.Models.Constants
+@model PageViewModel<PortfolioListPage>
+@{
+    var ContentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+    var ContentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var Brands = ContentLocator.GetCategories(PropertyCategories.HotelsByBrand);
+    var States = ContentLocator.GetCategories(PropertyCategories.HotelsByState);
+    var portfolioItems = ContentLoader.GetChildren<PortfolioPage>(Model.CurrentPage.ContentLink);
+}
+@Html.Partial("~/Views/HighHotels/Shared/Banner.cshtml")
+
+<!--property end-->
+<div class="container">
+    <div class="portfolio-page">
+
+        <div class="row">
+            <div class="col-md=12 col-sm-12">
+                <div>
+                    <a href="@Url.ContentUrl(Model.CurrentPage.ContentLink)?query=@Brands.Name">@Brands.Description</a> |
+                    <a href="@Url.ContentUrl(Model.CurrentPage.ContentLink)?query=@States.Name">@States.Description</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>@(Convert.ToString(ViewBag.FilterBy) == PropertyCategories.HotelsByBrand ? Brands.Description : States.Description)</h3>
+            </div>
+        </div>
+        @if (portfolioItems != null)
+        {
+            foreach (var item in (Convert.ToString(ViewBag.FilterBy) == PropertyCategories.HotelsByBrand) ? portfolioItems.GroupBy(x => x.Brand) : portfolioItems.GroupBy(x => x.State))
+            {
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <h3 class="portfolio-heading">@item.Key</h3>
+                    </div>
+                    @foreach (var portfolios in (Convert.ToString(ViewBag.FilterBy) == PropertyCategories.HotelsByBrand) ? item.GroupBy(x => x.State) : item.GroupBy(x => x.Brand))
+                    {
+                        foreach (var portfolio in portfolios)
+                        {
+                            <div class="col-md-4 col-sm-4">
+                                <div class="portfolio-content">
+                                    <h4 class="portfolio-sub-heading">@portfolios.Key</h4>
+                                    @portfolio.Address
+                                </div>
+                            </div>
+                            <div class="spacer"></div>
+                        }
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>

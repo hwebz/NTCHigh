@@ -1,0 +1,15 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.GreenfieldArchitects.Blocks
+
+@model TextBlock
+
+<div class="row about">
+    <div class="col-md-12">
+        @if (Model.Heading != null)
+        {
+            <h3>@Html.PropertyFor(x => x.Heading)</h3>
+        }
+        @Html.PropertyFor(x => x.Description)
+    </div>
+</div>

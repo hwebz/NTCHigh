@@ -1,0 +1,287 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.Web.Mvc.Html
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Constants
+@model High.Net.Models.Shared.ViewModels.PropertyPageModel
+@{
+    var ContentLocator = ServiceLocator.Current.GetInstance<ContentLocator>();
+    var propertyType = ContentLocator.GetCategories(PropertyCategories.PropertyType);
+    var Location = ContentLocator.GetCategories(PropertyCategories.Location);
+    var ListingType = ContentLocator.GetCategories(PropertyCategories.ListingType);
+    var corporateCenters = High.Net.Models.Business.SelectionFactory.SelectCorporateCenter.GetCorporateCenter();
+
+    var propertyListPage = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>()
+        .Get<High.Net.Models.Shared.Pages.PropertyListingPage>(Model.CurrentPage.ContentLink);
+
+    bool IsGlobal = (Boolean)ViewData["IsGlobal"];
+
+    var searchresult = Model.propertySearchForm.SearchResult;
+    if (propertyListPage.IsAllCorporateCenterOnly)
+    {
+        searchresult = searchresult.Where(prop => prop.CorporateCenter != null);
+    }
+
+
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var PropertyListingPage = contentLoader.GetChildren<High.Net.Models.Shared.Pages.PropertyListingPage>(ContentReference.StartPage).FirstOrDefault();
+
+    var PropertyTypePage = contentLoader.GetChildren<High.Net.Models.Shared.Pages.PropertyTypePage>(PropertyListingPage.ContentLink);
+    var tiletype = (Request.QueryString["PropertyType"] != null) ? PropertyTypePage.FirstOrDefault(t => t.Name == Request.QueryString["PropertyType"].ToString()) : null;
+}
+<style>
+    .criteria:after {
+        font-family: 'Glyphicons Halflings';
+        content: "\E252";
+        float: right;
+        color: white;
+    }
+
+    .criteria.collapsed:after {
+        content: "\E250";
+    }
+</style>
+<div class="spacer"></div>
+<div class="container">
+
+    @if (tiletype != null && tiletype.TileOverlayLink != null && tiletype.IsOverrideContent == true)
+    {
+        @Html.Raw(tiletype.TileOverlayLink);
+    }
+    else
+    {
+
+        <button type="button" class="btn btn-info criteria collapsed" data-toggle="collapse" data-target="#demo">
+            <h3>Search Criteria</h3>
+            @*<span class="caret"></span>*@
+        </button>
+        using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get,
+            new { @action = Url.ContentUrl(propertyListPage.ContentLink) }))
+        {
+            <div id="demo" class="collapse">
+                <div class="search-criteria">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="proprty-type">
+                                <div class="checkbox">
+                                    @if (ListingType != null)
+                                {
+                                    foreach (var item in ListingType.Categories)
+                                    {
+                                <input type="checkbox" name="ListingType" id="@item.Name" value="@item.Name"
+                                       @(Model.propertySearchForm.ListingType != null && Model.propertySearchForm.ListingType.Contains(item.Name) ? "checked" : "")>
+
+                                <label for="@item.Name">@item.Description</label>
+                                    }
+                                }
+                                </div>
+                                <h4>Property Type:</h4>
+                                @if (propertyType != null)
+                            {
+                                foreach (var item in propertyType.Categories)
+                                {
+                            <input type="checkbox" id="@item.Name" name="propertyType" value="@item.Name" @(Model.propertySearchForm.PropertyType != null && Model.propertySearchForm.PropertyType.Contains(item.Name) ? "checked" : "")>
+                            <label for="@item.Name">@item.Description</label><br>
+                                }
+                            }
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-sm-8">
+                            <div class="search-proprty">
+                                <div class="row">
+                                    @if (IsGlobal)
+                                {
+                                <div class="col-md-5  col-sm-5 ">
+                                    <div class="form-group search">
+                                        <label>Corporporate Center</label>
+                                        <select class="form-control search" name="RootPage">
+                                            <option value="@PageReference.RootPage">All</option>
+                                            @if (corporateCenters != null)
+                                                {
+                                                    foreach (var item in corporateCenters)
+                                                    {
+                                                <option value="@item.Value" @(Model.propertySearchForm.RootPage != null && item.Value.ToString() == Model.propertySearchForm.RootPage.ToString() ? "selected" : "")>@item.Text</option>
+                                                    }
+                                                }
+                                        </select>
+                                    </div>
+                                </div>
+                                }
+                                    <div class="col-md-5  col-sm-5">
+                                        <div class="form-group search">
+                                            <label>Search by location</label>
+                                            <select class="form-control search" name="location" id="sel1">
+                                                <option value="-1">All</option>
+                                                @if (Location != null)
+                                            {
+                                                foreach (var item in Location.Categories)
+                                                {
+                                            <option value="@item.Name" @(item.Name == Model.propertySearchForm.Location ? "selected" : "")>@item.Description</option>
+                                                }
+                                            }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12  col-sm-12">
+                                        <div class="form-group search">
+                                            <label>Keyword</label>
+                                            <input type="text" class="form-control search" id="" name="keywords" value="@Model.propertySearchForm.Keywords">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5  col-sm-5">
+                                        <div class="form-group search search">
+                                            <label>Size (Sq. Ft.)</label>
+                                            <input type="number" class="form-control search" placeholder="Min" name="size" @(Model.propertySearchForm.Size != null && Model.propertySearchForm.Size.First() != 0.0 ? "value=" + Model.propertySearchForm.Size.First() + "" : null)>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2  col-sm-2">
+                                        <div class="to">
+                                            <span class="to-middle">to</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5  col-sm-5">
+                                        <div class="form-group search">
+                                            <label></label>
+                                            <input type="number" placeholder="Max" class="form-control search" name="size" @(Model.propertySearchForm.Size != null && Model.propertySearchForm.Size.Last() != 0.0 ? "value=" + Model.propertySearchForm.Size.Last() + "" : null)>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5  col-sm-5">
+                                        <div class="form-group search">
+                                            <label>Rent (per Sq. Ft.)</label>
+                                            <input type="number" class="form-control search" placeholder="Min" name="rent" @(Model.propertySearchForm.Rent != null && Model.propertySearchForm.Rent.First() != 0.0 ? "value=" + Model.propertySearchForm.Rent.First() + "" : null)>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2  col-sm-2">
+                                        <div class="to">
+                                            <span class="to-middle">to</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5  col-sm-5">
+                                        <div class="form-group search">
+                                            <label></label>
+                                            <input type="number" placeholder="Max" class="form-control search" name="rent" @(Model.propertySearchForm.Rent != null && Model.propertySearchForm.Rent.Last() != 0.0 ? "value=" + Model.propertySearchForm.Rent.Last() + "" : null)>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5  col-sm-5">
+                                        <div class="form-group search">
+                                            <label>Sale price ($)</label>
+                                            <input type="number" class="form-control search" placeholder="Min" name="rentbase" @(Model.propertySearchForm.RentBase != null && Model.propertySearchForm.RentBase.First() != 0.0 ? "value=" + Model.propertySearchForm.RentBase.First() + "" : null) />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2  col-sm-2">
+                                        <div class="to">
+                                            <span class="to-middle">to</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5  col-sm-5">
+                                        <div class="form-group search">
+                                            <label></label>
+                                            <input type="number" placeholder="Max" class="form-control search" name="rentbase" @(Model.propertySearchForm.RentBase != null && Model.propertySearchForm.RentBase.Last() != 0.0 ? "value=" + Model.propertySearchForm.RentBase.Last() + "" : null)>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <button type="submit" class="btn btn-criteria">SEARCH PROPERTIES <span class="glyphicon glyphicon-search"></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="spacer"></div>
+        <div class="criteria-info">
+            @if (searchresult != null)
+        {
+            foreach (var item in searchresult)
+            {
+        <div class="row">
+            <div class="col-md-8 col-sm-8">
+                <div class="info-section">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-5">
+                            <div class="criteria-img">
+                                <a href="@(item.Website != null ? item.Website : @Url.ContentUrl(item.ContentLink))" target="@(item.Website != null ? "_blank" : "")">
+                                    @if (item.PageImage != null)
+                                            {
+                                            @Html.PropertyFor(x => item.PageImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 310, Height = 200, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                                            }
+                                            else
+                                            {
+                                            <img src="~/Static/global/images/news-placeholder-290X190.jpg" class="img-responsive placeholder" />
+                                            }
+                                    @if (item.VideoURL != null)
+                                            {
+                                            <img class="youtubr-icon img-responsive" src="~/Static/commercial/images/youtube.png" />
+                                            }
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-sm-7">
+                            <h2>
+                                <a @(IsGlobal || item.Website != null ? Html.Raw("target='_blank'") : null) href="@(item.Website != null ? item.Website : Url.ContentUrl(item.ContentLink))">
+                                    @item.PropertyName
+                                </a>
+                            </h2>
+                            <p>
+                                @(item.City != null ? item.City + ", " : null)@*@(item.County != null ? item.County + ", " : null)*@@item.State @item.ZipCode
+                            </p>
+                            <p>
+                                @item.CorporateCenter
+                            </p>
+                            <p>
+                                @item.PropertyType
+                            </p>
+                            <p>
+                                @item.ListingType
+                            </p>
+                            <p>
+                                @item.Size @item.UnitofMeasure
+                            </p>
+                            <p>
+                                @if (item.ListingType == "For Sale")
+                                        {
+                                        @(item.Price != null && item.Price != "0" ? "$" + item.Price : string.Empty)
+                                        }
+                                        else
+                                        {
+                                        @(item.Rent != 0 ? "$" + item.Rent : string.Empty)
+                                        }
+                            </p>
+                            <a target="_blank" href="@Url.ContentUrl(item.ContentLink)">read more...</a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="info-section">
+                    <p>
+                        @item.Description
+                    </p>
+                    <div class="clearfix">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="spacer"></div>
+            }
+        }
+        </div>
+    }
+    </div>
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+   

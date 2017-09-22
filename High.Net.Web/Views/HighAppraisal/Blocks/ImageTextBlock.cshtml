@@ -1,0 +1,10 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighAppraisal.Blocks
+@using ImageVault.EPiServer
+@model ImageTextBlock
+
+<div class="text-center">
+    @Html.PropertyFor(x => Model.Image, new { PropertySettings = new PropertyMediaSettings { Width = 255, Height = 192 , ResizeMode= ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+    <h4>@Html.PropertyFor(x => x.Heading)</h4>
+</div>

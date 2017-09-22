@@ -1,0 +1,45 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Commercial.Pages
+@using EPiServer.Web
+
+@model IPageViewModel<BasePageData>
+@{
+
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+    var propertyListPage = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>().GetChildren<High.Net.Models.Shared.Pages.PropertyListingPage>(EPiServer.Core.PageReference.StartPage).FirstOrDefault();
+}
+
+<!-- Navigation Starts-->
+<nav class="navbar navbar-default llc-nav-bar">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="@(Model.CurrentPage.ContentLink.CompareToIgnoreWorkID(SiteDefinition.Current.StartPage) ? "active" : null)"><a href="@Url.ContentUrl(SiteDefinition.Current.StartPage)">Home</a></li>
+                @Html.MenuList(SiteDefinition.Current.StartPage,
+                @<li class="@(Model.CurrentPage.ContentLink.CompareToIgnoreWorkID(item.Page.ContentLink) ? "active" : null)">
+                    @Html.PageLink(item.Page)
+                </li>)
+                @if (propertyListPage != null)
+                {
+                    <li><a class="btn btn-warning btn-search" href="@Url.ContentUrl(propertyListPage.ContentLink)" role="button">Property Search</a></li>
+                }
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<!-- Navigation Ends-->

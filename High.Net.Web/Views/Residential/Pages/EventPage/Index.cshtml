@@ -1,0 +1,60 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Residential.Pages
+
+@model PageViewModel<EventPage>
+@section PageBannerSection
+{
+    @Html.Partial("~/Views/Residential/Shared/Banner.cshtml", Model)
+}
+<!-- Event 1 Start-->
+<div class="row">
+    <div class="col-md-8 col-sm-8">
+        <div class="Events">
+            <div class="Events">
+                <div class="calender">
+                    <div class="cal-month">@Model.CurrentPage.startDate.ToString("MMM")</div>
+                    <div class="cal-day">@Model.CurrentPage.startDate.Date.Day</div>
+                </div>
+                <h2>@Html.PropertyFor(x => x.CurrentPage.eventName)</h2>
+                <div class="clearfix"></div>
+                <p>
+                    <strong>Start Date : </strong>
+                    <span @Html.EditAttributes(x => x.CurrentPage.startDate)>@Model.CurrentPage.startDate.ToString("dd MMMM yyyy")</span>
+                </p>
+                <p>
+                    <strong>End Date : </strong>
+                    <span @Html.EditAttributes(x => x.CurrentPage.endDate)>@Model.CurrentPage.endDate.ToString("dd MMMM yyyy")</span>
+                </p>
+                @if (Model.CurrentPage.Days != null)
+                {
+                    <p><strong>Days : </strong>@Html.PropertyFor(x => x.CurrentPage.Days)</p>
+                }
+                @if (Model.CurrentPage.Time != null)
+                {
+                    <p><strong>Time : </strong>@Html.PropertyFor(x => x.CurrentPage.Time)</p>
+                }
+                @if (Model.CurrentPage.Location != null)
+                {
+                    <p><strong>Location : </strong>@Html.PropertyFor(x => x.CurrentPage.Location)</p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4">
+        <div class="Event-img">
+            @Html.PropertyFor(x => Model.CurrentPage.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 225, Height = 160, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+        </div>
+    </div>
+</div>
+<div class="">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="event-para">
+                @Html.PropertyFor(x => x.CurrentPage.Description)
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Event 1 End-->

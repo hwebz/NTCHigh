@@ -1,0 +1,57 @@
+﻿@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Core.Helpers
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Web.Business.Helpers
+@using ImageVault.EPiServer
+@using High.Net.Web.Business
+@model High.Net.Models.NewResidential.Blocks.PhotosGridGalleryBlock
+@{
+    var cssClassInSmallDevice = Model.NumberOfColums == 3 ? "col-sm-4" : "col-sm-6";
+    var cssClassInMediumDevice = Model.NumberOfColums == 3 ? "col-md-4" : "col-md-3";
+    var buttonText = string.IsNullOrEmpty(Model.ButtonText) ? "View" : Model.ButtonText;    
+}
+<div class="residential-service-gallery">
+    <div class="container">
+        <div class="row">
+            @if (Model.PhotoItems != null && Model.PhotoItems.FilteredItems.Any())
+            {
+                foreach (var item in Model.PhotoItems.FilteredItems)
+                {
+                    var photoLinkedItem = item.ContentLink.GetContent<ImageTextBlock>();
+                    <div class="col-xs-12 @cssClassInSmallDevice @cssClassInMediumDevice">
+                        <div class="residential-service-gallery__item">
+                            <div style="@Html.MakeImageBackground(MediaHelpers.GetImageUrl(photoLinkedItem.Image,
+                                            new {PropertySettings = new PropertyMediaSettings {ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill}}))"
+                                 class="residential-service-gallery__thumbnail">
+                            </div>
+                            <div class="residential-service-gallery__content">
+                                <div>
+                                    <h3>@Html.PropertyFor(x => photoLinkedItem.Heading)</h3>
+                                    <p>
+                                        @Html.PropertyFor(x => photoLinkedItem.Text)
+                                    </p>
+                                </div>
+                                <a href="@Url.GetContentUrl(photoLinkedItem.SiteLink)" class="residential-service-gallery__more-btn @Constants.ViewConstants.SiteColorApplyClass">
+                                    @buttonText
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var siteColor = document.getElementById("site-color").value;
+    if (siteColor != "") {
+        var viewMoreBtns = document.getElementsByClassName("residential-service-gallery__more-btn "+"@Constants.ViewConstants.SiteColorApplyClass");
+        for (var i = 0; i < viewMoreBtns.length;i++) {
+            viewMoreBtns[i].style.backgroundColor = siteColor;
+        }
+    }
+</script>
+
+

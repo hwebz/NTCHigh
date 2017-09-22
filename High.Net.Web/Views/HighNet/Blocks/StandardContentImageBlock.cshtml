@@ -1,0 +1,62 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@using ImageVault.EPiServer
+
+@model StandardContentImageBlock
+
+<div class="spacer"></div>
+<div class="row">
+    @if (Model.Heading != null && Model.HtmlText != null)
+    {
+        if (Model.Image == null)
+        {
+            <div class="col-sm-12">
+                <div class="std-content">
+                    <h2>@Html.PropertyFor(x => x.Heading)</h2>
+                    @Html.PropertyFor(x => x.HtmlText)
+                    @if (Url.ContentUrl(Model.ApplyNowLink) != string.Empty)
+                    {
+                        <a href="@Url.ContentUrl(Model.ApplyNowLink)" class="re-aplynow left-btn">@Html.PropertyFor(x => x.ApplyNowLinkText)</a>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-sm-6">
+                <div class="std-content">
+                    <h2>@Html.PropertyFor(x => x.Heading)</h2>
+                    @Html.PropertyFor(x => x.HtmlText)
+                    @if (Url.ContentUrl(Model.ApplyNowLink) != string.Empty)
+                    {
+                    <a href="@Url.ContentUrl(Model.ApplyNowLink)" class="re-aplynow left-btn">@Html.PropertyFor(x => x.ApplyNowLinkText)</a>
+                    }
+                </div>
+            </div>
+
+        }
+    }
+
+    @if (Model.Image != null)
+    {
+        if (Model.Heading == null && Model.HtmlText == null)
+        {
+            <div class="col-sm-12">
+                <div class="std-img">
+                    @Html.PropertyFor(x => x.Image, new { PropertySettings = new PropertyMediaSettings { Width = 336, Height = 336 }, CssClass = "img-responsive" })
+                </div>
+            </div>
+
+        }
+        else
+        {
+            <div class="col-sm-6">
+                <div class="std-img">
+                    @Html.PropertyFor(x => x.Image, new { PropertySettings = new PropertyMediaSettings { Width = 336, Height = 336 }, CssClass = "img-responsive" })
+                </div>
+            </div>
+        }
+    }
+</div>
+<div class="spacer"></div>

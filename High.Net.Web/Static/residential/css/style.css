@@ -1,0 +1,1207 @@
+/****common style dont not remove********/
+.module {
+    padding: 10px 0;
+}
+
+.sub-header {
+    margin: 40px 0;
+}
+
+.spacer {
+    margin: 10px 0;
+    height: 1px;
+    display: block;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+    font-size: 16px;
+}
+
+    .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {
+        color: #ffffff;
+    }
+
+.call-us-now a {
+    color: black;
+}
+
+/*.navbar-default li {
+    padding: 0 20px;
+}*/
+
+.nav > li > a.navitem {
+    padding: 15px 22px;
+}
+
+.nav > li > a {
+    padding: 0;
+}
+
+.caret {
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid;
+    color: #ffffff;
+    margin: 0;
+}
+
+.caret-dd {
+    background: transparent none repeat scroll 0 0;
+    border: medium none !important;
+    padding: 17px !important;
+    position: absolute !important;
+    right: 20px;
+    top: 0;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#07a2f4+0,07a2f4+99,42b8f8+100 */
+    background: #07a2f4; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzA3YTJmNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk5JSIgc3RvcC1jb2xvcj0iIzA3YTJmNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0MmI4ZjgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, hsla(201,95%,49%,1) 0%, hsla(201,95%,49%,1) 99%, hsla(201,93%,62%,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,hsla(201,95%,49%,1)), color-stop(99%,hsla(201,95%,49%,1)), color-stop(100%,hsla(201,93%,62%,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, hsla(201,95%,49%,1) 0%,hsla(201,95%,49%,1) 99%,hsla(201,93%,62%,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, hsla(201,95%,49%,1) 0%,hsla(201,95%,49%,1) 99%,hsla(201,93%,62%,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, hsla(201,95%,49%,1) 0%,hsla(201,95%,49%,1) 99%,hsla(201,93%,62%,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, hsla(201,95%,49%,1) 0%,hsla(201,95%,49%,1) 99%,hsla(201,93%,62%,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#07a2f4', endColorstr='#42b8f8',GradientType=0 ); /* IE6-8 */
+    color: #ffffff;
+    transition: all 0.35s ease 0s;
+}
+
+.navbar-nav > li:hover {
+    background: #06A0F3;
+    transition: all 0.35s ease 0s;
+}
+
+.dropdown-menu > li {
+    border-bottom: 1px solid #666666;
+    padding: 5px 0;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #ffffff;
+}
+
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #06A0F3;
+        transition: all 0.35s ease 0s;
+    }
+
+.list-item {
+    margin-bottom: 20px;
+    border-radius: 2px;
+}
+
+.media.list-item {
+    padding: 10px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+    .media.list-item:hover {
+        cursor: pointer;
+        box-shadow: 1px 1px 1px 1px #ccc;
+        background-color: #F2F2F2;
+    }
+
+
+.owl-carousel .item img {
+    max-height: 360px;
+    /*width: 100%;*/
+    margin: 0 auto;
+}
+
+.owl-theme .owl-controls {
+    margin-top: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    padding: 10px 0 5px 0;
+}
+
+.bx-controls-direction {
+    margin: 10px;
+}
+
+nav {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0f3983+0,0b3379+33,032967+73,012360+100 */
+    background: #0f3983; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzBmMzk4MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjMzJSIgc3RvcC1jb2xvcj0iIzBiMzM3OSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjczJSIgc3RvcC1jb2xvcj0iIzAzMjk2NyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMTIzNjAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, hsla(218,80%,29%,1) 0%, hsla(218,84%,26%,1) 33%, hsla(217,95%,21%,1) 73%, hsla(219,98%,19%,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,hsla(218,80%,29%,1)), color-stop(33%,hsla(218,84%,26%,1)), color-stop(73%,hsla(217,95%,21%,1)), color-stop(100%,hsla(219,98%,19%,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, hsla(218,80%,29%,1) 0%,hsla(218,84%,26%,1) 33%,hsla(217,95%,21%,1) 73%,hsla(219,98%,19%,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, hsla(218,80%,29%,1) 0%,hsla(218,84%,26%,1) 33%,hsla(217,95%,21%,1) 73%,hsla(219,98%,19%,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, hsla(218,80%,29%,1) 0%,hsla(218,84%,26%,1) 33%,hsla(217,95%,21%,1) 73%,hsla(219,98%,19%,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, hsla(218,80%,29%,1) 0%,hsla(218,84%,26%,1) 33%,hsla(217,95%,21%,1) 73%,hsla(219,98%,19%,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0f3983', endColorstr='#012360',GradientType=0 ); /* IE6-8 */
+}
+
+.bentley-ridge .navbar-default {
+    border-radius: 0;
+    border: 0;
+    margin-bottom: 0;
+    /* IE10+ */
+    background: -ms-linear-gradient(top, #0E3982 0%, #011F53 100%);
+    /* Mozilla Firefox */
+    background: -moz-linear-gradient(top, #0E3982 0%, #011F53 100%);
+    /* Opera */
+    background: -o-linear-gradient(top, #0E3982 0%, #011F53 100%);
+    /* Webkit (Safari/Chrome 10) */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #0E3982), color-stop(100, #011F53));
+    /* Webkit (Chrome 11+) */
+    background: -webkit-linear-gradient(top, #0E3982 0%, #011F53 100%);
+    /* W3C Markup */
+    background: linear-gradient(to bottom, #0E3982 0%, #011F53 100%);
+}
+
+    .bentley-ridge .navbar-default .navbar-nav > .active > a, .bentley-ridge .navbar-default .navbar-nav > .active > a:focus, .bentley-ridge .navbar-default .navbar-nav > .active > a:hover, .bentley-ridge .navbar-default .navbar-nav > .open > a, .bentley-ridge .navbar-default .navbar-nav > .open > a:focus, .bentley-ridge .navbar-default .navbar-nav > .open > a:hover {
+        color: #fff;
+        background-color: #07A2F4;
+    }
+
+.bentley-ridge .dropdown-menu {
+    background: #333333 none repeat scroll 0 0;
+    border-radius: 0;
+    padding: 5px 0;
+    width: 225px;
+}
+
+    .bentley-ridge .dropdown-menu li:last-child {
+        border-bottom: 0;
+    }
+
+    .bentley-ridge .dropdown-menu li > a {
+        color: #fff;
+        padding: 3px 28px;
+    }
+
+    .bentley-ridge .dropdown-menu > li > a:focus, .bentley-ridge .dropdown-menu > li > a:hover {
+        background-color: transparent;
+    }
+
+    .bentley-ridge .dropdown-menu li:hover > a {
+        color: #07A2F4;
+    }
+
+    .bentley-ridge .dropdown-menu .divider {
+        background: #666666;
+    }
+
+.bentley-ridge .media-heading {
+    text-align: center;
+    font-size: 18px;
+    line-height: 24px;
+    margin: 20px 0;
+    padding: 0 44px;
+}
+
+.bentley-ridge .media-body p {
+    text-align: center;
+    padding: 0 20px;
+}
+
+.bentley-ridge .media-object {
+    margin: 0 auto;
+}
+
+.read-more-link {
+    color: #222D62;
+}
+
+.bentley-ridge .assitance-bar {
+    background-color: #414141;
+    padding: 10px 0;
+}
+
+    .bentley-ridge .assitance-bar ul li {
+        float: left;
+    }
+
+        .bentley-ridge .assitance-bar ul li:hover a, .bentley-ridge .assitance-bar ul li:focus a {
+            background: #000;
+            transition: all 0.35s ease 0s;
+        }
+
+.bentley-ridge .assitance-bar-items a {
+    background-color: #545454;
+    border-radius: 8px;
+    color: #fff;
+    display: block;
+    float: left;
+    margin: 5px 22px;
+    padding: 3px 10px;
+}
+
+.bentley-ridge .assitance-bar-items .active > a {
+    background: #000 none repeat scroll 0 0;
+}
+
+.bentley-ridge .assitance-bar-items a:hover {
+    box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.4);
+}
+
+/*.bentley-ridge .icon {
+    background: url("../images/footer-bar-icons.png") no-repeat left top;
+    display: inline-table;
+    width: 48px;
+    height: 32px;
+}*/
+
+.bentley-ridge .icon-text {
+    display: inline-table;
+    padding-left: 5px;
+    padding-top: 7px;
+    vertical-align: top;
+}
+
+.right-block {
+    border: 1px solid #eeeeee;
+    margin: 5px 0;
+    padding: 5px;
+}
+
+.office-timing {
+    padding: 10px 0;
+}
+
+/*.icon.icon-review {
+    background-position: -149px 1px;
+}
+
+.icon.icon-faq {
+    background-position: -331px 1px;
+}
+
+.icon.icon-phil {
+    background-position: -595px 1px;
+}
+
+.icon.icon-staff {
+    background-position: -771px 1px;
+}*/
+
+.media-object {
+    max-width: 100%;
+}
+
+.border-block {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.share-item {
+    margin: 10px 0 0 0;
+    padding: 15px 10px;
+}
+
+    .share-item a {
+        color: #fff;
+        text-decoration: none;
+        padding-left: 80px;
+        display: block;
+    }
+
+.call-us-now {
+    background: rgba(0, 0, 0, 0) url("/Static/residential/images/iphone.jpg") no-repeat scroll right top;
+    /*height: 45px;*/
+    margin: 15px 0 0;
+}
+
+    .call-us-now p {
+        color: #666;
+        text-align: right;
+        margin: 0;
+        padding-right: 30px;
+    }
+
+    .call-us-now h3 {
+        color: #000;
+        text-align: right;
+        font-weight: bold;
+        margin: 0;
+        padding-right: 30px;
+        font-size: 24px;
+    }
+
+.share-text {
+    background: #31418C url("/Static/residential/images/via-text.png") no-repeat scroll -6px -8px;
+}
+
+.share-email {
+    background: #31418C url("/Static/residential/images/via-mail.png") no-repeat scroll 0 0;
+    cursor: pointer;
+}
+
+.glyphicon.glyphicon-plus.share, .glyphicon.share.glyphicon-minus {
+    float: right !important;
+    margin: 0;
+    padding: 0 !important;
+}
+
+.share-schedule {
+    background: #31418C url("/Static/residential/images/via-schedule.png") no-repeat scroll 0 center;
+}
+
+.share-apply {
+    background: #31418C url("/Static/residential/images/via-apply.png") no-repeat scroll 0 center;
+}
+
+.hour {
+    background: #31418C url("/Static/residential/images/hour.png") no-repeat scroll left top;
+}
+
+.email-us {
+    background: #31418C url("/Static/residential/images/email-us.png") no-repeat scroll 0 -6px;
+}
+
+.social-link {
+    text-align: right;
+    margin: 10px 0;
+}
+
+.bentley-ridge .social-icon {
+    background: url("/Static/global/images/icon-sprite.png") no-repeat left top;
+    display: inline-table;
+    width: 45px;
+    height: 45px;
+    text-indent: -999999px;
+}
+
+.social-icon.fb-icon {
+    background-position: -52px 2px;
+}
+
+.social-icon.tw-icon {
+    background-position: -101px 2px;
+}
+
+.social-icon.gp-icon {
+    background-position: -149px 2px;
+}
+
+.social-icon.pin-icon {
+    background-position: -196px 2px;
+}
+
+.map {
+    margin-top: 10px;
+}
+
+.map-footer {
+    background: #D8D8D8;
+    padding: 8px;
+    text-align: center;
+}
+
+.map-location {
+    background: rgba(0, 0, 0, 0) url("/Static/residential/images/location.png") no-repeat scroll 0 0;
+    display: block;
+    float: left;
+    height: 29px;
+    width: 16px;
+}
+
+.map-address {
+    display: inline-block;
+    margin: 0 auto;
+    text-align: left;
+    width: 192px;
+}
+
+.car {
+    background: rgba(0, 0, 0, 0) url("/Static/residential/images/car.png") no-repeat scroll right center;
+    display: block;
+    float: right;
+    height: 37px;
+    width: 31px;
+}
+
+.sign-up-form {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0.8+0,0.8+100 */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjgiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjgiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);
+    background: -moz-linear-gradient(top, hsla(0,0%,0%,0.8) 0%, hsla(0,0%,0%,0.8) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,hsla(0,0%,0%,0.8)), color-stop(100%,hsla(0,0%,0%,0.8))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, hsla(0,0%,0%,0.8) 0%,hsla(0,0%,0%,0.8) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, hsla(0,0%,0%,0.8) 0%,hsla(0,0%,0%,0.8) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, hsla(0,0%,0%,0.8) 0%,hsla(0,0%,0%,0.8) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, hsla(0,0%,0%,0.8) 0%,hsla(0,0%,0%,0.8) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc000000', endColorstr='#cc000000',GradientType=0 ); /* IE6-8 */
+    color: #ffffff;
+    padding: 18px;
+    margin-bottom: 10px;
+}
+
+.office-timing span {
+    margin-bottom: 5px;
+}
+
+.email-img {
+    text-align: center;
+}
+
+    .email-img img {
+        margin: 15px 15px 0;
+    }
+
+.footer-logo, .footer-item {
+    padding: 10px 0 3px 0;
+    list-style: none;
+}
+
+    .footer-logo a {
+        display: block;
+    }
+
+    .footer-item li {
+        float: left;
+        padding: 0 10px;
+        border-right: 1px solid #666;
+        line-height: 12px;
+        margin: 5px 0;
+    }
+
+        .footer-item li:last-child {
+            border: none;
+        }
+
+        .footer-item li a {
+            color: #666666;
+        }
+
+.footer-menu > p {
+    padding: 0 0 0 10px;
+}
+
+.res-review {
+    border: 1px solid #eeeeee;
+    padding: 5px;
+}
+
+    .res-review a strong {
+        color: #7f7f7f;
+    }
+
+.res-rev {
+    background: #31418c url("/Static/residential/images/resident-review.png") no-repeat scroll -6px -8px;
+    margin: 0 0 15px 0;
+}
+
+
+/************Css for feature photo page****************************/
+.features-title {
+    color: #4C4C4C;
+}
+
+.hightlight-heading {
+    color: #ff9b00;
+    font-size: 18px;
+}
+
+.feature-list li {
+    background: rgba(0, 0, 0, 0) url("/Static/residential/images/arrow-invert.jpg") no-repeat scroll 0 7px;
+    color: #666666;
+    line-height: 25px;
+    list-style: outside none none;
+    padding: 0 0 0 10px;
+}
+
+/***********************Video Slider Styling************************/
+.gallery-pager a {
+    display: block;
+    width: 100%;
+}
+
+.gallery-pager .thumb {
+    height: 104px !important;
+    /*width: 100%;*/
+}
+
+.bx-next > img, .bx-prev > img {
+    margin: 0 5px 0 0;
+    width: 15px;
+}
+
+.bx-wrapper {
+    max-width: 100% !important;
+}
+
+
+/* floor-plans Start*/
+
+.banner-img {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+    .banner-img img {
+        max-height: 360px;
+        /*width: 100%;*/
+        margin: 0 auto;
+    }
+
+
+/*.banner-img h2 {
+        background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+        bottom: 10px;
+        color: white;
+        display: block !important;
+        margin: 0;
+        padding: 10px 10px 10px 108px;
+        position: absolute;
+        width: 100%;
+    }*/
+
+.main-quote h1 {
+    margin: 10px 0;
+    font-size: 30px;
+}
+
+.banner-img .main-quote {
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    bottom: 0;
+    color: white;
+    position: absolute;
+    width: 100%;
+    text-align: left;
+}
+
+.banner-img .eastwood-quotes {
+    bottom: 0;
+}
+
+.panel-heading {
+    padding: 0;
+}
+
+.panel-title > a {
+    color: #E7E7E7;
+    display: block;
+    font-weight: bold;
+    padding: 15px;
+    background: #666668;
+}
+
+    .panel-title > a:hover {
+        text-decoration: none;
+    }
+
+
+.panel-body table {
+    border: medium none !important;
+}
+
+
+.panel-body td {
+    border: medium none !important;
+    vertical-align: middle !important;
+    width: 0;
+    text-align: center;
+}
+
+.panel-body .table.table-bordered h4 {
+    color: #3C456E;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.panel-body .table.table-bordered p {
+    margin: 0;
+    color: #333333;
+}
+
+.rent-btn {
+    background: #07a2f4 none repeat scroll 0 0;
+    border-radius: 10px;
+    color: white !important;
+    width: 125px;
+    padding: 10px 8px;
+    font-size: 14px !important;
+}
+
+p.bed-bath {
+    font-size: 14px !important;
+}
+
+.btn.btn-top {
+    background: orange none repeat scroll 0 0;
+    border-radius: 0;
+    color: white;
+    float: right;
+    font-weight: bold;
+}
+
+.bx-next:hover, bx-prev:hover {
+    text-decoration: none;
+}
+
+
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings'; /* essential for enabling glyphicon */
+    content: "\E252"; /* adjust as needed, taken from bootstrap.css */
+    float: right; /* adjust as needed */
+    color: white; /* adjust as needed */
+}
+
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\E250"; /* adjust as needed, taken from bootstrap.css */
+}
+
+/* floor-plans End*/
+
+/* about page start*/
+
+.section.about > p {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.text-square {
+    line-height: 30px;
+    margin: 0 auto;
+    text-align: justify;
+    width: 70%;
+}
+/* about page end*/
+
+
+/*faq start*/
+.glyphicon.glyphicon-plus, .glyphicon.glyphicon-minus {
+    background: #31418c none repeat scroll 0 0;
+    border-radius: 50%;
+    color: white;
+    display: block;
+    height: 25px;
+    margin: 5px;
+    padding: 4px 5px;
+    width: 25px;
+}
+
+.faq-panel-title .accordion-toggle span {
+    display: inline-block;
+}
+
+.sec-heading.faq > h2 {
+    color: black;
+}
+
+.panel.panel-default {
+    border: medium none;
+    box-shadow: none;
+}
+
+.faq-panel-body {
+    background: #F5F3F4 none repeat scroll 0 0;
+    margin: 8px 25px;
+    padding: 10px;
+}
+
+.faq-panel-title .accordion-toggle {
+    color: black;
+    font-size: 16px;
+}
+/*faq end*/
+
+
+/*meet staff start*/
+
+.section.staff {
+    border: 1px solid #F5F3F4;
+    margin: 10px;
+    padding: 5px;
+}
+
+.staff-img > img {
+    background: #F5F3F4 none repeat scroll 0 0;
+    float: left;
+    margin-right: 15px;
+}
+
+.staff-img img + h3 {
+    margin-left: 184px;
+}
+
+.staff-img > h3 {
+    background: rgba(0, 0, 0, 0) url("/Static/residential/images/orange-bg.jpg") no-repeat scroll 0 0;
+    color: white;
+    margin-left: 0px;
+    margin-top: 0;
+    padding: 10px;
+}
+
+.staff-info > p {
+    margin: 5px;
+}
+/* meet staff end*/
+
+/* review page start*/
+
+
+
+.reviwes {
+    border: 1px solid #F5F3F4;
+    margin: 7px 0;
+    padding: 15px;
+}
+
+    .reviwes strong {
+        color: #333333;
+    }
+
+.review-content {
+    margin: 10px 0;
+}
+
+/*review page end*/
+
+/* start neighborhood*/
+
+.neighbor-info {
+    margin-bottom: 15px;
+}
+
+    .neighbor-info > p {
+        margin: 0;
+    }
+
+    .neighbor-info strong {
+        color: #31418c;
+    }
+
+.neighbor-menu {
+    /*margin: 20px;*/
+}
+
+    .neighbor-menu a {
+        border-right: 1px solid;
+        padding: 0 5px;
+    }
+
+        .neighbor-menu a:last-child {
+            border-right: none;
+        }
+
+.no-border {
+    border: medium none !important;
+}
+/* end neighborhood*/
+
+
+
+/*event page start*/
+
+.calender {
+    float: left;
+    margin: 0 10px 10px 0;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.calender {
+    width: 70px;
+}
+
+.home {
+    float: none;
+    margin: 0 auto;
+}
+
+.cal-month {
+    background: orange none repeat scroll 0 0;
+    border-radius: 10px 10px 0 0;
+    padding: 3px;
+}
+
+.cal-day {
+    background: #cccccc none repeat scroll 0 0;
+    border-radius: 0 0 10px 10px;
+    font-size: 28px;
+    padding: 3px;
+}
+
+.Events > h2 {
+    color: #31418c;
+    line-height: 75px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.Event-img {
+    float: right;
+    margin: 30px 0;
+}
+
+    .Event-img img {
+        border: 4px solid #cccccc;
+    }
+
+.Events strong {
+    color: black;
+    font-weight: 500;
+}
+
+
+.event-detail {
+    background: rgba(0, 0, 0, 0) url("/Static/residential/images/arrow-invert.jpg") no-repeat scroll 0 7px;
+    color: #666666;
+    line-height: 25px;
+    list-style: outside none none;
+    margin-bottom: 10px;
+    padding: 0 0 0 10px;
+}
+
+.event-para-sec {
+    border-bottom: 1px solid #cccccc;
+    margin: 25px 0;
+}
+
+
+
+/*tabs*/
+.active.events-tab > a {
+    background: #286090 none repeat scroll 0 0 !important;
+    color: white !important;
+    font-weight: bold;
+    padding: 7px 25px;
+}
+
+.events-tab.B {
+    right: 38px;
+}
+
+.events-tab {
+    font-size: 14px;
+    text-align: center;
+    width: 220px;
+}
+
+.nav.nav-tabs.tabs-event {
+    border: medium none;
+}
+
+.events-tab > a {
+    background: #cccccc none repeat scroll 0 0;
+    border: medium none !important;
+    border-radius: 50px !important;
+    color: white;
+    font-weight: bold;
+    margin: 0 !important;
+    padding: 10px !important;
+}
+
+.active.events-tab.A > a {
+    z-index: 999999;
+}
+
+.events-tab.B > a:hover, .events-tab.A > a:hover {
+    background: #cccccc none repeat scroll 0 0;
+}
+
+/*event page end*/
+
+
+
+/*footer active start*/
+
+.active-footer {
+    background: white none repeat scroll 0 0 !important;
+    color: #31418c !important;
+}
+/*footer active end*/
+
+/*display none*/
+.social-icon.tw-icon, .social-icon.gp-icon {
+    display: none;
+}
+/*display none*/
+
+/*pet-policy page start*/
+.section.pet-policy > p {
+    font-size: 15px;
+}
+
+.req-info {
+    padding: 10px 40px;
+}
+/*pet policy page end*/
+
+/*Resident service start*/
+
+.resident-service h4 {
+    color: black;
+    font-weight: bold;
+}
+
+/*Resident service end*/
+/*thank you page start*/
+
+.section.thank-you > p {
+    font-size: 16px;
+}
+
+/*thank you page end*/
+
+/*utility page start*/
+
+.local-provider h4 {
+    color: #6e6e6e;
+    font-weight: bold;
+}
+
+.comp-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.provoder {
+    margin: 20px 0;
+}
+
+    .provoder > p {
+        margin: 0;
+    }
+
+
+/*utility page end*/
+
+/*contact page start*/
+.form-group.contact input {
+    border-radius: 0;
+    float: left;
+    width: 75% !important;
+}
+
+.form-group.contact textarea {
+    border-radius: 0;
+    width: 75%;
+}
+
+.form-group.contact.text-area {
+    margin: 0;
+}
+
+
+.btn.btn-submit {
+    background: #31418c none repeat scroll 0 0;
+    border: 0 none;
+    border-radius: 0;
+    color: white;
+    font-weight: bold;
+    margin: 20px;
+    padding: 10px 30px;
+}
+
+/*contact page end*/
+
+/*footer-active start*/
+.footer-active > a {
+    background: white none repeat scroll 0 0 !important;
+    color: #31418c !important;
+}
+
+.footer-active .icon.icon-staff {
+    background: rgba(0, 0, 0, 0) url("/Static/residential/images/footer-bar-icons-blue.jpg") repeat scroll 80px 0;
+}
+
+.footer-active .icon.icon-pet {
+    background: rgba(0, 0, 0, 0) url("/Static/residential/images/footer-bar-icons-blue.jpg") repeat scroll -44px 0;
+}
+
+.footer-active .icon.icon-faq {
+    background: rgba(0, 0, 0, 0) url("/Static/residential/images/footer-bar-icons-blue.jpg") repeat scroll -378px 0;
+}
+
+.footer-active .icon.icon-review {
+    background: rgba(0, 0, 0, 0) url("/Static/residential/images/footer-bar-icons-blue.jpg") repeat scroll -197px 0;
+}
+/*footer-active end*/
+/*map start*/
+
+
+
+/*map end*/
+
+/*sales image slider*/
+.bxslider-img-gallery p {
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    bottom: 0;
+    color: white;
+    position: absolute;
+    margin: 0px;
+    width: 100%;
+    font-size: 25px;
+    padding-left: 10px;
+}
+
+.bxslider-img-gallery img {
+    position: relative;
+    /*width: 100%;*/
+}
+
+.section a {
+    color: #337ab7 !important;
+}
+/*sales image slider end */
+
+
+/*slider navigation start*/
+
+.bx-next {
+    background: rgba(0, 0, 0, 0) url("/Static/residential/images/right-arrow.png") no-repeat scroll 0 7px;
+    height: 32px;
+    width: 18px;
+    margin-left: 5px;
+}
+
+.bx-prev {
+    background: rgba(0, 0, 0, 0) url("/Static/residential/images/left-arrow.png") no-repeat scroll 0 7px;
+    height: 32px;
+    width: 18px;
+}
+
+
+/*slider navigation end*/
+
+/*validation label*/
+.field-validation-error {
+    color: red;
+    font-weight: bold;
+}
+
+/**/
+
+/*home page banner*/
+.item {
+    text-align: center;
+}
+/**/
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.media-body {
+    color: #7f7f7f;
+}
+
+.no-underline {
+    text-decoration: none !important;
+}
+
+.logo {
+    float: left;
+}
+
+.logo2 {
+    float: right;
+    margin-top: 29px;
+}
+/**/
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.row.assitance-bar-items.cf {
+    display: table;
+    margin: 0 auto;
+}
+
+.feature-list {
+    font-size: 17px;
+}
+
+.panel-body {
+    font-size: 17px;
+}
+
+.col-xs-12.col-sm-12.col-md-8.col-lg-8 p {
+    font-size: 17px;
+}
+
+.panel-group .panel {
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+ul.bxslider-img li:nth-child(n+2) {
+    display: none;
+}
+
+
+.form-contact label {
+    width: 135px;
+}
+
+.form-contact .control-label {
+    text-align: left;
+}
+
+
+.contact .btn.btn-submit {
+    margin: 10px;
+}
+
+.row.assitance-bar-items.cf {
+    list-style: outside none none;
+    padding: 0;
+}
+
+.footer-item.cf {
+    list-style: outside none none;
+    padding: 0;
+}
+
+
+.nav-search.glyphicon.glyphicon-search {
+    color: white;
+    font-size: 15px;
+    top: 2px;
+}
+
+
+.search-bx {
+    background: #333333 none repeat scroll 0 0;
+    display: none;
+    padding: 5px 15px;
+    position: absolute;
+    right: 0;
+    z-index: 33;
+    border-radius: 5px;
+}
+
+
+.nav.navbar-nav > li:hover .search-bx {
+    display: block;
+}
+
+
+.search-bx > input {
+    height: 35px;
+    width: 225px;
+    outline: none;
+    padding-left: 5px;
+    border-radius: 5px;
+    box-shadow: none;
+    border: none;
+}
+
+.search-btn.glyphicon.glyphicon-search {
+    background: transparent none repeat scroll 0 0;
+    border: medium none;
+    font-size: 18px;
+    position: absolute;
+    right: 5%;
+    top: 12px;
+}

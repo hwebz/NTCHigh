@@ -1,0 +1,68 @@
+﻿@using High.Net.Core
+
+@{
+    Layout = "~/Views/Shared/Layouts/_root.cshtml";
+}
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentloader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentloader.Get<High.Net.Models.GreenfieldArchitects.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+@section Header
+{
+    <link type="image/ico" href="~/Static/greenfield-architects/img/favicon.ico" rel="icon">
+    <!-- Bootstrap core CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/bundles/bootstrap-css")
+    <!-- external css -->
+
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="~/Static/global/font-awesome/css/font-awesome.css" rel="stylesheet" />*@
+    @Styles.Render("~/bundles/fontawesome-css")
+
+    @Styles.Render("~/bundles/browserBlast-css")
+    @Styles.Render("~/bundles/global-css")
+
+    @Styles.Render("~/bundles/GreenFieldArchietect-css")
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '@homePage.GoogleAnalytics']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    @RenderSection("SiteHeader", required: false)
+
+    <!--
+        [if lt IE 9]>
+         <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+       <![endif]
+    -->
+}
+<div class="@(Model.CurrentPage.ContentLink == EPiServer.Core.PageReference.StartPage ? "blk-background" : "")">
+    @Html.Partial("~/Views/GreenfieldArchitects/Shared/Header.cshtml", Model)
+    @RenderBody()
+    @Html.Partial("~/Views/GreenfieldArchitects/Shared/Footer.cshtml", Model)
+</div>
+@section Footer
+{
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap-js")
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/browserBlast-js")
+
+    @Scripts.Render("~/bundles/bxslider")
+    @Scripts.Render("~/bundles/fitvids")
+    @Scripts.Render("~/bundles/global-js")
+    @Scripts.Render("~/bundles/GreenFieldArchietect-js")
+
+    @RenderSection("SiteFooter", required: false)
+}

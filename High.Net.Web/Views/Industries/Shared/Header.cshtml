@@ -1,0 +1,33 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Models.Industries.Pages
+@model IPageViewModel<BasePageData>
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<!--start header-->
+<div class="header">
+    <div class="header-top">
+        <div class="container">
+            <div class="right">
+                <div class="contact-header">
+                    <a href="tel:@homePage.PhoneNumber" class="phone-logo"><strong>@Html.PropertyFor(x => homePage.PhoneNumber)</strong></a>
+                    <a href="mailto:dnicholas@high.net" class="mail-logo"><strong>@Html.PropertyFor(x => homePage.EmailAddress)</strong></a>
+                </div>
+                <div class="search-bx">
+                    @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl) }))
+                    {
+                        <input type="text" placeholder="Search for..." class="search-text" name="q" />
+                        <button class="search-btn glyphicon glyphicon-search"></button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("~/Views/Industries/Shared/Navigation.cshtml", Model)
+</div>
+<!--end header-->

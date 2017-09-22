@@ -1,0 +1,35 @@
+﻿@using High.Net.Models.HighNet.Blocks
+@using ImageVault.EPiServer
+@using High.Net.Web.Business.Helpers
+
+@model CarouselBlock
+
+<style type="text/css">
+    * { box-sizing: border-box; }
+</style>
+<div class="re-cs">
+
+    <div class="opverlay">
+        <h3>@Html.PropertyFor(x => x.MainHeading)</h3>
+    </div>
+    <section class="center carouseler">
+        @if (Model.ContentArea != null)
+        {
+            foreach (var item in Model.ContentArea.Items)
+            {
+                var carouselItem = item.ContentLink.GetContent<CarouselItemBlock>();
+                var caroulseItemModel = CarouselHelper.GetCarouselItemModel(carouselItem, Url);
+                <div>
+                    <div class="caro-cont">
+                        @Html.PropertyFor(x => caroulseItemModel.Image, new { PropertySettings = new PropertyMediaSettings {Width = 397, Height = 298, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive", AltText = caroulseItemModel.AltText })
+                        <p>@Html.PropertyFor(x => caroulseItemModel.Text)</p>
+                        @if (!string.IsNullOrEmpty(@caroulseItemModel.Url))
+                        {
+                            <a href="@caroulseItemModel.Url">→</a>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </section>
+</div>

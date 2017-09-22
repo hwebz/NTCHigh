@@ -1,0 +1,55 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.Web.Mvc.Html
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Constants
+
+@model High.Net.Models.Shared.ViewModels.PropertyPageModel
+@{
+    Layout = "~/Views/Commercial/Layouts/_Site.cshtml";
+    var homePage = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>().Get<High.Net.Models.Commercial.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+    var bannerImage = new ImageVault.EPiServer.MediaReference();
+    if (Model.CurrentPage.BannerImage != null && Model.CurrentPage.BannerImage.Id > 0)
+    {
+        bannerImage = Model.CurrentPage.BannerImage;
+    }
+    else
+    {
+        bannerImage = homePage.SiteBannerImage;
+    }
+}
+<!-- Carousel Start -->
+<div class="banner">
+    <div class="banner-img">
+        @Html.PropertyFor(x => bannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+        <div class="main-quote">
+            <div class="container">
+                <h1>@Model.CurrentPage.Name</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Carousel Ends-->
+<!-- Contact Us Strip -->
+<nav class="module contact-us">
+    <div class="container">
+        <div class="row">
+            <div class="contact-us-item col-xs-12 col-sm-4 col-md-5 col-lg-5 cf">
+                <span class="icon address-icon"></span>
+                <span class="icon-txt">@Html.PropertyFor(x => homePage.Address)</span>
+            </div>
+            <div class="contact-us-item col-xs-12 col-sm-3 col-md-2 col-lg-2 cf">
+                <span class="icon mobile-icon"></span>
+                <span class="icon-txt"><a href="tel:@homePage.ContactNumber">@Html.PropertyFor(x => homePage.ContactNumber)</a></span>
+            </div>
+            <div class="contact-us-item col-xs-12 col-sm-4 col-md-4 col-lg-3 cf">
+                <span class="icon email-icon"></span>
+                <span class="icon-txt"><a href="mailto:@homePage.EmailId">@Html.PropertyFor(x => homePage.EmailId)</a></span>
+            </div>
+            <div class="contact-us-item col-xs-12 col-sm-1 col-md-1 col-lg-0 cf">
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Contact Us Strip ends -->
+@Html.Partial("~/Views/Shared/SearchCriteria.cshtml", Model, new ViewDataDictionary { { "IsGlobal", false } })

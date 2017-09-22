@@ -1,0 +1,76 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighNet.Pages
+@using EPiServer.Web
+@using High.Net.Models.Shared.Pages
+@using High.Net.Core.Helpers
+@using ImageVault.EPiServer
+
+@model IPageViewModel<BasePageData>
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+    var currentPage = Model.CurrentPage;
+
+    var footerLogoUrl = MediaHelpers.GetImageUrl(homePage.FooterLogo);
+    
+}
+@Html.FullRefreshPropertiesMetaData(new[] { "LocationUrl" })
+
+<div class="leadership-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-5 col-md-4">
+                <div class="leadership-footer__company-outro">
+                    @if (!string.IsNullOrEmpty(footerLogoUrl))
+                    {
+                        <a href="@Url.ContentUrl(homePage.ContentLink)">
+                            <img src="@footerLogoUrl" alt="Leadership footer logo">
+                        </a>
+                    }
+                 
+                    
+                    @if (homePage.ExtraInformation != null)
+                    {
+                        foreach (var item in homePage.ExtraInformation)
+                        {
+                            <div class="leadership-footer__company-outro__address">
+                                @item.Title
+                                @item.Content
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-5 col-md-6">
+                @if (homePage.FooterPageLinkCollection != null)
+                {
+                    foreach (var item in homePage.FooterPageLinkCollection)
+                    {
+                        <div class="leadership-footer__nav">                         
+                            @Html.PropertyFor(x=>item.Links)
+                        </div>
+                    }
+                }
+
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-2">
+                <div class="leadership-footer__social">
+                    @if (homePage.BottomBarIconLinks != null)
+                    {
+                        foreach (var item in homePage.BottomBarIconLinks)
+                        {
+                            <a href="@Url.ContentUrl(item.Link)"><img src="@(item.Icon!=null? Url.ContentUrl(item.Icon):"#")" alt="@item.AltText"></a>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="contact-form-popup" class="white-popup-block mfp-hide">
+    @Html.PropertyFor(x=> homePage.ApplicationForm)
+</div>

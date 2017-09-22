@@ -1,0 +1,51 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Models.HighTransit.Pages
+@using ImageVault.EPiServer
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+
+<header class="header-frontend">
+    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav" style="float: left; width: 100%;">
+                    <li class="@(homePage.ContentLink == Model.CurrentPage.ContentLink ? "active" : "")">
+                        <a class="@(Model.CurrentPage.ContentLink.CompareToIgnoreWorkID(SiteDefinition.Current.StartPage) ? "active" : null)" href="@Url.ContentUrl(SiteDefinition.Current.StartPage)">Home</a></li>
+                    @Html.MenuList(PageReference.StartPage,
+                        @<li class="@(item.Selected ? "active" : "")">
+                            @if (!item.HasChildren.Value)
+                            {
+                                <a href="@Url.ContentUrl(item.Page.ContentLink)">@item.Page.Name</a>
+                            }
+                            else
+                            {
+                                var childitems = contentLoader.GetChildren<BasePageData>(item.Page.ContentLink);
+                                <a href="@Url.ContentUrl(item.Page.ContentLink)" class="navitem">@item.Page.Name</a>
+                                <span class="dropdown-toggle caret-dd" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></span>
+                                <ul class="dropdown-menu">
+                                    @foreach (var citem in childitems)
+                                    {
+                                        <li><a href="@Url.ContentUrl(citem.ContentLink)">@citem.Name</a></li>
+                                    }
+                                </ul>
+                            }
+                        </li>)
+                    <li class="last"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

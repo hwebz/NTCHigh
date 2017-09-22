@@ -1,0 +1,28 @@
+﻿@using EPiServer.Web.Mvc.Html
+@using High.Net.Core.Helpers
+
+@model High.Net.Models.NewResidential.Blocks.EventItemBlock
+
+<div class="residential-event-list__item">
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3">
+            <div class="residential-event-list__thumbnail">
+                @Html.PropertyFor(x => Model.Image, new { CssClass = "image-lightbox fillwidth" })
+                <div class="residential-event-list__date">
+                    <p>@Model.StartDate.Day</p>
+                    <p>@Model.StartDate.ToString("MMM")</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-9">
+            <div class="residential-event-list__description">
+                <h3>@Html.PropertyFor(x => Model.Name)</h3>
+                <p @Html.EditAttributes(x =>Model.StartDate)><span>Start date</span>@Model.StartDate.ToString("dd MMM yyyy")</p>
+                <p @Html.EditAttributes(x =>Model.EndDate)><span>End date</span>@Model.EndDate.ToString("dd MMM yyyy")</p>
+                <div class="residential-event-list__summary">
+                    @Html.PropertyFor(x => Model.Description)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

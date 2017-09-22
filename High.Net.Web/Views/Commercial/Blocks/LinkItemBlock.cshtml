@@ -1,0 +1,25 @@
+﻿@using High.Net.Models.Commercial.Blocks
+@using High.Net.Core
+@model LinkItemBlock
+
+<div class="amenities-sec">
+    <h2>@Html.PropertyFor(m => m.Title)</h2>
+    @if (Model.PageLinks != null && Model.PageLinks.Any())
+    {
+        <ul>
+            @foreach (var item in Model.PageLinks)
+            {
+                <li>
+                    @if (item.Href == "javascript:void(0)")
+                    {
+                        <span>@item.Text</span>
+                    }
+                    else
+                    {
+                        <a href="@Url.ContentUrl(item.Href)">@item.Text</a>
+                    }
+                </li>
+            }
+        </ul>
+    }
+</div>

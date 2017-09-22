@@ -1,0 +1,35 @@
+﻿﻿@using High.Net.Core.Helpers
+@using High.Net.Core
+@using High.Net.Core.Helpers
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Web.Business.Helpers
+@using ImageVault.EPiServer
+@model High.Net.Models.NewResidential.Blocks.PhotosLinkedGalleryBlock
+<div class="residential-service-gallery">
+    <div class="container">
+        <div class="row">
+            @if (Model.PhotoLinkedItems != null)
+            {
+                foreach (var item in Model.PhotoLinkedItems.FilteredItems)
+                {
+                    var photoLinkedItem = item.ContentLink.GetContent<ImageTextBlock>();
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="residential-service-gallery__item">
+                            <div style="@Html.MakeImageBackground(MediaHelpers.GetImageUrl(photoLinkedItem.Image,
+                                                                   new {PropertySettings = new PropertyMediaSettings {ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill}}))" class="residential-service-gallery__thumbnail"></div>
+                            <div class="residential-service-gallery__content">
+                                <div>
+                                    <h3>@Html.PropertyFor(x => photoLinkedItem.Heading)</h3>
+                                    <p>
+                                        @Html.PropertyFor(x=> photoLinkedItem.Text)
+                                    </p>
+                                </div>
+                                <a href="@Url.GetContentUrl(photoLinkedItem.SiteLink)" class="residential-service-gallery__more-btn">View</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

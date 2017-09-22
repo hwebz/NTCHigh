@@ -1,0 +1,770 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{300F79B1-6B07-4A76-9C42-2CD3A513CA5A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>High.Net.Models</RootNamespace>
+    <AssemblyName>High.Net.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>6</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
+    <OutputPath>bin\Dev\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Qa|AnyCPU'">
+    <OutputPath>bin\Qa\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stag|AnyCPU'">
+    <OutputPath>bin\Stag\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prod|AnyCPU'">
+    <OutputPath>bin\Prod\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Integration|AnyCPU' ">
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.Core.10.8.0\lib\net45\EPiServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.AddOns.Helpers, Version=0.2.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.AddOns.Helpers.0.2.0.0\Lib\EPiServer.AddOns.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="EPiServer.ApplicationModules, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Framework.10.8.0\lib\net45\EPiServer.ApplicationModules.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Cms.Shell.UI, Version=10.9.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.UI.Core.10.9.1\lib\net45\EPiServer.Cms.Shell.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Configuration, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.Core.10.8.0\lib\net45\EPiServer.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Data, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Framework.10.8.0\lib\net45\EPiServer.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Data.Cache, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Framework.10.8.0\lib\net45\EPiServer.Data.Cache.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Enterprise, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.Core.10.8.0\lib\net45\EPiServer.Enterprise.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Events, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Framework.10.8.0\lib\net45\EPiServer.Events.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Forms.Core, Version=4.5.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Forms.Core.4.5.0\Lib\EPiServer.Forms.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EPiServer.Forms.UI, Version=4.5.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Forms.Core.4.5.0\Lib\EPiServer.Forms.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="EPiServer.Framework, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Framework.10.8.0\lib\net45\EPiServer.Framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.ImageLibrary, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.Core.10.8.0\lib\net45\EPiServer.ImageLibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Licensing, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Framework.10.8.0\lib\net45\EPiServer.Licensing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.LinkAnalyzer, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.Core.10.8.0\lib\net45\EPiServer.LinkAnalyzer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Shell, Version=10.9.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.UI.Core.10.9.1\lib\net45\EPiServer.Shell.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Shell.UI, Version=10.9.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.UI.Core.10.9.1\lib\net45\EPiServer.Shell.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.UI, Version=10.9.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.UI.Core.10.9.1\lib\net45\EPiServer.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Web.WebControls, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.Core.10.8.0\lib\net45\EPiServer.Web.WebControls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.XForms, Version=10.8.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.Core.10.8.0\lib\net45\EPiServer.XForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageVault.Client, Version=5.2.132.0, Culture=neutral, PublicKeyToken=5adb7bea47dfc40a, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageVault.Client.5.2.132\lib\net45\ImageVault.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageVault.Common, Version=5.2.132.0, Culture=neutral, PublicKeyToken=5adb7bea47dfc40a, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageVault.Common.5.2.132\lib\net45\ImageVault.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageVault.Common.Lib.StructureMap, Version=5.2.132.0, Culture=neutral, PublicKeyToken=5adb7bea47dfc40a, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageVault.Common.Lib.StructureMap.5.2.132\lib\net45\ImageVault.Common.Lib.StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageVault.EPiServer, Version=5.2.50.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageVault.EPiServer.5.2.50\lib\net45\ImageVault.EPiServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageVault.EPiServer.Common, Version=5.2.50.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageVault.EPiServer.5.2.50\lib\net45\ImageVault.EPiServer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="MVC Foolproof Validation, Version=0.9.4517.16477, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\foolproof.0.9.4517\lib\MVC Foolproof Validation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap, Version=3.1.9.463, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap-signed.3.1.9.463\lib\net40\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Net4, Version=3.1.9.463, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap-signed.3.1.9.463\lib\net40\StructureMap.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.web-signed.3.1.6.186\lib\net40\StructureMap.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.5.24.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Tpl.Dataflow.4.5.24\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Associates\Blocks\AssociatesBlockData.cs" />
+    <Compile Include="Associates\Blocks\TextBlock.cs" />
+    <Compile Include="Associates\IAssociates.cs" />
+    <Compile Include="Associates\Pages\AssociatesPageData.cs" />
+    <Compile Include="Associates\Pages\BrokerPage.cs" />
+    <Compile Include="Associates\Pages\ContentPage.cs" />
+    <Compile Include="Associates\Pages\HomePage.cs" />
+    <Compile Include="Associates\Pages\BrokerListPage.cs" />
+    <Compile Include="Associates\Pages\HowWeCanHelpYouPage.cs" />
+    <Compile Include="Associates\Pages\ServiceListPage.cs" />
+    <Compile Include="Associates\Pages\SignUpPage.cs" />
+    <Compile Include="Associates\Pages\VideoItemPage.cs" />
+    <Compile Include="Associates\Pages\VideoListingPage.cs" />
+    <Compile Include="Business\SelectionFactory\SelectBackgroundColor.cs" />
+    <Compile Include="Business\SelectionFactory\SelectBridgeProjectType.cs" />
+    <Compile Include="Business\SelectionFactory\SelectCastPattern.cs" />
+    <Compile Include="Business\SelectionFactory\SelectColors.cs" />
+    <Compile Include="Business\SelectionFactory\SelectContainerType.cs" />
+    <Compile Include="Business\SelectionFactory\SelectColumnPosition.cs" />
+    <Compile Include="Business\SelectionFactory\SelectHighSiteTemplate.cs" />
+    <Compile Include="Business\SelectionFactory\SelectHotelByState.cs" />
+    <Compile Include="Business\SelectionFactory\SelectHotelByBrand.cs" />
+    <Compile Include="Business\SelectionFactory\SelectCorporateCenter.cs" />
+    <Compile Include="Business\SelectionFactory\SelectBrokerLocation.cs" />
+    <Compile Include="Business\SelectionFactory\SelectLocation.cs" />
+    <Compile Include="Business\SelectionFactory\SelectListingType.cs" />
+    <Compile Include="Business\SelectionFactory\SelectCurrency.cs" />
+    <Compile Include="Business\SelectionFactory\SelectRolloverSite.cs" />
+    <Compile Include="Business\SelectionFactory\SelectRolloverLocation.cs" />
+    <Compile Include="Business\SelectionFactory\SelectSolve360CategoryTag.cs" />
+    <Compile Include="Business\SelectionFactory\SelectTexture.cs" />
+    <Compile Include="Business\SelectionFactory\HighNet\ImageTextBlockTemplateFactory.cs" />
+    <Compile Include="Business\SelectionFactory\Shared\CarouselTemplateFactory.cs" />
+    <Compile Include="Business\SelectionFactory\Shared\AuthorQuoteTemplateFactory.cs" />
+    <Compile Include="Business\SelectionFactory\Shared\TestimonialSliderTemplateFactory.cs" />
+    <Compile Include="Business\SelectionFactory\Shared\NumbericContentBlockTemplateFactory.cs" />
+    <Compile Include="Business\SelectionFactory\Shared\PhotosGalleryTemplateFactory.cs" />
+    <Compile Include="Business\Solve360\Solve360Helper.cs" />
+    <Compile Include="Business\Solve360\Solve360Service.cs" />
+    <Compile Include="Business\Solve360\SolveCategoryTag.cs" />
+    <Compile Include="Commercial\Blocks\ImageGalleryBlock.cs" />
+    <Compile Include="Commercial\Blocks\ImageTextBlock.cs" />
+    <Compile Include="Commercial\Blocks\LinkItemBlock.cs" />
+    <Compile Include="Commercial\Blocks\TextBlock.cs" />
+    <Compile Include="Commercial\Blocks\VideoBlock.cs" />
+    <Compile Include="Commercial\Pages\BrokerListingPage.cs" />
+    <Compile Include="Commercial\Pages\ContentPage.cs" />
+    <Compile Include="Commercial\ViewModels\ContactForm.cs" />
+    <Compile Include="Constants\EditorConstants.cs" />
+    <Compile Include="Constants\SiteGroups.cs" />
+    <Compile Include="HighNet\Blocks\CarouselAreaBlock.cs" />
+    <Compile Include="HighNet\Blocks\TilesContainerBlock.cs" />
+    <Compile Include="HighNet\Blocks\AuthorQuoteContainerBlock.cs" />
+    <Compile Include="HighNet\Blocks\GoogleMapBlock.cs" />
+    <Compile Include="HighNet\Blocks\CarouselBlock.cs" />
+    <Compile Include="HighNet\Blocks\CarouselItemBlock.cs" />
+    <Compile Include="HighNet\Blocks\CSSLayeredImageContentBlock.cs" />
+    <Compile Include="HighNet\Blocks\FeaturePositionBlock.cs" />
+    <Compile Include="HighNet\Blocks\FeaturePositionItemBlock.cs" />
+    <Compile Include="HighNet\Blocks\ImageTableItemBlock.cs" />
+    <Compile Include="HighNet\Blocks\ResizableBlock.cs" />
+    <Compile Include="HighNet\Blocks\FullWidthCalloutBlock.cs" />
+    <Compile Include="HighNet\Blocks\HeaderBannerItemBlock.cs" />
+    <Compile Include="HighNet\Blocks\HeaderBannerBlock.cs" />
+    <Compile Include="HighNet\Blocks\ImageTable.cs" />
+    <Compile Include="HighNet\Blocks\LogoWallBlock.cs" />
+    <Compile Include="HighNet\Blocks\LogoWallItemBlock.cs" />
+    <Compile Include="HighNet\Blocks\NumberListContentBlock.cs" />
+    <Compile Include="HighNet\Blocks\NumberListContentItemBlock.cs" />
+    <Compile Include="HighNet\Blocks\PhotoGalleryBlock.cs" />
+    <Compile Include="HighNet\Blocks\PhotoGalleryItemBlock.cs" />
+    <Compile Include="HighNet\Blocks\SingleColumnCalloutBlock.cs" />
+    <Compile Include="HighNet\Blocks\StandardContentImageBlock.cs" />
+    <Compile Include="HighNet\Blocks\StaticQuoteBlock.cs" />
+    <Compile Include="HighNet\Blocks\TestimonialConatinerBlock.cs" />
+    <Compile Include="HighNet\Blocks\TextTableBlock.cs" />
+    <Compile Include="HighNet\Blocks\TextTableItemBlock.cs" />
+    <Compile Include="HighNet\Blocks\TextTableSubItemBlock.cs" />
+    <Compile Include="HighNet\Blocks\VideoCarouselBlock.cs" />
+    <Compile Include="HighNet\Pages\ApplicationMenuItemPage.cs" />
+    <Compile Include="HighNet\Pages\ReusableComponentPage.cs" />
+    <Compile Include="Media\GenericMedia.cs" />
+    <Compile Include="Media\ImageFile.cs" />
+    <Compile Include="Media\VideoFile.cs" />
+    <Compile Include="NewResidential\Blocks\ApartmentItemBlock.cs" />
+    <Compile Include="NewResidential\Blocks\EventItemBlock.cs" />
+    <Compile Include="NewResidential\Blocks\PhoneInfoBlock.cs" />
+    <Compile Include="NewResidential\Blocks\TextInformationGroupedBlock.cs" />
+    <Compile Include="NewResidential\Blocks\GoogleMapSingleLocationBlock.cs" />
+    <Compile Include="NewResidential\Blocks\INewResidentialBlock.cs" />
+    <Compile Include="NewResidential\Blocks\FaqBlock.cs" />
+    <Compile Include="NewResidential\Blocks\UtilityConnectionItemBlock.cs" />
+    <Compile Include="NewResidential\Blocks\UtilityConnectionsBlock.cs" />
+    <Compile Include="NewResidential\Blocks\EventListBlock.cs" />
+    <Compile Include="NewResidential\Blocks\ApartmentsCarouselBlock.cs" />
+    <Compile Include="NewResidential\Blocks\PhotosGridGalleryBlock.cs" />
+    <Compile Include="NewResidential\Blocks\ReadyToMoveBlock.cs" />
+    <Compile Include="NewResidential\INewResidential.cs" />
+    <Compile Include="NewResidential\Pages\ContactPage.cs" />
+    <Compile Include="NewResidential\Pages\ContentPage.cs" />
+    <Compile Include="NewResidential\Pages\HomePage.cs" />
+    <Compile Include="NewResidential\Pages\ResidentialBasePageData.cs" />
+    <Compile Include="Shared\Blocks\TestimonialSliderBlock.cs" />
+    <Compile Include="Shared\IHaveMultipleTemplates.cs" />
+    <Compile Include="Shared\Blocks\TextColumnBlock.cs" />
+    <Compile Include="Shared\CustomProperties\IconLinkListProperty.cs" />
+    <Compile Include="Shared\CustomProperties\LinkItemCollectionListProperty.cs" />
+    <Compile Include="Shared\CustomProperties\TextListProperty.cs" />
+    <Compile Include="Shared\CustomProperties\TextInforListProperty.cs" />
+    <Compile Include="Shared\CustomProperties\PropertyListBase.cs" />
+    <Compile Include="Shared\ListPropertyModel\IconLinkModel.cs" />
+    <Compile Include="Shared\ListPropertyModel\LinkCollectionModel.cs" />
+    <Compile Include="Shared\ListPropertyModel\TextModel.cs" />
+    <Compile Include="Shared\ListPropertyModel\TextInformationModel.cs" />
+    <Compile Include="Validation\Constants.cs" />
+    <Compile Include="Validation\EpiVlaidation.cs" />
+    <Compile Include="GreenfieldArchitects\Blocks\GreenfieldArchitectsBlockData.cs" />
+    <Compile Include="GreenfieldArchitects\Blocks\VideoBlock.cs" />
+    <Compile Include="GreenfieldArchitects\Blocks\TextBlock.cs" />
+    <Compile Include="GreenfieldArchitects\IGreenfieldArchitects.cs" />
+    <Compile Include="GreenfieldArchitects\Pages\PortfolioItemPage.cs" />
+    <Compile Include="GreenfieldArchitects\Pages\PortfolioListingPage.cs" />
+    <Compile Include="GreenfieldArchitects\Pages\PortfolioPage.cs" />
+    <Compile Include="GreenfieldArchitects\Pages\ServicePage.cs" />
+    <Compile Include="GreenfieldArchitects\Pages\ContentPage.cs" />
+    <Compile Include="GreenfieldArchitects\Pages\HomePage.cs" />
+    <Compile Include="GreenfieldArchitects\Pages\GreenfieldArchitectsPageData.cs" />
+    <Compile Include="HighAppraisal\Blocks\HighAppraisalBlockData.cs" />
+    <Compile Include="HighAppraisal\Blocks\ImageTextBlock.cs" />
+    <Compile Include="HighAppraisal\Blocks\TextBlock.cs" />
+    <Compile Include="HighAppraisal\IHighAppraisal.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighAppraisal\Pages\ContentPage.cs" />
+    <Compile Include="HighAppraisal\Pages\HighAppraisalPageData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighAppraisal\Pages\HomePage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighAppraisal\Pages\VideoItemPage.cs" />
+    <Compile Include="HighAppraisal\Pages\VideoListingPage.cs" />
+    <Compile Include="HighConcreteAccessories\Blocks\FaqBlock.cs" />
+    <Compile Include="HighConcreteAccessories\Blocks\HighAccessoriesBlockData.cs" />
+    <Compile Include="HighConcreteAccessories\Blocks\SpecificationsBlock.cs" />
+    <Compile Include="HighConcreteAccessories\Blocks\TextBlock.cs" />
+    <Compile Include="HighConcreteAccessories\IHighConcreteAccessories.cs" />
+    <Compile Include="HighConcreteAccessories\Pages\AskTheExpertPage.cs" />
+    <Compile Include="HighConcreteAccessories\Pages\CreateSpecificationPage.cs" />
+    <Compile Include="HighConcreteAccessories\Pages\NewsLetterPage.cs" />
+    <Compile Include="HighConcreteAccessories\Pages\OrderProductPage.cs" />
+    <Compile Include="HighConcreteAccessories\Pages\ContentPage.cs" />
+    <Compile Include="HighConcreteAccessories\Pages\HighConcreteAccessoriesPageData.cs" />
+    <Compile Include="HighConcreteAccessories\Pages\HomePage.cs" />
+    <Compile Include="HighConcreteAccessories\ViewModels\AskTheExpertPageModel.cs" />
+    <Compile Include="HighConcreteAccessories\ViewModels\CreateSpecificationPageModel.cs" />
+    <Compile Include="HighConcreteAccessories\ViewModels\NewsLetterModel.cs" />
+    <Compile Include="HighConcrete\Blocks\PopupBlock.cs" />
+    <Compile Include="HighConcrete\Blocks\HighConcreteBlockData.cs" />
+    <Compile Include="HighConcrete\Blocks\ImageGalleryBlock.cs" />
+    <Compile Include="HighConcrete\Blocks\ImageTextBlock.cs" />
+    <Compile Include="HighConcrete\Blocks\ColorFinishesBlock.cs" />
+    <Compile Include="HighConcrete\Blocks\ExpandCollapseBlock.cs" />
+    <Compile Include="HighConcrete\Blocks\ProductBlock.cs" />
+    <Compile Include="HighConcrete\Blocks\QuickLinkBlock.cs" />
+    <Compile Include="HighConcrete\Blocks\TextBlock.cs" />
+    <Compile Include="HighConcrete\IHighConcrete.cs" />
+    <Compile Include="HighConcrete\Pages\BoxLunchSignUpFormPage.cs" />
+    <Compile Include="HighConcrete\Pages\ColorSelectorListingPage.cs" />
+    <Compile Include="HighConcrete\Pages\CreateSpecificationPage.cs" />
+    <Compile Include="HighConcrete\Pages\EventListingPage.cs" />
+    <Compile Include="HighConcrete\Pages\HowAreWeDoingPage.cs" />
+    <Compile Include="HighConcrete\Pages\LeftNavigationPage.cs" />
+    <Compile Include="HighConcrete\Pages\NewsLetterPage.cs" />
+    <Compile Include="HighConcrete\Pages\FindRepresentativePage.cs" />
+    <Compile Include="HighConcrete\Pages\ContentPage.cs" />
+    <Compile Include="HighConcrete\Pages\GetQuotePage.cs" />
+    <Compile Include="HighConcrete\Pages\HighConcretePageData.cs" />
+    <Compile Include="HighConcrete\Pages\HomePage.cs" />
+    <Compile Include="HighConcrete\Pages\EventItemPage.cs" />
+    <Compile Include="HighConcrete\Pages\OnlineCoursesFormPage.cs" />
+    <Compile Include="HighConcrete\Pages\ProductCategoryPage.cs" />
+    <Compile Include="HighConcrete\Pages\ProductItemPage.cs" />
+    <Compile Include="HighConcrete\Pages\ProductListingPage.cs" />
+    <Compile Include="HighConcrete\Pages\ProjectCategoryPage.cs" />
+    <Compile Include="HighConcrete\Pages\ProjectItemPage.cs" />
+    <Compile Include="HighConcrete\Pages\ProjectListingPage.cs" />
+    <Compile Include="HighConcrete\Pages\TeamItemPage.cs" />
+    <Compile Include="HighConcrete\Pages\TeamListingPage.cs" />
+    <Compile Include="HighConcrete\Pages\TeamTypeListingPage.cs" />
+    <Compile Include="HighConcrete\Pages\VideoItemPage.cs" />
+    <Compile Include="HighConcrete\Pages\VideoListingPage.cs" />
+    <Compile Include="HighConcrete\ViewModels\BoxLunchSignUpFormModel.cs" />
+    <Compile Include="HighConcrete\ViewModels\ColorSelectorModel.cs" />
+    <Compile Include="HighConcrete\ViewModels\GetQuotePageModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HighConcrete\ViewModels\HowAreWeDoingModel.cs" />
+    <Compile Include="HighConcrete\ViewModels\CreateSpecificationModel.cs" />
+    <Compile Include="HighConcrete\ViewModels\NewsletterModel.cs" />
+    <Compile Include="HighConcrete\ViewModels\FindRepresentativeModel.cs" />
+    <Compile Include="HighConcrete\ViewModels\OnlineCoursesFormModel.cs" />
+    <Compile Include="HighConstructionCo\Blocks\ImageTextBlock.cs" />
+    <Compile Include="HighConstructionCo\Blocks\TextBlock.cs" />
+    <Compile Include="HighConstructionCo\Pages\ContentPage.cs" />
+    <Compile Include="HighConstructionCo\Pages\ProjectCategoryListPage.cs" />
+    <Compile Include="HighConstructionCo\Pages\ProjectItemPage.cs" />
+    <Compile Include="HighConstructionCo\Pages\ProjectListingPage.cs" />
+    <Compile Include="HighHotels\Blocks\FeaturesBlock.cs" />
+    <Compile Include="HighHotels\Blocks\HighHotelsBlockData.cs" />
+    <Compile Include="HighHotels\Blocks\TextBlock.cs" />
+    <Compile Include="HighHotels\IHighHotels.cs" />
+    <Compile Include="HighHotels\Pages\ContentPage.cs" />
+    <Compile Include="HighHotels\Pages\PortfolioListPage.cs" />
+    <Compile Include="HighHotels\Pages\HighHotelsPageData.cs" />
+    <Compile Include="HighHotels\Pages\HomePage.cs" />
+    <Compile Include="HighHotels\Pages\PortfolioPage.cs" />
+    <Compile Include="HighHotels\Pages\VideoItemPage.cs" />
+    <Compile Include="HighHotels\Pages\VideoListingPage.cs" />
+    <Compile Include="HighNet\Blocks\AuthorQuoteBlock.cs" />
+    <Compile Include="HighNet\Blocks\HighNetBlockData.cs" />
+    <Compile Include="HighNet\Blocks\HistoryBlock.cs" />
+    <Compile Include="HighNet\Blocks\ImageTextBlock.cs" />
+    <Compile Include="HighNet\Blocks\CEOBlock.cs" />
+    <Compile Include="HighNet\Blocks\MembersBlock.cs" />
+    <Compile Include="HighNet\Blocks\NewsBlock.cs" />
+    <Compile Include="HighNet\Blocks\OtherTileBlockWide.cs" />
+    <Compile Include="HighNet\Blocks\OtherTilesBlock.cs" />
+    <Compile Include="HighNet\Blocks\TaskBlock.cs" />
+    <Compile Include="HighNet\Blocks\TestimonialBlock.cs" />
+    <Compile Include="HighNet\Blocks\TextBlock.cs" />
+    <Compile Include="HighNet\Blocks\TweeterFeedBlock.cs" />
+    <Compile Include="HighNet\Blocks\VideoBlock.cs" />
+    <Compile Include="HighNet\IHighNet.cs" />
+    <Compile Include="HighNet\Pages\CommonItemPage.cs" />
+    <Compile Include="HighNet\Pages\MeasureItemPage.cs" />
+    <Compile Include="HighNet\Pages\CommonListingPage.cs" />
+    <Compile Include="HighNet\Pages\MeasureListingPage.cs" />
+    <Compile Include="HighNet\Pages\ContentPage.cs" />
+    <Compile Include="HighNet\Pages\HighNetPageData.cs" />
+    <Compile Include="HighNet\Pages\HomePage.cs" />
+    <Compile Include="HighNet\Pages\SustainabilityDownloadPage.cs" />
+    <Compile Include="HighNet\ViewModels\SustainabilityDownloadModel.cs" />
+    <Compile Include="HighSteelStructure\Blocks\FaqBlock.cs" />
+    <Compile Include="HighSteelStructure\Blocks\HighSteelStructureBlockData.cs" />
+    <Compile Include="HighSteelStructure\Blocks\ImageTextBlock.cs" />
+    <Compile Include="HighSteelStructure\Blocks\ProductsBlock.cs" />
+    <Compile Include="HighSteelStructure\Blocks\TextBlock.cs" />
+    <Compile Include="HighSteelStructure\IHighSteelStructure.cs" />
+    <Compile Include="HighSteelStructure\Pages\AskHighSteelPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\BridgePricingPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\BuildingProjectPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\ContactSalesPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\FAQItemPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\FAQListingPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\ContentPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\HighSteelStructurePageData.cs" />
+    <Compile Include="HighSteelStructure\Pages\HomePage.cs" />
+    <Compile Include="HighSteelStructure\Pages\PlantTourPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\ProjectCategoryPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\ProjectItemPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\ProjectListingPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\ShippingAdvisorPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\NEXTBeamBudgetPricePage.cs" />
+    <Compile Include="HighSteelStructure\Pages\SteelDayPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\TechnicalResourcesPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\VideoItemPage.cs" />
+    <Compile Include="HighSteelStructure\Pages\VideoListingPage.cs" />
+    <Compile Include="HighSteelStructure\ViewModels\AskHighSteelModel.cs" />
+    <Compile Include="HighSteelStructure\ViewModels\BridgePricingModel.cs" />
+    <Compile Include="HighSteelStructure\ViewModels\BuildingProjectModel.cs" />
+    <Compile Include="HighSteelStructure\ViewModels\ContactSalesModel.cs" />
+    <Compile Include="HighSteelStructure\ViewModels\PlantTourPageModel.cs" />
+    <Compile Include="HighSteelStructure\ViewModels\ShippingAdvisorPageModel.cs" />
+    <Compile Include="HighSteelStructure\ViewModels\NEXTBeamBudgetPriceModel.cs" />
+    <Compile Include="HighSteelStructure\ViewModels\SteelDayModel.cs" />
+    <Compile Include="HighSteelStructure\ViewModels\TechnicalResourcesModel.cs" />
+    <Compile Include="HighTransit\Blocks\AwardsBlock.cs" />
+    <Compile Include="HighTransit\Blocks\EquipmentBlock.cs" />
+    <Compile Include="HighTransit\Blocks\EquipmentDetailsBlock.cs" />
+    <Compile Include="HighTransit\Blocks\HighTransitBlockData.cs" />
+    <Compile Include="HighTransit\Blocks\ImageGalleryBlock.cs" />
+    <Compile Include="HighTransit\Blocks\ImageTextBlock.cs" />
+    <Compile Include="HighTransit\Blocks\InnerEquipmentBlock.cs" />
+    <Compile Include="HighTransit\Blocks\MemberBlock.cs" />
+    <Compile Include="HighTransit\Blocks\ProfileBlock.cs" />
+    <Compile Include="HighTransit\Blocks\TextBlock.cs" />
+    <Compile Include="HighTransit\IHighTransit.cs" />
+    <Compile Include="HighConstructionCo\Blocks\HighConstructionCoBlockData.cs" />
+    <Compile Include="HighConstructionCo\IHighConstructionCo.cs" />
+    <Compile Include="HighConstructionCo\Pages\HighConstructionCoPageData.cs" />
+    <Compile Include="HighConstructionCo\Pages\HomePage.cs" />
+    <Compile Include="HighTransit\Pages\MapPage.cs" />
+    <Compile Include="HighTransit\Pages\ContentPage.cs" />
+    <Compile Include="HighTransit\Pages\HighTransitPageData.cs" />
+    <Compile Include="HighTransit\Pages\HomePage.cs" />
+    <Compile Include="HighTransit\Pages\ProjectItemPage.cs" />
+    <Compile Include="HighTransit\Pages\ProjectListingPage.cs" />
+    <Compile Include="HighTransit\Pages\ServiceItemPage.cs" />
+    <Compile Include="HighTransit\Pages\ServiceListingPage.cs" />
+    <Compile Include="HighTransit\Pages\VideoItemPage.cs" />
+    <Compile Include="HighTransit\Pages\VideoListingPage.cs" />
+    <Compile Include="Humanity\Blocks\HumanityBlockData.cs" />
+    <Compile Include="Humanity\Blocks\PartnersBlock.cs" />
+    <Compile Include="Humanity\Blocks\PlainTextBlock.cs" />
+    <Compile Include="Humanity\Blocks\TextBlock.cs" />
+    <Compile Include="Humanity\IHumanity.cs" />
+    <Compile Include="Humanity\Pages\ContentPage.cs" />
+    <Compile Include="Humanity\Pages\HomePage.cs" />
+    <Compile Include="Humanity\Pages\HumanityPageData.cs" />
+    <Compile Include="Humanity\Pages\ToolkitPage.cs" />
+    <Compile Include="Humanity\ViewModels\UserModel.cs" />
+    <Compile Include="Industries\Blocks\AboutBlock.cs" />
+    <Compile Include="Industries\Blocks\BusinessBlock.cs" />
+    <Compile Include="Industries\Blocks\CarouselBlock.cs" />
+    <Compile Include="Industries\Blocks\CEOBlock.cs" />
+    <Compile Include="Industries\Blocks\IndustriesBlockData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Industries\Blocks\MembersBlock.cs" />
+    <Compile Include="Industries\Blocks\TextBlock.cs" />
+    <Compile Include="Industries\Pages\CommonItemPage.cs" />
+    <Compile Include="Industries\Pages\CommonListingPage.cs" />
+    <Compile Include="Industries\Pages\ContentPage.cs" />
+    <Compile Include="Commercial\Blocks\CommercialBlockData.cs" />
+    <Compile Include="Commercial\ICommercial.cs" />
+    <Compile Include="Commercial\Pages\CommercialPageData.cs" />
+    <Compile Include="Business\SelectionFactory\SelectPropertyType.cs" />
+    <Compile Include="Constants\PropertyCategories.cs" />
+    <Compile Include="RealEstateGroup\Blocks\MainBlock.cs" />
+    <Compile Include="RealEstateGroup\Blocks\AssetsBlock.cs" />
+    <Compile Include="RealEstateGroup\Blocks\ProjectPortfolioBlock.cs" />
+    <Compile Include="RealEstateGroup\Blocks\ProfileImageBlock.cs" />
+    <Compile Include="RealEstateGroup\Blocks\RealEstateGroupBlockData.cs" />
+    <Compile Include="RealEstateGroup\Blocks\ServicesBlock.cs" />
+    <Compile Include="RealEstateGroup\Blocks\LocationBlock.cs" />
+    <Compile Include="RealEstateGroup\Blocks\TextBlock.cs" />
+    <Compile Include="RealEstateGroup\IRealEstateGroup.cs" />
+    <Compile Include="RealEstateGroup\Pages\ContentPage.cs" />
+    <Compile Include="RealEstateGroup\Pages\HomePage.cs" />
+    <Compile Include="RealEstateGroup\Pages\ProfileItemPage.cs" />
+    <Compile Include="RealEstateGroup\Pages\ProfileListingPage.cs" />
+    <Compile Include="RealEstateGroup\Pages\RealEstateMattersPage.cs" />
+    <Compile Include="Residential\Pages\ApplyNowPage.cs" />
+    <Compile Include="Residential\Pages\ScheduleTourPage.cs" />
+    <Compile Include="Residential\ViewModels\ScheduleTourPageModel.cs" />
+    <Compile Include="Rollover\Blocks\FindASpaceBlock.cs" />
+    <Compile Include="RealEstateGroup\Pages\ProjectPortfolioListingPage.cs" />
+    <Compile Include="RootPage\SysRoot.cs" />
+    <Compile Include="Shared\Blocks\GenericBlock.cs" />
+    <Compile Include="Shared\Pages\ContactUsPage.cs" />
+    <Compile Include="Shared\Pages\GenericPage.cs" />
+    <Compile Include="Shared\Pages\LocationPage.cs" />
+    <Compile Include="RealEstateGroup\Pages\RealEstateGroupPageData.cs" />
+    <Compile Include="Residential\Pages\SalesItemPage.cs" />
+    <Compile Include="Residential\Pages\SalesListingPage.cs" />
+    <Compile Include="Residential\Pages\SalesCategoryPage.cs" />
+    <Compile Include="Rollover\Blocks\CommercialMultiFamily.cs" />
+    <Compile Include="Rollover\Blocks\PortfolioListingBlock.cs" />
+    <Compile Include="Rollover\Blocks\ProfileBlock.cs" />
+    <Compile Include="Rollover\Blocks\ResidentialMultiFamily.cs" />
+    <Compile Include="Rollover\Blocks\Testimonials.cs" />
+    <Compile Include="Rollover\Blocks\MainBlock.cs" />
+    <Compile Include="Rollover\Blocks\RolloverBlockData.cs" />
+    <Compile Include="Rollover\Blocks\TextBlock.cs" />
+    <Compile Include="Rollover\IRollover.cs" />
+    <Compile Include="Rollover\Pages\ContentPage.cs" />
+    <Compile Include="Rollover\Pages\FindAnApartmentPage.cs" />
+    <Compile Include="Rollover\Pages\FindAnSpacePage.cs" />
+    <Compile Include="Rollover\Pages\HomePage.cs" />
+    <Compile Include="Rollover\Pages\OpportunityItemPage.cs" />
+    <Compile Include="Rollover\Pages\OpportunityListingPage.cs" />
+    <Compile Include="Rollover\Pages\RolloverPageData.cs" />
+    <Compile Include="Residential\Blocks\PlanTypeBlock.cs" />
+    <Compile Include="Residential\Blocks\FaqBlock.cs" />
+    <Compile Include="Residential\Blocks\FloorPlansBlock.cs" />
+    <Compile Include="Residential\Blocks\GalleryBlock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Residential\Blocks\ImageTextBlock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Residential\Blocks\ProjectsBlock.cs" />
+    <Compile Include="Residential\Blocks\ResidentialBlockData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Residential\Blocks\StaffBlock.cs" />
+    <Compile Include="Residential\Blocks\TextBlock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Residential\IResidential.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Residential\Pages\ContentPage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Residential\Pages\EventListingPage.cs" />
+    <Compile Include="Residential\Pages\EventPage.cs" />
+    <Compile Include="Residential\Pages\HomePage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Residential\Pages\ResidentialPageData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Residential\Pages\ReviewListingPage.cs" />
+    <Compile Include="Residential\Pages\ReviewPage.cs" />
+    <Compile Include="Residential\Pages\StandardPage.cs" />
+    <Compile Include="Shared\Blocks\CoordinatesBlock.cs" />
+    <Compile Include="Shared\Pages\PropertyListingPage.cs" />
+    <Compile Include="Commercial\Pages\HomePage.cs" />
+    <Compile Include="Shared\Pages\PropertyPage.cs" />
+    <Compile Include="Industries\Blocks\LLCBlock.cs" />
+    <Compile Include="Industries\IIndustries.cs" />
+    <Compile Include="Industries\Pages\HomePage.cs" />
+    <Compile Include="Industries\Pages\IndustriesPageData.cs" />
+    <Compile Include="SelfStorage\Blocks\SelfStorageBlockData.cs" />
+    <Compile Include="SelfStorage\Blocks\TextBlock.cs" />
+    <Compile Include="SelfStorage\ISelfStorage.cs" />
+    <Compile Include="SelfStorage\Pages\ContentPage.cs" />
+    <Compile Include="SelfStorage\Pages\HomePage.cs" />
+    <Compile Include="SelfStorage\Pages\SelfStoragePageData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\Pages\ContainerPage.cs" />
+    <Compile Include="Shared\Pages\NewsItemPage.cs" />
+    <Compile Include="Shared\Pages\NewsListingPage.cs" />
+    <Compile Include="Shared\Pages\PropertyTypePage.cs" />
+    <Compile Include="Associates\ViewModels\HelpPageModel.cs" />
+    <Compile Include="Shared\Pages\SearchPage.cs" />
+    <Compile Include="Shared\ViewModels\ContactUsPageModel.cs" />
+    <Compile Include="Shared\ViewModels\PropertyPageModel.cs" />
+    <Compile Include="SteelServiceCentre\Blocks\ImageGalleryBlock.cs" />
+    <Compile Include="SteelServiceCentre\Blocks\ImageTextBlock.cs" />
+    <Compile Include="SteelServiceCentre\Blocks\ServicesBlock.cs" />
+    <Compile Include="SteelServiceCentre\Blocks\SteelServiceCentreBlockData.cs" />
+    <Compile Include="SteelServiceCentre\Blocks\TextBlock.cs" />
+    <Compile Include="SteelServiceCentre\ISteelServiceCentre.cs" />
+    <Compile Include="SteelServiceCentre\Pages\BrokerListPage.cs" />
+    <Compile Include="SteelServiceCentre\Pages\BrokerPage.cs" />
+    <Compile Include="SteelServiceCentre\Pages\ContentPage.cs" />
+    <Compile Include="SteelServiceCentre\Pages\HomePage.cs" />
+    <Compile Include="SteelServiceCentre\Pages\ShippingAdvisorPage.cs" />
+    <Compile Include="SteelServiceCentre\Pages\SteelServiceCentrePageData.cs" />
+    <Compile Include="SteelServiceCentre\Pages\VideoItemPage.cs" />
+    <Compile Include="SteelServiceCentre\Pages\VideoListingPage.cs" />
+    <Compile Include="StructureCareUs\Blocks\ContactPersonBlock.cs" />
+    <Compile Include="StructureCareUs\Blocks\ImageTextBlock.cs" />
+    <Compile Include="StructureCareUs\Blocks\StructureCareUsBlockData.cs" />
+    <Compile Include="StructureCareUs\Blocks\TextBlock.cs" />
+    <Compile Include="StructureCareUs\IStructureCareUs.cs" />
+    <Compile Include="StructureCareUs\Pages\ContentPage.cs" />
+    <Compile Include="StructureCareUs\Pages\HomePage.cs" />
+    <Compile Include="StructureCareUs\Pages\ServiceItemPage.cs" />
+    <Compile Include="StructureCareUs\Pages\ServiceListingPage.cs" />
+    <Compile Include="StructureCareUs\Pages\StructureCareUsPageData.cs" />
+    <Compile Include="Validation\Helper.cs" />
+    <Compile Include="Validation\HighNet\CarouselBlockValidation.cs" />
+    <Compile Include="Validation\HighNet\TestimonialConatinerBlockValidation.cs" />
+    <Compile Include="Validation\HighNet\PhotoGalleryBlockValidation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="imagevault.client.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="modules\_protected\CMS\CMS.zip" />
+    <None Include="modules\_protected\Shell\Shell.zip" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\High.Net.Core\High.Net.Core.csproj">
+      <Project>{d84927b4-4d02-44c9-834e-06cde07400c6}</Project>
+      <Name>High.Net.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Readme.ImageVault.EPiServer.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.de.resx" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

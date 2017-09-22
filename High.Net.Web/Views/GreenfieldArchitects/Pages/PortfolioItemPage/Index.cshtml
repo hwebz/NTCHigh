@@ -1,0 +1,144 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.GreenfieldArchitects.Pages
+@using ImageVault.EPiServer
+@using ImageVault.Client.Query
+@using EPiServer.Core
+@using High.Net.Core.Helpers
+@model PageViewModel<PortfolioItemPage>
+@section SiteHeader{
+    <link href="~/Static/greenfield-architects/css/banner.css" rel="stylesheet" />
+}
+@{
+    var contentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+    var ServicePages = contentLocator.GetAll<ServicePage>(PageReference.StartPage);
+    String url = String.Empty;
+    String[] characterSeparator = { ";", "and", "/", "," };
+    List<string> Services = new List<string>();
+    foreach (var item in characterSeparator)
+    {
+        if (Model.CurrentPage.ServiceProvided.Contains(item))
+        {
+            string[] serviceName = Model.CurrentPage.ServiceProvided.Split(new string[] { item }, StringSplitOptions.None);
+            foreach (var Service in serviceName)
+            {
+                Services.Add(Service);
+            }
+        }
+    }
+    if (Services.Count == 0)
+    {
+        Services.Add(Model.CurrentPage.ServiceProvided);
+    }
+}
+<div class="container">
+    <div class="small-slide">
+        <div class="responsive-container">
+            <div class="dummy"></div>
+            <div class="main-banner inner full">
+                @if (Model.CurrentPage.PortfolioImages != null)
+                {
+                    MediaReference image = Model.CurrentPage.PortfolioImages[0];
+                    @Html.PropertyFor(x => image, new { PropertySettings = new PropertyMediaSettings { Width = 1170, Height = 600 }, CssClass = "img-responsive" })
+                }
+            </div>
+        </div>
+        <div class="black-band">
+            <div class="container">
+                <h3>@Model.CurrentPage.ProjectName @Model.CurrentPage.Location</h3>
+            </div>
+        </div>
+    </div>
+    <div class="jcarousel-wrapper">
+        <div class="jcarousel">
+            <ul>
+                @if (Model.CurrentPage.PortfolioImages != null)
+                {
+                    foreach (var item in Model.CurrentPage.PortfolioImages)
+                    {
+                    <li data-url="@MediaHelpers.GetImageUrl(item, new { PropertySettings = new PropertyMediaSettings { Width = 1170, Height = 600 }, CssClass = "img-responsive" })">
+                        @Html.PropertyFor(x => item, new { PropertySettings = new PropertyMediaSettings { Width = 148, Height = 102, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                    </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="jcarousel-control-prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </div>
+        <div class="jcarousel-control-next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="common-container arc-design-inner">
+        <div class="row">
+            <div class="col-md-7">
+                @if (Model.CurrentPage.facility != null)
+                {
+                    <div class="col-md-12">
+                        <b>Facility:</b> @Html.PropertyFor(x => x.CurrentPage.facility)
+                    </div>
+                }
+                @if (Model.CurrentPage.Size != null)
+                {
+                    <div class="col-md-12">
+                        <b>Size:</b> @Html.PropertyFor(x => x.CurrentPage.Size)
+                    </div>
+                }
+                @if (Model.CurrentPage.Location != null)
+                {
+                    <div class="col-md-12">
+                        <b>Location:</b> @Html.PropertyFor(x => x.CurrentPage.Location)
+                    </div>
+                }
+                <div class="col-md-12">
+                    <div class="service-provided">
+                        <b>Services Provided:</b>
+                        @if (Services.Count > 0)
+                        {
+                            var last = Services.Last();
+                            foreach (var service in Services)
+                            {
+                                var servicePage = ServicePages.Where(x => x.Name.Contains(service.Trim())).FirstOrDefault();
+                                if (servicePage != null)
+                                {
+                                    url = servicePage.LinkURL;
+                                    if (!service.Equals(last))
+                                    {
+                            <p><a href="@Url.ContentUrl(url)">@service.Trim()</a>,</p>
+                                    }
+                                    else
+                                    {
+                            <p><a href="@Url.ContentUrl(url)">@service.Trim()</a></p>
+                                    }
+                                }
+                                else
+                                {
+                                    if (!service.Equals(last))
+                                    {
+                            <p>@service.Trim(),</p>
+                                    }
+                                    else
+                                    {
+                            <p>@service.Trim()</p>
+                                    }
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+            <div class="spacer"></div>
+            <div class="col-md-12">
+                <p>@Html.PropertyFor(x => x.CurrentPage.Description)</p>
+            </div>
+        </div>
+    </div>
+</div>
+@section SiteFooter{
+    @Scripts.Render("~/bundles/jcarousel")
+    @Html.IncludeVersionedJs("/Static/greenfield-architects/js/banner.js")
+}

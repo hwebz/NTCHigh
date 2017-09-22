@@ -1,0 +1,88 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.Rollover.Pages
+@using High.Net.Core.Extentions
+@model PageViewModel<FindAnApartmentPage>
+@{
+    var contentRepo = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+
+    var multifamilySites = contentRepo.GetChildren<High.Net.Models.Residential.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.RootPage).GroupBy(x => x.Location).ToList();
+    if (ViewBag.Location != null)
+    {
+        int currentIndex = multifamilySites.FindIndex(x => x.Key == ViewBag.Location);
+        multifamilySites.Swap(0, currentIndex);
+    }
+}
+
+<div class="main-section">
+    <div class="container">
+        <div class="welcome ">
+            <div class="content pennsylvania">
+                @if (multifamilySites != null)
+                {
+                    foreach (var items in multifamilySites)
+                    {
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                @if (items.Key != null)
+                                {
+                                    <h2 class="title"> @items.Key </h2>
+                                    @*<hr class="blue-border">*@
+                                }
+                            </div>
+                        </div>
+                        foreach (var item in items)
+                        {
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="apartment">
+                                        <a href="@Url.ContentUrl(item.ContentLink)">
+                                            @Html.PropertyFor(x => item.SiteImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 250 }, CssClass = "img-responsive" })
+                                            <h3 class="slogan">@item.Name</h3>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="row">
+                                        <div class="col-md-8 col-sm-8">
+                                            <div class="pennsylvania-content">
+                                                <p class="no-margin"><strong>@item.Name</strong></p>
+                                                <p class="no-margin">@item.Address</p>
+                                            </div>
+                                            <br />
+                                            <p>
+                                                @item.SiteIntroduction
+                                            </p>
+                                            <br />
+                                            <div class="pennsylvania-content">
+                                                @if (item.BedCount != null)
+                                                {
+                                                    <span>Bedrooms: @item.BedCount</span>
+                                                }
+                                                @if (item.BathCount != null)
+                                                {
+                                                    <span>Bath: @item.BathCount</span>
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="pennsylvania-content">
+                                                <h3 class="call-heading">Call: <a href="tel:@item.ContactNo">@item.ContactNo</a>  </h3>
+                                                <a class="blue-btn" href="@Url.ContentUrl(item.ContentLink)">VIEW SITE</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="spacer"></div>
+                        }
+                    }
+                }
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- section content start-->
+    </div>
+</div>

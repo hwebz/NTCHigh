@@ -1,0 +1,47 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.GreenfieldArchitects.Pages
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+</button>
+<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+    @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl) }))
+    {
+        <div class="search-bx">
+            <input type="text" placeholder="Search for..." class="search-text" name="q" />
+            <button class="search-btn glyphicon glyphicon-search"></button>
+        </div>
+    }
+    <div class="navbar-collapse collapse ">
+        <ul class="nav navbar-nav">
+            @Html.MenuList(EPiServer.Core.PageReference.StartPage,
+            @<li @(item.HasChildren.Value ? "class='dropdown'" : "")>
+                @if (!item.HasChildren.Value)
+                {
+                    <a href="@Url.ContentUrl(item.Page.ContentLink)">@item.Page.Name</a>
+                }
+                else
+                {
+                    var childitems = contentLoader.GetChildren<BasePageData>(item.Page.ContentLink);
+                    <a class="navitem" href="@Url.ContentUrl(item.Page.ContentLink)">@item.Page.Name</a>
+                    <a class="dropdown-toggle caret-dd" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        @foreach (var citem in childitems)
+                        {
+                            <li><a href="@Url.ContentUrl(citem.ContentLink)">@citem.Name</a></li>
+                        }
+                    </ul>
+                }
+            </li>)
+        </ul>
+    </div>
+</div>

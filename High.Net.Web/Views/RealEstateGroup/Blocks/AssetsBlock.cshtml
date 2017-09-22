@@ -1,0 +1,16 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.RealEstateGroup.Blocks
+
+@model AssetsBlock
+
+<div class="asset-services" @Html.EditAttributes(m => m.BlockContentArea)>
+    <h2 class="title">@Html.PropertyFor(m => m.Heading)
+    </h2>
+    <ul>
+        @Html.PropertyFor(m => m.BlockContentArea, new { tag = Global.ContentAreaTags.NoRenderer })
+    </ul>
+    <div class="clearfix"></div>
+</div>
+
+

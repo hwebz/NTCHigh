@@ -1,0 +1,60 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using HAPP = High.Net.Models.HighAppraisal.Pages
+@using HA = High.Net.Models.Associates.Pages
+@using ImageVault.EPiServer
+
+@model IPageViewModel<BasePageData>
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var repository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>(); 
+    
+    var ParenthomePage = contentLoader.Get<HA.HomePage>(EPiServer.Core.PageReference.StartPage);
+
+    HAPP.HomePage  currentHomepage;
+    if(Model.CurrentPage.GetType().BaseType == typeof(HAPP.HomePage))
+    {
+         currentHomepage = contentLoader.Get<HAPP.HomePage>(Model.CurrentPage.ContentLink) ;   
+    }
+    else
+    {
+        currentHomepage = repository.GetAncestors(Model.CurrentPage.ContentLink).Where(x => x.GetType().BaseType == typeof(HAPP.HomePage)).FirstOrDefault() as HAPP.HomePage;   
+    }
+    
+}
+
+ <header class="header-frontend inner-page">
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                   <a class="navbar-brand" href="@Url.ContentUrl(currentHomepage.ContentLink)">
+                       @{
+                           if(currentHomepage.SiteLogo != null)
+                           {
+                              @Html.PropertyFor(x => currentHomepage.SiteLogo, new { PropertySettings = new PropertyMediaSettings { Width=327, Height = 56 }})
+
+                           }
+                           else
+                           {
+                             @Html.PropertyFor(x => ParenthomePage.SiteLogo, new { PropertySettings = new PropertyMediaSettings { Width=327, Height = 56 }})
+                           }
+                        }
+                  </a>
+                </div>
+                <div class="navbar-collapse collapse ">
+                    <ul class="nav navbar-nav">
+                         @Html.MenuList(currentHomepage.ContentLink,
+                         @<li><a href="@Url.ContentUrl(item.Page.ContentLink)">@item.Page.Name</a></li>)
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>

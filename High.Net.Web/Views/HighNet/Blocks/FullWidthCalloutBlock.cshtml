@@ -1,0 +1,36 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+
+@model FullWidthCalloutBlock
+
+@if (@Url.ContentUrl(Model.Hyperlink) != string.Empty)
+{
+    <a href="@Url.ContentUrl(Model.Hyperlink)" style="text-decoration:none !important">
+        <div class="rehome-block" style="background:@Model.BackGroundColor; color:@Model.TextColor;">
+            <div class="reFull-block-content">
+                <div class="reblock-main-content">
+                    <div class="reblock-head" style="color:@Model.TextColor;">
+                        <span class="arro" style="color:@Model.TextColor;">&#x2192;</span>
+                        <p>@Html.PropertyFor(x => x.Title)</p>
+                        <p>@Html.PropertyFor(x => x.Body)</p>
+                    </div>
+                    <span style="color:@Model.TextColor; text-decoration:underline;">READ MORE</span>
+                </div>
+            </div>
+        </div>
+    </a>
+}
+else
+{
+    <div class="rehome-block" style="background:@Model.BackGroundColor; color:@Model.TextColor;">
+        <div class="reFull-block-content">
+            <div class="reblock-main-content">
+                <div class="reblock-head" style="color:@Model.TextColor;">
+                    <p>@Html.PropertyFor(x => x.Title)</p>
+                    <p>@Html.PropertyFor(x => x.Body)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}

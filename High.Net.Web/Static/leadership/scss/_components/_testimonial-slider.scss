@@ -1,0 +1,56 @@
+﻿$pre: 'leadership-testimonial-slider';
+
+.#{$pre} {
+    @include block-spacing($block-spacing, $block-spacing-tablet);
+    position: relative;
+
+    &:after {
+        content: '';
+        @extend %horizontal-centered;
+        top: 45px;
+        left: calc(50% - 250px);
+        display: block;
+        width: 170px;
+        height: 150px;
+        background: transparent url('../images/quote.png') no-repeat center center;
+        background-size: contain;
+
+        @include respond-to-max($desktopSize) {
+            left: calc(50% - 200px);
+        }
+
+        @include respond-to-max($tabletSize) {
+            top: 10px;
+            left: calc(50% - 200px);
+            width: 100px;
+            height: 88px;
+        }
+
+        @include respond-to-max($phonePortrait) {
+            left: calc(50% - 95px);
+        }
+    }
+
+    .#{$pre}__slider {
+        .#{$pre}__slider-item {
+            h3 {
+                @include set-font('%droidserif-bolditalic', $testimonial-slider-quote-font-size);
+                line-height: $testimonial-slider-quote-line-height;
+                color: $color-gray-2;
+                text-align: center;
+
+                @include respond-to-max($tabletSize) {
+                    font-size: $testimonial-slider-quote-font-size-tablet;
+                    line-height: $testimonial-slider-quote-line-height-tablet;
+                    padding: 0 15px;
+                }
+            }
+        }
+
+        .slick-dots {
+            @extend %horizontal-centered;
+            bottom: auto;
+            top: 100%;
+        }
+    }
+}

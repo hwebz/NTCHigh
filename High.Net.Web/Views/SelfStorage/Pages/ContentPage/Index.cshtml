@@ -1,0 +1,32 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.SelfStorage.Pages
+
+@model PageViewModel<ContentPage>
+<div class="slider">
+    <div class="container">
+        @Html.PropertyFor(x => x.CurrentPage.ImageBanner, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 290 }, CssClass = "img-responsive" })
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        @Html.PropertyFor(x => x.CurrentPage.ContentArea,
+        new
+        {
+            CssClass = "row",
+            tag = Global.ContentAreaTags.FullWidth,
+            Tags = new[] {
+                Global.ContentAreaTags.FullWidth,
+                Global.ContentAreaTags.TwoThirdsWidth,
+                Global.ContentAreaTags.HalfWidth,
+                Global.ContentAreaTags.OneThirdWidth,
+                Global.ContentAreaTags.OneFourthWidth,
+                Global.ContentAreaTags.OneFifthWidth,
+                Global.ContentAreaTags.OneTwelfthWidth,
+                Global.ContentAreaTags.NoRenderer,
+                Global.ContentAreaTags.Custom }
+        })
+    </div>
+</div>
+<p class="break"></p>
+<p class="break"></p>

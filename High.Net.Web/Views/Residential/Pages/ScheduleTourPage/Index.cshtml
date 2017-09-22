@@ -1,0 +1,78 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Residential.ViewModels
+@using High.Net.Models.Residential.Pages
+
+@model ScheduleTourPageModel
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var HomePage = contentLoader.Get<HomePage>(PageReference.StartPage);
+}
+@section PageBannerSection
+{
+    @Html.Partial("~/Views/Residential/Shared/Banner.cshtml", Model)
+}
+
+@if (!Model.scheduleTourPageForm.IsFormSubmitted)
+{
+    <div class="section contact">
+        <p>Have a question about a home or want to schedule your personal community tour? Feel free to e-mail or call the community office. You will get a response as quickly as possible. </p>
+        <div class="spacer"></div>
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal contact" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group contact">
+                <label class="control-label col-sm-2" for="Name">Name*:</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.scheduleTourPageForm.Name, new { @class = "form-control" }) 
+                    <div class="clearfix"></div>
+                    @Html.ValidationMessageFor(x => x.scheduleTourPageForm.Name)
+                </div>
+            </div>
+            <div class="form-group contact">
+                <label class="control-label col-sm-2" for="pwd">Email*:</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.scheduleTourPageForm.Email, new { @class = "form-control" }) 
+                    <div class="clearfix"></div>
+                    @Html.ValidationMessageFor(x => x.scheduleTourPageForm.Email)
+                </div>
+            </div>
+
+            <div class="form-group contact">
+                <label class="control-label col-sm-2" for="pwd">Tour time*:</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.scheduleTourPageForm.TourTime, new { @class = "form-control" }) 
+                    <div class="clearfix"></div>
+                    @Html.ValidationMessageFor(x => x.scheduleTourPageForm.TourTime)
+                </div>
+            </div>
+
+            <div class="form-group contact">
+                <label class="control-label col-sm-2" for="pwd">Phone number:</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.scheduleTourPageForm.PhoneNo, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group contact">
+                <label class="control-label col-sm-2" for="comment">Comment:</label>
+                <div class="col-sm-10">
+                    @Html.TextAreaFor(x => x.scheduleTourPageForm.Message, new { @class = "form-control", rows = 5 })
+                </div>
+            </div>
+
+            <div class="form-group contact">
+                <label class="control-label col-sm-2" for="comment"></label>
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-submit no-margin">Submit</button>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    @Model.CurrentPage.ThankYouMessage
+}
+
+

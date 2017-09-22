@@ -1,0 +1,32 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Models.HighAppraisal.Pages
+@using ImageVault.EPiServer
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.GetChildren<HomePage>(Model.CurrentPage.ParentLink).FirstOrDefault();
+}
+
+@if (homePage.Slider != null)
+{
+    <div class="hero-banner">
+
+        <!-- Carousel Start -->
+        <div class="img-slider">
+            <ul class="bxslider-img" data-slider-type="img">
+                @foreach (var item in homePage.Slider)
+                {
+                    <li>
+                        <!-- THE MAIN IMAGE IN THE FIRST SLIDE -->
+                        @Html.PropertyFor(x => item, new { PropertySettings = new PropertyMediaSettings { Width = 1400, Height = 419 }, CssClass = "img-responsive" })
+                    </li>
+                }
+            </ul>
+        </div>
+        <!-- Carousel Ends-->
+    </div>
+}
+
+

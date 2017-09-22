@@ -1,0 +1,105 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Models.Residential.Pages
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+    bool IsBannerRendered = false;
+}
+@if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.ContactUsPage))
+{
+    var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.ContactUsPage>(Model.CurrentPage.ContentLink);
+    <div class="banner">
+        <div class="banner-img">
+            @if (CurrentPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 430 }, CssClass = "img-responsive" })
+                IsBannerRendered = true;
+                <div class="main-quote">
+                    <div class="container">
+                        <h1>@Model.CurrentPage.Name</h1>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.SearchPage))
+{
+    var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.SearchPage>(Model.CurrentPage.ContentLink);
+    <div class="banner">
+        <div class="banner-img">
+            @if (CurrentPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 430 }, CssClass = "img-responsive" })
+                IsBannerRendered = true;
+                <div class="main-quote">
+                    <div class="container">
+                        <h1>@Model.CurrentPage.Name</h1>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    var CurrentPage = contentLoader.Get<ResidentialPageData>(Model.CurrentPage.ContentLink);
+    <div class="banner">
+        <div class="banner-img">
+            @if (CurrentPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 430 }, CssClass = "img-responsive" })
+                IsBannerRendered = true;
+                if (homePage.Name.Contains("Eastwood"))
+                {
+                    if (Model.CurrentPage.Name.Contains("Features & Photos"))
+                    {
+                        <div class="main-quote eastwood-quotes">
+                            <div class="container">
+                                <h1>@Model.CurrentPage.Name</h1>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="main-quote">
+                            <div class="container">
+                                <h1>@Model.CurrentPage.Name</h1>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="main-quote">
+                        <div class="container">
+                            <h1>@Model.CurrentPage.Name</h1>
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+    </div>
+}
+@if (!IsBannerRendered)
+{
+    <div class="banner">
+        <div class="banner-img">
+            @if (homePage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 430 }, CssClass = "img-responsive" })
+                IsBannerRendered = true;
+                <div class="main-quote">
+                    <div class="container">
+                        <h1>@Model.CurrentPage.Name</h1>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

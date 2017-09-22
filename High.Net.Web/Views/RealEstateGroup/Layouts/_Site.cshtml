@@ -1,0 +1,50 @@
+﻿@using High.Net.Core
+@{
+    Layout = "~/Views/Shared/Layouts/_root.cshtml";
+}
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentloader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentloader.Get<High.Net.Models.RealEstateGroup.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+
+@section Header
+{
+    <link type="image/ico" href="~/Static/global/favicon/favicon.ico" rel="icon">
+    @Styles.Render("~/bundles/bootstrap-css")
+    @Styles.Render("~/bundles/global-css")
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '@homePage.GoogleAnalytics']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    @RenderSection("SiteHeader", required: false)
+    @Styles.Render("~/bundles/realEstateGroup-css")
+}
+@Html.Partial("~/Views/RealEstateGroup/Shared/Header.cshtml")
+@Html.Partial("~/Views/RealEstateGroup/Shared/Navigation.cshtml")
+@Html.Partial("~/Views/RealEstateGroup/Shared/Banner.cshtml")
+<!--start main section-->
+@RenderBody()
+
+<!--end main section-->
+@Html.Partial("~/Views/RealEstateGroup/Shared/Footer.cshtml", Model)
+
+@section Footer
+{
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap-js")*@
+    @Scripts.Render("~/bundles/global-js")
+    @Scripts.Render("~/bundles/realEstateGroup-js")
+    @RenderSection("SiteFooter", required: false)
+
+}

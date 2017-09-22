@@ -1,0 +1,86 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Pages
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using ImageVault.EPiServer
+
+@model PageViewModel<MeasureListingPage>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var CommunityItems = contentLoader.GetChildren<MeasureItemPage>(Model.CurrentPage.ContentLink).ToList();
+}
+
+@Html.Partial("~/Views/HighNet/Shared/Banner.cshtml")
+<div class="main">
+    <div class="container white-section">
+        @if (CommunityItems != null)
+        {
+            int Counter = 1;
+            <div class="community">
+                @foreach (var item in CommunityItems)
+                {
+                    if (Counter % 2 != 0)
+                    {
+                    <div class="com-seation">
+                        <div class="row">
+                            @if (item.PageIntroImage != null)
+                            {
+                                <div class="col-md-2 col-sm-2">
+                                    <div class="com-img">
+                                        @Html.PropertyFor(x => item.PageIntroImage, new { PropertySettings = new PropertyMediaSettings { Width = 159, Height = 157 }, CssClass = "img-responsive" })
+                                    </div>
+                                </div>
+                            }
+                            else if (item.Image != null)
+                            {
+                                <div class="col-md-2 col-sm-2">
+                                    <div class="com-img">
+                                        @Html.PropertyFor(x => item.Image, new { PropertySettings = new PropertyMediaSettings { Width = 159, Height = 157 }, CssClass = "img-responsive" })
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-md-10 col-sm-10">
+                                <p>@item.IntroText</p>
+                                <a href="@Url.ContentUrl(item.ContentLink)">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                            Counter++;
+                    }
+                    else
+                    {
+                    <div class="com-seation">
+                        <div class="row">
+                            <div class="col-md-10 col-sm-10">
+                                <p>@item.IntroText</p>
+                                <a href="@Url.ContentUrl(item.ContentLink)">Learn More</a>
+                            </div>
+
+                            @if (item.PageIntroImage != null)
+                            {
+                                <div class="col-md-2 col-sm-2">
+                                    <div class="com-img">
+                                        @Html.PropertyFor(x => item.PageIntroImage, new { PropertySettings = new PropertyMediaSettings { Width = 159, Height = 157 }, CssClass = "img-responsive" })
+                                    </div>
+                                </div>
+                            }
+                            else if (item.Image != null)
+                            {
+                                <div class="col-md-2 col-sm-2">
+                                    <div class="com-img">
+                                        @Html.PropertyFor(x => item.Image, new { PropertySettings = new PropertyMediaSettings { Width = 159, Height = 157 }, CssClass = "img-responsive" })
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                            Counter++;
+                    }
+                }
+            </div>
+        }
+    </div>
+</div>
+

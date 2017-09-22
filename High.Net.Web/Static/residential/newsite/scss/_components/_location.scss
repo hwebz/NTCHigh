@@ -1,0 +1,124 @@
+﻿$pre: 'residential-location';
+
+.#{$pre} {
+    position: relative;
+    z-index: 1;
+    background: $color-white;
+
+    .container {
+        margin: 0;
+        padding: 0;
+
+        ##{$pre}__information-box {
+            @extend %vertical-centered;
+            left: 100px;
+            border: 20px solid $color-black-transparent;
+            background-color: $color-blue-transparent;
+            color: $color-white;
+            height: 80%;
+            width: 850px;
+            z-index: 2;
+            text-align: center;
+            padding: 50px 30px;
+
+            h3 {
+                font-size: $location-font-size;
+                @extend %roboto-bold;
+                @extend %uppercase-text;
+                line-height: 1;
+                margin-bottom: 20px;
+            }
+
+            h4 {
+                @extend %uppercase-text;
+                font-size: $address-font-size;
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+
+            p {
+                line-height: 1.8;
+                font-size: $address-font-size;
+            }
+
+            @include respond-to-max($largerSize) {
+                left: 60px;
+                width: 500px;
+
+                h4, p {
+                    font-size: $base-font-size-tablet;
+                }
+            }
+
+            @include respond-to-max($desktopSize) {
+                left: 45px;
+            }
+
+            @include respond-to-max($tabletSize) {
+                display: none;
+            }
+        }
+    }
+
+    ##{$pre}__map {
+        display: block;
+        height: 620px;
+        z-index: 1;
+        border-top: 15px solid $color-blue-gray;
+        border-bottom: 15px solid $color-blue-gray;
+
+        @include respond-to-max($tabletSize) {
+            height: 470px;
+            border-top-width: 5px;
+            border-top-width: 5px;
+            border-bottom-width: 5px;
+        }
+
+        @include respond-to-max($phonePortrait) {
+            height: 300px;
+        }
+    }
+
+    &.no-border {
+        ##{$pre}__map {
+            border: none;
+        }
+    }
+}
+
+// Remove watermark from Google Map
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display: none;
+}
+
+.gmnoprint div {
+    background: none !important;
+}
+
+a[title^="Click to see this area"] {
+    display: none !important;
+}
+
+#residential-location__map[data-center^="false"] {
+    .gm-style-pbc {
+        .gm-style-pbt {
+            font-size: 18px !important;
+
+            @include respond-to-min($tabletSize) {
+                text-align: right !important;
+            }
+
+            @include respond-to-max($tabletSize) {
+                right: 15px !important;
+            }
+
+            @include respond-to-max($desktopSize) {
+                right: 15px !important;
+            }
+
+            @include respond-to-min($desktopSize) {
+                right: 15% !important;
+            }
+        }
+    }
+}

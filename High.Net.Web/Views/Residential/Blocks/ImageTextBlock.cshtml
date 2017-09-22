@@ -1,0 +1,16 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Residential.Blocks
+
+@model ImageTextBlock
+<a class="no-underline" href="@Url.ContentUrl(Model.PageReferenceLink)">
+    <div class="media list-item">
+        <div class="media-top">
+            @Html.PropertyFor(x => Model.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 202, Height = 170, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "media-object img-responsive" })
+        </div>
+        <div class="media-body">
+            <h3 class="media-heading">@Html.PropertyFor(x => x.Heading)</h3>
+            @Html.PropertyFor(x => x.Description)
+        </div>
+    </div>
+</a>

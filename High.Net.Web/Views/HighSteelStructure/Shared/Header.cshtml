@@ -1,0 +1,52 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighSteelStructure.Pages
+@model IPageViewModel<BasePageData>
+@{
+    var contenLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contenLoader.Get<HomePage>(PageReference.StartPage);
+}
+
+<div class="header-top">
+    <div class="container">
+        <div class="right">
+            <span class="glyphicon glyphicon-phone"></span><a class="phone-logo" href="tel:@homePage.Contact">@Html.PropertyFor(x => homePage.Contact)</a>
+            <span class="glyphicon glyphicon-envelope"></span><a class="mail-logo" href="mailto:@homePage.EmailAddress ">@Html.PropertyFor(x => homePage.EmailAddress)</a>
+        </div>
+    </div>
+</div>
+<header class="header-frontend">
+    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/">@Html.PropertyFor(x => homePage.SiteLogo,new {CssClass="img-responsive"})</a>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    <div class="header-links">
+                        <ul class="">
+                            <li><a href="@Url.ContentUrl(homePage.HighSteelLink)" @Html.EditAttributes(x => homePage.HighSteelLink)><img src="~/Static/high-steel-structure/img/head1.png" alt="high-steel">&nbsp;ASK HIGH STEEL</a></li>
+                            <li><a href="@Url.ContentUrl(homePage.ProductPricingLink)" @Html.EditAttributes(x => homePage.ProductPricingLink)><img src="~/Static/high-steel-structure/img/head2.png" alt="high-steel">&nbsp;PROJECT PRICING</a></li>
+                            <li><a href="@Url.ContentUrl(homePage.ShipingAdvicerLink)" @Html.EditAttributes(x => homePage.ShipingAdvicerLink)><img src="~/Static/high-steel-structure/img/head3.png" alt="high-steel">&nbsp;SHIPPING ADVISOR</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        @Html.Partial("~/Views/HighSteelStructure/Shared/Navigation.cshtml", Model)
+    </div>
+</header>

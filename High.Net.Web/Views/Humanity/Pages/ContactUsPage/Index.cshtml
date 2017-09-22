@@ -1,0 +1,65 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Humanity.Pages
+@using High.Net.Models.Shared.ViewModels
+@using High.Net.Core
+
+
+@model ContactUsPageModel
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var HomePage = contentLoader.Get<HomePage>(Model.CurrentPage.ParentLink);
+}
+
+<div class="row">
+            <div class="col-md-12">
+                <div class="article-top"></div>
+                <div class="article-middle">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="heading">
+                                <a class="title">CONTACT</a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @if (!Model.ContactUsForm.IsContactSubmitted)
+                        {
+                            <div class="col-md-6 col-sm-6">
+                                @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "contact-us-form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="form-group ">
+                                        @Html.TextBoxFor(x => x.ContactUsForm.Name, new { @class = "form-control", PlaceHolder = "your name" })
+                                        @Html.ValidationMessageFor(x => x.ContactUsForm.Name)
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.TextBoxFor(x => x.ContactUsForm.Email, new { @class = "form-control", PlaceHolder = "email address" })
+                                        @Html.ValidationMessageFor(x => x.ContactUsForm.Email)
+                                    </div>
+                                    <div class="form-group ">
+                                        @Html.TextBoxFor(x => x.ContactUsForm.PhoneNo, new { @class = "form-control", PlaceHolder = "your phone number" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextAreaFor(x => x.ContactUsForm.Message, new { rows = "5", @class = "form-control", PlaceHolder = "message" })
+                                    </div>
+                                    <button type="submit" class="btn btn-submit contact">SEND MESSAGE</button>
+                                }
+                            </div>
+                            }
+                        else
+                        {
+                            <div class="col-md-6 col-sm-6">
+                                @(new HtmlString(Model.ContactUsForm.ThankYouMessageText))
+                            </div>  
+                        }
+                            <div class="col-md-6 col-sm-6">
+                                @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.ThreeFourthWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth, Global.ContentAreaTags.OneFifthWidth, Global.ContentAreaTags.OneTwelfthWidth } })
+                            </div>
+                        
+                    </div>
+                </div>
+                <div class="article-bottom"></div>
+            </div>
+        </div>
+  

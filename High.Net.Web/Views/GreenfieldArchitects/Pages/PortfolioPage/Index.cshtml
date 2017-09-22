@@ -1,0 +1,45 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.GreenfieldArchitects.Pages
+@using ImageVault.EPiServer
+
+@model PageViewModel<PortfolioPage>
+
+@Html.Partial("~/Views/GreenfieldArchitects/Shared/Banner.cshtml", Model.CurrentPage.PageBanner != null ? Model.CurrentPage.PageBanner : new ImageVault.EPiServer.MediaReference())
+@{
+    var repo = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var PortfolioListingPages = repo.GetChildren<PortfolioListingPage>(Model.CurrentPage.ContentLink);
+}
+<div class="container">
+    <div class="black-band">
+        <div class="container">
+            <h1>@Model.CurrentPage.Name</h1>
+        </div>
+    </div>
+
+    <div class="common-container">
+        <div class="portfolio">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.PropertyFor(x => x.CurrentPage.Description)
+                </div>
+            </div>
+            <div class="row">
+                @if (PortfolioListingPages != null)
+                {
+                    foreach (var item in PortfolioListingPages)
+                    {
+                        <div class="col-md-3 col-sm-6 pad-2">
+                            <div class="portfolio-content">
+                                <a href="@Url.ContentUrl(item.ContentLink)">
+                                    @Html.PropertyFor(x => item.PageImage, new { PropertySettings = new PropertyMediaSettings { Width = 200, Height = 130, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                                    <h5>@item.Name</h5>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿@using High.Net.Models.NewResidential.Blocks
+@using High.Net.Web.Business
+
+@model FaqBlock
+
+@if (Model.FAQItems != null && Model.FAQItems.Any())
+{
+    <div class="residential-faq">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    @foreach (var item in Model.FAQItems)
+                    {
+                        <div class="residential-faq__item">
+                            <h3>
+                                @Html.PropertyFor(x => item.Title)
+                                <span class="residential-faq-circle @Constants.ViewConstants.SiteColorApplyClass"></span>
+                            </h3>
+                            <div class="residential-faq__answer @Constants.ViewConstants.SiteColorApplyClass" style="display: none;">
+                                @Html.PropertyFor(x => item.Content)
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    var siteColor = document.getElementById("site-color").value;
+    if (siteColor != "") {
+        var faqContents = document.getElementsByClassName("residential-faq__answer @Constants.ViewConstants.SiteColorApplyClass");
+        for (var i = 0; i < faqContents.length; i++) {
+                faqContents[i].style.backgroundColor = siteColor;
+            }
+
+
+            var faqCircles = document.getElementsByClassName("residential-faq-circle @Constants.ViewConstants.SiteColorApplyClass");
+            for (var i = 0; i < faqCircles.length; i++) {
+                faqCircles[i].style.borderColor = siteColor;
+            }
+    }
+    </script>
+}
+

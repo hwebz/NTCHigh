@@ -1,0 +1,521 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighConcrete.Pages
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighConcrete.ViewModels
+@using ImageVault.Client.Query
+@model ColorSelectorModel
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var contentLocator = ServiceLocator.Current.GetInstance<ContentLocator>();
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+    var Colors = contentLocator.GetCategories("Colors").Categories;
+    var Textures = contentLocator.GetCategories("Textures").Categories;
+    var CastPattern = contentLocator.GetCategories("Cast Pattern").Categories;
+}
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                <div class="section about color-finishes">
+                    @using (Html.BeginForm(null, null, FormMethod.Post))
+                    {
+                       
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Colors: <a href="javascript:void(0)" data-toggle="modal" data-target="#colors">Learn More</a></label>
+                                    <select id="colorSelectorForm_color" name="colorSelectorForm.color" class="form-control">
+                                        <option value="">--Select--</option>
+                                        @if (Colors != null)
+                                        {
+                                            foreach (var item in Colors)
+                                            {
+                                            <option value="@item.Name" @(Model.colorSelectorForm.color == item.Name ? "selected" : "")>@item.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+
+                                @if (Model.colorSelectorForm.texture == null && HttpContext.Current.Request.HttpMethod == "POST")
+                                {
+                                    <div id="div_texture" class="form-group" style="display:none" >
+                                    <label>Texture/Exposure: <a href="javascript:void(0)" data-toggle="modal" data-target="#texture-exposure">Learn More</a></label>
+                                    <select id="colorSelectorForm_texture" name="colorSelectorForm.texture" class="form-control">
+                                      <option value="">--Select--</option>
+                                          @if (Colors != null)
+                                          {
+                                              foreach (var item in Textures)
+                                              {
+                                            <option value="@item.Name" @(Model.colorSelectorForm.texture == item.Name ? "selected" : "")>@item.Name</option>
+                                              }
+                                          }
+                                    </select>
+                                </div>
+                                }
+                                else
+                                {
+                                    <div id="div_texture" class="form-group" style="display:block" >
+                                    <label>Texture/Exposure: <a href="javascript:void(0)" data-toggle="modal" data-target="#texture-exposure">Learn More</a></label>
+                                    <select id="colorSelectorForm_texture" name="colorSelectorForm.texture" class="form-control">
+                                      <option value="">--Select--</option>
+                                          @if (Colors != null)
+                                          {
+                                              foreach (var item in Textures)
+                                              {
+                                            <option value="@item.Name" @(Model.colorSelectorForm.texture == item.Name ? "selected" : "")>@item.Name</option>
+                                              }
+                                          }
+                                    </select>
+                                </div>
+                                }
+                                 @if (Model.colorSelectorForm.pattern == null && HttpContext.Current.Request.HttpMethod == "POST")
+                                 {
+                                     <div id="div_Pattern" class="form-group" style="display:none" >
+                                    <label>Cast Pattern: <a href="javascript:void(0)" data-toggle="modal" data-target="#cast-pattern">Learn More</a></label>
+                                    <select id="colorSelectorForm_pattern" name="colorSelectorForm.pattern" class="form-control">
+                                        <option value="">--Select--</option>
+                                        @if (Colors != null)
+                                        {
+                                            foreach (var item in CastPattern)
+                                            {
+                                            <option value="@item.Name" @(Model.colorSelectorForm.pattern == item.Name ? "selected" : "")>@item.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                 }
+                                 else
+                                 {
+                                     <div id="div_Pattern" class="form-group" >
+                                    <label>Cast Pattern: <a href="javascript:void(0)" data-toggle="modal" data-target="#cast-pattern">Learn More</a></label>
+                                    <select id="colorSelectorForm_pattern" name="colorSelectorForm.pattern" class="form-control">
+                                        <option value="">--Select--</option>
+                                        @if (Colors != null)
+                                        {
+                                            foreach (var item in CastPattern)
+                                            {
+                                            <option value="@item.Name" @(Model.colorSelectorForm.pattern == item.Name ? "selected" : "")>@item.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                 }
+                                <div class="form-group">
+                                    <input type="submit" value="submit" class="btn btn-success" />
+                                    <input type="reset" value="Clear" class="btn btn-primary" onclick="Resetalldropdown();" />
+                                </div>
+                            </div>
+                            <div class="spacer"></div>
+                        </div>
+
+                                 if (((IEnumerable<High.Net.Models.HighConcrete.Blocks.ColorFinishesBlock>)Model.Results).Count() > 0)
+                                 {
+                        <div class="row">
+                            @foreach (var item in Model.Results as IEnumerable<High.Net.Models.HighConcrete.Blocks.ColorFinishesBlock>)
+                            {
+                                string colorID = item.Id;
+                                if (item != null)
+                                {
+                                <div class="col-md-2 text-center">
+                                    @if (item.ColorImage != null)
+                                    {
+                                        var image = client.Load<ImageVault.Common.Data.WebMedia>(item.ColorImage.Id).Resize(108, 108, ImageVault.Common.Data.ResizeMode.ScaleToFill).ToList();
+                                        if (image.Count > 0)
+                                        {
+                                        <img id="opener" src="@Url.ContentUrl(image.FirstOrDefault().Url)" alt="@item.Color @item.Texture" data-toggle="modal" data-target="#@colorID" />
+                                        }
+                                    }
+                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#@colorID.Split('_')[0]"><b>H0@(item.Id)</b></a>
+                                </div>
+                                <div id="@colorID" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="color-selector-image">
+                                                    @if (item.ColorImage != null)
+                                                    {
+                                                        var imageLarge = client.Load<ImageVault.Common.Data.WebMedia>(item.ColorImage.Id).Resize(216, 216, ImageVault.Common.Data.ResizeMode.ScaleToFill).ToList();
+                                                        if (imageLarge.Count > 0)
+                                                        {
+                                                        <img src="@Url.ContentUrl(imageLarge.FirstOrDefault().Url)" alt="@item.Color @item.Texture" data-toggle="modal" data-target="#@imageLarge.FirstOrDefault().Name" />
+                                                        }
+                                                    }
+                                                </div>
+                                                <div>
+                                                    <p><b>H@(item.Id)</b></p>
+                                                    <p><b>Color: </b>@item.Color</p>
+                                                    <p><b>Texture/Exposure: </b>@item.Texture</p>
+                                                    @(item.CastPattern != "--" ? Html.Raw("<p><b>Pattern: </b>" + item.CastPattern + "</p>") : null)
+                                                    <b>Description: </b>@item.Description
+                                                    <p>See @item.Logo @item.SeeItem</p>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="clz">
+                                                    <h1 class="btn close-btn" data-dismiss="modal">x </h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+
+                            }
+                        </div>
+                        <div class="pag">
+                            <ul class="pagination pagination-sm">
+                                @{
+                            int counter = 1;
+                            int pageRange = 10;
+                            int currentPageIndex = Model.PagerLinks.FindIndex(x => x.IsActivePage) + 1;
+                            int totalPageIndex = Model.PagerLinks.Count();
+
+                            int startIndexNumber = (currentPageIndex / pageRange) * 10;
+                            int LastIndexNumber = (currentPageIndex / pageRange + 1) * 10;
+
+                            if (currentPageIndex % 10 == 0)
+                            {
+                                startIndexNumber = currentPageIndex - 10;
+                                LastIndexNumber = currentPageIndex;
+                            }
+                            foreach (var pagerLink in Model.PagerLinks)
+                            {
+                                if (counter > startIndexNumber && counter <= LastIndexNumber)
+                                {
+                                    if (pagerLink.IsActivePage)
+                                    {
+                                    <li class="active"><a href="#">@pagerLink.LinkText</a></li>
+                                    }
+                                    else
+                                    {
+                                    <li>@Html.RouteLink(pagerLink.LinkText, pagerLink.Route)</li>
+                                    }
+                                }
+
+                                else if (startIndexNumber == counter)
+                                {
+                                    <li>@Html.RouteLink("<<", pagerLink.Route)</li>
+                                }
+                                else if (LastIndexNumber + 1 == counter)
+                                {
+                                    <li>@Html.RouteLink(">>", pagerLink.Route)</li>
+                                }
+                                counter++;
+                            }
+                                }
+                            </ul>
+                        </div>
+                                 }
+                                 else
+                                 {
+                        <strong>@Model.CurrentPage.NoCombinationMessage</strong>
+                                 }
+
+                    }
+                    <div class="spacer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*models popup*@
+    <div id="colors" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Color</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Precast finishes are organized into eight broad color families.
+                        Color is achieved through a combination of white or gray cement, coloring agents or pigments, and fine or course aggregates.
+                        Matching caulk colors, stains and paint are also available. Finishes are organized into eight broad families.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="texture-exposure" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Texture/Exposure</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Textures/Exposures - Many color and texture options are possible by varying aggregate type and color, size, finishing process,
+                        and depth of exposure. Combining color and texture accentuates the natural beauty of aggregates.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="cast-pattern" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Cast Pattern</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Cast Patterns - using urethane, plaster, rubber, grained wood, rope or other material as a liner in the
+                        casting form helps create finishes, reliefs, textures, shapes and patterns.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section SiteFooter
+{
+    <script>
+        
+       
+        var modalTexture = @Html.Raw(Json.Encode(Model.colorSelectorForm.texture))
+        var modalPattern = @Html.Raw(Json.Encode(Model.colorSelectorForm.pattern))
+        var modalColor = @Html.Raw(Json.Encode(Model.colorSelectorForm.color))
+        
+        var Textures = {
+            TexturesUrl: '@Url.Action("GetTextureAndPattern", "ColorSelectorListingPage")'
+
+        }
+        var Color = {
+            ColorUrl: '@Url.Action("GetColor", "ColorSelectorListingPage")'
+        }
+
+        var Reset = {
+            ResetDropdownUrl: '@Url.Action("ResetAllProperties", "ColorSelectorListingPage")'
+        }
+
+        var checkcolorvalue = "";
+
+        $(function () {
+            if ($("#colorSelectorForm_color").val() != "") {
+                filltexturesandpatterns();
+            }
+        });
+
+
+        $("#colorSelectorForm_color").change(function () {
+            if(isEmpty($("#colorSelectorForm_pattern").val()) && isEmpty($("#colorSelectorForm_texture").val()))
+            {
+                modalTexture = null;
+                modalPattern = null;
+                filltexturesandpatterns();
+            }
+            else
+            {
+                if(!isEmpty($("#colorSelectorForm_pattern").val()))
+                {
+                    getcolor($("#colorSelectorForm_pattern").val())
+                }
+                else if(!isEmpty($("#colorSelectorForm_texture").val()))
+                {
+                    getcolor($("#colorSelectorForm_texture").val())
+                }
+                else
+                {
+                    filltexturesandpatterns();
+                }
+            }
+        });
+
+       
+        
+
+        $("#colorSelectorForm_pattern").change(function () {
+            var Pattern = $("#colorSelectorForm_pattern").val();
+            if(isEmpty($("#colorSelectorForm_color").val()))
+            {
+                if(Pattern != null && Pattern != "")
+                {
+                    getcolor(Pattern);
+                }
+                else
+                {
+                    Resetalldropdown();
+                }
+            }
+            else
+            {
+                getcolor(Pattern);
+            }
+            $("#div_Pattern").attr('style', 'display:block');
+            $("#colorSelectorForm_texture").html('');
+            $("#div_texture").attr('style', 'display:none');
+            
+        });
+
+        $("#colorSelectorForm_texture").change(function () {
+            var Texture = $("#colorSelectorForm_texture").val();
+            if(isEmpty($("#colorSelectorForm_color").val()))
+            {
+                if (Texture != null && Texture != "") {
+                    var colors = getcolor(Texture); 
+                }
+                else {
+                    Resetalldropdown();
+                }
+            }
+            else
+            {
+                getcolor(Texture); 
+            }
+            $("#div_texture").attr('style', 'display:block');
+            $("#colorSelectorForm_pattern").html('');
+            $("#div_Pattern").attr('style', 'display:none');
+        });
+
+        function getcolor(value) {
+            var color = $("#colorSelectorForm_color").val();
+            $("#colorSelectorForm_color").html('');
+                $.ajax({
+                    type: 'POST',
+                    url: Color.ColorUrl,
+                    data: {
+                        'value': value
+                    },
+                    success: function (data) {
+                        $("#colorSelectorForm_color").append($("<option></option>").val('').html('--select--'));
+                        $.each(data, function (value, value) {
+                            $("#colorSelectorForm_color").append($("<option></option>").val(value).html(value));
+                        });
+                        if(modalColor != null)
+                        {
+                            $("#colorSelectorForm_color").val(modalColor);
+                        }
+                        if(color != "")
+                        {
+                            $.each(data, function (value, value) {
+                                if(value == color)
+                                {
+                                    $("#colorSelectorForm_color").val(color);
+                                }
+                            });
+                        }
+                    },
+                    error: function (error) {
+                    }
+                });
+        }
+
+        function filltexturesandpatterns()
+        {
+            $("#colorSelectorForm_texture").html('');
+            $("#colorSelectorForm_pattern").html('');
+            var color = $("#colorSelectorForm_color").val();
+            if (color != null && color != "") {
+                $.ajax({
+                    type: 'POST',
+                    url: Textures.TexturesUrl,
+                    data: {
+                        'color': color
+                    },
+                    success: function (data) {
+                        if (!jQuery.isEmptyObject(data.textures) && modalPattern == null) {
+                            $("#div_texture").attr('style', 'display:block');
+                                $("#colorSelectorForm_texture").append($("<option></option>").val('').html('--select--'));
+                                $.each(data.textures, function (value, value) {
+                                    $("#colorSelectorForm_texture").append($("<option></option>").val(value).html(value));
+                                });
+                                if (modalTexture != null) {
+                                    $("#colorSelectorForm_texture").val(modalTexture);
+                                    $("#div_Pattern").attr('style', 'display:none');
+                                    getcolor(modalTexture);
+                                }
+                        }
+                        else {
+                            $("#div_texture").attr('style', 'display:none');
+                        }
+                        if (!jQuery.isEmptyObject(data.patterns) && modalTexture == null) {
+                            $("#div_Pattern").attr('style', 'display:block');
+                            $("#colorSelectorForm_pattern").append($("<option></option>").val('').html('--select--'));
+                            $.each(data.patterns, function (value, value) {
+                                $("#colorSelectorForm_pattern").append($("<option></option>").val(value).html(value));
+                            });
+                            if (modalPattern != null) {
+                                $("#colorSelectorForm_pattern").val(modalPattern);
+                                $("#div_texture").attr('style', 'display:none');
+                                getcolor(modalTexture);
+                            }
+                        }
+                        else {
+                            $("#div_Pattern").attr('style', 'display:none');
+                        }
+                    },
+                    error: function (error) {
+                    }
+                });
+            }
+            else {
+                Resetalldropdown();
+            }
+
+        }
+
+        
+
+        function isEmpty(val){
+            return (val === undefined || val == null || val.length <= 0 || val == "" ) ? true : false;
+        }
+
+        function centerModal() {
+            $(this).css('display', 'block');
+            var $dialog = $(this).find(".modal-dialog");
+            var offset = ($(window).height() - $dialog.height()) / 2;
+            // Center modal vertically in window
+            $dialog.css("margin-top", offset);
+        }
+
+        function Resetalldropdown() {
+
+            $("#colorSelectorForm_color").html('');
+            $("#colorSelectorForm_texture").html('');
+            $("#colorSelectorForm_pattern").html('');
+
+            modalTexture = null;
+            modalPattern = null;
+            modalColor = null;
+            
+
+            $.ajax({
+                type: 'POST',
+                url: Reset.ResetDropdownUrl,
+                data: { },
+                success: function (data) {
+                    $("#colorSelectorForm_color").append($("<option></option>").val('').html('--select--'));
+                    $.each(data.color, function (value, value) {
+                        $("#colorSelectorForm_color").append($("<option></option>").val(value).html(value));
+                    });
+
+                    $("#colorSelectorForm_texture").append($("<option></option>").val('').html('--select--'));
+                    $.each(data.texture, function (value, value) {
+                        $("#colorSelectorForm_texture").append($("<option></option>").val(value).html(value));
+                    });
+
+                    $("#colorSelectorForm_pattern").append($("<option></option>").val('').html('--select--'));
+                    $.each(data.pattern, function (value, value) {
+                        $("#colorSelectorForm_pattern").append($("<option></option>").val(value).html(value));
+                    });
+           
+                    $("#div_Pattern").attr('style', 'display:block');
+                    $("#div_texture").attr('style', 'display:block');
+                },
+                error: function (error) {
+                }
+            });
+
+        }
+
+        $('.modal').on('show.bs.modal', centerModal);
+        $(window).on("resize", function () {
+            $('.modal:visible').each(centerModal);
+        });
+            
+    </script>
+}

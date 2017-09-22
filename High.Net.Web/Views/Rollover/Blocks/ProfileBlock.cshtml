@@ -1,0 +1,16 @@
+﻿@using EPiServer.Core
+@using High.Net.Models.Rollover.Blocks
+@model ProfileBlock
+
+<div class="row">
+    <div class="president-img">
+        @Html.PropertyFor(x => Model.PersonImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 140 }, CssClass = "img-responsive" })
+        <div class="president-text">
+            <strong>
+                @Html.PropertyFor(m => m.Name)
+            </strong>
+            <p>@Html.PropertyFor(m => m.Contact)</p>
+            <p>@Html.PropertyFor(m => m.Email)</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,123 @@
+﻿// ------------------------------------------------------------------------- //
+// #FONTS
+//
+// Font family variables and custom font faces.
+// ------------------------------------------------------------------------- //
+// Font-faces
+
+@font-face {
+    font-family: 'droidserifregular';
+    src: url('../fonts/DroidSerif-Regular-webfont.eot');
+    src: url('../fonts/DroidSerif-Regular-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../fonts/DroidSerif-Regular-webfont.woff') format('woff'), 
+        url('../fonts/DroidSerif-Regular-webfont.ttf') format('truetype'), 
+        url('../fonts/DroidSerif-Regular-webfont.svg#droidserifregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'droidserifbold';
+    src: url('../fonts/DroidSerif-Bold-webfont.eot');
+    src: url('../fonts/DroidSerif-Bold-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../fonts/DroidSerif-Bold-webfont.woff') format('woff'), 
+        url('../fonts/DroidSerif-Bold-webfont.ttf') format('truetype'), 
+        url('../fonts/DroidSerif-Bold-webfont#droidserifbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'droidserifitalic';
+    src: url('../fonts/DroidSerif-Italic-webfont.eot');
+    src: url('../fonts/DroidSerif-Italic-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../fonts/DroidSerif-Italic-webfont.woff') format('woff'), 
+        url('../fonts/DroidSerif-Italic-webfont.ttf') format('truetype'), 
+        url('../fonts/DroidSerif-Italic-webfont.svg#droidserifitalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'droidserifbolditalic';
+    src: url('../fonts/DroidSerif-BoldItalic-webfont.eot');
+    src: url('../fonts/DroidSerif-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../fonts/DroidSerif-BoldItalic-webfont.woff') format('woff'), 
+        url('../fonts/DroidSerif-BoldItalic-webfont.ttf') format('truetype'), 
+        url('../fonts/DroidSerif-BoldItalic-webfont.svg#robotobold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'opensansregular';
+    src: url('../fonts/OpenSans-Regular.eot');
+    src: url('../fonts/OpenSans-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular.woff') format('woff'), url('../fonts/OpenSans-Regular.ttf') format('truetype'), url('../fonts/OpenSans-Regular.svg#opensansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'opensansbold';
+    src: url('../fonts/OpenSans-Bold.eot');
+    src: url('../fonts/OpenSans-Bold.eot?#iefix') format('embedded-opentype'), 
+        url('../fonts/OpenSans-Bold.woff') format('woff'), 
+        url('../fonts/OpenSans-Bold.ttf') format('truetype'), 
+        url('../fonts/OpenSans-Bold.svg#opensansbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'opensansitalic';
+    src: url('../fonts/OpenSans-Italic.eot');
+    src: url('../fonts/OpenSans-Italic.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic.woff') format('woff'), url('../fonts/OpenSans-Italic.ttf') format('truetype'), url('../fonts/OpenSans-Italic.svg#opensansitalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+/*
+    Droid Serif fonts variables
+*/
+
+%droidserif-regular,
+.droidserif-regular {
+    font-family: droidserifregular, Arial, Helvetica, sans-serif;
+}
+
+%droidserif-bold,
+.droidserif-bold {
+    font-family: droidserifbold, Arial, Helvetica, sans-serif;
+}
+
+%droidserif-italic,
+.droidserif-italic {
+    font-family: droidserifitalic, Arial, Helvetica, sans-serif;
+}
+
+%droidserif-bolditalic,
+.droidserif-bolditalic {
+    font-family: droidserifbolditalic, Arial, Helvetica, sans-serif;
+}
+
+%opensans-regular,
+.opensans-regular {
+    font-family: opensansregular, Arial, Helvetica, sans-serif;
+}
+
+%opensans-bold,
+.opensans-bold {
+    font-family: opensansbold, Arial, Helvetica, sans-serif;
+}
+
+%opensans-italic,
+.opensans-italic {
+    font-family: opensansitalic, Arial, Helvetica, sans-serif;
+}
+
+@mixin set-font($fontFamily, $fontSize) {
+    @extend #{$fontFamily};
+    font-size: $fontSize;
+}

@@ -1,0 +1,84 @@
+﻿$pre: 'leadership-photo-gallery';
+
+.#{$pre} {
+    @include block-spacing($block-spacing, $block-spacing-tablet);
+
+    @include respond-to-max($tabletSize) {
+        padding-bottom: 70px;
+    }
+
+    .container {
+        @include respond-to-max($tabletSize) {
+            padding: 0;
+        }
+
+        > div {
+            margin: 0;
+
+            > div {
+                padding: 0;
+            }
+        }
+    }
+
+    .#{$pre}__slider {
+        text-align: center;
+        width: 100%;
+
+        .#{$pre}__slider-item {
+            padding: 0 !important;
+
+            .#{$pre}__slider-item__item {
+                width: calc(25% - 3.75px);
+                height: 225px;
+                display: inline-block;
+                overflow: hidden;
+                float: left;
+                margin-right: 5px;
+                margin-bottom: 5px;
+                position: relative;
+
+                @include respond-to-min($tabletSize) {
+                    &:nth-child(4n) {
+                        margin-right: 0;
+                    }
+                }
+
+                @include respond-to-max($tabletSize) {
+                    width: calc(33.333% - 3.333px);
+                    height: 170px;
+
+                    &:nth-child(3n) {
+                        margin-right: 0;
+                    }
+                }
+
+                @include respond-to-max($phonePortrait) {
+                    height: 100px;
+                }
+
+                img {
+                }
+            }
+        }
+
+        .slick-dots {
+            clear: both;
+            @extend %horizontal-centered;
+            bottom: auto;
+            top: 102%;
+        }
+    }
+}
+
+.fillwidth {
+    width: 100%;
+    height: auto;
+    @extend %all-centered;
+}
+
+.fillheight {
+    height: 100%;
+    width: auto;
+    @extend %all-centered;
+}

@@ -1,0 +1,32 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.Rollover.Blocks
+
+@model Testimonials
+<div class="row">
+    @if (Model.IsImageOnRight)
+    {
+        <div class="col-md-9 col-sm-9">
+            @Html.PropertyFor(x => x.Comment)
+            <p><strong>@Html.PropertyFor(x => x.PersonName)</strong></p>
+        </div>
+        <div class="col-md-3 col-sm-3">
+            <div class="testimonial-image">
+                @Html.PropertyFor(x => Model.PersonImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 161, Height = 161, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-3 col-sm-3">
+            <div class="testimonial-image">
+                @Html.PropertyFor(x => Model.PersonImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 161, Height = 161, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+            </div>
+        </div>
+        <div class="col-md-9 col-sm-9">
+            @Html.PropertyFor(x => x.Comment)
+            <p><strong>@Html.PropertyFor(x => x.PersonName)</strong></p>
+        </div>
+    }
+</div>
+<div class="spacer"></div>

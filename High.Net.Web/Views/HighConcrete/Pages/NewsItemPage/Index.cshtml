@@ -1,0 +1,45 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Shared.Pages
+@using High.Net.Core;
+
+@model PageViewModel<NewsItemPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                <div class="section news">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-7">
+                            <div class="news-content">
+                                <h3>@Html.PropertyFor(x => x.CurrentPage.Title)</h3>
+                                @Html.PropertyFor(x => x.CurrentPage.NewsContent)
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-5">
+                            <div class="imahe-with-pic">
+                                @if (Model.CurrentPage.NewsImage != null)
+                                {
+                                    @Html.PropertyFor(x => x.CurrentPage.NewsImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 295, Height = 295, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                }
+                                else
+                                {
+                                    <img src="~/Static/global/images/news-placeholder-295X295.jpg" class="placeholder"/>
+                                }
+                                <div class="date">
+                                    <span class="glyphicon glyphicon-calendar news"><span class="date-text">  @Model.CurrentPage.PostedDate.ToString("MMMM dd, yyyy")</span></span>
+                                </div>
+                            </div>
+                            <p> @Html.PropertyFor(x => x.CurrentPage.ImageQuote)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

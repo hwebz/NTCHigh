@@ -1,0 +1,163 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Models.Associates.Pages
+@using ImageVault.EPiServer
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+
+<!--slider start-->
+<div class="slider">
+    <div class="banner">
+        <div class="banner-img">
+            @if ((Model.CurrentPage.GetType().BaseType).BaseType != typeof(BasePageData))
+            {
+                var currPage = contentLoader.Get<AssociatesPageData>(Model.CurrentPage.ContentLink);
+                if (currPage.BannerImage != null)
+                {
+                    @Html.PropertyFor(x => currPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                }
+                else
+                {
+                    @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                }
+            }
+            else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.NewsListingPage))
+            {
+                var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.NewsListingPage>(Model.CurrentPage.ContentLink);
+                if (CurrentPage.BannerImage != null)
+                {
+                    @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                }
+                else
+                {
+                    @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                }
+            }
+            else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.NewsItemPage))
+            {
+                var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.NewsItemPage>(Model.CurrentPage.ContentLink);
+                var NewsListingPage = contentLoader.Get<High.Net.Models.Shared.Pages.NewsListingPage>(Model.CurrentPage.ParentLink);
+                if (CurrentPage.BannerImage != null)
+                {
+                    @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                }
+                else if (NewsListingPage.BannerImage != null)
+                {
+                    @Html.PropertyFor(x => NewsListingPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                }
+                else
+                {
+                    @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                }
+            }
+            else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.LocationPage))
+            {
+                var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.LocationPage>(Model.CurrentPage.ContentLink);
+                if (CurrentPage.BannerImage != null)
+                {
+                    @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                }
+                else
+                {
+                    @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                }
+            }
+            else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.PropertyListingPage))
+            {
+                var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.PropertyListingPage>(Model.CurrentPage.ContentLink);
+                if (CurrentPage.BannerImage != null)
+                {
+                    @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                }
+                else
+                {
+                    @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                }
+            }
+            else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.SearchPage))
+            {
+                var CurrentPage = contentLoader.Get<High.Net.Models.Shared.Pages.SearchPage>(Model.CurrentPage.ContentLink);
+                if (CurrentPage.BannerImage != null)
+                {
+                    @Html.PropertyFor(x => CurrentPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                }
+                else
+                {
+                    @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+                }
+            }
+            else
+            {
+                @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1140, Height = 360 }, CssClass = "img-responsive" })
+            }
+            <div class="main-quote">
+                <div class="container">
+                    <h1>@Model.CurrentPage.Name</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--slider end-->
+<!--block start-->
+<div class="container">
+    <div class="darkgrey-block">
+        <div class="call-us">
+            <div class="telephone">
+                <span class="telephone-icon"></span>
+                <span class="cname">Lancaster - </span>
+                @if (homePage.LancasterNo != null)
+                {
+                    string[] LancasterNumbers = homePage.LancasterNo.Split(',');
+                    foreach (var item in LancasterNumbers)
+                    {
+                        <a href="tel:@item">
+                            <strong>@item</strong>
+                        </a>
+                        <br />
+                    }
+                }
+            </div>
+            <div class="telephone">
+                <span class="telephone-icon"></span>
+                <span class="cname">Harrisburg - </span>
+                @if (homePage.HarrisburgNo != null)
+                {
+                    string[] HarrisburgNumbers = homePage.HarrisburgNo.Split(',');
+                    foreach (var item in HarrisburgNumbers)
+                    {
+                        <a href="tel:@item">
+                            <strong>@item</strong>
+                        </a>
+                        <br />
+                    }
+                }
+            </div>
+        </div>
+        <a class="help-you" href="@Url.ContentUrl(homePage.HelpPageLink)" @Html.EditAttributes(x => homePage.HelpPageLink)>How Can We Help You?</a>
+        <ul>
+            <li>
+                <a href="@Url.ContentUrl(homePage.FacebookLink)" @Html.EditAttributes(x => homePage.FacebookLink) target="_blank">
+                    <img alt="facebook" src="~/Static/associates/images/icon/fb.png" />
+                </a>
+            </li>
+            <li>
+                <a href="@Url.ContentUrl(homePage.YouTubeLink)" @Html.EditAttributes(x => homePage.YouTubeLink) target="_blank">
+                    <img alt="facebook" src="~/Static/associates/images/icon/youtube.png" />
+                </a>
+            </li>
+            <li>
+                <a href="@Url.ContentUrl(homePage.LinkedInLink)" @Html.EditAttributes(x => homePage.LinkedInLink) target="_blank">
+                    <img alt="facebook" src="~/Static/associates/images/icon/likdin.png" />
+                </a>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--block end-->

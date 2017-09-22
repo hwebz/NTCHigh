@@ -1,0 +1,36 @@
+﻿include location.jade
+
+div(class="container")
+    div(class="row")
+        div(class="col-xs-12 col-sm-6 col-md-6")
+            div(class="contact-form__form")
+                div(class="contact-form__fields")
+                    div(class="contact-form__field")
+                        input(type="text", name="name", placeholder="Name")
+                        span(class="contact-form__error") The email is required.
+                    div(class="contact-form__field")
+                        input(type="text", name="email", placeholder="Email Address")
+                    div(class="contact-form__field")
+                        input(type="text", name="phone", placeholder="Phone")
+                    div(class="contact-form__field")
+                        textarea(name="message", placeholder="Message")
+                    div(class="contact-form__field submit_field")
+                        input(type="submit", name="submit", value="Submit")
+        div(class="col-xs-12 col-sm-6 col-md-6")
+            div(class="contact-form__information")
+                div(class="row")
+                    div(class="col-xs-12 col-sm-6 col-md-6")
+                        div(class="contact-form__map")
+                            // Location block
+                            +location_(false, false, "no-border")
+                    div(class="col-xs-12 col-sm-6 col-md-6")
+                        div(class="contact-form__offices")
+                            div(class="office")
+                                h3 LEASING OFFICE
+                                p 2225 Ashley River Road
+                                p Charleston, SC 29414.
+                            div(class="office")
+                                h3 OFFICE HOURS
+                                p Monday - Friday: 10 a.m. to 5:30 p.m.
+                                p Saturday: Call for Hours
+                                p Sunday: Closed

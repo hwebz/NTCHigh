@@ -1,0 +1,49 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var propertyListPage = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>().GetChildren<High.Net.Models.Shared.Pages.PropertyListingPage>(EPiServer.Core.PageReference.StartPage).FirstOrDefault();
+}
+<!-- menu end-->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="@(Model.CurrentPage.ContentLink.CompareToIgnoreWorkID(SiteDefinition.Current.StartPage) ? "active" : null)"><a href="@Url.ContentUrl(SiteDefinition.Current.StartPage)">Home</a></li>
+                @Html.MenuList(SiteDefinition.Current.StartPage,
+                @<li class="@(Model.CurrentPage.ContentLink.CompareToIgnoreWorkID(item.Page.ContentLink) ? "active" : null)">
+                    <a class="navitem" href="@Url.ContentUrl(item.Page.ContentLink)">@item.Page.Name</a>
+                    @if (item.HasChildren.Value)
+                    {
+                        <a class="dropdown-toggle caret-dd" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a>
+                        var childItems = contentLoader.GetChildren<BasePageData>(item.Page.ContentLink);
+                        <ul class="dropdown-menu">
+                            @foreach (var childItem in childItems)
+                            {
+                                <li><a href="@Url.ContentUrl(childItem.ContentLink)">@childItem.Name</a></li>
+                            }
+                        </ul>
+                    }
+                </li>)
+                @if (propertyListPage != null)
+                {
+                    <li><a class="btn-property" href="@Url.ContentUrl(propertyListPage.ContentLink)">Property Search</a></li>
+                }
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+    <!--/.container-fluid -->
+</nav>
+<!-- menu end-->

@@ -1,0 +1,64 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Shared.Pages
+@model PageViewModel<NewsItemPage>
+@{
+    var repository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+
+    var homePage = repository.Get<High.Net.Models.Humanity.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+<div class="row">
+    <div class="col-md-9">
+        <div class="article-top"></div>
+        <div class="article-middle">
+            <div class="award">
+                <h3 class="heading">
+                    <a class="title">@Html.PropertyFor(m => m.CurrentPage.Title)</a>
+                </h3>
+                <div class="received">
+
+                    <div class="entry-meta">
+                        <span>Posted on</span>
+                        <a href="#"><span>@Model.CurrentPage.PostedDate.ToString("MMMM dd,yyyy")</span></a>
+                        <span>by</span>
+                        <span><a href="#">Essence of Humanity</a></span>
+                    </div>
+                    <div class="entry-content">
+                        @Html.PropertyFor(m => m.CurrentPage.NewsContent)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-bottom"></div>
+    </div>
+    <div class="col-md-3">
+        <div class="article-top"></div>
+        <div class="article-middle">
+            <div class="article">
+                @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl) }))
+                {
+                    <input type="text" placeholder="Search" class="form-control" name="q" /><br />
+                    <input class="btn btn-default" type="submit" value="Search">
+                }
+            </div>
+        </div>
+        <div class="article-bottom"></div>
+    </div>
+</div>
+@*<div class="section winners">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="article">
+                    <div class="row">
+                        <div class="col-md-11 col-sm-11">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>*@
+

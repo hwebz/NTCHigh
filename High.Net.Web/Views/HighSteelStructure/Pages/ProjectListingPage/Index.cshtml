@@ -1,0 +1,117 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighSteelStructure.Pages
+
+@model PageViewModel<ProjectListingPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    // var projectItemPages = (IEnumerable<ProjectItemPage>)ViewBag.projectItemPages;
+    var projectItemPages = contentLoader.GetChildren<ProjectItemPage>(Model.CurrentPage.ContentLink);
+   
+}
+@section SiteHeader
+{
+    @Styles.Render("~/bundles/bootstrap-multiselect-css")
+}
+
+<div class="container">
+    <div class="common-container proj-category">
+        @if (Model.CurrentPage.IsProjectTypeFilter)
+        {
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">View Bridge Projects by Type:</label>
+                        <div class="col-sm-2">
+                            <select id="ddProjectType" multiple="multiple" class="form-control">
+                                @foreach (var item in Model.CurrentPage.ddProjectType)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (projectItemPages != null && projectItemPages.Any())
+        {
+            foreach (var item in projectItemPages)
+            {
+            <div title="@item.BridgeProjectType" class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="category-sec">
+                        <a href="@Url.ContentUrl(item.ContentLink)" class="no-margin">
+                            @Html.PropertyFor(x => item.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 545, Height = 300 }, CssClass = "img-responsive" })
+                        </a>
+                        <p class="img-text">@item.ImageText</p>
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-8">
+                    <h3 class="page-title">@item.Heading</h3>
+                    <p>
+                        @item.IntroText
+                    </p>
+                    <a href="@Url.ContentUrl(item.ContentLink)">Read More</a>
+                </div>
+            </div>
+            }
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">There are no projects at this time.</label>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section SiteFooter{
+
+    @Scripts.Render("~/bundles/bootstrap-multiselect-js")
+    <script>
+        $(function () {
+
+            $('#ddProjectType').multiselect({
+                includeSelectAllOption: true,
+                numberDisplayed: 0,
+                maxHeight: true
+            });
+
+            $('#ddProjectType').change(function () {
+                var projects = $('.proj-category').children();
+                var projectTypes = $(this).val();
+                if (projectTypes != null) {
+                    for (var i = 1; i < projects.length; i++) { // get projects length
+                        var childprojects = projects[i];
+                        for (var j = 0; j < childprojects["title"].split(',').length; j++) { // check for project types
+                            $.each(projectTypes, function (i, obj) {
+                                if (obj === childprojects["title"].split(',')[j]) {
+                                    $(childprojects).attr('style', 'display:block');
+                                    return false;
+                                }
+                                else {
+                                    $(childprojects).attr('style', 'display:none');
+                                }
+                            });
+                            if ($(childprojects).css('display') == 'block') {
+                                break;
+                            }
+                        }
+                    }
+                }
+                else {
+                    for (var i = 1; i < projects.length; i++) { // get projects length
+                        var childprojects = projects[i];
+                        $(childprojects).attr('style', 'display:block');
+                    }
+                }
+            });
+        });
+    </script>
+}

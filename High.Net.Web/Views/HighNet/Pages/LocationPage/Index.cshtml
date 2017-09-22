@@ -1,0 +1,273 @@
+﻿@using High.Net.Core
+@using High.Net.Core.Helpers
+@using High.Net.Models.Shared.Pages
+@model PageViewModel<LocationPage>
+@{
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+}
+@section SiteHeader{
+    <style>
+        .map-container {
+            height: 600px;
+            /*width: 100%;*/
+            overflow: hidden;
+        }
+
+        #map-canvas {
+            border: 1px solid #000000;
+            height: 600px;
+            width: 100%;
+        }
+
+        #legend {
+            font-size: 12px;
+            line-height: 34px;
+            list-style: outside none none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #legend li { font-weight: bold; }
+
+        #legend li span {
+            display: block;
+            float: left;
+            height: 34px;
+            margin-right: 4px;
+            overflow: hidden;
+            width: 10px;
+        }
+
+        #legend li img {
+            height: 17px;
+            vertical-align: middle;
+        }
+
+        .content {
+            font-size: 12px;
+            width: 250px;
+            color: #000000;
+        }
+
+        .content a { text-decoration: none; }
+
+        .content a:hover { text-decoration: underline; }
+
+        .content .title { font-size: 14px; }
+
+        .content .url { padding-top: 8px; }
+    </style>
+}
+@Html.Partial("~/Views/HighNet/Shared/Banner.cshtml", Model)
+<div class="spacer"></div>
+<div class="spacer"></div>
+@if (Model.CurrentPage.LocationData != null)
+{
+    var locationData = client.Load<ImageVault.Common.Data.Media>(Model.CurrentPage.LocationData.Id).ToList();
+    if (locationData.Count > 0)
+    {
+        <input type="hidden" id="locationData" value="@Url.ContentUrl(locationData.FirstOrDefault().Url)"/>
+        <div class="container map-container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div id="map-canvas"></div>
+                </div>
+                <div class="col-md-3">
+                    <ul id="legend">
+                        <li>
+                            <h5>
+                                <strong>Filter</strong>
+                            </h5>
+                        </li>
+                        <li>
+                            <select id="filter-legend">
+                                <option value="">All</option>
+                                <option value="Corporate Offices">Corporate Offices</option>
+                                <option value="Production Facility">Production Facility</option>
+                                <option value="Corporate Center">Corporate Center</option>
+                                <option value="Hotel">Hotel</option>
+                                <option value="Apartment Community">Apartment Community</option>
+                                <option value="Shopping Center">Shopping Center</option>
+                                <option value="Office">Office</option>
+                                <option value="Self Storage">Self Storage</option>
+                                <option value="Manufactured Home Community">Manufactured Home Community</option>
+                            </select>
+                        </li>
+                        <li>
+                            <h5>
+                                <strong>Legend</strong>
+                            </h5>
+                        </li>
+                        <li>
+                            <span>
+                                <img src="~/Static/highnet/google-map/location-images/red.png" alt="red"/>
+                            </span>Corporate Offices
+                        </li>
+                        <li>
+                            <span>
+                                <img src="~/Static/highnet/google-map/location-images/green.png" alt="green"/>
+                            </span>Production Facility
+                        </li>
+                        <li>
+                            <span>
+                                <img src="~/Static/highnet/google-map/location-images/white.png" alt="white"/>
+                            </span>Corporate Center
+                        </li>
+                        <li>
+                            <span>
+                                <img src="~/Static/highnet/google-map/location-images/purple.png" alt="purple"/>
+                            </span>Hotel
+                        </li>
+                        <li>
+                            <span>
+                                <img src="~/Static/highnet/google-map/location-images/blue.png" alt="blue"/>
+                            </span>Apartment Community
+                        </li>
+                        <li>
+                            <span>
+                                <img src="~/Static/highnet/google-map/location-images/_dark_blue.png" alt="dark_blue"/>
+                            </span>Shopping Center
+                        </li>
+                        <li>
+                            <span>
+                                <img src="~/Static/highnet/google-map/location-images/orange.png" alt="orange"/>
+                            </span>Office
+                        </li>
+                        <li>
+                            <span>
+                                <img src="~/Static/highnet/google-map/location-images/_dark_red.png" alt="dark_red"/>
+                            </span>Self Storage
+                        </li>
+                        <li>
+                            <span>
+                                <img src="~/Static/highnet/google-map/location-images/_brown.png" alt="brown"/>
+                            </span>Manufactured Home Community
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+}
+<div class="spacer"></div>
+
+
+@section SiteFooter{
+    <script src="/Static/lib/location-js/jquery.csv.min.js"></script>
+    <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&key=@SettingsHelper.GetSetting("googleMapApiKey")"></script>
+    <script src="/Static/lib/location-js/markerclusterer.js"></script>
+    <script>
+        $(document).ready(function() {
+            function makeInfoWindowEvent(map, infowindow, marker) {
+                return function() {
+                    infowindow.open(map, marker);
+                };
+            }
+
+            var $locationUrl = $('#locationData').val();
+
+            function initialize(legend) {
+
+                var center = new google.maps.LatLng(35.075597, -96.702108);
+
+                var map = new google.maps.Map(document.getElementById('map-canvas'),
+                    {
+                        zoom: 4,
+                        center: center,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+
+                if ($locationUrl) {
+                    $.get($locationUrl,
+                        function(data) {
+                            var dataClean = data.replace(/,,/g, ",&nbsp;,");
+                            var locations = $.csv()(dataClean);
+                            var markers = new Array();
+                            var infowindows = new Array();
+                            var header = locations[0];
+                            locations = $.grep(locations,
+                                function(a) {
+                                    if (legend == "") {
+                                        return a;
+                                    } else if (a[2] == legend) {
+                                        return a;
+                                    }
+                                });
+                            if (legend != "") {
+                                locations.splice(0, 0, header);
+                            }
+
+                            for (i = 1; i < locations.length; i++) {
+                                var j = i - 1; // 0-based iterator
+                                var latlng = new google.maps.LatLng(locations[i][10], locations[i][11])
+
+                                var image = new google.maps.MarkerImage(
+                                    '/Static/highnet/google-map/location-images/' + ($.trim(locations[i][0])).replace(" ", "_") + '.png',
+                                    new google.maps.Size(20, 34),
+                                    new google.maps.Point(0, 0),
+                                    new google.maps.Point(10, 33)
+                                );
+                                var marker = new google.maps.Marker({
+                                    position: latlng,
+                                    icon: image,
+                                    title: locations[i][1] + '\n' + locations[i][2]
+                                });
+                                markers.push(marker);
+                                var end = escape(locations[i][3] + ', ' + locations[i][4] + ', ' + locations[i][5] + ' ' + locations[i][6]); //Name with address formation
+                                contentString = '<div class="content">' +
+                                    '<strong class="title">' +
+                                    locations[i][1] +
+                                    '</strong><br /><br />' +
+                                    '<span class="address">' +
+                                    locations[i][3] +
+                                    '</span><br />' +
+                                    '<span class="city-state-zip">' +
+                                    locations[i][4] +
+                                    ', ' +
+                                    locations[i][5] +
+                                    ' ' +
+                                    locations[i][6] +
+                                    '</span><br />' +
+                                    '<span class="phone">' +
+                                    locations[i][8] +
+                                    '</span><br />' +
+                                    '<a href="' +
+                                    locations[i][7] +
+                                    '" class="url" target="_blank">' +
+                                    locations[i][7] +
+                                    '</a><br /><br />' +
+                                    '<a href="http://maps.google.com/maps?&daddr=' +
+                                    end +
+                                    '" class="directions" target="_blank">Get Directions &raquo;</a><br />' +
+                                    '<p class="description">' +
+                                    locations[i][9] +
+                                    '</p>' +
+                                '</div>';
+                                infowindows[j] = new google.maps.InfoWindow({
+                                    content: contentString
+                                });
+                            }
+                            if (markers) {
+                                for (i in markers) {
+                                    google.maps.event.addListener(markers[i], 'click', makeInfoWindowEvent(map, infowindows[i], markers[i]));
+                                }
+                            }
+                            var markercluster = new MarkerClusterer(map,
+                                markers,
+                                {
+                                    gridSize: 80
+                                });
+                        });
+                }
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize(""));
+
+            $('#filter-legend').change(function() {
+                var legend = this.value;
+                initialize(legend);
+            });
+        })
+    </script>
+
+}

@@ -1,0 +1,63 @@
+﻿@using High.Net.Models.Shared.Blocks
+@using EPiServer.Core
+
+@model TestimonialSliderBlock
+@if (Model.TestimonialItems == null || !Model.TestimonialItems.Any())
+{
+    return;
+}
+@{
+    var blockGuid = Guid.NewGuid();
+}
+
+    <div class="carousel slide testimonial-slide" id="@blockGuid" data-ride="carousel">
+        
+        @if (!string.IsNullOrEmpty(Model.Title) || !string.IsNullOrEmpty(Model.Introduction))
+        {
+            <div class="testimonial-head">
+                <h2>@Html.PropertyFor(x => Model.Title) </h2>
+                <p>@Html.PropertyFor(x => Model.Introduction)</p>
+            </div>
+            <div class="clearfix"></div>
+        }
+       
+        
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="quote-test">
+                    <img src="/Static/highnet/images/homepg/quotes-test.png" data-pin-nopin="true">
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="carousel-inner">
+
+                    @{
+                        var idx = 0;
+                        foreach (var item in Model.TestimonialItems)
+                        {
+                            <div class="item @(idx++ == 0 ? "active" : "")">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="test-content">
+                                            <p>@Html.PropertyFor(x => item.Content)</p>
+                                            <span class="desig">@item.Title</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }    
+                </div>
+
+                <ol class="carousel-indicators">
+                    @for (int i = 0; i < Model.TestimonialItems.Count(); i++){
+                        <li data-target="@string.Format("#{0}", blockGuid)" data-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
+                    }
+                </ol>
+                <div class="test-slider-nav">
+                    <a class="left carousel-control" href="@string.Format("#{0}", blockGuid)" data-slide="prev"> <span class="ar-left">&#x2190;</span> </a>
+                    <a class="right carousel-control" href="@string.Format("#{0}", blockGuid)" data-slide="next"> <span class="ar-right">&#x2192;</span> </a>
+                </div>
+            </div>
+        </div>
+    </div>

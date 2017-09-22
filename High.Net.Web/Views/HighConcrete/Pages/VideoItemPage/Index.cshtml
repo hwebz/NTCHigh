@@ -1,0 +1,35 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcrete.Pages
+@using High.Net.Core
+
+@model PageViewModel<VideoItemPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    
+}
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="row">
+        <div class="col-md=12 col-sm-12">
+              <h2 class="sub-header">@Model.CurrentPage.Heading</h2>
+            <div class="video-inner-content">
+               
+                <div class="video-frame">
+                    <iframe width="600" height="345" frameborder="0" allowfullscreen="" src="@Url.ContentUrl(Model.CurrentPage.VideoLink)"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="video-innerpara">
+                @Html.PropertyFor(x => x.CurrentPage.Text)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="spacer"></div>

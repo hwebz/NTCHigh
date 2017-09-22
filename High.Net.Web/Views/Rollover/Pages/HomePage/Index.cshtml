@@ -1,0 +1,12 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Models.Rollover.Pages
+@model PageViewModel<HomePage>
+
+<!-- Main content start-->
+<div class="main-section">
+    @Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "container", tag = Global.ContentAreaTags.NoRenderer, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+</div>
+<!-- Main content start-->

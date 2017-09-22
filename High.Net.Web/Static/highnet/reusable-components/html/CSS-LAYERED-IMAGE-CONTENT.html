@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300'>
+    <link type="image/ico" href="../../global/favicon/favicon.ico" rel="icon">
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/browserBlast/browserBlast.css">
+
+    <link rel="stylesheet" type="text/css" href="../../global/css/global.css">
+    <link rel="stylesheet" type="text/css" href="../../global/css/media.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/media.css">
+
+    <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <style>
+        .rblock-main-content * {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+    <div class="">
+        <style>
+            .rblock-main-content {
+                max-height: 300px;
+                overflow: hidden;
+            }
+            .rblock-main-content ul {
+                list-style: none;
+                padding: 0 0 0 10px;
+                margin: 0 0 10px 0;
+            }
+
+            .rblock-main-content li {
+                padding-left: 1em;
+                padding-right: 37px;
+                text-indent: -1em;
+            }
+
+            .rblock-main-content li::before {
+                color: red;
+                content: "• ";
+                font-size: 22px;
+                position: relative;
+                top: 3px;
+            }
+        </style>
+        <div class="col-md-4 no-padding">
+            <div class="rhome-block" style="color: #fff; background-image: url('../img/blok1.png'); background-color:#000;">
+                <div class="overr" style="background-color: rgba(255,0,0,0.6);"></div>
+                <img class="img-responsive" src="../img/blank.jpg" style="visibility: hidden" ;>
+                <div class="rFull-block-content">
+                    <div class="rblock-head">
+                        <a href="#" block-arrow="" style="color:#fff; text-decoration:none;">→</a>
+                        <p>In the news</p>
+                    </div>
+                    <div class="rblock-main-content">
+                        <p>High Construction Company Awarded $12.4 Million Contract to Build The Reserve at Greenfield
+                         High Construction Company Awarded $12.4 Million Contract to Build The Reserve at Greenfield High Construction Company Awarded $12.4 Million Contract to Build The Reserve at Greenfield High Construction Company Awarded $12.4 Million Contract to Build The Reserve at Greenfield High Construction Company Awarded $12.4 Million Contract to Build The Reserve at Greenfield High Construction Company Awarded $12.4 Million Contract to Build The Reserve at Greenfield High Construction Company Awarded $12.4 Million Contract to Build The Reserve at Greenfield</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 no-padding">
+            <div class="rhome-block" style="color: #fff; background-image: url('../img/blok2.png');">
+                <div class="overr" style="background-color: rgba(0,0,0,0.5);"></div>
+                <img class="img-responsive" src="../img/blank.jpg" style="visibility: hidden" ;>
+                <div class="rFull-block-content">
+                    <div class="rblock-head">
+                        <a href="#" block-arrow="" style="color:#fff; text-decoration:none;">→</a>
+                        <p>In the news</p>
+                    </div>
+                    <div class="rblock-main-content">
+                        <p>High Construction Company Awarded $12.4 Million Contract to Build The Reserve at Greenfield</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 no-padding">
+            <div class="rhome-block" style="color: #fff; background-image: url('../img/banner/banner1.JPG');">
+                <div class="overr" style="background-color: rgba(255,255,0,0.5);"></div>
+                <img class="img-responsive" src="../img/blank.jpg" style="visibility: hidden" ;>
+                <div class="rFull-block-content">
+                    <div class="rblock-head">
+                        <a href="#" block-arrow="" style="color:#fff; text-decoration:none;">→</a>
+                        <p>In the news</p>
+                    </div>
+                    <div class="rblock-main-content">
+                        <ul>
+                            <li> High Construction Company Awarded $12.4 Million Contract to Build The Reserve at Greenfield</li>
+                            <li> High Construction Company Awarded $12.4 Million Contract to Build The Reserve at Greenfield</li>
+                            <li> High Construction Company Awarded $12.4 Million Contract to Build The Reserve at Greenfield</li>
+                            <li> High Construction Company Awarded $12.4 Million Contract to Build The Reserve at Greenfield</li>
+                        </ul>
+
+                        <a href="#">High Construction Company Awarded $12.4 Million</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../lib/browserBlast/browserBlast.min.js"></script>
+    <script type="text/javascript" src="../../lib/carousel/plugins/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../../global/js/global.js"></script>
+    <script type="text/javascript" src="../js/site.js"></script>
+    <script>
+        function throttle(callback, limit) {
+            var wait = false;
+            return function() {
+                if (!wait) {
+
+                    callback.apply(null, arguments);
+                    wait = true;
+                    setTimeout(function() {
+                        wait = false;
+                    }, limit);
+                }
+            }
+        }
+
+        function lineclamp(selector, child) {
+            var lineheight = parseFloat($(selector + ' ' + child).css('line-height'));
+            var articleheight = $(selector).height();
+            var calc = parseInt(articleheight / lineheight);
+            $(child).css({
+                "-webkit-line-clamp": "" + calc + ""
+            });
+        }
+
+
+        $(document).ready(function() {
+            lineclamp('.rblock-main-content', 'p');
+        });
+
+        $(window).resize(throttle(function() {
+            lineclamp('.rblock-main-content', 'p');
+        }, 200));
+    </script>
+</body>
+</html>

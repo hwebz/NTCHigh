@@ -1,0 +1,31 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Residential.Blocks
+@using High.Net.Core
+
+@model ProjectsBlock
+@{
+    var blockContent = Model as IContent;
+}
+
+<div class="panel-heading" role="tab" id="heading@(Model.GetHashCode())">
+    <h4 class="panel-title">
+        <a class="accordion-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#@Model.GetHashCode()" aria-expanded="false" aria-controls="@(Model.GetHashCode())">
+            @Html.PropertyFor(x => x.Heading)
+        </a>
+    </h4>
+</div>
+<div id="@(Model.GetHashCode())" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading@(Model.GetHashCode())">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6" @Html.EditAttributes(x=>x.Address)>
+                <div class="neighbor-info">
+                    @Html.PropertyFor(x => x.Address)
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-top">BACK TO TOP</button>
+        <div class="clearfix"></div>
+    </div>
+</div>
+

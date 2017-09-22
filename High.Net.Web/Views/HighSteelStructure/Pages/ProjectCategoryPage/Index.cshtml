@@ -1,0 +1,31 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighSteelStructure.Pages
+
+@model PageViewModel<ProjectCategoryPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var projectListingPages = contentLoader.GetChildren<ProjectListingPage>(Model.CurrentPage.ContentLink);
+}
+
+<div class="container">
+    <div class="common-container proj-gallery">
+        <div class="row">
+            @if (projectListingPages != null)
+            {
+                foreach (var item in projectListingPages)
+                {
+                    <div class="col-md-6 col-sm-6 col-sm-6">
+                        <div class="gallery-sec">
+                            <a href="@Url.ContentUrl(item.ContentLink)">
+                            @Html.PropertyFor(x => item.CategoryImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 545, Height = 300 }, CssClass = "img-responsive" })
+                            <p>@item.Name</p></a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,225 @@
+﻿%contact-form__field {
+    margin-bottom: 25px;
+    position: relative;
+
+    input[type="text"], input[type="email"], input[type="number"], textarea {
+        background: #eee;
+        height: 65px;
+        font-size: 25px;
+        color: #010101;
+        border: 0;
+        width: 100%;
+        padding: 0 20px;
+        outline: none;
+        resize: none;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    textarea {
+        height: 197px;
+        padding: 20px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    span {
+        position: absolute;
+        left: 0;
+        top: 110%;
+        display: inline-block;
+        padding: 15px;
+        background-color: $color-white;
+        box-shadow: 0 0 3px $color-black-half;
+        z-index: 1;
+
+        &:before, &:after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            border: 10px solid transparent;
+            border-bottom-color: $color-white;
+            left: 25px;
+        }
+
+        &:before {
+            border-bottom-color: $color-black;
+            top: -20px;
+        }
+    }
+}
+
+%contact-form__error {
+    color: red;
+}
+
+%contact-form__submit-btn {
+    @extend .call-to-action-btn;
+    /*@extend %common-link;*/
+    color: $color-black;
+    padding: 23px 35px;
+
+    @include respond-to-min-max($desktopSize, $largerSize) {
+        padding: 23px 15px;
+    }
+
+    @include respond-to-max($tabletSize) {
+        padding: 23px 30px;
+    }
+
+    &:hover {
+        color: $color-white;
+    }
+
+    @include respond-to-max($phonePortrait) {
+        display: block;
+        width: 100%;
+    }
+}
+
+$pre: 'contact-form';
+
+.#{$pre}__form {
+    @include block-spacing($block-spacing-type-2, $block-spacing-type-2-tablet);
+    background: $color-white;
+
+    .#{$pre}__fields {
+        .contact-form__field {
+            @extend %contact-form__field;
+
+            .contact-form__error {
+                @extend %contact-form__error;
+            }
+        }
+
+        .submit_field {
+            text-align: right;
+
+            input[type="submit"] {
+                @extend %contact-form__submit-btn;
+            }
+        }
+    }
+}
+
+.#{$pre}__information {
+    @include block-spacing($block-spacing-type-2, $block-spacing-type-2-tablet);
+    background: $color-white;
+
+    .#{$pre}__offices {
+        .office {
+            margin-bottom: 70px;
+
+            h3 {
+                line-height: 1;
+                text-transform: uppercase;
+                color: #010101;
+                margin-bottom: 50px;
+                font-size: 30px;
+
+                @include respond-to-min($desktopSize) {
+                    font-size: 45px;
+                    margin-top: -2px;
+                }
+
+                @include respond-to-max(767px) {
+                }
+            }
+
+            p {
+                line-height: 1;
+                color: #010101;
+                margin-bottom: 20px;
+                font-size: $base-font-size;
+
+                @include respond-to-max($laptopSize) {
+                    font-size: $base-font-size-tablet;
+                }
+            }
+        }
+    }
+
+    .residential-location {
+        #residential-location__map {
+            height: 466px;
+            margin-bottom: 50px;
+
+            @include respond-to-min($largerSize) {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.formcontainerblock {
+    .EPiServerForms {
+        @include block-spacing($block-spacing-type-2, $block-spacing-type-2-tablet);
+    }
+
+    .Form__MainBody {
+        .block {
+            @extend %contact-form__field;
+
+            .Form__Element {
+                margin: 0;
+            }
+
+            .Form__Element__ValidationError {
+                @extend %contact-form__error;
+            }
+
+            &.submitbuttonelementblock {
+                text-align: right;
+
+                button {
+                    @extend %contact-form__submit-btn;
+                }
+            }
+
+            &.recaptchaelementblock {
+                width: 60%;
+                vertical-align: top;
+
+                @include respond-to-max($phonePortrait) {
+                    iframe {
+                        -webkit-transform: scale(0.96);
+                        -moz-transform: scale(0.96);
+                        -ms-transform: scale(0.96);
+                        -o-transform: scale(0.96);
+                        transform: scale(0.96);
+                        -webkit-transform-origin: top left;
+                        -moz-transform-origin: top left;
+                        -ms-transform-origin: top left;
+                        -o-transform-origin: top left;
+                        transform-origin: top left;
+                    }
+                }
+            }
+
+            &.submitbuttonelementblock {
+                width: 40%;
+            }
+
+            &.recaptchaelementblock, &.submitbuttonelementblock {
+                display: inline-block;
+
+                @include respond-to-max($phonePortrait) {
+                    width: 100%;
+                    text-align: left;
+                }
+            }
+        }
+    }
+
+    .success-message {
+        display: none;
+    }
+
+    .Form__Description {
+        display: none;
+    }
+
+    .Form__Status__Message {
+        margin: 0 0 25px 0;
+    }
+}

@@ -1,0 +1,72 @@
+﻿@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Web.Business.Helpers
+@using ImageVault.EPiServer
+@using ImageVault.Common.Data
+
+@model NumberListContentBlock
+
+@if (Model.NumberListContentContentArea == null || Model.NumberListContentContentArea.FilteredItems == null || !Model.NumberListContentContentArea.FilteredItems.Any()) { return; }
+@{
+    var idx = 0;
+    var dictGuidItems = new Dictionary<Guid, NumberListContentItemBlock>();
+}
+
+<div class="leadership-bulleted-list">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model.NumberListContentContentArea.FilteredItems)
+            {
+                idx++;
+                var contentItem = item.ContentLink.GetContent<NumberListContentItemBlock>();
+                if (contentItem == null) { continue; }
+                dictGuidItems.Add(item.ContentGuid, contentItem);
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="leadership-bulleted-list__item">
+                        <span class="number-indicator">@(idx)</span>
+                        <h4>@contentItem.Heading</h4>
+                        @contentItem.HtmlText
+                        <a href="@string.Format("#{0}", item.ContentGuid)" class="leadership-btn">@contentItem.ViewAllImagesText</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Photo slider block-->
+@foreach (var item in dictGuidItems)
+{
+    var contentItem = item.Value;
+    if (contentItem.ImageCollection == null || !contentItem.ImageCollection.Any()) { continue; }
+    <div class="leadership-photo-slider" id="@item.Key">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <div class="leadership-photo-slider__title">
+                        <h1>@contentItem.Heading</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="leadership-photo-slider__slider">
+                        @foreach (var image in contentItem.ImageCollection)
+                        {
+                            <div class="leadership-photo-slider__slider-item">
+                                <div class="leadership-photo-slider__thumbnail">
+                                @Html.PropertyFor(x => image, new { PropertySettings = new PropertyMediaSettings { Width = 1111, ResizeMode = ResizeMode.ScaleToFit }, CssClass = "photo-lightbox" })
+                                </div>
+                                <div class="leadership-photo-slider__description">
+                                    @contentItem.HtmlText
+                                </div>
+                            </div>
+                        }                     
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

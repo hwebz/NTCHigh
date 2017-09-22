@@ -1,0 +1,137 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Core.Helpers
+@using High.Net.Models.StructureCareUs.Pages
+@using High.Net.Models.Shared.ViewModels
+@model ContactUsPageModel
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+@section SiteHeader{
+    <style>
+        #map-canvas {
+            height: 440px;
+            width: 100%;
+        }
+    </style>
+}
+<!-- Hero Banner Start -->
+<div class="hero-banner">
+    @*<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17230.865390850693!2d-76.11683604461034!3d40.230958911433454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6130e5049857b%3A0x68e062d2f5c6bbaf!2s125+Denver+Rd%2C+Denver%2C+PA+17517%2C+USA!5e0!3m2!1sen!2sin!4v1442671655107" allowfullscreen></iframe>*@
+    <div id="map-canvas"></div>
+    <div class="main-quote">
+        <div class="container">
+            <h1>@Model.CurrentPage.Name.ToUpper()</h1>
+        </div>
+    </div>
+</div>
+<!-- Hero Banner Ends-->
+<div class="spacer"></div>
+
+<!-- content Starts-->
+<div class="container">
+    <div class="contact">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="contact-detail">
+                    <h5>HEADQUARTERS</h5>
+                    <p><span class="glyphicon glyphicon-map-marker"></span><span>@Html.PropertyFor(m => homePage.ContactAddress)</span></p>
+                    <p><span class="glyphicon glyphicon-earphone"></span><span>M: <a href="tel:717.682.1414">@Html.PropertyFor(m => homePage.PhoneNumber)</a></p>
+                    <p><span class="glyphicon glyphicon-envelope"></span><span><a href="mailto: @homePage.EmailID">@Html.PropertyFor(m => homePage.EmailID)</a></span></p>
+                </div>
+            </div>
+            @if (!Model.ContactUsForm.IsContactSubmitted)
+            {
+                <div class="col-md-8 col-sm-8">
+                    <h5>FILL THE CONTACT FORM</h5>
+                    <div class="row">
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "contact-form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(x => x.ContactUsForm.Solve360SelectedCategory, new { Value = homePage.Solve360CategoryTag })
+                            @Html.HiddenFor(x => x.ContactUsForm.IsB2BSite, new { Value = "true" })
+                            <div class="form-group col-md-6 col-sm-6">
+                                <div>
+                                    @Html.TextBoxFor(x => x.ContactUsForm.Name, new { @class = "form-control", placeholder = "Name" })
+                                    @Html.ValidationMessageFor(x => x.ContactUsForm.Name)
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6">
+                                <div>
+                                    @Html.TextBoxFor(x => x.ContactUsForm.Email, new { @class = "form-control", placeholder = "Email" })
+                                    @Html.ValidationMessageFor(x => x.ContactUsForm.Email)
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6">
+                                <div>
+                                    @Html.TextBoxFor(x => x.ContactUsForm.Title, new { @class = "form-control", placeholder = "Title" })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6">
+                                <div>
+                                    @Html.TextBoxFor(x => x.ContactUsForm.Company, new { @class = "form-control", placeholder = "Company" })
+                                    @Html.ValidationMessageFor(x => x.ContactUsForm.Email)
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12">
+                                <div>
+                                    @Html.TextBoxFor(x => x.ContactUsForm.Address, new { @class = "form-control", placeholder = "Address" })
+                                </div>
+                            </div>
+                            <div class="form-group text-area col-md-12 col-sm-12">
+                                @Html.TextAreaFor(x => x.ContactUsForm.Message, new { @class = "form-control", rows = "5" })
+                            </div>
+                            <div class="form-group  col-md-12 col-sm-12">
+                                <button type="submit" class="btn btn-submit">SUBMIT</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                @(new HtmlString(Model.ContactUsForm.ThankYouMessageText))
+            }
+        </div>
+        @Html.PropertyFor(m => m.CurrentPage.ContentArea, new { tag = Global.ContentAreaTags.HalfWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+    </div>
+</div>
+<!-- content Ends-->
+<div class="spacer"></div>
+@*<div class="representative-info" style="display:none;">
+    @Html.PropertyFor(x => homePage.RepresentativeInfomation)
+</div>*@
+
+@section SiteFooter{
+    <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&key=@SettingsHelper.GetSetting("googleMapApiKey")"></script>
+    <script>
+        $(document).ready(function () {
+            function initialize() {
+                var latlng = { lat: 40.227109, lng: -76.113612 };
+                var $representiveInfo = $('.representative-info').html();
+
+                var map = new google.maps.Map(document.getElementById('map-canvas'), {
+                    zoom: 12,
+                    center: latlng
+                });
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: $representiveInfo
+                });
+
+                var marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    title: '125 Denver Rd'
+                });
+
+                marker.addListener('click', function () {
+                    infowindow.open(map, marker);
+                });
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+        })
+    </script>
+}

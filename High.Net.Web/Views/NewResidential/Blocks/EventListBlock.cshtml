@@ -1,0 +1,70 @@
+﻿@using EPiServer.Web.Mvc.Html
+@using High.Net.Core.Helpers
+@using High.Net.Models.NewResidential.Blocks
+@using High.Net.Web.Business.Helpers
+@using High.Net.Web.Business
+
+@model EventListBlock
+
+<div class="residential-event-list photo-gallery">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="residential-event-list__header">
+                    <h1>@Html.PropertyFor(x => Model.Title)</h1>
+                </div>
+            </div>
+        </div>
+        @if (Model.EventItems != null && Model.EventItems.FilteredItems.Any())
+        {
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    @foreach (var item in Model.EventItems.FilteredItems)
+                    {
+                        var blockItem = item.ContentLink.GetContent<EventItemBlock>();
+                        <div class="residential-event-list__item">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-4 col-md-3">
+                                    <div class="residential-event-list__thumbnail">
+                                        @Html.PropertyFor(x => blockItem.Image, new { CssClass = "image-lightbox fillwidth" })
+                                        <div class="residential-event-list__date @Constants.ViewConstants.SiteColorApplyClass">
+                                            <p>@blockItem.StartDate.ToString("dd")</p>
+                                            <p>@blockItem.StartDate.ToString("MMM")</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-8 col-md-9">
+                                    <div class="residential-event-list__description">
+                                        <h3>@Html.PropertyFor(x => blockItem.Name)</h3>
+                                        <p><span>Start date</span>@blockItem.StartDate.ToString("dd MMM yyyy")</p>
+                                        <p><span>End date</span>@blockItem.EndDate.ToString("dd MMM yyyy")</p>
+                                        <div class="residential-event-list__summary">
+                                            @Html.PropertyFor(x => blockItem.Description)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@if (Model.EventItems != null && Model.EventItems.FilteredItems.Any())
+{
+    <script type="text/javascript">
+     var siteColor = document.getElementById("site-color").value;
+    if (siteColor != "") {
+        var eventTimeElements = document.getElementsByClassName("residential-event-list__date @Constants.ViewConstants.SiteColorApplyClass");
+        var totalBtns = eventTimeElements.length;
+        if (totalBtns > 0) {
+            for (var i = 0; i < totalBtns; i++) {
+                eventTimeElements[i].style.borderColor = siteColor;
+            }
+        }
+    }
+    </script>
+}
+

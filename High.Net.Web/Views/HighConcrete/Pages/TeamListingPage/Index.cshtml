@@ -1,0 +1,44 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighConcrete.Pages
+
+@model PageViewModel<TeamListingPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var TeamItemPages = contentLoader.GetChildren<TeamItemPage>(Model.CurrentPage.ContentLink);
+}
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                <div class="row">
+                    <div class="broker-info">
+                        @if (TeamItemPages != null)
+                        {
+                            foreach (var item in TeamItemPages)
+                            {
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="character-img">
+                                        @Html.PropertyFor(x => item.ProfilePhoto, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 143 ,Height=182 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                    </div>
+                                    <div class="broker-profile">
+                                        <strong class="black">@item.PersonName</strong>
+                                        <p>@item.Designation</p>
+                                        <p><a href="tel:@item.TelephoneContact">@item.TelephoneContact</a></p>
+                                        <p>cell: <a href="tel:@item.MobileContact">@item.MobileContact</a> </p>
+                                        <p><a href="@item.EmailAddress">@item.EmailAddress</a> </p>
+                                        <a href="@Url.ContentUrl(item.ContentLink)">Profile</a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

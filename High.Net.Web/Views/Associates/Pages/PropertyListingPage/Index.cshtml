@@ -1,0 +1,14 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.Web.Mvc.Html
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Constants
+
+@model High.Net.Models.Shared.ViewModels.PropertyPageModel
+
+@{
+    Layout = "~/Views/Associates/Layouts/_Site.cshtml";
+}
+@Html.Partial("~/Views/Associates/Shared/Banner.cshtml")
+
+@Html.Partial("~/Views/Shared/SearchCriteria.cshtml", Model, new ViewDataDictionary { { "IsGlobal", true } })

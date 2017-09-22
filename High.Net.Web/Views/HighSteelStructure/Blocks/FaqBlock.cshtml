@@ -1,0 +1,18 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighSteelStructure.Blocks
+
+@model FaqBlock
+
+<div class="faq-panel-heading">
+    <h4 class="faq-panel-title">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse@(Model.Question.First())">
+            <span class="glyphicon glyphicon-plus"></span>@Html.PropertyFor(x => x.Question)
+        </a>
+    </h4>
+</div>
+<div id="collapse@(Model.Question.First())" class="panel-collapse collapse">
+    <div class="faq-panel-body">
+        @Html.PropertyFor(x => x.Answer)
+    </div>
+</div>

@@ -1,0 +1,73 @@
+﻿@using EPiServer.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Core
+@using EPiServer.Web
+@using High.Net.Models.StructureCareUs.Pages
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<!-- Hero Banner Start -->
+@if ((Model.CurrentPage.GetType().BaseType).BaseType == typeof(High.Net.Models.StructureCareUs.Pages.StructureCareUsPageData))
+{
+    var currentPage = contentLoader.Get<High.Net.Models.StructureCareUs.Pages.StructureCareUsPageData>(Model.CurrentPage.ContentLink);
+    <div class="hero-banner">
+        @if (currentPage.BannerImage != null)
+        {
+            @Html.PropertyFor(x => currentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+        }
+        else
+        {
+            if (homePage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+            }
+        }
+        <div class="main-quote">
+            <div class="container">
+                <h1>@Model.CurrentPage.Name</h1>
+            </div>
+        </div>
+    </div>
+}
+else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.SearchPage))
+{
+    var currentPage = contentLoader.Get<High.Net.Models.Shared.Pages.SearchPage>(Model.CurrentPage.ContentLink);
+    <div class="hero-banner">
+        @if (currentPage.BannerImage != null)
+        {
+            @Html.PropertyFor(x => currentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+        }
+        else
+        {
+            if (homePage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+            }
+        }
+        <div class="main-quote">
+            <div class="container">
+                <h1>@Model.CurrentPage.Name</h1>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    if (homePage.BannerImage != null)
+    {
+        <div class="hero-banner">
+            @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+            <div class="main-quote">
+                <div class="container">
+                    <h1>@Model.CurrentPage.Name</h1>
+                </div>
+            </div>
+        </div>
+    }
+}
+<!-- Hero Banner Ends-->
+<div class="spacer"></div>
+

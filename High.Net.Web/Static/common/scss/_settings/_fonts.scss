@@ -1,0 +1,11 @@
+﻿// ------------------------------------------------------------------------- //
+// #FONTS
+//
+// Font family variables and custom font faces.
+// ------------------------------------------------------------------------- //
+// Font-faces
+
+@mixin set-font($fontFamily, $fontSize) {
+    @extend #{$fontFamily};
+    font-size: $fontSize;
+}

@@ -1,0 +1,38 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighAppraisal.Pages
+
+@model PageViewModel<VideoListingPage>
+@{
+    var contentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    var videoItems = contentLocator.GetChildren<VideoItemPage>(Model.CurrentPage.ContentLink).ToList();
+ }
+
+@Html.Partial("~/Views/HighAppraisal/Shared/Banner.cshtml")
+
+<div class="container">
+    <div class="video-info">
+        <div class="row">
+           
+            @foreach (var item in videoItems)
+            {
+               <div class="col-md-4 col-sm-4">
+                <div class="video-left">
+                    <img src="@dataLocator.GetYouTubeThumbnail(item.VideoLink)" />
+                </div>
+                <div class="video-content">
+                    <h5>@item.Heading</h5>
+                    <p>
+                       @item.IntroText
+                    </p>
+                    <p>
+                        <a href="@Url.ContentUrl(item.ContentLink)">read more...</a>
+                    </p>
+                </div>
+            </div> 
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+﻿@using EPiServer.ServiceLocation
+@using High.Net.Core
+@using High.Net.Models.HighNet.Blocks
+
+@model VideoBlock
+    
+@{
+    var dataLocator = ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    var youtubeItem = dataLocator.GetYoutubeInfo(Model.VideoLink);
+    var autoPlayUrl =UrlHelpers.AddParameter(youtubeItem.Url, "autoplay", "1");
+}
+
+<div class="leadership-video-popup">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="leadership-video-popup__thumbnail">
+                    <a id="leadership-video-popup__video"
+                       href="@youtubeItem.Url" class="video-lightbox">
+                        <img src="@youtubeItem.ImageBigThumbnailUrl" alt="@youtubeItem.Title">
+                        <div class="leadership-video-popup__play-btn">
+                            <span></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

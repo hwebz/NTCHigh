@@ -1,0 +1,217 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighConcrete.ViewModels
+
+@model GetQuotePageModel
+@{
+    bool sendingStatus = ViewBag.SendingStatus != null ? (Boolean)ViewBag.SendingStatus : false;
+}
+@section SiteHeader{
+    <style>
+        .field-validation-error {
+            color: red !important;
+        }
+    </style>
+}
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            <div class="col-md-8 col-sm-8">
+                @if (!sendingStatus)
+                {
+                    <div class="section  get-quote">
+                        <h3>Don't Miss Out on Your Free Quote! </h3>
+                        <p>*indicates required field </p>
+                        @using (Html.BeginForm(null, null, FormMethod.Post,
+                        new { @id = "GetQuoteForm", @Class = "form-horizontal", enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group quote">
+                                <label for="email" class="control-label col-sm-3">*First Name:</label>
+                                <div class="col-sm-5">
+                                    @Html.TextBoxFor(x => x.getQuoteForm.FirstName, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(x => x.getQuoteForm.FirstName)
+                                </div>
+                                <label for="email" class="control-label col-sm-2">Middle Initial: </label>
+                                <div class="col-sm-1">
+                                    @Html.TextBoxFor(x => x.getQuoteForm.MiddleInitial, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group quote">
+                                <label for="email" class="control-label col-sm-3">*Last Name:</label>
+                                <div class="col-sm-5">
+                                    @Html.TextBoxFor(x => x.getQuoteForm.LastName, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(x => x.getQuoteForm.LastName)
+                                </div>
+                            </div>
+
+                            <div class="form-group quote">
+                                <label for="email" class="control-label col-sm-3">*E-mail Address:</label>
+                                <div class="col-sm-5">
+                                    @Html.TextBoxFor(x => x.getQuoteForm.EmailAddress, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(x => x.getQuoteForm.EmailAddress)
+                                </div>
+                            </div>
+
+                            <div class="form-group quote">
+                                <label for="email" class="control-label col-sm-3">*Confirm E-Mail Address:</label>
+                                <div class="col-sm-5">
+                                    @Html.TextBoxFor(x => x.getQuoteForm.ConfirmEmailAddress, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(x => x.getQuoteForm.ConfirmEmailAddress)
+                                </div>
+                            </div>
+
+                            <div class="form-group quote">
+                                <label for="email" class="control-label col-sm-3">*Company:</label>
+                                <div class="col-sm-5">
+                                    @Html.TextBoxFor(x => x.getQuoteForm.Company, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.getQuoteForm.Company)
+                                </div>
+                            </div>
+
+                            <div class="form-group quote">
+                                <label for="email" class="control-label col-sm-3">*Address Lane 1:</label>
+                                <div class="col-sm-5">
+                                    @Html.TextBoxFor(x => x.getQuoteForm.AddressLane1, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(x => x.getQuoteForm.AddressLane1)
+                                </div>
+                            </div>
+
+                            <div class="form-group quote">
+                                <label for="email" class="control-label col-sm-3">Address Lane 2:</label>
+                                <div class="col-sm-5">
+                                    @Html.TextBoxFor(x => x.getQuoteForm.AddressLane2, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group quote">
+                                <label for="email" class="control-label col-sm-3">*City:</label>
+                                <div class="col-sm-5">
+                                    @Html.TextBoxFor(x => x.getQuoteForm.City, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(x => x.getQuoteForm.City)
+                                </div>
+                            </div>
+
+                            <div class="form-group quote">
+                                <label for="" class="control-label col-sm-3">*State/Province/Territory: </label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(x => x.getQuoteForm.State, Model.getQuoteForm.States, "Select", new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(x => x.getQuoteForm.State)
+                                </div>
+                            </div>
+                            <div class="form-group quote">
+                                <label for="" class="control-label col-sm-3">*Zip/Postal Code:</label>
+                                <div class="col-sm-2">
+                                    @Html.TextBoxFor(x => x.getQuoteForm.Zip, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(x => x.getQuoteForm.Zip)
+                                </div>
+                                <label for="" class="control-label col-sm-1">+4:</label>
+                                <div class="col-sm-2">
+                                    @Html.TextBoxFor(x => x.getQuoteForm.PlusFour, new { @class = "form-control", @maxlength = "4" })
+                                </div>
+                            </div>
+
+                            <div class="form-group quote">
+                                <label for="" class="control-label col-sm-3">Primary Telephone: </label>
+                                <div class="col-sm-5">
+                                    @Html.TextBoxFor(x => x.getQuoteForm.PrimaryTelephone, new { @class = "form-control" })
+                                </div>
+                                <label for="" class="control-label col-sm-3">(e.g. xxx-xxx-xxxx)</label>
+                            </div>
+
+                            <div class="form-group quote">
+                                <label for="" class="control-label col-sm-3">*Which best describes you?</label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(x => x.getQuoteForm.WhichBestDescribesYou, Model.getQuoteForm.WhichBestDescribesYouItems, "Select", new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(x => x.getQuoteForm.WhichBestDescribesYou)
+                                </div>
+                            </div>
+                            <div class="form-group quote">
+                                <label for="" class="control-label col-sm-3">Project Information : </label>
+                                <div class="col-sm-5">
+                                    @Html.TextAreaFor(x => x.getQuoteForm.ProjectInformation, new { row = "5", @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group quote">
+                                <label for="" class="control-label col-sm-3">Attachment : </label>
+                                <div class="col-sm-5">
+                                    <span class="btn btn-default btn-file">
+                                        @Html.TextBoxFor(x => x.getQuoteForm.AttachmentFile, new { type = "file" })
+                                    </span>
+                                </div> 
+                            </div>
+
+                            <div class="submit-clear">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3">
+                                    </div>
+                                    <div class="col-md-9 col-sm-9">
+                                        <button type="reset" onclick="resetForm()" class="btn clear-form">CLEAR FORM</button>
+                                        <button type="submit" onClick="_gaq.push(['_trackEvent', 'contact', 'submit', 'Sample Form',, false]);" class="btn clear-form">SUBMIT</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="section get-quote">
+                        @Html.PropertyFor(x => x.CurrentPage.ThankYouMessage)
+                    </div>
+                }
+                <div class="spacer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section SiteFooter
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#GetQuoteForm").validate({
+                // errorElement: 'div',
+                // errorClass:'myClass',
+                rules: {
+                    'getQuoteForm.FirstName': "required",
+                    'getQuoteForm.LastName': "required",
+                    'getQuoteForm.EmailAddress': {
+                        required: true,
+                        email: true
+                    },
+                    'getQuoteForm.ConfirmEmailAddress': {
+                        equalTo: '[name="getQuoteForm.EmailAddress"]'
+                    },
+                    'getQuoteForm.Company': "required",
+                    'getQuoteForm.AddressLane1': "required",
+                    'getQuoteForm.City': "required",
+                    'getQuoteForm.State': "required",
+                    'getQuoteForm.Zip': "required",
+                    'getQuoteForm.WhichBestDescribesYou': "required"
+                },
+                messages: {
+                    'getQuoteForm.FirstName': "Please enter your First Name",
+                    'getQuoteForm.LastName': "Please enter your lastname",
+                    'getQuoteForm.EmailAddress': "Please enter your valid email-address",
+                    'getQuoteForm.ConfirmEmailAddress': "confirmation mail does not match with email address",
+                    'getQuoteForm.Company': "Please enter Company",
+                    'getQuoteForm.AddressLane1': "Please enter your address",
+                    'getQuoteForm.City': "Please enter your city",
+                    'getQuoteForm.State': "Please enter your state",
+                    'getQuoteForm.Zip': "Please enter your Zip",
+                    'getQuoteForm.WhichBestDescribesYou': "Please select the option"
+                }
+            });
+        });
+        function resetForm() {
+            $("#GetQuoteForm").validate().resetForm();
+        }
+    </script>
+}

@@ -1,0 +1,41 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Shared.Pages
+@using ImageVault.EPiServer
+@model High.Net.Core.PageViewModel<NewsItemPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+@Html.Partial("~/Views/Associates/Shared/Banner.cshtml")
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="news-inner-img">
+                @if (Model.CurrentPage.NewsImage != null)
+                {
+                    @Html.PropertyFor(x => x.CurrentPage.NewsImage, new { PropertySettings = new PropertyMediaSettings { Width = 360, Height = 200 }, CssClass = "img-responsive" })
+                }
+                else
+                {
+                    <img class="placeholder img-responsive" src="~/Static/global/images/news-placeholder-360X200.png" />
+                }
+                <p class="">@Model.CurrentPage.ImageQuote</p>
+                <div class="news-icons">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-time"></span><span>@Model.CurrentPage.PostedDate.ToString("MMMM dd, yyyy")</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md=12 col-sm-12">
+            <h2 class="black">@Model.CurrentPage.Title</h2>
+            <hr class="blue-border">
+            @Model.CurrentPage.NewsContent
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

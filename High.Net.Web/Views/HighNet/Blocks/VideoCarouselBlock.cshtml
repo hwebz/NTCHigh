@@ -1,0 +1,73 @@
+﻿@using EPiServer.ServiceLocation
+@using High.Net.Core
+@using High.Net.Web.ViewModels.Shared
+@model High.Net.Models.HighNet.Blocks.VideoCarouselBlock
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var dataLocator = ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    //var NewsItems = contentLocator.GetAll<High.Net.Models.Shared.Pages.NewsItemPage>(EPiServer.Core.PageReference.RootPage).OrderByDescending(x => x.PostedDate).Take(10);
+}
+<div class="video-slider">
+    <div class="container">
+        <div class="video-slider-wrapper border-block">
+            <div class="row">
+                @{
+                    if (Model.Videos != null && Model.Videos.FilteredItems.Any())
+                    {
+                        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10 video-iframe">
+                            @{
+                                var firstItem = contentLoader.Get<High.Net.Models.HighNet.Blocks.VideoBlock>(Model.Videos.FilteredItems.FirstOrDefault().ContentLink);
+                                var firstYoutubeItem = dataLocator.GetYoutubeInfo(firstItem.VideoLink);
+                                @*<iframe frameborder="0" scrolling="no" id="vid_frame" style="z-index: 0;" phidecontrols="0" phandler="ytiframe" src="@Url.ContentUrl(firstItem.VideoLink)"></iframe>*@
+                                <div class="youtube-wrapper">
+                                    <div class="mask"></div>
+                                    <h3>@firstYoutubeItem.Title</h3>
+                                    @{ var autoPlayUrl = UrlHelpers.AddParameter(firstYoutubeItem.Url, "autoplay", "1");}
+                                    <div id="youtube-player" data-video-url="@autoPlayUrl">
+                                        <div class="play-button"></div>
+                                        <img src="@firstYoutubeItem.ImageBigThumbnailUrl" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+                            <div class="pager-container">
+                                <div class="gallery-pager" id="video-slider">
+                                    @{ var hiddentYoutubeItems = new List<YoutubeInfo>(); }
+                                    @for (var inx = 0; inx < Model.Videos.FilteredItems.Count(); inx++)
+                                    {
+                                        var item = contentLoader.Get<High.Net.Models.HighNet.Blocks.VideoBlock>(Model.Videos.FilteredItems.ToList()[inx].ContentLink);
+                                        var youtubeItem = dataLocator.GetYoutubeInfo(item.VideoLink);
+                                        if (youtubeItem != null)
+                                        {
+                                            if (inx < 4)
+                                            {
+                                                <a class="active" src='@youtubeItem.Url'>
+                                                    <p>@youtubeItem.Title</p>
+                                                    <img class="thumb" src="@youtubeItem.ImageThumbnailUrl">
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                var tmp = inx - 4;
+                                                <a class="active slide-lazy-thumb-@tmp" src='@youtubeItem.Url'>
+                                                    <p>@youtubeItem.Title</p>
+                                                    @*<img class="thumb" src="@youtubeItem.ImageThumbnailUrl">*@
+                                                </a>
+                                                hiddentYoutubeItems.Add(youtubeItem);
+                                            }
+                                        }
+                                    }
+                                </div>
+                                <script type="text/javascript">
+                                    window.youtubeItems = @Html.Raw(Json.Encode(hiddentYoutubeItems));
+                                </script>
+                            </div>
+                        </div>
+                                        }
+                }
+            </div>
+        </div>
+    </div>
+</div>

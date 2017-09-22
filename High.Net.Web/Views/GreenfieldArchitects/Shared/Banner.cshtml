@@ -1,0 +1,34 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.GreenfieldArchitects.Pages
+@using ImageVault.Client.Query
+@using ImageVault.EPiServer
+
+@model ImageVault.EPiServer.MediaReference
+@{
+    var repo = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+
+    var homePage = repo.Get<HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+   
+}
+<div class="container">
+    <!-- Banner start -->
+    @if(Model.Id != 0)
+    {
+        var bannerImage = new MediaReference(Model);
+        <div class="main-banner">
+          @Html.PropertyFor(x => bannerImage, new { PropertySettings = new PropertyMediaSettings { Width=1170, Height = 600 }, CssClass = "img-responsive" })
+        </div>
+    }
+    else
+    {
+        if (homePage.InnerPageBanner != null)
+        {
+        <div class="main-banner">
+            @Html.PropertyFor(x => homePage.InnerPageBanner, new { PropertySettings = new PropertyMediaSettings { Width=1170, Height = 600 }, CssClass = "img-responsive" })
+        </div>
+        }
+    }
+
+</div>
+<!-- Banner end -->

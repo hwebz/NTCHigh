@@ -1,0 +1,30 @@
+﻿@using High.Net.Core
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Web.Business.Helpers
+@model LogoWallBlock
+
+<div class="residential-logo-wall">
+    <div class="container">
+        <div class="row">
+            <div class="residential-logo-wall__wrapper">
+                @if (Model.LogoWallItems != null && Model.LogoWallItems.FilteredItems.Any())
+                {
+                    foreach (var item in Model.LogoWallItems.FilteredItems)
+                    {
+                        var logoBlockItem = item.ContentLink.GetContent<LogoWallItemBlock>();
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="residential-logo-wall__item">
+                                <div class="residential-logo-wall__thumbnail">
+                                    <a href="@Url.GetContentUrl(logoBlockItem.LogoUrl)" target="_blank">@Html.PropertyFor(x => logoBlockItem.LogoImage)</a>
+                                </div>
+                                <div class="residential-logo-wall__description">
+                                    <p><a href="tel:@logoBlockItem.Text" target="_blank">@Html.PropertyFor(x => logoBlockItem.Text)</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

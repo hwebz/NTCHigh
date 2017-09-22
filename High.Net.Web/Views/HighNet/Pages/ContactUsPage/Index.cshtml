@@ -1,0 +1,130 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Shared.ViewModels
+@using High.Net.Models.HighNet.Pages
+@using High.Net.Core
+@using High.Net.Core.Helpers
+@model ContactUsPageModel
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var HomePage = contentLoader.Get<HomePage>(PageReference.StartPage);
+}
+@Html.Partial("~/Views/HighNet/Shared/Banner.cshtml", Model)
+<!--Main Container -->
+
+<div class="main">
+    <div class="container white-section">
+        <div class="row">
+            <div class="col-sm-7">
+                @if (!Model.ContactUsForm.IsContactSubmitted)
+                {                    
+                    <div class="main-content">
+                        @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.ThreeFourthWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth, Global.ContentAreaTags.OneFifthWidth, Global.ContentAreaTags.OneTwelfthWidth } })
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "contact-form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(x => x.ContactUsForm.Solve360SelectedCategory, new { Value = HomePage.Solve360CategoryTag })
+                            @Html.HiddenFor(x => x.ContactUsForm.IsB2BSite, new { Value = "true" })
+                            <div class="row">
+                                <div class="col-md-6  col-sm-6">
+                                    <div class="form-group contact">
+                                        @Html.TextBoxFor(x => x.ContactUsForm.Name, new { Placeholder = "Name", @class = "form-control contact" })
+                                        @Html.ValidationMessageFor(x => x.ContactUsForm.Name)
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6  col-sm-6">
+                                    <div class="form-group contact">
+                                        @Html.TextBoxFor(x => x.ContactUsForm.Email, new { Placeholder = "Email", @class = "form-control contact" })
+                                        @Html.ValidationMessageFor(x => x.ContactUsForm.Email)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6  col-sm-6">
+                                    <div class="form-group contact">
+                                        @Html.TextBoxFor(x => x.ContactUsForm.Title, new { Placeholder = "Title", @class = "form-control contact" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6  col-sm-6">
+                                    <div class="form-group contact">
+                                        @Html.TextBoxFor(x => x.ContactUsForm.Company, new { Placeholder = "Company", @class = "form-control contact" })
+                                        @Html.ValidationMessageFor(x => x.ContactUsForm.Company)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="form-group contact">
+                                        @Html.TextBoxFor(x => x.ContactUsForm.Address, new { Placeholder = "Address", @class = "form-control contact" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="form-group contact">
+                                        @Html.TextAreaFor(x => x.ContactUsForm.Message, new {Placeholder = "Your Message", rows = "5", @class = "form-control contact"})
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group contact">
+                                        <input type="hidden" id="google-recaptcha-sitekey" value="@SettingsHelper.GetSetting("Google.ReCaptcha.PublicKey")"/>
+                                        <div id="contact-recaptcha"></div>
+                                        @if (ViewBag.RecaptchaMessage != null)
+                                        {
+                                            <span class="field-validation-error" data-valmsg-for="Recaptcha" data-valmsg-replace="true">@ViewBag.RecaptchaMessage</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12 right-md-text">
+                                    <div class="submit-btn">
+                                        <button type="submit" class="get-in-touch-btn contact-form-btn no-margin">Send Message</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else if(Model.ContactUsForm.IsSentSuccessfully)
+                {
+                    <div class="main-content">
+                        @(new HtmlString(Model.ContactUsForm.ThankYouMessageText))
+                    </div>
+                }
+                else
+                {
+                    <div class="main-content">                        
+                        <h3>Error!</h3>
+                        <span class="" > @Model.ContactUsForm.ErrorMessage</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section SiteFooter{
+   
+    <script>
+        if ($("#recaptchar_tag").length === 0) {
+            var script = document.createElement('script');
+            script.id = "recaptchar_tag";
+            script.type = 'text/javascript';
+            script.async = true;
+            script.src =
+                "https://www.google.com/recaptcha/api.js?onload=initRecaptchaElements&render=explicit&hl={0}";
+            document.body.appendChild(script);
+        }
+    
+        $('.contact-form').submit(function(parameters) {
+            window.dataLayer = window.dataLayer || [];
+            dataLayer.push(
+                { 'event': 'contactForm' }
+            );
+        });
+    </script>
+}

@@ -1,0 +1,97 @@
+﻿.slick-slider {
+    position: relative;
+
+    .slick-arrow {
+        @extend %vertical-centered;
+        width: 50px;
+        height: 50px;
+        text-indent: -9999px;
+        border: none;
+        outline: none;
+        z-index: 2;
+
+        &.slick-prev {
+            background: transparent url('../images/arrow-left-2.png') no-repeat center center;
+            background-size: 12px;
+            left: 20%;
+
+            @include respond-to-max($desktopSize) {
+                left: 5%;
+            }
+
+            @include respond-to-max($tabletSize) {
+                left: 0;
+            }
+        }
+
+        &.slick-next {
+            background: transparent url('../images/arrow-right-2.png') no-repeat center center;
+            background-size: 12px;
+            right: 20%;
+
+            @include respond-to-max($desktopSize) {
+                right: 5%;
+            }
+
+            @include respond-to-max($tabletSize) {
+                right: 0;
+            }
+        }
+    }
+
+    .slick-list {
+        z-index: 1;
+
+        .slick-track {
+            .slick-slide {
+                outline: none;
+                padding: 0 15px;
+                height: auto;
+            }
+        }
+    }
+
+    .slick-dots {
+        position: absolute;
+        bottom: 0;
+        left: 35%;
+        z-index: 2;
+
+        @include respond-to-max($tabletSize) {
+            bottom: -50px;
+            left: 50%;
+            @include prefix(( transform: translate(-50%, 0) ), webkit moz ms o);
+            width: 100%;
+            text-align: center;
+            padding: 0 15px;
+        }
+
+        li {
+            display: inline-block;
+
+            button {
+                display: block;
+                width: 8px;
+                height: 8px;
+                margin: 10px;
+                border-radius: 50%;
+                padding: 0;
+                background-color: $color-lighter-gray;
+                text-indent: -9999px;
+                overflow: hidden;
+                outline: none;
+                border: none;
+
+                @include respond-to-max($tabletSize) {
+                    margin: 10px 5px;
+                }
+            }
+
+            &.slick-active {
+                button {
+                    background-color: $color-red;
+                }
+            }
+        }
+    }
+}

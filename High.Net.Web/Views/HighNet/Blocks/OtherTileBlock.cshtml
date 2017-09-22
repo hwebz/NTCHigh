@@ -1,0 +1,87 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using EPiServer.Core.Html
+
+
+@model High.Net.Models.HighNet.Blocks.OtherTilesBlock
+
+@{
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+}
+
+<style>
+    .block-main-content ul {
+        list-style: none;
+        padding: 0 0 0 10px;
+        margin: 0 0 10px 0;
+    }
+
+    .block-main-content li {
+        padding-left: 1em;
+        text-indent: -.7em;
+    }
+
+        .o_@Model.GetHashCode() .block-main-content li::before {
+            color: @Model.BulletColor;
+            content: "• ";
+            font-size: 22px;
+            position: relative;
+            top: 3px;
+        }
+</style>
+
+@if (Url.ContentUrl(Model.RedirectUrl) != string.Empty)
+{
+    <div class="no-padding o_@Model.GetHashCode()">
+        @{
+            var backgroundImage = client.Load<ImageVault.Common.Data.WebMedia>(Model.BackGroundImage != null ? Model.BackGroundImage.Id : 0).FirstOrDefault();
+            var backgroundImageStyle = backgroundImage==null ? string.Empty : "background-image: url('" + Url.ContentUrl(backgroundImage.Url) + "');";
+        }
+        <a href="@Url.ContentUrl(Model.RedirectUrl)">
+            <div class="home-block" style="color:@Model.TextColor !important;background:@Model.BackGroundColor;@backgroundImageStyle">
+                <img class="img-responsive" src="~/Static/highnet/images/homepg/blank.jpg" style="visibility: hidden" ;>
+                <div class="Full-block-content">
+                    <div class="block-head">
+                        @if (Model.RedirectUrl != null)
+                        {
+                            <span class="arr">&#x2192;</span>
+                        }
+                        <p>@Html.PropertyFor(x => Model.TileName)</p>
+                        <h3>@Html.PropertyFor(x => Model.Workername)</h3>
+                    </div>
+                    <div class="block-main-content">
+                        @if (Model.TileText != null)
+                        {
+                            @Html.PropertyFor(x => Model.TileText)
+                        }
+                    </div>
+                </div>
+            </div>
+        </a>
+
+    </div>
+}
+else
+{
+    <div class="no-padding o_@Model.GetHashCode()">
+        @{
+            var backgroundImage = client.Load<ImageVault.Common.Data.WebMedia>(Model.BackGroundImage != null ? Model.BackGroundImage.Id : 0).FirstOrDefault();
+            var backgroundImageStyle = backgroundImage == null ? string.Empty : "background-image: url('" + Url.ContentUrl(backgroundImage.Url) + "');";
+        }
+        <div class="home-block" style="color:@Model.TextColor !important;background:@Model.BackGroundColor;@backgroundImageStyle">
+            <img class="img-responsive" src="~/Static/highnet/images/homepg/blank.jpg" style="visibility: hidden" ;>
+            <div class="Full-block-content">
+                <div class="block-head">
+                    <p>@Html.PropertyFor(x => Model.TileName)</p>
+                    <h3>@Html.PropertyFor(x => Model.Workername)</h3>
+                </div>
+                <div class="block-main-content">
+                    @if (Model.TileText != null)
+                    {
+                        @Html.PropertyFor(x => Model.TileText)
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

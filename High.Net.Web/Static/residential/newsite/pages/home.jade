@@ -1,0 +1,32 @@
+﻿extends ../layouts/root.jade
+include ../blocks/shared/location.jade
+include ../blocks/shared/call-to-action.jade
+
+block title
+    title Home page
+
+block content
+    div#residential-wrapper
+        // Header block
+        include ../blocks/shared/header.jade
+
+        // Hero block
+        include ../blocks/shared/hero.jade
+
+        // Main gallery block
+        include ../blocks/shared/main-gallery.jade
+    
+        // Testimonial block
+        include ../blocks/shared/testimonial.jade
+    
+        // Service gallery block
+        include ../blocks/shared/service-gallery.jade
+    
+        // Location block
+        +location_(true, false, "")
+
+        // Call to Action block
+        +call_to_action(false, "Apply Now", "Schedule a Tour")
+    
+        // Footer block
+        include ../blocks/shared/footer.jade

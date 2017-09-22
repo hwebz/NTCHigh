@@ -1,0 +1,19 @@
+﻿@using EPiServer.Core
+@using ImageVault.EPiServer
+@using ImageVault.Client.Query
+@model High.Net.Models.HighTransit.Blocks.AwardsBlock
+@{
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+}
+
+<div class="awards-info">
+    <div class="award-para award-image">
+        @if (Model.AwardImage != null)
+        {
+            var awardImg = client.Load<ImageVault.Common.Data.WebMedia>(Model.AwardImage.Id).ToList();
+            <a href="@Url.ContentUrl(awardImg.FirstOrDefault().Url)" target="_blank">
+                @Html.PropertyFor(x => Model.AwardImage, new { PropertySettings = new PropertyMediaSettings { Width = 156, Height = 200, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })     </a>
+        }
+        <div @Html.EditAttributes(m=>m.Description)>@Html.PropertyFor(m => m.Description)</div>
+    </div>
+</div>

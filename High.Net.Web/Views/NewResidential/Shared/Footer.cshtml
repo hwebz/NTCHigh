@@ -1,0 +1,69 @@
+﻿@using High.Net.Core
+@using High.Net.Web.Business.Helpers;
+@using High.Net.Models.Shared.ListPropertyModel;
+
+@model IPageViewModel<BasePageData>
+
+@{
+    var footerModel = FooterHelpers.GetResidentialFooterModel(Model.CurrentPage);
+    if (footerModel == null) { return; }
+    var siteColor = Model.CurrentPage.GetSiteColor();
+    var footerBorderColorStl = string.IsNullOrEmpty(siteColor) ? string.Empty : string.Format("style=border-top-color:{0}", siteColor);
+}
+
+@helper RenderBottomIconBar(IEnumerable<IconLinkModel> iconLinkList)
+{
+if (iconLinkList != null && iconLinkList.Any())
+{
+    foreach (var item in iconLinkList)
+    {
+            <a href="@Url.ContentUrl(item.Link)"><img src="@(item.Icon!=null? Url.ContentUrl(item.Icon):"#")" alt="@item.AltText"></a>
+    }
+}
+}
+<div class="residential-footer @(Model.CurrentPage is IHome?"":"type-2")">
+    <div class="residential-footer__information" @footerBorderColorStl>
+        <div class="container">
+            <div class="row">
+                @if (footerModel.FooterInforList != null && footerModel.FooterInforList.Any())
+                {
+                    var desktopClmClass = footerModel.FooterInforList.Count() % 4 == 0 ? "col-md-4" : "col-md-3";
+                    var desktopLastClmClass = footerModel.FooterInforList.Count() % 4 == 0 ? "col-md-4" : "col-md-6";
+                    var idx = 0;
+                    var totalItems = footerModel.FooterInforList.Count();
+                    foreach (var item in footerModel.FooterInforList)
+                    {
+                        idx++;
+                        <div class="col-xs-12 col-sm-6 @(idx==totalItems? desktopLastClmClass:desktopClmClass)">
+                            <div class="residential-footer__information-block">
+                                <h3>@item.Title</h3>
+                                @item.Content
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="residential-footer__copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <div class="residential-footer__copyright-left">
+                        @RenderBottomIconBar(footerModel.LeftIconLinksList)
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="residential-footer__copyright-left">
+                        <p>@footerModel.BottomBarText</p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <div class="residential-footer__copyright-right">
+                        @RenderBottomIconBar(footerModel.RightIconLinksList)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

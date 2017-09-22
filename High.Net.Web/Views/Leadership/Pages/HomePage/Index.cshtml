@@ -1,0 +1,28 @@
+﻿@using High.Net.Core
+@using High.Net.Models.HighNet.Pages
+@using High.Net.Core.Helpers
+@using ImageVault.EPiServer
+
+@model PageViewModel<HomePage>
+@{ 
+
+    var highNetPage = Model.CurrentPage as HighNetPageData;
+    var imgBannerLogo = highNetPage != null ? highNetPage.ImageBannerLogo:null;
+
+    var imageBannerLogoUrl = MediaHelpers.GetImageUrl(imgBannerLogo, new { PropertySettings = new PropertyMediaSettings { ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } });
+
+}
+<div class="leadership-header-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="leadership-header-banner__logo">
+                    <img src="@imageBannerLogoUrl" alt="Header banner logo">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+@Html.PropertyFor(x=>Model.CurrentPage.Content)

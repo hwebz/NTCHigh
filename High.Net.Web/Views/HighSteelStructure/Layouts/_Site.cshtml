@@ -1,0 +1,120 @@
+﻿@using High.Net.Core
+
+@{
+    Layout = "~/Views/Shared/Layouts/_root.cshtml";
+}
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentloader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentloader.Get<High.Net.Models.HighSteelStructure.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+
+@section Header
+{
+    <link type="image/ico" href="~/Static/global/favicon/favicon.ico" rel="icon">
+    @Styles.Render("~/bundles/bootstrap-css-3.0.0")
+    @Styles.Render("~/bundles/highsteelflexslider-css")
+    @Styles.Render("~/bundles/fontawesome-css")
+    @Styles.Render("~/bundles/browserBlast-css")
+    @Styles.Render("~/bundles/global-css")
+    @Styles.Render("~/bundles/highsteel-css")
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '@homePage.GoogleAnalytics']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    @RenderSection("SiteHeader", required: false)
+
+}
+
+@Html.Partial("~/Views/HighSteelStructure/Shared/Header.cshtml", Model)
+@Html.Partial("~/Views/HighSteelStructure/Shared/Carousel.cshtml", Model)
+@RenderBody()
+@Html.Partial("~/Views/HighSteelStructure/Shared/Footer.cshtml")
+
+
+@section Footer
+{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery-migrate")
+    @Scripts.Render("~/bundles/bootstrap-js")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/highsteelflexslider-js")
+    @Scripts.Render("~/bundles/highsteel-js")
+    @Scripts.Render("~/bundles/highsteelfancybox-js")
+    @Scripts.Render("~/bundles/highsteelrevolutionslider-js")
+    @Scripts.Render("~/bundles/highsteelrevulation-js")
+    @RenderSection("SiteFooter", required: false)
+
+    <script>
+        RevSlide.initRevolutionSlider();
+
+        $(window).load(function () {
+            $('[data-zlname = reverse-effect]').mateHover({
+                position: 'y-reverse',
+                overlayStyle: 'rolling',
+                overlayBg: '#fff',
+                overlayOpacity: 0.7,
+                overlayEasing: 'easeOutCirc',
+                rollingPosition: 'top',
+                popupEasing: 'easeOutBack',
+                popup2Easing: 'easeOutBack'
+            });
+        });
+
+        $(window).load(function () {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                start: function (slider) {
+                    $('body').removeClass('loading');
+                }
+            });
+        });
+
+        //    fancybox
+        jQuery(".fancybox").fancybox();
+        $(function () {
+            var $container = $('#gallery');
+            $container.isotope({
+                itemSelector: '.item',
+                animationOptions: {
+                    duration: 750,
+                    easing: 'linear',
+                    queue: false
+                }
+            });
+
+            // filter items when filter link is clicked
+            $('#filters a').click(function () {
+                var selector = $(this).attr('data-filter');
+                $container.isotope({ filter: selector });
+                return false;
+            });
+            $container.isotope({ filter: ".Bridges" });
+        });
+
+        $("#filters li:first-child a").addClass('active');
+        $(function () {
+            $("#filters li a").click(function () {
+                $("#filters li a").removeClass("active");
+                $(this).addClass('active');
+            });
+        });
+
+
+    </script>
+    @Scripts.Render("~/bundles/bxslider")
+    @Scripts.Render("~/bundles/fitvids")
+    @Scripts.Render("~/bundles/global-js")
+    @Scripts.Render("~/bundle/highsteelsite-js")
+}
+
+

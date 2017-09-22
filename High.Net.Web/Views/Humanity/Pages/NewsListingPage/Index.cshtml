@@ -1,0 +1,61 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.Shared.Pages
+
+@model PageViewModel<NewsListingPage>
+@{
+    var repository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var newsListPages = dataLocator.GetNewsFeed(Model.CurrentPage);
+    var homePage = repository.Get<High.Net.Models.Humanity.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="article-top"></div>
+        <div class="article-middle">
+            <div class="article">
+                <div class="award">
+                    <h3 class="heading">
+                        <a class="title">
+                            @Html.PropertyFor(x => x.CurrentPage.Title)
+                        </a>
+                    </h3>
+                    <br />
+                    @foreach (var item in newsListPages)
+                    {
+                        <div class="received">
+                            <h4><a href="@Url.ContentUrl(item.ContentLink)" class="link">@Html.PropertyFor(x => item.Title)</a></h4>
+                            <div class="entry-meta">
+                                <span>Posted on</span>
+                                <a href="#"><span>@item.PostedDate.ToString("MMMM dd, yyyy")</span></a>
+                                <span>by</span>
+                                <span><a href="#">Essence of Humanity</a></span>
+                            </div>
+                            <div class="entry-content">
+                                @Html.PropertyFor(x => item.NewsHighlight)
+                            </div>
+                            <p class="pull-right"><a class="read-more" href="@Url.ContentUrl(item.ContentLink)"><b>READ MORE</b></a></p>
+                        </div>
+                        <div class="clearfix"></div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="article-bottom"></div>
+    </div>
+    <div class="col-md-3">
+        <div class="article-top"></div>
+        <div class="article-middle">
+            <div class="article">
+                @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl) }))
+                {
+                    <input type="text" placeholder="Search" class="form-control" name="q" /><br />
+                    <input class="btn btn-default" type="submit" value="Search">
+                }
+            </div>
+        </div>
+        <div class="article-bottom"></div>
+    </div>
+</div>

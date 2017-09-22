@@ -1,0 +1,46 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.SteelServiceCentre.Pages
+@using EPiServer.Web
+
+@model IPageViewModel<BasePageData>
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<!--header start-->
+<div class="header">
+    <div class="header-top">
+        <div class="container">
+            <div class="right">
+                <a class="phone-logo" href="tel:@homePage.ContactNo"><strong>@Html.PropertyFor(x => homePage.ContactNo)</strong></a></>
+                <a class="mail-logo" href="mailto:@homePage.EmailID" >@Html.PropertyFor(x => homePage.EmailID)</a>
+            </div>
+        </div>
+    </div>
+    <div class="header-middle">
+        <div class="container">
+            <div class="mail-logo-left">
+                <a href="/">
+                    @Html.PropertyFor(x => homePage.SiteLogo, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 310, Height = 60 } , CssClass="img-responsive" })
+                </a>
+            </div>
+            <div class="right">
+                <div class="highsl-logo-right b">
+                    <a href="@Url.ContentUrl(homePage.HighSLLogo.PageUrl)">
+                        @Html.PropertyFor(x => homePage.HighSLLogo.Media, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 210, Height = 80 }, CssClass="img-responsive" })
+                    </a>
+                </div>
+                <div class="highsl-logo-right">
+                    <a href="@Url.ContentUrl(homePage.HighSLStainlessLogo.PageUrl)">
+                        @Html.PropertyFor(x => homePage.HighSLStainlessLogo.Media, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 210, Height = 80 }, CssClass="img-responsive" })
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("~/Views/SteelServiceCentre/Shared/Navigation.cshtml")
+</div>
+<!--header end-->

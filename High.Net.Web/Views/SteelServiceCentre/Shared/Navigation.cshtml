@@ -1,0 +1,48 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.SteelServiceCentre.Pages
+@using EPiServer.Web
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<div class="header-bottom">
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="">
+                <div class="navbar-header">
+                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-nav">
+                        <li><a href="@Url.ContentUrl(SiteDefinition.Current.StartPage)">Home</a></li>
+                        @Html.MenuList(SiteDefinition.Current.StartPage,
+                        @<li>
+                            @Html.PageLink(item.Page)
+                        </li>)
+                    </ul>
+                    @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl), @Class = "navbar-form navbar-right" }))
+                    {
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" name="q" />
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-search">
+                                    <span class="">
+                                        <img src="~/Static/steel-service-centre/images/icon/search-logo.jpg" />
+                                    </span>
+                                </button>
+                            </span>
+                        </div>
+                    }
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            <!--/.container-fluid -->
+        </nav>
+    </div>
+</div>

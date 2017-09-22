@@ -1,0 +1,290 @@
+@media (max-width: 1199px) {
+    .navbar-default .navbar-nav > li {
+        padding: 0;
+    }
+
+        .navbar-default .navbar-nav > li > a, .nav.navbar-nav > li > span {
+            font-size: 15px;
+        }
+
+    .nav > li > a, .nav.navbar-nav > li > span {
+        padding: 15px 20px;
+    }
+
+    .navbar-nav > li > a.btn-search {
+        margin: 8px;
+    }
+
+    .dropdown-menu {
+        min-width: 240px;
+    }
+
+    .philosophy-text {
+        padding-top: 30px;
+    }
+
+    .formWrapper {
+        left: 33%;
+    }
+}
+
+@media (max-width:1160px) {
+    .ps-widget .form-header {
+        font-size: 16px;
+        margin: 0;
+        padding: 5px;
+    }
+
+    .ps-widget .checkbox, .radio {
+        margin: 5px 0;
+    }
+
+    .ps-widget .form-group {
+        margin-bottom: 7px;
+    }
+}
+
+@media (max-width: 991px) {
+    body, .dropdown-menu {
+        font-size: 12px;
+    }
+
+    .nav > li > a, .nav.navbar-nav > li > span {
+        padding: 15px 12px;
+    }
+
+    .navbar-default .navbar-nav > li > a, .nav.navbar-nav > li > span {
+        font-size: 12px;
+    }
+
+    .hero-banner h1 {
+        padding: 11px 0;
+        font-size: 20px;
+    }
+
+    .h2, h2 {
+        font-size: 26px;
+    }
+
+    .sub-header {
+        margin: 30px 0;
+    }
+
+    .formWrapper {
+        background: white none repeat scroll 0 0;
+        border-radius: 10px;
+        margin: 0 auto;
+        padding: 10px;
+        position: relative;
+        right: auto;
+        text-align: center;
+        top: auto;
+        width: 300px !important;
+        z-index: 10;
+    }
+
+    /*.form-group.home {
+        margin: 0;
+    }*/
+
+    .parking-structure-para > p {
+        font-size: 12px !important;
+    }
+
+    .media.list-item {
+        height: 150px;
+    }
+
+    .phone-no {
+        font-size: 20px;
+        margin: 18px 0 0;
+    }
+
+    .dropdown-menu {
+        min-width: 160px;
+    }
+
+    .formWrapper {
+        left: 0;
+        padding: 10PX 15px 10px;
+        width: auto;
+    }
+
+    .ps-widget {
+        position: relative;
+        top: 10px;
+        width: 100%;
+        z-index: 2147483647;
+    }
+
+    .news h2 {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+}
+
+@media (min-width: 768px) {
+    .footer-links li {
+        border-right: 1px solid #fff;
+        padding: 0 20px;
+        display: inline-block;
+    }
+
+    .caret-dd {
+        display: none !important;
+    }
+
+    .navbar-nav li:hover .dropdown-menu {
+        display: block;
+    }
+}
+
+@media (max-width: 767px) {
+    .footer-links li {
+        float: left;
+    }
+
+    .nav > li > a {
+        padding: 10px 15px;
+    }
+
+    .navbar-nav .open .dropdown-menu {
+        background-color: #000;
+    }
+
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a, .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #fff;
+    }
+
+    .hero-banner h1 {
+        padding: 14px 0;
+        font-size: 18px;
+    }
+
+    .h2, h2 {
+        font-size: 20px;
+    }
+
+    .sub-header {
+        margin: 20px 0;
+    }
+
+    /*.hero-banner .main-quote {
+        bottom: 5px;
+    }*/
+
+    .logo-container .pull-left {
+        float: none !important;
+    }
+
+    .logo-container img {
+        width: auto;
+    }
+
+    .phone-no {
+        margin: 10px 0 0;
+    }
+
+    .nav.navbar-nav > li:last-child {
+        margin: 5px 15px;
+    }
+
+    .structure-care .navbar-collapse {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .service-detail {
+        margin: 15px auto !important;
+        width: 70%;
+    }
+
+    .form-group.home input, .form-group.home textarea {
+        float: right;
+    }
+
+    .form-group.home label {
+        float: left;
+    }
+
+    .nav.navbar-nav > li:last-child {
+        text-align: center;
+    }
+
+    .philosophy-text {
+        padding-top: 0px;
+    }
+
+    .home label {
+        width: 108px;
+    }
+
+    .formWrapper {
+        width: 340px !important;
+    }
+
+    .philosophy-container img {
+        margin: 0 auto;
+        padding: 20px 0;
+    }
+
+    .footer-icon {
+        margin: 2px 0 10px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .maintenance img {
+        margin: 0 auto;
+        width: 60%;
+    }
+
+    .news-right-img img {
+        margin: 0 auto !important;
+        width: 60% !important;
+    }
+
+    .repair img {
+        margin: 0 auto 15px;
+        width: 60%;
+    }
+
+    .search-bx {
+        display: table;
+        float: none;
+        margin: 0 auto 5px;
+    }
+}
+
+@media (max-width:600px) {
+    .hero-banner .main-quote {
+        background: #00A5E3 none repeat scroll 0 0;
+        bottom: 0;
+        position: relative;
+        width: 100%;
+    }
+
+    .hero-banner h1 {
+        font-size: 15px;
+        padding: 16px 0;
+    }
+}
+
+@media (max-width:400px) {
+    .formWrapper {
+        width: 250px;
+    }
+
+    .header-text.center {
+        font-size: 11px;
+        padding: 10px 15px;
+    }
+
+    .home label {
+        width: 72px;
+    }
+
+    .formWrapper {
+        width: 280px !important;
+    }
+}

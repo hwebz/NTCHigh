@@ -1,0 +1,59 @@
+﻿@using EPiServer.Framework.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Web.Business.Helpers
+
+@model IPageViewModel<BasePageData>
+@{
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    var canonicalUrl = dataLocator.GetExternalAbsoluteFriendlyUrl(Model.CurrentPage.ContentLink, Model.CurrentPage.LanguageBranch);
+}
+
+<!DOCTYPE html>
+<html lang="@Model.CurrentPage.LanguageBranch">
+<head>
+    <title>@Model.CurrentPage.MetaTitle</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+    <meta content="@Model.CurrentPage.MetaDescription" name="description">
+    <meta content="@Model.CurrentPage.MetaKeywords" name="keywords">
+    <link rel="canonical" href="@canonicalUrl" />
+    @*@Html.CanonicalLink()*@
+    @Html.AlternateLinks()
+
+    @RenderSection("Header", required: false)
+    @Html.RequiredClientResources("Header")
+    @if (!string.IsNullOrEmpty(ContentHelper.GetGoogleTagManagerId()))
+        {
+            <!-- Google Tag Manager -->
+            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','@ContentHelper.GetGoogleTagManagerId()');</script>
+            <!-- End Google Tag Manager -->
+
+        }
+</head>
+
+<body>
+    @if(!string.IsNullOrEmpty(ContentHelper.GetGoogleTagManagerId()))
+        {
+
+            <!-- Google Tag Manager (noscript) -->
+            <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=@ContentHelper.GetGoogleTagManagerId()"
+                              height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+            <!-- End Google Tag Manager (noscript) -->
+        }
+    
+    @Html.RenderEPiServerQuickNavigator()
+    @Html.FullRefreshPropertiesMetaData()
+
+    @RenderBody()
+
+    @RenderSection("Footer", required: false)
+    @Html.RequiredClientResources("Footer")
+</body>
+</html>

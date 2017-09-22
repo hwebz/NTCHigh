@@ -1,0 +1,21 @@
+﻿@using EPiServer.Core
+@using High.Net.Models.HighTransit.Blocks
+@using ImageVault.EPiServer
+@model EquipmentBlock
+
+<div class="container">
+    <div class="sec-about equip">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="equip-image">
+                   @Html.PropertyFor(x =>Model.EquipmentImage , new { PropertySettings = new PropertyMediaSettings { Width = 555, Height = 361 }, CssClass="img-responsive"})
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div>
+                    @Html.PropertyFor(m => m.Description)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

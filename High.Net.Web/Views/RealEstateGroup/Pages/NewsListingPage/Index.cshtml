@@ -1,0 +1,62 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.RealEstateGroup.Pages
+@using High.Net.Models.Shared.Pages
+@using ImageVault.EPiServer
+@model High.Net.Core.PageViewModel<NewsListingPage>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    var homePage = contentLoader.Get<HomePage>(PageReference.StartPage);
+    
+    var newsListPages = dataLocator.GetNewsFeed(Model.CurrentPage);
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="heading-bar announcement">
+                @if (homePage.RealEstateMatters)
+                {
+                    @Html.PropertyFor(x => x.CurrentPage.AnnouncementBlockContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth }  })
+                }
+            </div>
+        </div>
+    </div>
+    <div class="news">
+        @foreach (var item in newsListPages)
+        {
+            <div class="row">
+                <div class="col-md-4 col-sm-4 text-center">
+                    <div class="news-right-img">
+                        <div class="cal">
+                            @if (item.NewsImage != null)
+                            {
+                                @Html.PropertyFor(m => item.NewsImage, new { PropertySettings = new PropertyMediaSettings { Width = 362, Height = 234 }, CssClass = "img-responsive" })
+                            }
+                            else
+                            {
+                                <img src="~/Static/global/images/news-placeholder-360X200.png" class="img-responsive placeholder" />
+                            }
+                            <div class="date">
+                                <span class="glyphicon glyphicon-calendar news"><span class="date-text">  @item.PostedDate.ToString("MMMM dd, yyyy")</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <span>@item.ImageQuote</span>
+                </div>
+                <div class="col-md-8 col-sm-8">
+                    <h2>@Html.PropertyFor(m => item.Title)</h2>
+                    @{var SitePage = contentLoader.GetAncestors(item.ContentLink).Where(x => x.GetType().GetInterfaces().Contains(typeof(High.Net.Core.IHome))).FirstOrDefault();}
+                    @if (SitePage != null)
+                    {
+                        <b>@SitePage.Name</b>
+                    }
+                    <p>@Html.PropertyFor(m => item.NewsHighlight)</p>
+                    <a class="detail-link" href="@Url.ContentUrl(item.ContentLink)">read more +</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

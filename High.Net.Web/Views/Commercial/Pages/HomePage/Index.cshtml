@@ -1,0 +1,188 @@
+﻿@using High.Net.Core
+@using High.Net.Models.Commercial.Pages
+@using High.Net.Models.Shared.Pages
+@using EPiServer.ServiceLocation
+@using High.Net.Core.Helpers
+
+@model PageViewModel<HomePage>
+@{
+    var repository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var dataLocator = ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var newsRoot = (Model.CurrentPage.NewsPageRoot != null) ? repository.Get<NewsListingPage>(Model.CurrentPage.NewsPageRoot) : null;
+    var newsItems = (Model.CurrentPage.NewsPageRoot != null) ? repository.GetChildren<NewsItemPage>(Model.CurrentPage.NewsPageRoot) : null;
+
+    var propertyListingPage = repository.GetChildren<PropertyListingPage>(Model.CurrentPage.ContentLink);
+}
+
+@Html.FullRefreshPropertiesMetaData(new[] { "NewsPageRoot", "TennentLoginLink", "GoogleLocation", "VideoCarousel" })
+@Html.Partial("~/Views/Commercial/Shared/Carousel.cshtml")
+
+<div class="spacer"></div>
+@if (Model.CurrentPage.TennentLoginLink != null)
+{
+    <!-- Logo Banner Starts-->
+    <div class="container text-center">
+        <div class="module">
+            <a class="btn btn-warning tc" target="_blank" href="@Url.ContentUrl(Model.CurrentPage.TennentLoginLink)" role="button" @Html.EditAttributes(x => x.CurrentPage.TennentLoginLink)>Tenant Connect</a>
+        </div>
+    </div>
+    <!-- Logo Banner Ends-->
+}
+<!-- Listing Module Start-->
+<div class="container">
+    @if (propertyListingPage.Any())
+    {
+        <h2 class="sub-header text-center">@Html.PropertyFor(x => x.CurrentPage.ItemListHeading)</h2>
+        var propertyTypes = repository.GetChildren<PropertyTypePage>(propertyListingPage.FirstOrDefault().ContentLink).Where(x => x.VisibleInMenu);
+        if (propertyTypes != null)
+        {
+            int counter = 0;
+            foreach (var item in propertyTypes)
+            {
+                if (counter == 0)
+                {
+                    @Html.Raw("<div class=\"row\">")
+                }
+                else if (counter > 0 && counter % 3 == 0)
+                {
+                    @Html.Raw("</div><div class=\"row\">")
+                }
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="media list-item">
+                        <a href="@Url.ContentUrl(item.ContentLink)">
+                            <div class="media-left">
+                                @Html.PropertyFor(x => item.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 74, Height = 74, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "media-object" })
+                            </div>
+                            <div class="media-body">
+                                <h3 class="media-heading">@Html.PropertyFor(x => item.Name)</h3>
+                                @Html.PropertyFor(x => item.IntroText)
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                counter++;
+            }
+            @Html.Raw("</div>")
+        }
+    }
+</div>
+<!-- Listing Module Ends-->
+<div class="spacer"></div>
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                <ul class="footer-contact-us">
+                    <li>
+                        <span class="icon address-icon"></span>
+                        <span class="icon-header">Address : </span>
+                        <br>
+                        <span class="icon-txt">@Html.PropertyFor(x => x.CurrentPage.Address)</span>
+                    </li>
+                    <li>
+                        <span class="icon mobile-icon"></span>
+                        <span class="icon-header">Call : </span>
+                        <br>
+                        <span class="icon-txt"><a href="tel:@Model.CurrentPage.ContactNumber">@Html.PropertyFor(x => x.CurrentPage.ContactNumber)</a></span>
+                    </li>
+                    <li>
+                        <span class="icon email-icon"></span>
+                        <span class="icon-header">Email : </span>
+                        <br>
+                        <span class="icon-txt"><a href="mailto:@Model.CurrentPage.EmailId">@Html.PropertyFor(x => x.CurrentPage.EmailId)</a></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+                <div id="map" @Html.EditAttributes(x => x.CurrentPage.GoogleLocation)>
+                    <img src="@string.Format("{0}&key={1}", Url.ContentUrl(Model.CurrentPage.GoogleLocation), SettingsHelper.GetSetting("googleMapApiKey"))">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About LLC Starts-->
+<div class="intro-text">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="">
+                    @Html.PropertyFor(x => x.CurrentPage.AboutUsText)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.CurrentPage.VideoCarousel != null && Model.CurrentPage.VideoCarousel.Items.Any())
+{
+    var i = 0;
+    <!-- Video Gallery Starts-->
+    <div class="video-slider">
+        <div class="container">
+            <div class="video-slider-wrapper border-block">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 video-iframe">
+                        @foreach (var contentItem in Model.CurrentPage.VideoCarousel.Items.Take(1))
+                        {
+                            var item = contentLoader.Get<High.Net.Models.Commercial.Blocks.VideoBlock>(contentItem.ContentLink);
+                            <iframe frameborder="0" scrolling="no" id="vid_frame" style="z-index: 0;" phidecontrols="0" phandler="ytiframe" src="@Url.ContentUrl(item.VideoUrl)"></iframe>
+                        }
+                    </div>
+                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                        <div class="pager-container">
+                            <div class="gallery-pager">
+                                @foreach (var contentItem in Model.CurrentPage.VideoCarousel.Items)
+                                {
+                                    var item = contentLoader.Get<High.Net.Models.Commercial.Blocks.VideoBlock>(contentItem.ContentLink);
+                                    <a class="active" src='@Url.ContentUrl(item.VideoUrl)'>
+                                        <img class="thumb" src="@Url.ContentUrl(dataLocator.GetYouTubeThumbnail(item.VideoUrl))">
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Video Gallery Ends-->
+}
+<!-- News Listing Starts-->
+@if (Model.CurrentPage.NewsPageRoot != null)
+{
+    <div class="container news" @Html.EditAttributes(x => x.CurrentPage.NewsPageRoot)>
+        <h2 class="sub-header text-center">@newsRoot.Name</h2>
+        <div class="row">
+            @foreach (var item in newsItems.Take(4))
+            {
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="media list-item">
+                        <div class="media-left">
+                            <a href="@Url.ContentUrl(item.ContentLink)">
+                                @Html.PropertyFor(x => item.NewsImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 115, Height = 115, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "media-object" })
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            @Html.PropertyFor(x => item.NewsHighlight)
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="spacer"></div>
+}
+<!-- News Listing Ends-->
+@section SiteFooter{
+    <script src="//www.youtube.com/player_api"></script>
+    <script>
+        $(function () {
+            $(".gallery-pager a").click(function () {
+                $("#vid_frame").attr('src', $(this).attr('src'));
+            });
+        })
+    </script>
+}

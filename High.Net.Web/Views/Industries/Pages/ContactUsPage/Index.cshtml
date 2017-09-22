@@ -1,0 +1,83 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Shared.ViewModels
+@using High.Net.Core
+@using High.Net.Models.Industries.Pages
+
+@model ContactUsPageModel
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(PageReference.StartPage);
+}
+
+<div class="container">
+    @Html.Partial("~/Views/Industries/Shared/Banner.cshtml")
+    @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", ChildrenCssClass = "contact-detail", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.ThreeFourthWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth, Global.ContentAreaTags.OneFifthWidth, Global.ContentAreaTags.OneTwelfthWidth } })
+    <div class="row">
+        @if (!Model.ContactUsForm.IsContactSubmitted)
+        {
+            <div class="col-md-12">
+                @using (Html.BeginForm(null, null, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(x => x.ContactUsForm.IsB2BSite, new { Value = "true" })
+                    @Html.HiddenFor(x => x.ContactUsForm.Solve360SelectedCategory, new { Value = homePage.Solve360CategoryTag })
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="form-group contact">
+                                @Html.TextBoxFor(x => x.ContactUsForm.Name, new { @class = "form-control", placeholder = "Name" })
+                                @Html.ValidationMessageFor(x => x.ContactUsForm.Name)
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-4">
+                            <div class="form-group contact">
+                                @Html.TextBoxFor(x => x.ContactUsForm.Email, new { @class = "form-control", placeholder = "Email Id" })
+                                @Html.ValidationMessageFor(x => x.ContactUsForm.Email)
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-4">
+                            <div class="form-group contact">
+                                @Html.TextBoxFor(x => x.ContactUsForm.Title, new { @class = "form-control", placeholder = "Title" })
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group contact">
+                                @Html.TextBoxFor(x => x.ContactUsForm.Company, new { @class = "form-control", placeholder = "Company" })
+                                @Html.ValidationMessageFor(x => x.ContactUsForm.Company)
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group contact">
+                                @Html.TextBoxFor(x => x.ContactUsForm.Address, new { @class = "form-control", placeholder = "Address" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="form-group contact">
+                                @Html.TextAreaFor(x => x.ContactUsForm.Message, new { @class = "form-control", placeholder = "Your Message", rows = "5" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="send-btn contact">
+                                <button type="submit" class="send-contact">SUBMIT</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="col-md-12">
+                @(new HtmlString(Model.ContactUsForm.ThankYouMessageText))
+            </div>
+        }
+    </div>
+    <div class="spacer"></div>
+</div>

@@ -1,0 +1,15 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.SteelServiceCentre.Blocks
+@model ServicesBlock
+
+<div class="services">
+    <div class="services-img">
+        @Html.PropertyFor(x => Model.ServiceImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width=325 , Height = 201 ,ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } , CssClass="img-responsive" })
+    </div>
+    <div class="services-detail">
+        <h3>@Html.PropertyFor(x => x.Heading)</h3>
+        @Html.PropertyFor(x => x.Text)
+    </div>
+</div>

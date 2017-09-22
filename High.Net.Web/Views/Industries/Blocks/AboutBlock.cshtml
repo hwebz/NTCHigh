@@ -1,0 +1,12 @@
+﻿@using EPiServer.Core
+@using High.Net.Models.Industries.Blocks
+@using ImageVault.EPiServer
+@model AboutBlock
+
+<a href="@Url.ContentUrl(Model.PageUrl)">
+    <div class="about-portfolio">
+        @Html.PropertyFor(x => Model.AboutPageIcon, new { PropertySettings = new PropertyMediaSettings { Width = 305, Height = 305 }, CssClass = "img-responsive" })
+        <h3>@Html.PropertyFor(m => m.Heading)</h3>
+    </div>
+</a>
+<div class="spacer"></div>

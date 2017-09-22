@@ -1,0 +1,60 @@
+﻿@using High.Net.Models.HighNet.Blocks
+@using High.Net.Web.Business.Helpers
+@using High.Net.Core
+
+@model AuthorQuoteContainerBlock
+
+@if (Model.AuthorQuoteItems == null || Model.AuthorQuoteItems.FilteredItems == null || !Model.AuthorQuoteItems.FilteredItems.Any())
+{
+    return;
+}
+
+@{
+    var carouselId = Guid.NewGuid();
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+}
+
+
+<div class="leadership-testimonial-slider">
+    <div class="leadership-testimonial-slider__title">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <h3>@Html.PropertyFor(x => x.Title)</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="leadership-testimonial-slider__main">
+        <div class="leadership-testimonial-slider__slider">
+            @foreach (var item in Model.AuthorQuoteItems.FilteredItems)
+            {
+                var contentItem = item.ContentLink.GetContent<AuthorQuoteBlock>();
+                if (contentItem == null) { continue; }
+                var backgroundImage = contentItem.BackgroundImage != null ? client.Load<ImageVault.Common.Data.WebMedia>(contentItem.BackgroundImage.Id).FirstOrDefault() : null;
+                var backgroundImageStyle = backgroundImage == null ? string.Empty : "background:transparent url('" + Url.ContentUrl(backgroundImage.Url) + "') no-repeat center center; background-size:cover";
+                <div class="leadership-testimonial-slider__slider-item">
+                    <div class="leadership-testimonial-slider__slider-item__image" style="@backgroundImageStyle"></div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="leadership-testimonial-slider__slider-item__wrapper">
+                                <div class="leadership-testimonial-slider__slider-item__pos">
+                                    <div class="col-xs-12 col-sm-8 col-md-6">
+                                        @{
+                                            var quoteLines = contentItem.Quote.ToListLineString();
+                                            foreach (var line in quoteLines)
+                                            {
+                                                <h3>@line</h3>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                            }
+
+        </div>
+    </div>
+</div>

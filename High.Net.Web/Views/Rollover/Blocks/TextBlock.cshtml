@@ -1,0 +1,8 @@
+﻿@using EPiServer.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Rollover.Blocks
+@model TextBlock
+
+<div class="content" @Html.EditAttributes(x=>x.IntroText)>
+    @Html.PropertyFor(x=>x.IntroText)
+</div>

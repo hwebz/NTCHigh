@@ -1,0 +1,21 @@
+﻿@using High.Net.Models.HighNet.Blocks
+@using High.Net.Core
+
+
+@model TilesContainerBlock
+
+@if (Model.TileItems == null || Model.TileItems.FilteredItems == null || !Model.TileItems.FilteredItems.Any())
+{
+    return;
+}
+
+@Html.PropertyFor(x => x.TileItems, new
+{
+    tag = Global.ContentAreaTags.HalfWidth,
+    childrencssclass = "no-padding",
+    Tags = new[] { Global.ContentAreaTags.FullWidth,
+                            Global.ContentAreaTags.TwoThirdsWidth,
+                            Global.ContentAreaTags.HalfWidth,
+                            Global.ContentAreaTags.OneThirdWidth ,
+                            Global.ContentAreaTags.ThreeFourthWidth}
+})

@@ -1,0 +1,13 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.SelfStorage.Pages
+
+@model PageViewModel<HomePage>
+
+@Html.Partial("~/Views/SelfStorage/Shared/Carousel.cshtml", Model)
+
+<div class="section">
+    <div class="container">
+        @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+    </div>
+</div>

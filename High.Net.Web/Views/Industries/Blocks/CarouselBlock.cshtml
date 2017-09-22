@@ -1,0 +1,14 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+
+@model High.Net.Models.Industries.Blocks.CarouselBlock
+
+@Html.PropertyFor(x => x.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings {  Width = 1366, Height = 475, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+<div class="container">
+    <div class="slide-content">
+        <h2><a href="@Url.ContentUrl(Model.HeadingUrl)" target="_blank">@Model.Heading</a></h2>
+        <p>@Model.SubHeading</p>
+        <a href="@Url.ContentUrl(Model.LearnMoreUrl)" target="_blank" class="call-at lern-more">Learn more about this project</a>
+        <a href="tel:@Model.Contact" class="call-at">Call us at @Model.Contact</a>
+    </div>
+</div>

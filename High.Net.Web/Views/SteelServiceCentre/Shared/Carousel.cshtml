@@ -1,0 +1,25 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.SteelServiceCentre.Pages
+@using EPiServer.Web
+@using ImageVault.Client.Query
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<div class="container">
+    <div class="hero-banner">
+        <!-- Carousel Start -->
+        <div class="img-slider">
+            <ul class="bxslider-img" data-slider-type="img">
+                @foreach (var item in homePage.Silders)
+                {
+                    <li>
+                        @Html.PropertyFor(x => item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 360 }, CssClass = "img-responsive" })
+                    </li>     
+                }
+            </ul>
+        </div>
+        <!-- Carousel Ends-->
+    </div>
+</div>

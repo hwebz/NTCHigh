@@ -1,0 +1,29 @@
+﻿$pre: 'leadership-two-columns';
+
+.#{$pre} {
+    @include block-spacing($block-spacing, $block-spacing-tablet);
+
+    .#{$pre}__title {
+
+        h1 {
+            @extend %big-title;
+        }
+    }
+
+    .#{$pre}__details {
+        @include respond-to-max($tabletSize) {
+            margin-bottom: 30px;
+        }
+
+        p {
+            margin-bottom: 30px;
+
+            @include respond-to-max($tabletSize) {
+                font-size: $base-font-size-tablet;
+                line-height: $base-line-height-tablet;
+                margin-bottom: 15px;
+            }
+
+        }
+    }
+}

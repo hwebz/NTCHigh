@@ -1,0 +1,42 @@
+﻿@using EPiServer.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Models.Rollover.Pages
+@using High.Net.Models.Rollover.Blocks
+@using High.Net.Core
+
+@model PortfolioListingBlock
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var opportunityItem = contentLoader.GetDescendents(SiteDefinition.Current.StartPage).Where(m => contentLoader.Get<IContent>(m) is OpportunityItemPage).Select(contentLoader.Get<OpportunityItemPage>);
+    var opportunityList = contentLoader.GetDescendents(SiteDefinition.Current.StartPage).Where(m => contentLoader.Get<IContent>(m) is OpportunityListingPage).Select(contentLoader.Get<OpportunityListingPage>);
+}
+<div class="asset-services">
+    @foreach (var itemList in opportunityList)
+    {
+        <h2 class="title">@Html.PropertyFor(m => itemList.Name) </h2>
+    }
+    @*<hr class="blue-border" />*@
+    <div class="row">
+        @if (opportunityItem != null)
+        {
+            foreach (var item in opportunityItem)
+            {
+                <div class="col-md-3 col-sm-3">
+                    <div class="apartment">
+                        <a href="@Url.ContentUrl(item.ContentLink)">
+                            @Html.PropertyFor(x => item.PortfolioImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 250, Width = 250, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "img-responsive" })
+                            @if (item.PropertyStatus != null)
+                            {
+                                <h5 class="top-slogan">@item.PropertyStatus</h5>
+                            }
+                            <h5 class="slogan">@Html.PropertyFor(m => item.Title)</h5>
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="spacer"></div>
+</div>

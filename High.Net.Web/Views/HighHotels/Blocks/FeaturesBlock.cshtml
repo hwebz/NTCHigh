@@ -1,0 +1,16 @@
+﻿@using EPiServer.Core
+@using High.Net.Models.HighHotels.Blocks
+@using High.Net.Core
+@using High.Net.Core.Helpers
+
+@model FeaturesBlock
+<!--feature start-->
+<section>
+    <a href="@Url.ContentUrl(Model.PageUrl)">
+        <div class="f-box" data-url="@MediaHelpers.GetImageUrl(Model.PageIcon, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 89, Width = 89, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })" data-hover="@MediaHelpers.GetImageUrl(Model.PageHoverIcon, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 89, Width = 89, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })">            
+            @Html.PropertyFor(x => Model.PageIcon, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 89, Width = 89 , ResizeMode=  ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+            <h2>@Html.PropertyFor(m => m.Heading)</h2>
+        </div>
+    </a>
+</section>
+<!--feature end-->

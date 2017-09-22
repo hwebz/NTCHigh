@@ -1,0 +1,11 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@using ImageVault.EPiServer
+@model CEOBlock
+@Html.PropertyFor(x => Model.Image, new { PropertySettings = new PropertyMediaSettings { Width=165, Height=165  } , CssClass="img-responsive ceo-img" }) 
+
+<p class="ceo-detail">
+    <strong><span class="ceo-name">@Html.PropertyFor(x => x.Heading)</span></strong>
+    <span>@Html.PropertyFor(x => x.Text)</span>
+</p>

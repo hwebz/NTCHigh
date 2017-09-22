@@ -1,0 +1,36 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighNet.Pages
+@using EPiServer.Web
+
+@model IPageViewModel<BasePageData>
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+
+<div class="module contact-detail">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="contact-detail-item cf">
+                    <span class="icon mobile-icon"></span>
+                    <span class="icon-txt"><strong>@Html.PropertyFor(x => homePage.Contact)</strong></span>
+                </div>
+            </div>
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <div class="pull-right">
+                    <div class="search-bx">
+                        @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl) }))
+                        {
+                            <input type="text" placeholder="Search for..." name="q" />
+                            <button type="submit" class="glyphicon glyphicon-search"></button>
+                        }
+                    </div>
+                    <a href="@Url.ContentUrl(homePage.ContentLink)">Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

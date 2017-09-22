@@ -1,0 +1,15 @@
+﻿@using EPiServer.Core
+@using High.Net.Models.RealEstateGroup.Blocks
+@using ImageVault.EPiServer
+
+@model ServicesBlock
+
+<li>
+    <a href="@Url.ContentUrl(Model.PageUrl)">
+      @Html.PropertyFor(x => Model.Image, new { PropertySettings = new PropertyMediaSettings { Width = 225, Height = 225, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })<h3 class="slogan">
+            @Html.PropertyFor(m => m.Heading)</h3>
+    </a>
+</li>
+
+
+

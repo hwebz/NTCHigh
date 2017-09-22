@@ -1,0 +1,140 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.SteelServiceCentre.Pages
+@using EPiServer.Web
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+
+    var containerPage = contentLoader.GetChildren<High.Net.Models.Shared.Pages.ContainerPage>(homePage.ContentLink).FirstOrDefault();
+}
+@Html.FullRefreshPropertiesMetaData(new[] { "PartnersBlock" })
+<!--contact start-->
+<div class="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <ul>
+                            <li><a href="@Url.ContentUrl(SiteDefinition.Current.StartPage)">Home</a></li>
+                            @Html.MenuList(SiteDefinition.Current.StartPage,
+                            @<li>
+                                @Html.PageLink(item.Page)
+                            </li>)
+                            @Html.MenuList(containerPage.ContentLink,
+                            @<li><a href="@Url.ContentUrl(item.Page.ContentLink)">@item.Page.Name</a></li>)
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Address</h4>
+                                <p>
+                                    @Html.PropertyFor(x => homePage.Address)
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Phone number</h4>
+                                <p>
+                                    Toll-free: @Html.PropertyFor(x => homePage.ContactNo)
+                                </p>
+                                <p>
+                                    Fax: @Html.PropertyFor(x => homePage.FaxNo)
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Email</h4>
+                                <a href="mailto:@homePage.EmailID">
+                                    <p>@Html.PropertyFor(x => homePage.EmailID)</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="row" @Html.EditAttributes(x => homePage.PartnersBlock)>
+            <div class="col-md-12">
+                <div class="partner">
+                    @if (homePage.PartnersBlock != null)
+                    {
+                        <ul>
+                            @foreach (var contentItem in homePage.PartnersBlock.Items)
+                            {
+                                var item = contentLoader.Get<High.Net.Core.ContentTypes.Blocks.MediaLink>(contentItem.ContentLink);
+                                <li>
+                                    <a target="_blank" href="@Url.ContentUrl(item.PageUrl)">
+                                        @Html.PropertyFor(x => item.Media, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 190, Height = 90 } })
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--contact end-->
+<!--footer start-->
+<div class="footer">
+    <div class="container">
+        <div class="reserved">
+            @Html.PropertyFor(x => homePage.Copyrights)
+        </div>
+        <div class="rbi-logo" @Html.EditAttributes(x => homePage.RedBudLogo)>
+            <a target="_blank" href="@Url.ContentUrl(homePage.RedBudLogo.PageUrl)">
+                @Html.PropertyFor(x => homePage.RedBudLogo.Media, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 190, Height = 30 } })
+            </a>
+            <span>Valued Business Partner</span>
+        </div>
+        <div class="social">
+            <span>
+                <a href="@Url.ContentUrl(homePage.FacebookLink)" @Html.EditAttributes(x => homePage.FacebookLink)>
+                    <img src="~/Static/steel-service-centre/images/icon/facebook.png" />
+                </a>
+            </span>
+            @if (homePage.GooglePlusLink != null)
+            {
+                <span>
+                    <a href="@Url.ContentUrl(homePage.GooglePlusLink)" @Html.EditAttributes(x => homePage.GooglePlusLink)>
+                        <img src="~/Static/steel-service-centre/images/icon/google-plus.png" />
+                    </a>
+                </span>
+            }
+            @if (homePage.TwitterLink != null)
+            {
+                <span>
+                    <a href="@Url.ContentUrl(homePage.TwitterLink)" @Html.EditAttributes(x => homePage.TwitterLink)>
+                        <img src="~/Static/steel-service-centre/images/common/twitter.jpg" />
+                    </a>
+                </span>
+            }
+            @if (homePage.LinkedInLink != null)
+            {
+                <span>
+                    <a href="@Url.ContentUrl(homePage.LinkedInLink)" @Html.EditAttributes(x => homePage.LinkedInLink)>
+                        <img src="~/Static/steel-service-centre/images/common/linken.jpg" />
+                    </a>
+                </span>
+            }
+            @if (homePage.YoutubeLink != null)
+            {
+                <span>
+                    <a href=" @Html.EditAttributes(x => homePage.YoutubeLink) " @Html.EditAttributes(x => homePage.LinkedInLink)>
+                        <img src="~/Static/steel-service-centre/images/common/youtube.jpg" />
+                    </a>
+                </span>
+            }
+        </div>
+    </div>
+</div>
+<!--footer end-->

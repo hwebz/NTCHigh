@@ -1,0 +1,50 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Residential.Blocks
+@using ImageVault.Common.Services
+
+@model FloorPlansBlock
+@{
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+    var mediaRepo = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+}
+
+<tr>
+    <td>
+        @if (Model.PdfDocumnet != null)
+        {
+            var document = client.Load<ImageVault.Common.Data.Media>(Model.PdfDocumnet.Id).ToList();
+            if (document.Count > 0)
+            {
+            <a target="_blank" href="@Url.ContentUrl(document.FirstOrDefault().Url)">
+                @Html.PropertyFor(x => Model.FloorPlanLayout, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 250, Height = 260 }, CssClass = "img-responsive" })
+            </a>
+            }
+        }
+    </td>
+    <td>
+        @if (Model.Rent != null)
+        {
+            <p class="rent-btn dynam">@Model.Rent</p>
+        }
+    </td>
+    <td>@Html.PropertyFor(x => x.Deposit)</td>
+    <td>
+        @if (Model.PdfDocumnet != null)
+        {
+            var document = client.Load<ImageVault.Common.Data.Media>(Model.PdfDocumnet.Id).ToList();
+            if (document.Count > 0)
+            {
+            <a target="_blank" href="@Url.ContentUrl(document.FirstOrDefault().Url)">
+                
+                <p class="bed-bath"><img class="pdf-img" src="~/Static/residential/images/bullet_adobe.gif" /> @Model.BedsBathSq</p>
+            </a>
+            }
+        }
+    </td>
+    <td>
+        <h4>@Model.PlanSize</h4>
+    </td>
+</tr>
+
+

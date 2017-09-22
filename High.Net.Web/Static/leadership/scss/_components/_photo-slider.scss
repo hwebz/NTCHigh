@@ -1,0 +1,88 @@
+﻿$pre: 'leadership-photo-slider';
+
+.#{$pre} {
+    @include block-spacing($block-spacing, $block-spacing-tablet);
+
+    @include respond-to-max($tabletSize) {
+        padding-bottom: 70px;
+    }
+
+    .#{$pre}__title {
+        h1 {
+            @extend %big-title;
+        }
+    }
+
+    .#{$pre}__slider {
+        .#{$pre}__slider-item {
+            @include respond-to-max($tabletSize) {
+                padding: 0 !important;
+            }
+
+            .#{$pre}__thumbnail {
+                height: 500px;
+                width: 100%;
+                overflow: hidden;
+                position: relative;
+
+                @include respond-to-max($tabletSize) {
+                    height: 200px;
+                }
+            }
+
+            .#{$pre}__description {
+                margin-top: 55px;
+                width: 70%;
+
+                @include respond-to-max($tabletSize) {
+                    width: 100%;
+                    padding: 0 15px;
+                    margin-top: 45px;
+                }
+            }
+        }
+
+        .slick-dots {
+            position: absolute;
+            bottom: auto;
+            left: auto;
+            right: 5px;
+            top: 515px;
+            z-index: 1;
+
+            @include respond-to-max($tabletSize) {
+                bottom: auto;
+                top: 210px;
+                left: 50%;
+                @include prefix(( transform: translate(-50%, 0) ), webkit moz ms o);
+            }
+        }
+
+        .slick-arrow {
+            top: 250px;
+
+            @include respond-to-max($tabletSize) {
+                top: 100px;
+            }
+
+            &.slick-prev {
+                left: 15px;
+            }
+
+            &.slick-next {
+                right: 15px;
+            }
+        }
+    }
+
+    .#{$pre}__caption {
+        margin-top: 55px;
+        width: 70%;
+        padding: 0 15px;
+
+        @include respond-to-max($tabletSize) {
+            width: 100%;
+            margin-top: 45px;
+        }
+    }
+}

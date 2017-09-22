@@ -1,0 +1,198 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using HA = High.Net.Models.Associates.Pages
+@using HAPP = High.Net.Models.HighAppraisal.Pages
+@using High.Net.Models.Shared.Pages
+@using ImageVault.EPiServer
+
+@model PageViewModel<HA.HomePage>
+@Html.FullRefreshPropertiesMetaData(new[] { "BrokerContent" })
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var contentLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<ContentLocator>();
+    var dataLocator = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+    var brokerListingPage = contentLocator.GetAll<HA.BrokerListPage>(EPiServer.Core.PageReference.StartPage).FirstOrDefault();
+
+    var videoItems = contentLocator.GetAll<HA.VideoItemPage>(EPiServer.Core.PageReference.StartPage).ToList().Take(3);
+
+    var ServiceListPage = contentLoader.GetChildren<HA.ServiceListPage>(Model.CurrentPage.ContentLink).FirstOrDefault();
+    var ServiceList = contentLoader.GetChildren<BasePageData>(ServiceListPage.ContentLink).ToList();
+
+    var PropertyListingPage = contentLoader.GetChildren<PropertyListingPage>(Model.CurrentPage.ContentLink).FirstOrDefault();
+}
+@Html.Partial("~/Views/Associates/Shared/Carousel.cshtml", Model)
+<!--welcome start-->
+<div class="welcome">
+    <div class="container">
+        @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth } })
+    </div>
+</div>
+<!--welcome end-->
+@if (PropertyListingPage != null)
+{
+    var PropertyItems = contentLoader.GetChildren<PropertyTypePage>(PropertyListingPage.ContentLink).ToList();
+    <!--properties start-->
+    <div class="properties">
+        <div class="container">
+            <a href="@Url.ContentUrl(Model.CurrentPage.PropertyPageLink)"><h2 @Html.EditAttributes(x=> x.CurrentPage.PropertyPageLink) class="title">@PropertyListingPage.Name</h2></a>
+            <ul>
+                @foreach (var item in PropertyItems)
+                {
+                    using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get,
+                    new { @action = Url.ContentUrl(PropertyListingPage.ContentLink) }))
+                    {
+                    <li>
+                        <a href="@Url.ContentUrl(PropertyListingPage.ContentLink)?RootPage=@EPiServer.Core.PageReference.RootPage&PropertyType=@item.Name">
+                            @Html.PropertyFor(x => item.Image, new { PropertySettings = new PropertyMediaSettings { Width = 226, Height = 226, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                            <h3 class="slogan">@item.Name</h3>
+                        </a>
+                    </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+    <!--properties end-->
+}
+@if (brokerListingPage != null)
+{
+    <!-- Brokerage services start-->
+    <div class="brokerage-service">
+        <div class="responsive-slide">
+            <div class="container">
+                <a href="@Url.ContentUrl(Model.CurrentPage.BrokersPageLink)"><h2 @Html.EditAttributes(x=> x.CurrentPage.BrokersPageLink) class="title">@brokerListingPage.Name</h2></a>  
+                
+            </div>
+            <div class="responsive-slide">
+                <div class="container">
+                    <div class="jcarousel-wrapper">
+                        <div class="bs-jcarousel">
+                            <ul>
+                                @{var brokers = contentLocator.GetAll<HA.BrokerPage>(brokerListingPage.ContentLink);
+                                  if (brokers.Any())
+                                  {
+                                      foreach (var item in brokers)
+                                      {
+                                    <li>
+                                        @if (item.ProfilePhoto != null)
+                                        {
+                                            <div class="character">
+                                                @Html.PropertyFor(x => item.ProfilePhoto, new { PropertySettings = new PropertyMediaSettings { Width = 86, Height = 114 } })
+                                            </div>
+                                        }
+                                        <div class="profile">
+                                            <strong>@item.Name</strong>
+                                            <p>@item.Designation</p>
+                                            <p><a href="tel:@item.SkypeContact">@item.SkypeContact</a></p>
+                                            <p><a href="tel:@item.MobileContact">cell: @item.MobileContact</a></p>
+                                            <p><a href="mailto:@item.EmailAddress">@item.EmailAddress</a></p>
+                                            <a href="@Url.ContentUrl(item.ContentLink)">Profile</a>
+                                        </div>
+                                    </li>
+
+                                      }
+                                  }
+                                }
+                            </ul>
+                        </div>
+                        <a href="#" class="jcarousel-control-left">
+                            <img src="~/Static/associates/images/icon/left-nav.png" />
+                        </a>
+                        <a href="#" class="jcarousel-control-right">
+                            <img src="~/Static/associates/images/icon/right-nav.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Brokerage services end-->
+}
+@if (videoItems != null)
+{
+    <!--video start-->
+    <div class="latest-video">
+        <div class="container">
+            <a href="@Url.ContentUrl(Model.CurrentPage.VideosPageLink)"><h2 @Html.EditAttributes(x=> x.CurrentPage.VideosPageLink) class="title">Latest Video</h2></a>
+            <div class="row">
+                @foreach (var item in videoItems.OrderByDescending(x => x.Created).Take(3))
+                {
+                    <div class="col-md-4 col-sm-4">
+                        <div class="video-left">
+                            <img src="@dataLocator.GetYouTubeThumbnail(item.VideoLink)" />
+                        </div>
+                        <div class="video-content">
+                            <a href="@Url.ContentUrl(item.ContentLink)">
+                                <h5>@item.Heading</h5>
+                            </a>
+                            <p>
+                                @item.PageIntroText
+                            </p>
+                            <p>
+                                <a href="@Url.ContentUrl(item.ContentLink)">read more...</a>
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!--video end-->
+}
+@if (ServiceList != null)
+{
+    <!--services start-->
+    <div class="service">
+        <div class="container">
+            <a href="@Url.ContentUrl(Model.CurrentPage.ServicesPageLink)"><h2 @Html.EditAttributes(x=> x.CurrentPage.ServicesPageLink) class="title">Services</h2></a>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="service-list">
+                        @foreach (var item in ServiceList)
+                        {
+                            if ((item.GetType().BaseType).BaseType == typeof(HAPP.HighAppraisalPageData))
+                            {
+                                var getPageProperty = contentLoader.Get<HAPP.HighAppraisalPageData>(item.ContentLink);
+                            <li>
+                                @Html.PropertyFor(x => getPageProperty.PageImage, new { PropertySettings = new PropertyMediaSettings { Width = 120, Height = 120 }, CssClass = "img-responsive" })
+                                <a href="@Url.ContentUrl(item.ContentLink)">
+                                    <h4>
+                                        @getPageProperty.Name
+                                    </h4>
+                                </a>
+                                <p>
+                                    @getPageProperty.PageIntroText
+                                </p>
+                                <p>
+                                    <a href="@Url.ContentUrl(item.ContentLink)">read more...</a>
+                                </p>
+                            </li>
+                            }
+                            else if ((item.GetType().BaseType).BaseType == typeof(HA.AssociatesPageData))
+                            {
+                                var getPageProperty = contentLoader.Get<HA.AssociatesPageData>(item.ContentLink);
+                            <li>
+                                @Html.PropertyFor(x => getPageProperty.PageImage, new { PropertySettings = new PropertyMediaSettings { Width = 120, Height = 120 }, CssClass = "img-responsive" })
+                                <a href="@Url.ContentUrl(item.ContentLink)">
+                                    <h4>
+                                        @getPageProperty.Name
+                                    </h4>
+                                </a>
+                                <p>
+                                    @getPageProperty.PageIntroText
+                                </p>
+                                <p>
+                                    <a href="@Url.ContentUrl(item.ContentLink)">read more...</a>
+                                </p>
+                            </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--services end-->
+}
+

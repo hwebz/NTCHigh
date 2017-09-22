@@ -1,0 +1,107 @@
+﻿@using EPiServer.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Core
+@using High.Net.Models.HighHotels.Pages
+@model IPageViewModel<BasePageData>
+@{
+    var dataLocator = ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+    var Breadcrumb = dataLocator.GetAncestors(Model.CurrentPage.ContentLink);
+    var repository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+}
+<!-- revolution slider start -->
+<div class="container">
+    <div class="image-banner">
+        @if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.NewsListingPage))
+        {
+            var _NewsListingPage = repository.Get<High.Net.Models.Shared.Pages.NewsListingPage>(Model.CurrentPage.ContentLink);
+            if (_NewsListingPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => _NewsListingPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 420 }, CssClass = "img-responsive" })
+            }
+            else
+            {
+                @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 420 }, CssClass = "img-responsive" })
+            }
+        }
+        else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.NewsItemPage))
+        {
+            var _NewsItemPage = repository.Get<High.Net.Models.Shared.Pages.NewsItemPage>(Model.CurrentPage.ContentLink);
+            var _NewsListingPage = repository.Get<High.Net.Models.Shared.Pages.NewsListingPage>(Model.CurrentPage.ParentLink);
+            if (_NewsItemPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => _NewsItemPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 420 }, CssClass = "img-responsive" })
+            }
+            else if (_NewsListingPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => _NewsListingPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 420 }, CssClass = "img-responsive" })
+            }
+            else
+            {
+                @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 420 }, CssClass = "img-responsive" })
+            }
+        }
+        else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.ContactUsPage))
+        {
+            var _ContactUsPage = repository.Get<High.Net.Models.Shared.Pages.ContactUsPage>(Model.CurrentPage.ContentLink);
+            if (_ContactUsPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => _ContactUsPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 420 }, CssClass = "img-responsive" })
+            }
+            else
+            {
+                @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 420 }, CssClass = "img-responsive" })
+            }
+        }
+        else if (Model.CurrentPage.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.SearchPage))
+        {
+            var _ContactUsPage = repository.Get<High.Net.Models.Shared.Pages.SearchPage>(Model.CurrentPage.ContentLink);
+            if (_ContactUsPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => _ContactUsPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 420 }, CssClass = "img-responsive" })
+            }
+            else
+            {
+                @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 420 }, CssClass = "img-responsive" })
+            }
+        }
+        else
+        {
+            var _CurrentPage = repository.Get<HighHotelsPageData>(Model.CurrentPage.ContentLink);
+            if (_CurrentPage.BannerImage != null)
+            {
+                @Html.PropertyFor(x => _CurrentPage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 420 }, CssClass = "img-responsive" })
+            }
+            else
+            {
+                @Html.PropertyFor(x => homePage.BannerImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1400, Height = 420 }, CssClass = "img-responsive" })
+            }
+        }
+        <div class="container">
+            <h1 class="banner-title">@Model.CurrentPage.Name</h1>
+        </div>
+    </div>
+</div>
+<!-- revolution slider end -->
+<div class="container">
+    <div class="orange-band">
+        <div class="sub-menu">
+            @foreach (var item in Breadcrumb)
+            {
+                if (item.ContentLink == homePage.ContentLink)
+                {
+                    <a href="@Url.ContentUrl(homePage.ContentLink)"><span>Home</span></a>
+                }
+                else
+                {
+                    <a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a>
+                }
+                <span>> </span>
+            }
+            <a href="@Url.ContentUrl(Model.CurrentPage.ContentLink)">@Model.CurrentPage.Name</a>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

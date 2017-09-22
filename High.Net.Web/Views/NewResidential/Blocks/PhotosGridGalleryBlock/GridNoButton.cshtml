@@ -1,0 +1,69 @@
+﻿@using High.Net.Core
+@using High.Net.Core.Helpers
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Web.Business.Helpers
+@using ImageVault.EPiServer
+@using High.Net.Web.Business
+
+@model High.Net.Models.NewResidential.Blocks.PhotosGridGalleryBlock
+
+@{
+    var cssClassInSmallDevice = Model.NumberOfColums == 3 ? "col-sm-4" : "col-sm-6";
+    var cssClassInMediumDevice = Model.NumberOfColums == 3 ? "col-md-4" : "col-md-3";
+}
+
+@helper renderImage(bool enableViewFullSize, ImageTextBlock galleryItem)
+{
+var imgUrl = MediaHelpers.GetImageUrl(galleryItem.Image, new { PropertySettings = new PropertyMediaSettings { ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } });
+if (enableViewFullSize || galleryItem.SiteLink==null)
+{
+            <img class="@(enableViewFullSize?"image-lightbox":"")" src="@imgUrl" alt="@galleryItem.HtmlText" />
+    }
+    else
+    {
+            <a href="@Url.GetContentUrl(galleryItem.SiteLink)" target="_blank">
+                <img src="@imgUrl" alt="@galleryItem.HtmlText" />
+            </a>
+    }
+}
+<div class="residential-service-gallery photo-gallery">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="residential-service-gallery__header">
+                    <h2 class="@Constants.ViewConstants.SiteColorApplyClass">@Html.PropertyFor(x => x.Title)</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @if (Model.PhotoItems != null)
+            {
+                foreach (var item in Model.PhotoItems.FilteredItems)
+                {
+                    var photoGridItem = item.ContentLink.GetContent<ImageTextBlock>();
+                    <div class="col-xs-12 @cssClassInSmallDevice @cssClassInMediumDevice">
+                        <div class="residential-service-gallery__item">
+                            @if (!Html.PropertyFor(x => photoGridItem.HtmlText).ToString().Trim().IsEmpty())
+                            {
+                                <h3 class="residential-service-gallery__title">@Html.PropertyFor(x => photoGridItem.HtmlText)</h3>
+                            }
+                            <div class="residential-service-gallery__thumbnail">
+                                @renderImage(Model.EnableViewFullSize, photoGridItem)
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var siteColor = document.getElementById("site-color").value;
+    if (siteColor != "") {
+        var itemTitles = document.querySelectorAll(" h2."+"@Constants.ViewConstants.SiteColorApplyClass");
+        for (var i = 0; i < itemTitles.length; i++) {
+            itemTitles[i].style.color = siteColor;
+        }
+    }
+</script>

@@ -1,0 +1,267 @@
+
+@media (max-width: 1199px) {
+
+    .navbar-nav > li > a {
+        font-size: 18px;
+        padding: 15px 25px;
+    }
+
+    .president-img > img {
+        float: none;
+        margin: 0 auto;
+    }
+
+    .president-img {
+        text-align: center;
+    }
+
+    /*.formWrapper {
+        position: relative;
+        right: auto;
+    }*/
+    .formWrapper {
+        left: 26%;
+    }
+
+    .apartment {
+        min-height: 212px;
+        position: relative;
+    }
+}
+
+@media (max-width:1160px) {
+    .ps-widget .form-header {
+        font-size: 16px;
+        margin: 0;
+        padding: 5px;
+    }
+
+    .ps-widget .checkbox, .radio {
+        margin: 5px 0;
+    }
+
+    .ps-widget .form-group {
+        margin-bottom: 7px;
+    }
+}
+
+@media (max-width: 991px) {
+    .opportunity-inner .para-1 p {
+        padding: 0;
+    }
+
+    .main-section h2 {
+        font-size: 24px;
+    }
+
+    .navbar-nav > li > a {
+        font-size: 15px;
+        padding: 15px 20px;
+    }
+
+    h3 {
+        font-size: 16px !important;
+    }
+
+    .broker-profile > p {
+        font-size: 11px !important;
+    }
+
+    .formWrapper {
+        left: 0;
+        padding: 0 0 10px;
+        width: auto;
+    }
+
+    .ps-widget {
+        position: relative;
+        top: 10px;
+        width: 100%;
+        z-index: 2147483647;
+    }
+
+    .apartment {
+        min-height: 157px;
+        position: relative;
+    }
+}
+
+@media (max-width: 767px) {
+    .right-pag {
+        margin: 0;
+    }
+
+    body {
+        font-size: 12px;
+    }
+
+    .main-section h2 {
+        font-size: 17px;
+    }
+
+    .blue-border {
+        margin-bottom: 15px;
+    }
+
+    .bi label {
+        width: 105px;
+    }
+
+    .lane label {
+        width: 150px;
+    }
+
+    .apartment {
+        margin: 0 auto 25px;
+        width: 70%;
+    }
+
+    .opportunity img {
+        margin: 15px auto;
+        width: 70%;
+    }
+
+    .contact-detail {
+        text-align: center;
+    }
+
+    .nav.navbar-nav a {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .opportunity-inner .features ul li a {
+        font-size: 14px;
+    }
+
+    .navbar-nav > li > a.btn-property {
+        text-align: center;
+    }
+
+    .news-right-img {
+        margin: 0 auto;
+        width: 70%;
+    }
+
+    .navbar-collapse.collapse.in {
+        padding: 0 15px;
+    }
+
+    .character-img > img {
+        float: none;
+        display: block;
+        margin: 0 auto !important;
+    }
+
+    .broker-profile {
+        text-align: center;
+    }
+
+    .news h2 {
+        font-size: 16px;
+    }
+
+    .criteria-img img {
+        margin: 0 auto 10px;
+    }
+
+    .youtubr-icon {
+        right: 29%;
+    }
+}
+
+@media (max-width: 700px) {
+    .search-box input {
+        width: 150px;
+    }
+}
+
+@media (max-width: 620px) {
+    .header-bottom .main-logo {
+        float: none;
+    }
+
+    .main-logo img {
+        margin: 0 auto;
+    }
+
+    .header-bottom .right-side {
+        float: none;
+        margin: 10px;
+    }
+
+    .search-box input {
+        width: 80%;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    h3 {
+        font-size: 14px !important;
+    }
+
+    .nav.navbar-nav a {
+        font-size: 12px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .opportunity-inner .features-two ul:first-child {
+        float: none;
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 520px) {
+
+    .btn.btn-criteria {
+        letter-spacing: 2px;
+    }
+
+    .criteria-img > img {
+        float: none;
+        margin: 0;
+    }
+
+    .banner-img .main-quote h1 {
+        font-size: 20px;
+        /*margin: 10px 0;*/
+    }
+
+    .banner-img .main-quote {
+        bottom: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .apartment {
+        width: 100%;
+    }
+
+    .call-us {
+        float: none;
+        text-align: center;
+    }
+
+    .social-icon {
+        float: none;
+        text-align: center;
+    }
+
+    .search-box input {
+        width: 70%;
+    }
+
+    .opportunity-inner .features-two ul:first-child {
+        float: none;
+        margin-bottom: 15px;
+    }
+
+    .glyphicon.glyphicon-calendar.news {
+        padding: 10px 20px;
+    }
+}

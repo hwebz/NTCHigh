@@ -1,0 +1,119 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Models.Residential.Pages
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+@Html.FullRefreshPropertiesMetaData(new[] { "LocationUrl", "LocationDirectionUrl", "ScheduleTourLink" })
+
+<div class="row">
+    <div class="col-lg-12">
+        <!-- Block1 start -->
+        <div class="border-block">
+            <div class="call-us-now">
+                <div>
+                    <p>Call Us Now</p>
+                    <h3>@Html.PropertyFor(x => homePage.ContactNo)</h3>
+                </div>
+            </div>
+            <div class="social-link">
+                <a href="@Url.ContentUrl(homePage.FacebookLink)" target="_blank" class="social-icon fb-icon" @Html.EditAttributes(x => homePage.FacebookLink)></a>
+                @*<a href="@Url.ContentUrl(homePage.PingLink)" target="_blank" class="social-icon pin-icon" @Html.EditAttributes(x => homePage.PingLink)></a>*@
+            </div>
+            <div class="share">
+                @*<h3 class="share-item share-text">
+                        <a href="#">Share Property via Text </a>
+                    </h3>*@
+                <h3 class="share-item share-email" data-toggle="collapse" data-target="#demo">
+                    <a>Share Property via Email</a>
+                </h3>
+                <!--pop up start-->
+                <div id="demo" class="collapse">
+                    <div class="sign-up-form">
+                        @using (Ajax.BeginForm(null, null, new AjaxOptions()
+                        {
+                            HttpMethod = "POST",
+                            InsertionMode = InsertionMode.Replace,
+                            OnSuccess = "validaton_success",
+                        },
+                        new { action = "/", enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <p>Enter your email address and we will send you the details and contact information for these properties.</p>
+                            <input class="form-control" type="text" name="email" id="email" value="">
+                            @*<div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="propertySearch">Sign me up for bentleyridge e-newsletter
+                                    </label>
+                                </div>*@
+                            <div class="spacer"></div>
+                            <button type="submit" class="btn btn-warning" value="Send">Send</button>
+                        }
+                        <br />
+                        <strong id="validation-msg" style="display:none;">Please enter valid e-mail address.</strong>
+                        <strong id="success-msg" style="display:none;">@homePage.SharePropertyThankYouMessage</strong>
+                        <script>
+                            function validaton_success(data) {
+                                if (!data.success) {
+                                    $('#validation-msg').show();
+                                    $('#success-msg').hide();
+                                }
+                                else {
+                                    $('#success-msg').show();
+                                    $('.sign-up-form > form').hide();
+                                    $('#validation-msg').hide();
+                                }
+                            }
+                        </script>
+                    </div>
+                </div>
+                <!--pop up start-->
+                <h3 class="share-item share-schedule">
+                    <a href="mailto:@(homePage.ScheduleTourPropertyEmail)?subject=@(homePage.ScheduleTourPropertySubject)&body=@(homePage.ScheduleTourPropertyBody)">Schedule Tour </a>
+                </h3>
+                <h3 class="share-item share-apply">
+                    <a href="@Url.ContentUrl(homePage.ApplyNowLink)" @Html.EditAttributes(x => homePage.ApplyNowLink)>Apply Now </a>
+                </h3>
+            </div>
+            <div class="map">
+                <div @Html.EditAttributes(x => homePage.LocationUrl)>
+                    <iframe src="@homePage.LocationUrl" width="100%" height="200" frameborder="0" style="border: 0" allowfullscreen=""></iframe>
+                </div>
+                <div class="map-footer">
+                    <span class="map-location"></span>
+                    <p class="map-address" @Html.EditAttributes(x => homePage.Address)>
+                        @homePage.Address
+                    </p>
+                    <a href="@homePage.LocationDirectionUrl" target="_blank" @Html.EditAttributes(x => homePage.LocationDirectionUrl)>
+                        <span class="car">&nbsp;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Block1 end -->
+        <!-- Block2 start -->
+        <div class="border-block">
+            <h3 class="share-item hour">
+                <a href="#">Hours </a>
+            </h3>
+            <div class="row office-timing" @Html.EditAttributes(x => homePage.OfficeHours)>
+                @Html.DisplayFor(x => homePage.OfficeHours)
+            </div>
+        </div>
+        <!-- Block2 end -->
+        <!-- Block3 start -->
+        <div class="border-block">
+            <h3 class="share-item email-us">
+                <a href="@Url.ContentUrl(homePage.EmailUsLink)" @Html.EditAttributes(x => homePage.EmailUsLink)>Email Us </a>
+            </h3>
+            <div class="email-img">
+                <a href="@Url.ContentUrl(homePage.EmailUsLink)"><img src="~/Static/residential/images/house.jpg" /></a>
+                <a href="@Url.ContentUrl(homePage.EmailUsLink)"><img src="~/Static/residential/images/wheel-chair.jpg"></a>
+            </div>
+        </div>
+        <!-- Block3 end -->
+    </div>
+</div>

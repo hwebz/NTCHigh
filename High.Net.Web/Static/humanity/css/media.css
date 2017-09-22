@@ -1,0 +1,190 @@
+﻿
+/*Desktop*/
+@media (max-width: 1018px) {
+    .container {
+        width: auto;
+    }
+
+    .header-text {
+        float: none;
+        margin-top: 75px;
+        width: auto;
+    }
+
+    .navbar-nav {
+        padding: 0 5px;
+    }
+}
+
+@media (max-width: 994px) {
+    .nav > li > a {
+        /*padding: 10px 23px;*/
+    }
+}
+
+
+@media (max-width: 991px) {
+    .navbar-nav {
+        padding: 0;
+    }
+
+    .winners .received, .winners .award h3.heading a.title {
+        padding-left: 0;
+    }
+
+    .nav > li > a {
+        padding: 10px 22px;
+    }
+}
+
+
+@media (max-width: 972px) {
+    .navbar-default .navbar-nav > li > a {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 942px) {
+    .navbar-default .navbar-nav > li > a {
+        font-size: 13px;
+    }
+}
+
+@media (max-width:901px) {
+    .navbar-default .navbar-nav > li > a {
+        font-size: 12px;
+    }
+
+    .partner-ul li {
+        width: 240px;
+    }
+}
+
+@media (max-width: 866px) {
+    .navbar-default .navbar-nav > li > a {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 859px) {
+    .partner-ul li {
+        width: 50%;
+    }
+}
+
+@media (max-width:831px) {
+
+    .navbar-default .navbar-nav > li {
+        margin: 0px 0 0 5px;
+    }
+}
+
+
+@media (max-width: 806px) {
+    .nav > li > a {
+        padding: 10px 17px;
+    }
+}
+
+@media (max-width: 778px) {
+    .nav > li > a {
+        padding: 10px 14px;
+    }
+}
+
+@media (max-width: 767px) {
+    .header-text {
+        font-size: 12px;
+        margin-top: 100px;
+    }
+
+    .navbar-default .navbar-nav > li {
+        float: none;
+        margin-left: 0;
+    }
+
+    .right {
+        margin-top: 20px;
+    }
+
+    .link-block {
+        display: none;
+    }
+
+    .toggle-button {
+        display: block;
+        float: right;
+    }
+
+    .winners .award {
+        padding-left: 0;
+    }
+
+    .description {
+        padding: 15px 0;
+    }
+
+    .award {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 649px) {
+    .header-text {
+        font-size: 11px;
+        margin-top: 86px;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .main-logo {
+        float: none;
+        margin: 14px auto 0;
+        width: 350px;
+    }
+
+    .header-text {
+        margin-top: 0px;
+    }
+
+    .partner-ul {
+        padding: 0;
+    }
+
+    .winners .received h4 a.link {
+        font-size: 16px;
+    }
+
+    h3, .h3 {
+        font-size: 20px;
+    }
+
+    .award {
+        margin-left: 0px;
+    }
+
+    .winners .received, .winners .award h3.heading a.title {
+        padding-left: 0;
+    }
+}
+
+@media (max-width:550px) {
+    .partner-ul li {
+        float: none;
+        width: auto;
+    }
+}
+
+@media (max-width: 379px) {
+    .main-logo {
+        margin-top: 18px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 340px) {
+    .main-logo {
+        margin-top: 20px;
+    }
+}

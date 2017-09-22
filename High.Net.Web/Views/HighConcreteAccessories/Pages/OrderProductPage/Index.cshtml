@@ -1,0 +1,20 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighConcreteAccessories.Pages
+@using EPiServer.Web
+@using ImageVault.EPiServer
+
+@model PageViewModel<OrderProductPage>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<div class="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+               
+            </div>
+        </div>
+    </div>
+</div>

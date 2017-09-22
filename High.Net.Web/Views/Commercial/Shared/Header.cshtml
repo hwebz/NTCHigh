@@ -1,0 +1,23 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.Commercial.Pages
+@using EPiServer.Web
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+<!-- Logo Starts-->
+<div class="container logo-container">
+    <h1 class="logo cf">
+        <a href="@Url.ContentUrl(homePage.ContentLink)" class="pull-left">
+            @Html.PropertyFor(x => homePage.SiteLogo,  new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 86 }, CssClass = "img-responsive" })
+        </a>
+        <a href="@Url.ContentUrl(homePage.ManagedBy.PageUrl)" class="pull-right" target="_blank" @Html.EditAttributes(x => homePage.ManagedBy)>
+        @Html.PropertyFor(x => homePage.ManagedBy.Media, new { CssClass = "img-responsive" })
+        </a>
+    </h1>
+</div>
+<!-- Logo Ends-->

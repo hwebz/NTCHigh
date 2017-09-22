@@ -1,0 +1,25 @@
+﻿extends ../layouts/root.jade
+include ../blocks/shared/text-content.jade
+
+block title
+    title About Us
+
+block content
+    div#residential-wrapper
+        // Header block
+        include ../blocks/shared/header.jade
+
+        // Hero block
+        include ../blocks/shared/banner.jade
+
+        // Text contents
+        +text_contents_("About Us")
+
+        // Three images column block
+        include ../blocks/shared/three-image-column.jade
+
+        // Footer type 2 block
+        include ../blocks/shared/footer-type-2.jade
+    
+
+

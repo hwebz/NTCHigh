@@ -1,0 +1,83 @@
+﻿@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.NewResidential.Blocks
+@using High.Net.Web.Business.Helpers
+@using ImageVault.EPiServer
+@using High.Net.Web.Business
+
+@model ApartmentsCarouselBlock
+
+<script type="text/javascript">
+    window.AparmentSliderAutoPlay = @Model.AutoPlay.ToString().ToLower();
+</script>
+
+<div class="residential-room-slider">
+    <div class="container">
+        <div class="row">
+            <div class="residential-room-slider__header">
+                <h2 class="@Constants.ViewConstants.SiteColorApplyClass">@Html.PropertyFor(x => x.Title)</h2>
+            </div>
+        </div>
+        @if (Model.ApartmentItems != null && Model.ApartmentItems.FilteredItems.Any())
+        {
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="residential-room-slider__slider">
+                        @foreach (var item in Model.ApartmentItems.FilteredItems)
+                {
+                    var blockItem = item.ContentLink.GetContent<ApartmentItemBlock>();
+                            <div class="row residential-room-slider__item">
+                                <div class="col-xs-12 col-sm-4 col-md-4 col-sm-offset-1 col-md-offset-1">
+                                    <div class="residential-room-slider__thumbnail">
+                                        @Html.PropertyFor(x => blockItem.Image, new { PropertySettings = new PropertyMediaSettings { ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, AltText = blockItem.Name, CssClass= "image-lightbox" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="residential-room-slider__description">
+                                        <h3>@Html.PropertyFor(x => blockItem.Name)</h3>
+                                        <p>@Html.PropertyFor(x => blockItem.Description)</p>
+                                        <div class="residential-room-slider__detail">
+                                            @Html.PropertyFor(x => blockItem.Detail)
+                                        </div>
+                                        <div class="residential-room-slider__btns">
+                                            <a href="@Url.ContentUrl(blockItem.ScheduleTourUrl)" class="@Constants.ViewConstants.SiteColorApplyClass">@(string.IsNullOrEmpty(blockItem.ScheduleText)? "Schedule a tour":blockItem.ScheduleText)</a>
+                                            <a href="@Url.ContentUrl(blockItem.ApplyNowUrl)" class="@Constants.ViewConstants.SiteColorApplyClass">@(string.IsNullOrEmpty(blockItem.ApplyNowText)?"Apply now":blockItem.ApplyNowText)</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+@if (Model.ApartmentItems != null && Model.ApartmentItems.FilteredItems.Any())
+{
+    <script type="text/javascript">
+    var siteColor = document.getElementById("site-color").value;
+    if (siteColor != "") {
+        var itemTitles = document.querySelectorAll(" h2." +"@Constants.ViewConstants.SiteColorApplyClass");
+        for (var i = 0; i < itemTitles.length; i++) {
+            itemTitles[i].style.color = siteColor;
+        }
+
+        var sliderBtns = document.querySelectorAll(" a." + "@Constants.ViewConstants.SiteColorApplyClass");
+        for (var i = 0; i < sliderBtns.length; i++) {
+            sliderBtns[i].style.borderColor = siteColor;
+        }
+
+        var styleNode = document.createElement("style");
+        var style = document.createTextNode(".residential-room-slider__btns a:before { background:" + siteColor + " !important}");
+        styleNode.appendChild(style);
+
+        var sliderControlStyle = document.createTextNode(".slick-slider .slick-arrow {border-color:" + siteColor + "}");
+        styleNode.appendChild(sliderControlStyle);
+
+        document.head.appendChild(styleNode);
+
+    }
+    </script>
+}

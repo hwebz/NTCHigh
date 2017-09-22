@@ -1,0 +1,10 @@
+﻿@using EPiServer.Core
+@using High.Net.Models.HighTransit.Blocks
+
+@model TextBlock
+
+@if (Model.Heading != null)
+{
+   <h2>@Html.PropertyFor(x=> x.Heading)</h2>
+}
+@Html.PropertyFor(m=>m.Description)

@@ -1,0 +1,47 @@
+﻿@using High.Net.Core
+@using High.Net.Models.NewResidential.Pages
+@using ImageVault.EPiServer
+@using High.Net.Core.Helpers
+@using EPiServer.Editor
+@using High.Net.Models.Validation
+
+@model PageViewModel<HomePage>
+
+@{
+    var heroImgUrl = MediaHelpers.GetImageUrl(Model.CurrentPage.BannerImage, new { PropertySettings = new PropertyMediaSettings { Width = 1170 } });
+    var heroLogoWidth = Model.CurrentPage.HeroLogoWidth > 0 ? Model.CurrentPage.HeroLogoWidth : RangeRules.DefaultHeroIconWidth;
+    var heroLogoUrl = MediaHelpers.GetImageUrl(Model.CurrentPage.BannerLogoImage, new { PropertySettings = new PropertyMediaSettings { Width = heroLogoWidth } });
+    var siteColor = Model.CurrentPage.SiteColor;
+    var bannerArrowColorStl = string.IsNullOrEmpty(siteColor) ? string.Empty : string.Format("style=color:{0}", siteColor);
+    var bannerBorderColorStl = string.IsNullOrEmpty(siteColor) ? string.Empty : string.Format("style=border-color:{0}", siteColor);
+}
+@if (!string.IsNullOrEmpty(heroImgUrl))
+{
+    <div id="hero" style="@(PageEditing.PageIsInEditMode ? "height:600px;background-attachment:inherit;" : "");background-image: url('@heroImgUrl');" class="blocks hero">
+        <div class="hero-contents">
+            <div class="icon-wrapper">
+                <img src="@heroLogoUrl" alt="" style="width:@string.Format("{0}px",heroLogoWidth)">
+            </div>
+            <p @Html.EditAttributes(x => x.CurrentPage.HeroText)>@Model.CurrentPage.HeroText.ToLineBreakString()</p>
+            <a href="#" class="scroll-down">
+                <span @bannerBorderColorStl></span>
+                <span @bannerArrowColorStl></span>
+            </a>
+        </div>
+    </div>
+}
+
+@Html.PropertyFor(x => x.CurrentPage.ImageCollections, new { Tag = Global.ContentAreaTags.ResidentialHomePage })
+
+<div class="residential-testimonial">
+    <div class="container">
+        <div class="row">
+            <div class="residential-testimonial__wrapper col-xs-12 col-sm-12 col-md-12">
+                <h1>@Model.CurrentPage.PlantationTitle</h1>
+                <p>@Model.CurrentPage.PlantationDescription</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.PropertyFor(x => x.CurrentPage.Content, new { Tag = Global.ContentAreaTags.ResidentialHomePage })

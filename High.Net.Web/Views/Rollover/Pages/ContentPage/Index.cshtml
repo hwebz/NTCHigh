@@ -1,0 +1,11 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.Rollover.Pages
+
+@model PageViewModel<ContentPage>
+@Html.FullRefreshPropertiesMetaData(new[] { "PageContentArea" })
+<div class="spacer"></div>
+<div class="container" @Html.EditAttributes(m => m.CurrentPage.PageContentArea)>
+    @Html.PropertyFor(m => m.CurrentPage.PageContentArea, new { CssClass = "row col-md-12 main-section", tag = Global.ContentAreaTags.NoRenderer, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth, Global.ContentAreaTags.OneFifthWidth, Global.ContentAreaTags.OneTwelfthWidth, Global.ContentAreaTags.NoRenderer } })
+</div>
+<div class="spacer"></div>

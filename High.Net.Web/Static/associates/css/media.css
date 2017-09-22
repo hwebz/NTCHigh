@@ -1,0 +1,707 @@
+﻿@media (max-width: 1319px) {
+    .jcarousel-control-left {
+        left: -45px;
+    }
+
+    .jcarousel-control-right {
+        right: -45px;
+    }
+}
+
+@media (max-width: 1250px) {
+    .jcarousel-control-left, .jcarousel-control-right {
+        display: none;
+        top: 35%;
+    }
+
+    .jcarousel-wrapper:hover .jcarousel-control-left, .jcarousel-wrapper:hover .jcarousel-control-right {
+        display: block;
+        opacity: 0.6;
+    }
+
+    .jcarousel-control-left {
+        left: 15px;
+    }
+
+    .jcarousel-control-right {
+        right: 15px;
+    }
+}
+
+@media (max-width: 1199px) {
+    .navbar-default .navbar-nav > li > a {
+        padding: 15px 11px;
+    }
+
+    .darkgrey-block .telephone {
+        font-size: 16px;
+        margin: 7px 15px 7px 0;
+    }
+
+    .darkgrey-block a.help-you {
+        font-size: 18px;
+        margin: 12px 0 13px 15px;
+        padding: 5px 30px;
+    }
+
+    .darkgrey-block ul {
+        margin: 16px 0 15px 18px;
+    }
+
+    .properties ul li {
+        width: 235px;
+    }
+
+    .service-list li {
+        margin: 0 0 15px;
+        width: 50%;
+    }
+
+    .btn.btn-default {
+        width: 100px;
+    }
+
+    .formWrapper {
+        top: 5%;
+    }
+
+    .formWrapper {
+        left: 27%;
+    }
+}
+
+
+
+@media (max-width:1160px) {
+    .ps-widget .form-header {
+        font-size: 16px;
+        margin: 0;
+        padding: 5px;
+    }
+
+    .ps-widget .checkbox, .radio {
+        margin: 5px 0;
+    }
+
+    .ps-widget .form-group {
+        margin-bottom: 7px;
+    }
+}
+
+@media (max-width: 1056px) {
+    .properties ul li {
+        width: 25%;
+    }
+
+        .properties ul li img {
+            width: 100%;
+        }
+}
+
+@media (max-width: 1027px) {
+    .btn.btn-default {
+        width: auto;
+    }
+}
+
+@media (max-width:991px) {
+    .navbar-default .navbar-nav > li > a {
+        font-size: 12px;
+        padding: 15px 13px;
+    }
+
+    h2, .h2 {
+        font-size: 24px;
+    }
+
+    .blue-border {
+        margin-bottom: 20px;
+    }
+
+    .para, .slogan {
+        font-size: 14px;
+    }
+
+    .properties ul li {
+        width: 33%;
+    }
+
+    .jcarousel-control-prev, .jcarousel-control-next {
+        top: 80%;
+    }
+
+    .brokerage-service .profile {
+        font-size: 11px;
+    }
+
+    .video-content h5, .service-list h4 {
+        font-size: 12px;
+        height: auto;
+    }
+
+    .title {
+        font-size: 20px;
+    }
+
+    .footer-heading > h4 {
+        font-size: 16px;
+    }
+
+    .footer-right > ul, .footer-icon > ul {
+        padding-left: 15px;
+    }
+
+    .footer-right ul li a {
+        font-size: 11px;
+    }
+
+    .broker-profile > p {
+        font-size: 11px;
+    }
+
+    .darkgrey-block .telephone {
+        font-size: 12px;
+        margin: 5px 5px 5px 0;
+    }
+
+        .darkgrey-block .telephone > strong {
+            font-size: 12px;
+        }
+
+    /*.darkgrey-block .telephone .cname {
+            padding: 8px 5px 0 0;
+        }*/
+
+    .telephone-icon {
+        background: rgba(0, 0, 0, 0) url("/Static/associates/images/icon/telephone.png") no-repeat scroll left center;
+        padding: 8px 14px;
+        position: relative;
+        top: 0;
+    }
+
+    .darkgrey-block .telephone {
+        display: table-cell;
+        height: 45px;
+        padding: 0 0 0 15px;
+        vertical-align: middle;
+    }
+
+        .darkgrey-block .telephone .cname {
+            padding: 1px 0 0;
+        }
+
+    .darkgrey-block a.help-you {
+        font-size: 13px;
+        margin: 8px 0 7px 14px;
+        padding: 5px 20px;
+    }
+
+    .darkgrey-block ul {
+        margin: 7px 0 7px 15px;
+    }
+
+    .video-left {
+        float: none;
+        margin: 0;
+        text-align: center;
+    }
+
+        .video-left > img {
+            margin: 0;
+        }
+
+    .video-content {
+        text-align: center;
+    }
+
+    .left-content .add {
+        margin-bottom: 10px;
+    }
+
+    .sign-up input {
+        width: 64%;
+    }
+
+    .portfolio-content h2 {
+        font-size: 14px;
+    }
+
+    .portfolio-para {
+        font-size: 12px;
+    }
+
+    .help-checkbox label, .help-form {
+        font-size: 12px;
+    }
+
+    .help-title {
+        font-size: 20px;
+    }
+
+    .form-header {
+        font-size: 16px;
+        padding: 10px 0;
+    }
+
+    .help-title {
+        font-size: 16px;
+    }
+
+    .news-portfolio {
+        font-size: 12px;
+    }
+
+    .formWrapper {
+        left: 0;
+        padding: 0 0 10px;
+        width: auto;
+    }
+
+    .ps-widget {
+        position: relative;
+        top: 10px;
+        width: 100%;
+        z-index: 999;
+    }
+
+    .ms-jcarousel ul.main-slider li img {
+        height: auto !important;
+        margin: 0 auto;
+    }
+
+    .slider .jcarousel-wrapper {
+        min-height: auto;
+    }
+
+    .banner {
+        min-height: auto;
+    }
+
+    .main-quote h1 {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 768px) {
+    .nav > li:hover .dropdown-menu {
+        display: block;
+    }
+
+    .caret-dd {
+        display: none !important;
+    }
+}
+
+@media (max-width: 767px) {
+    body {
+        font-size: 12px;
+    }
+
+    .bi label {
+        width: 105px;
+    }
+
+    .lane label {
+        width: 150px;
+    }
+
+    .brokerage-service .profile {
+        font-size: 10px;
+    }
+
+    .jcarousel-control-prev > img, .jcarousel-control-next > img {
+        width: 70%;
+    }
+
+    .title {
+        font-size: 16px;
+    }
+
+    .footer-heading > h4 {
+        font-size: 14px;
+    }
+
+    .sign-up input {
+        width: 70%;
+    }
+
+    .footer-right > .ul2 {
+        margin-left: 5px;
+    }
+
+    .footer-right > ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    .footer-right li {
+        display: inline-block;
+    }
+
+    .footer-icon > ul {
+        list-style: outside none none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .navbar-collapse {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .navbar-default .navbar-nav > li > a.navitem {
+        padding: 10px 15px;
+    }
+
+    .navbar-nav .open .dropdown-menu {
+        background: #333333;
+        font-size: 11px;
+    }
+
+    .darkgrey-block div.call-us {
+        float: none;
+        width: 400px;
+        margin: 0 auto;
+    }
+
+    .darkgrey-block .telephone {
+        margin: 5px 10px 0px 0px;
+    }
+
+    .darkgrey-block a.help-you {
+        float: none;
+        text-align: center;
+        margin: 10px 0 0;
+        padding: 5px 0px;
+    }
+
+    .darkgrey-block ul {
+        margin: 8px auto 5px;
+        float: none;
+        /*width: 135px;*/
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .blue-border {
+        margin-bottom: 15px;
+    }
+
+    .para, .slogan {
+        font-size: 12px;
+        padding: 12px 0;
+    }
+
+    .character-img {
+        float: none;
+        margin-right: 0;
+    }
+
+    .service-list li {
+        float: none;
+        text-align: center;
+        width: 100%;
+    }
+
+    .service-list img {
+        float: none;
+        margin: 0 auto;
+    }
+
+    .service-list h4 {
+        height: auto;
+    }
+
+    .service-list p {
+        margin: 0;
+    }
+
+    .about-sec > p {
+        font-size: 12px;
+    }
+
+    .proprty-type {
+        font-size: 12px;
+    }
+
+    .to {
+        margin-top: 0;
+    }
+
+    .profile-para > p {
+        font-size: 12px;
+    }
+
+    .broker-title {
+        font-size: 22px;
+    }
+
+    .video-frame iframe {
+        width: 100%;
+    }
+
+    .btn.cmt-share.btn-lg {
+        font-size: 14px;
+    }
+
+    .video-innerpara > p {
+        font-size: 12px;
+    }
+
+    .character-img > img {
+        display: block;
+        margin: 0 auto !important;
+    }
+
+    .broker-profile {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .news-portfolio {
+        margin: 0 auto;
+        width: 70%;
+    }
+
+    .news-portfolio-para h2 {
+        font-size: 15px;
+    }
+
+    .portfolio-content {
+        margin: 15px auto;
+        width: 70%;
+    }
+
+    .portfolio-para {
+        text-align: center;
+    }
+
+    .btn.btn-info.criteria {
+        font-size: 16px;
+    }
+
+        .btn.btn-info.criteria .caret {
+            border-width: 7px;
+            margin-left: 7%;
+        }
+
+    .criteria-img img {
+        margin: 0 auto 8px;
+    }
+
+    .youtubr-icon {
+        right: 29%;
+    }
+}
+
+@media (max-width: 672px) {
+
+
+    .service, .latest-video, .brokerage-service, .properties {
+        padding-bottom: 15px;
+    }
+
+    .title {
+        margin: 20px 0;
+    }
+
+    .header .main-logo {
+        float: none;
+        padding: 0;
+        text-align: center;
+    }
+
+    .main-logo img {
+        margin: 0 auto;
+    }
+
+    .right-side {
+        float: none;
+        margin: 0 0px 10px;
+    }
+}
+
+
+@media (max-width: 671px) {
+    .search-box input {
+        width: 88%;
+    }
+}
+
+@media (max-width: 600px) {
+    .jcarousel-control-prev, .jcarousel-control-next {
+        top: 80%;
+    }
+
+    .jcarousel-control-prev {
+        left: 8%;
+    }
+
+    .jcarousel-control-next {
+        left: 12%;
+    }
+
+    .sign-up input {
+        width: 60%;
+    }
+
+    .left-content {
+        width: 100%;
+    }
+
+    .main-quote h2 {
+        /*margin: 5px 0;*/
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    .banner-img .main-quote {
+        /*bottom: 10px;*/
+    }
+
+    .search-box input {
+        width: 85%;
+    }
+}
+
+@media (max-width: 550px) {
+    .jcarousel-control-prev, .jcarousel-control-next {
+        top: 75%;
+    }
+
+    .jcarousel-control-prev {
+        left: 3%;
+    }
+
+    .jcarousel-control-next {
+        left: 8%;
+    }
+
+    .form-header.text-center {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    .form-control {
+        font-size: 12px !important;
+    }
+
+    .btn.btn-criteria {
+        letter-spacing: normal;
+    }
+
+    .criteria-img > img {
+        float: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .header .main-logo {
+        float: none;
+    }
+
+    .news-icons > a {
+        font-size: 11px;
+    }
+
+    .sign-up {
+        text-align: center;
+    }
+
+        .sign-up input {
+            width: 100%;
+        }
+
+        .sign-up .btn.btn-default {
+            margin: 5px 0 0 0;
+            width: 100%;
+        }
+
+    .search-box input {
+        width: 80%;
+    }
+}
+
+@media (max-width: 453px) {
+
+
+    .formWrapper .btn {
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    .form-control {
+        height: 26px;
+        padding: 0;
+    }
+
+    .form-header.text-center {
+        padding: 6px;
+    }
+
+    .search-box input {
+        width: 76%;
+    }
+}
+
+@media (max-width: 438px) {
+    .footer-right > ul {
+        float: none;
+    }
+
+    .footer-right > .ul2 {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 414px) {
+    .navbar-brand {
+        padding: 20px 10px 21px;
+        width: 70%;
+    }
+
+    .darkgrey-block div.call-us {
+        width: auto;
+    }
+
+    .slogan {
+        font-size: 8px;
+        padding: 10px 0;
+    }
+
+    .call-us {
+        text-align: center;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .formWrapper {
+        padding: 12px;
+    }
+
+    .jcarousel-control-prev {
+        left: 10%;
+    }
+
+    .jcarousel-control-next {
+        left: 17%;
+    }
+
+    .jcarousel-control-prev, .jcarousel-control-next {
+        top: 65%;
+    }
+
+    .darkgrey-block .telephone > span {
+        display: inline-block;
+        margin-top: 10px;
+    }
+}

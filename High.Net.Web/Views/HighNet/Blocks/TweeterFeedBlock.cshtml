@@ -1,0 +1,35 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using High.Net.Models.HighNet.Blocks
+@using EPiServer.Web
+@using ImageVault.EPiServer
+
+@model  TweeterFeedBlock
+
+@{
+    var dataLocator = ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    var TwitterData = dataLocator.GetMostRecent200HomeTimeLine();
+
+    var contentRepo = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var homepage = contentRepo.Get<High.Net.Models.HighNet.Pages.HomePage>(SiteDefinition.Current.StartPage);
+}
+
+
+<a href="@Url.ContentUrl(homepage.TwitterLink)" target="_blank">
+    <div class="home-block" style="background:black; color:#fff;">
+        <img class="img-responsive" src="~/Static/highnet/images/homepg/blank.jpg" style="visibility: hidden" ;>
+        <div class="Full-block-content">
+            <div class="block-head">
+                <span class="arr"><img src="~/Static/highnet/images/homepg/twitter-copy.png" /></span>
+
+                <img src="~/Static/highnet/images/homepg/small-logo.png" />
+
+                <span>@Html.PropertyFor(x => Model.HeaderText)</span>
+
+            </div>
+            <div class="block-main-content">
+                <p>@(new HtmlString(TwitterData)) </p>
+            </div>
+        </div>
+    </div>
+</a>

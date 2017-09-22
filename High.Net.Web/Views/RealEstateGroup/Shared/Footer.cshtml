@@ -1,0 +1,40 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web
+@using EPiServer.ServiceLocation
+@using High.Net.Core
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<High.Net.Models.RealEstateGroup.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+<!-- footer start-->
+<div class="footer">
+    <div class="container">
+        <div class="footer-menu first">
+            <ul>
+                <li>
+                    <a class="@(Model.CurrentPage.ContentLink.CompareToIgnoreWorkID(SiteDefinition.Current.StartPage) ? "active" : null)"
+                       href="@Url.ContentUrl(SiteDefinition.Current.StartPage)">Home</a>
+                </li>
+                @Html.MenuList(SiteDefinition.Current.StartPage,
+                @<li>@Html.PageLink(item.Page, null, new { @class = item.Selected ? "active" : null })</li>)
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+        <div class="footer-menu second">
+            <ul>
+                <li>@Html.PropertyFor(m => homePage.CopyrightText)</li>
+                <li>@Html.PropertyFor(m => homePage.ContactAddress)</li>
+                @if (homePage.FooterPages != null)
+                {
+                    foreach (var item in homePage.FooterPages)
+                    {
+                    <li>
+                        <a href="@Url.ContentUrl(item.Href)">@item.Text</a>
+                    </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- footer end-->

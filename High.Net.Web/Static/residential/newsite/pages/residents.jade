@@ -1,0 +1,35 @@
+﻿extends ../layouts/root.jade
+include ../blocks/shared/text-content.jade
+include ../blocks/shared/call-to-action.jade
+
+block title
+    title Residents
+
+block content
+    div#residential-wrapper
+        // Header block
+        include ../blocks/shared/header.jade
+
+        // Hero block
+        include ../blocks/shared/banner.jade
+
+        // Text contents
+        +text_contents_("Resident Services")
+
+        // Call to Action block
+        +call_to_action(true, "Pay Online", "Request Maintenance")
+
+        // Service gallery block
+        include ../blocks/shared/service-gallery.jade
+
+        // Services block
+        include ../blocks/shared/services.jade
+
+        // Logo wall block
+        include ../blocks/shared/logo-wall.jade
+
+        // Contact information block
+        include ../blocks/shared/contact-information.jade
+
+        // Footer type 2 block
+        include ../blocks/shared/footer-type-2.jade

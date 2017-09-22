@@ -1,0 +1,192 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web
+@using High.Net.Core
+@using EPiServer.ServiceLocation
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var contentLocator = ServiceLocator.Current.GetInstance<ContentLocator>();
+    var ContactUsForm = ServiceLocator.Current.GetInstance<High.Net.Models.Shared.ViewModels.ContactUsForm>();
+
+    var contactPage = contentLocator.GetAll<High.Net.Models.Shared.Pages.ContactUsPage>(SiteDefinition.Current.StartPage).FirstOrDefault();
+    var homePage = contentLoader.Get<High.Net.Models.StructureCareUs.Pages.HomePage>(SiteDefinition.Current.StartPage);
+}
+
+<!-- Navigation Starts-->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                @Html.MenuList(SiteDefinition.Current.StartPage,
+                @<li class="@(item.Page.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.ContactUsPage) ? "dropdown" : null)">
+                    @if (item.HasChildren.Value)
+                    {
+                        @Html.PageLink(item.Page, null, new { @class = "navitem" })
+                        <a class="dropdown-toggle caret-dd" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            @{var childItems = contentLoader.GetChildren<PageData>(item.Page.ContentLink);}
+                            @foreach (var childItem in childItems)
+                            {
+                                <li>@Html.PageLink(childItem)</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        if (item.Page.GetType().BaseType == typeof(High.Net.Models.Shared.Pages.ContactUsPage))
+                        {
+                        @Html.PageLink(item.Page, null, new { @id = "contactusLink" })
+                        <a class="dropdown-toggle caret-dd" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                        <ul class="dropdown-menu contact-widget">
+                            <li>
+                                <!--<div class="ps-widget">
+                                        <div class="container">-->
+                                <div class="formWrapper">
+                                    <h4 class="blue text-center">How Can We Help You ?</h4>
+                                    <div class="form-horizontal">
+                                        <input type="hidden" value="true" id="IsJsonRequest" />
+                                        <input type="hidden" value="true" id="IsB2BSite" />
+                                        <div class="form-group home">
+                                            <div class="col-sm-4 col-xs-5">
+                                                <label class="">Name</label>
+                                                :
+                                            </div>
+                                            <div class="col-sm-8 col-xs-7">
+                                                <input type="text" id="Name" />
+                                                <label class="validator" id="ErrorName" style="display: none; color: red">Name Is Required</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group home">
+                                            <div class="col-sm-4 col-xs-5">
+                                                <label class="">Email</label>
+                                                :
+                                            </div>
+                                            <div class="col-sm-8 col-xs-7">
+                                                <input type="text" id="Email" />
+                                                <label class="validator" id="ErrorEmail" style="display: none; color: red">Email Is Required</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group home">
+                                            <div class="col-sm-4 col-xs-5">
+                                                <label class="">Title</label>
+                                                :
+                                            </div>
+                                            <div class="col-sm-8 col-xs-7">
+                                                <input type="text" id="Title" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group home">
+                                            <div class="col-sm-4 col-xs-5">
+                                                <label class="">Company</label>
+                                                :
+                                            </div>
+                                            <div class="col-sm-8 col-xs-7">
+                                                <input type="text" id="Company" />
+                                                <label class="validator" id="ErrorCompany" style="display: none; color: red">Company Is Required</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group home">
+                                            <div class="col-sm-4 col-xs-5">
+                                                <label class="">Address</label>
+                                                :
+                                            </div>
+                                            <div class="col-sm-8 col-xs-7">
+                                                <input type="text" id="Address" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group home">
+                                            <div class="col-sm-4 col-xs-5">
+                                                <label class="">Message</label>
+                                                :
+                                            </div>
+                                            <div class="col-sm-8 col-xs-7">
+                                                <textarea id="Message" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-warning search-btn" value="Search Property">SEND</button>
+                                            <button type="submit" class="btn btn-warning cancel-btn" value="Cancel">CANCEL</button>
+                                            <p><a class="orange" href="@Url.ContentUrl(homePage.HowWeCanHelpYouInformationPage)">More Information</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--</div>
+                                    </div>-->
+                            </li>
+                        </ul>
+                        }
+                        else
+                        {
+                        @Html.PageLink(item.Page, null, new { @class = "navitem" })
+                        }
+                    }
+                </li>)
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<!-- Navigation Ends-->
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script>
+    $(function () {
+        $(".search-btn").click(function () {
+            var validationlabels = $(".formWrapper").children('div').children('div').find('.validator');
+            validationlabels.attr('style', 'display:none');
+            $.ajax({
+                url: '@(contactPage != null ? Url.ContentUrl(contactPage.ContentLink) : null)',
+                type: 'POST',
+                data: JSON.stringify({
+                    ContactUsForm: {
+                        IsJsonRequest: $("#IsJsonRequest").val(),
+                        IsB2BSite: $("#IsB2BSite").val(),
+                        Name: $("#Name").val(),
+                        Email: $("#Email").val(),
+                        Title: $("#Title").val(),
+                        Company: $("#Company").val(),
+                        Message: $("#Message").val(),
+                        Address: $("#Address").val()
+
+                    }
+                }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (data != "success") {
+                        var RawData = JSON.stringify(data).split(',');
+                        for (var i = 0; i < RawData.length; i++) {
+                            var tempdata = RawData[i].replace(/['"]+/g, '');
+
+                            for (var j = 0; j < validationlabels.length; j++) {
+                                var label = validationlabels[j];
+                                var message = tempdata.includes(validationlabels[j].id.replace("Error", ""));
+                                if (message == true) {
+                                    $(label).attr('style', 'display:block;color:red;width: 100%;');
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        $(".formWrapper").append("<p>Thank you for contacting us</p>");
+                    }
+                },
+                error: function () {
+                   
+                }
+            });
+        });
+
+    });
+</script>

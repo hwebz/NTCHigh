@@ -1,0 +1,27 @@
+﻿@using High.Net.Core
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Web.Business.Helpers
+
+@model LogoWallBlock
+
+<div class="leadership-logo-wall">
+    <div class="container">
+        <div class="row">
+            @if (!Model.LogoWallItems.IsNullOrEmpty())
+            {
+                foreach (var item in Model.LogoWallItems.FilteredItems)
+                {
+                    var contentItem = item.ContentLink.GetContent<LogoWallItemBlock>();
+                    if (contentItem == null) { continue; }
+                    <div class="col-xs-4 col-sm-3 col-md-15">
+                        <div class="leadership-logo-wall__item">
+                            <a href="@Url.ContentUrl(contentItem.LogoUrl)">
+                                @Html.PropertyFor(x => contentItem.LogoImage)                                
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

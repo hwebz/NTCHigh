@@ -1,0 +1,65 @@
+﻿@using High.Net.Core
+
+@{
+    Layout = "~/Views/Shared/Layouts/_root.cshtml";
+}
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentloader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentloader.Get<High.Net.Models.HighHotels.Pages.HomePage>(EPiServer.Web.SiteDefinition.Current.StartPage);
+}
+
+@section Header
+{
+    <link type="image/ico" href="~/Static/global/favicon/favicon.ico" rel="icon">
+    @RenderSection("SiteHeader", required: false)
+    <!-- Bootstrap core CSS -->
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/bundles/bootstrap-css")
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">*@
+    @Styles.Render("~/bundles/fontawesome-css")
+    @Styles.Render("~/bundles/browserBlast-css")
+    @Styles.Render("~/bundles/global-css")
+    @Styles.Render("~/bundles/hotels-css")
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '@homePage.GoogleAnalytics']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    <!--
+        [if lt IE 9]>
+         <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+       <![endif]
+    -->
+}
+
+@Html.Partial("~/Views/HighHotels/Shared/Header.cshtml", Model)
+@Html.Partial("~/Views/HighHotels/Shared/Navigation.cshtml", Model)
+
+@RenderBody()
+
+@Html.Partial("~/Views/HighHotels/Shared/Footer.cshtml", Model)
+
+@section Footer
+{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery.unobtrusive-ajax")
+    @Scripts.Render("~/bundles/bootstrap-js")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/browserBlast-js")
+    @Scripts.Render("~/bundles/bxslider")
+    @Scripts.Render("~/bundles/fitvids")
+    @Scripts.Render("~/bundles/global-js")
+    @Scripts.Render("~/bundles/hotels-js")
+    @RenderSection("SiteFooter", required: false)
+}
+

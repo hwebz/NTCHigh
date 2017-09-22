@@ -1,0 +1,57 @@
+﻿$pre: 'residential-logo-wall';
+
+.#{$pre} {
+    @include block-spacing($block-spacing-type-2, $block-spacing-type-2-tablet);
+    @extend %block-bottom-border;
+    background: $color-white;
+
+    .container {
+        .row {
+            @extend %row-centered;
+
+            .#{$pre}__wrapper > div {
+                @extend %col-centered;
+                vertical-align: top;
+                margin-bottom: 25px;
+            }
+        }
+    }
+
+
+    .#{$pre}__wrapper {
+
+        .#{$pre}__item {
+            text-align: center;
+
+            .#{$pre}__thumbnail {
+                position: relative;
+                height: 200px;
+                overflow: hidden;
+                width: 100%;
+
+                @include respond-to-min-max($tabletSize, $desktopSize) {
+                    height: 100px;
+                }
+
+                @include respond-to-max($tabletSize) {
+                    height: 160px;
+                }
+
+                a {
+                    color: $color-black;
+                    text-decoration: none;
+
+                    > img {
+                        max-width: 100%;
+                        @extend %all-centered;
+                    }
+                }
+            }
+
+            .#{$pre}__description {
+                p {
+                }
+            }
+        }
+    }
+}

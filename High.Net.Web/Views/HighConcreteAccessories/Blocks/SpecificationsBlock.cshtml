@@ -1,0 +1,21 @@
+﻿@using EPiServer.Core
+
+@model High.Net.Models.HighConcreteAccessories.Blocks.SpecificationsBlock
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-1 col-xs-3 col-sm-2">
+            <div class="specs-detail">
+                @Html.PropertyFor(x => x.ContentImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 66, Height = 66 } })
+            </div>
+        </div>
+        <div class="col-md-11 col-xs-9">
+            <div class="info-content">
+                <p>@Html.PropertyFor(x => x.ContentTitle)</p>
+                <div class="Donwload-links">
+                    @Html.PropertyFor(x => x.Content)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

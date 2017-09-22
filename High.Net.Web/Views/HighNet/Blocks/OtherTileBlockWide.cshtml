@@ -1,0 +1,72 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using EPiServer.Core.Html
+
+@model High.Net.Models.HighNet.Blocks.OtherTileBlockWide
+
+@{
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+}
+
+
+   
+    @{
+        var backgroundImage = client.Load<ImageVault.Common.Data.WebMedia>(Model.BackGroundImage != null ? Model.BackGroundImage.Id : 0).FirstOrDefault();
+        var backgroundImageStyle = backgroundImage == null ? string.Empty : "background-image: url('" + Url.ContentUrl(backgroundImage.Url) + "');";
+    }
+
+@if (Url.ContentUrl(Model.RedirectUrl) != string.Empty)
+{
+   <a href="@Url.ContentUrl(@Model.RedirectUrl)">
+    <div class="home-block" style="color:@Model.TextColor !important;background:@Model.BackGroundColor;@backgroundImageStyle">
+        <div class="row">
+            <div class="col-sm-6">
+                <img class="img-responsive" src="~/Static/highnet/images/homepg/blank.jpg" style="visibility: hidden" ;>
+            </div>
+        </div>
+    </div>
+    <div class="Full-block-content">
+        <div class="two-block font-white">
+            <div class="block-head">
+                <span class="arr">&#x2192;</span>
+
+                @*<a block-arrow href="@Url.ContentUrl(@Model.RedirectUrl)">&#x2192;</a>*@
+                <p>@Html.PropertyFor(x => Model.TileName)</p>
+            </div>
+            <div class="block-main-content">
+
+                @if (Model.TileText != null)
+                {
+                    var StripText = TextIndexer.StripHtml(Model.TileText.ToString(), 120);
+                   <p>@Html.PropertyFor(x => StripText)</p>
+                }
+            </div>
+        </div>
+    </div>
+</a>
+}
+else
+{
+    <div class="home-block" style="color:@Model.TextColor !important;background:@Model.BackGroundColor;@backgroundImageStyle">
+        <div class="row">
+            <div class="col-sm-6">
+                <img class="img-responsive" src="~/Static/highnet/images/homepg/blank.jpg" style="visibility: hidden" ;>
+            </div>
+        </div>
+    </div>
+    <div class="Full-block-content">
+        <div class="two-block font-white">
+            <div class="block-head">
+
+                @*<a block-arrow href="@Url.ContentUrl(@Model.RedirectUrl)">&#x2192;</a>*@
+                <p>@Html.PropertyFor(x => Model.TileName)</p>
+            </div>
+            <div class="block-main-content">
+                @if (Model.TileText != null)
+                {
+                    <p>@Html.PropertyFor(x => Model.TileText)</p>
+                }
+            </div>
+        </div>
+    </div>
+}

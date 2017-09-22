@@ -1,0 +1,13 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Industries.Blocks
+@using ImageVault.EPiServer
+@model MembersBlock
+
+<div class="character-img">
+    @Html.PropertyFor(x => Model.Image, new { PropertySettings = new PropertyMediaSettings { Width = 97, Height = 126 }, CssClass = "img-responsive" })
+    <p>@Model.Heading</p>
+</div>
+<div class="char-info">
+    <p>@Model.Text</p>
+</div>

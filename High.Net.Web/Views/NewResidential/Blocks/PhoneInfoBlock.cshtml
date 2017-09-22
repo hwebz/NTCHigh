@@ -1,0 +1,16 @@
+﻿@model High.Net.Models.NewResidential.Blocks.PhoneInfoBlock
+
+<div class="residential-contact-information">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="residential-contact-information__wrapper">
+                    <h3>@Html.PropertyFor(x=>Model.Text)
+                        <span>
+                            <a href="tel:@Model.PhoneNumber">@Html.PropertyFor(x => Model.PhoneNumber)</a>
+                        </span></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

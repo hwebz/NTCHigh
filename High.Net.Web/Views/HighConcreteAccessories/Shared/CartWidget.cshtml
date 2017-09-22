@@ -1,0 +1,7 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.HighConcreteAccessories.Pages
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(PageReference.StartPage);
+}

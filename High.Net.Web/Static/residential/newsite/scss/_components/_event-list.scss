@@ -1,0 +1,127 @@
+﻿$pre: 'residential-event-list';
+
+.#{$pre} {
+    @include block-spacing($block-spacing-type-2, $block-spacing-type-2-tablet);
+    background: $color-white;
+
+    .#{$pre}__header {
+        h1 {
+            @extend %big-title;
+        }
+    }
+
+
+    .#{$pre}__item {
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+        @extend %block-bottom-border;
+
+        @include respond-to-min($tabletSize) {
+            padding: 0;
+
+            &:after {
+                display: none;
+            }
+        }
+
+        &:last-child {
+            margin: 0;
+
+            &:after {
+                display: none;
+            }
+        }
+
+        .#{$pre}__thumbnail {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+            width: 100%;
+
+            @include respond-to-max($largerSize) {
+                height: 220px;
+            }
+
+            @include respond-to-max($desktopSize) {
+                height: 250px;
+            }
+
+            @include respond-to-max($tabletSize) {
+                height: 300px;
+            }
+
+            @include respond-to-max($phonePortrait) {
+                height: 200px;
+            }
+
+            img {
+                @extend %all-centered;
+            }
+
+            .#{$pre}__date {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: 150px;
+                height: 150px;
+                border: 10px solid $color-orange;
+                background-color: $color-white;
+                color: $color-black;
+                text-align: center;
+                padding: 5px;
+
+                p {
+                    @extend %uppercase-text;
+                    @extend %roboto-bold;
+                    font-size: $event-date-font-size;
+                    line-height: 1;
+
+                    &:last-child {
+                        @extend %roboto-regular;
+                        font-size: $event-month-font-size;
+                    }
+                }
+
+                @include respond-to-max($hugeSize) {
+                    width: 100px;
+                    height: 100px;
+                    border-width: 5px;
+
+                    p {
+                        font-size: $event-date-font-size-tablet;
+
+                        &:last-child {
+                            font-size: $event-month-font-size-tablet;
+                        }
+                    }
+                }
+            }
+        }
+
+        .#{$pre}__description {
+            @include respond-to-max($tabletSize) {
+                margin-top: 20px;
+            }
+
+            h3 {
+                @extend %medium-title;
+                @extend %roboto-bold;
+                line-height: 1.2;
+                margin-bottom: 15px;
+            }
+
+            p {
+                margin-bottom: 15px;
+
+                span {
+                    @extend %roboto-bold;
+                    margin-right: 15px;
+                }
+            }
+
+            .#{$pre}__summary {
+                line-height: 1.5;
+            }
+        }
+    }
+}

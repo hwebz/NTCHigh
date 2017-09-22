@@ -1,0 +1,75 @@
+﻿@using High.Net.Core
+@using High.Net.Web.Business.Helpers;
+@using High.Net.Models.NewResidential.Pages;
+
+@{
+    Layout = "~/Views/Shared/Layouts/_root.cshtml";
+    var homePage = Model.CurrentPage.GetHomePage<HomePage>();
+}
+
+@model IPageViewModel<BasePageData>
+
+<script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '@homePage.GoogleAnalytics']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+</script>
+
+
+@section Header
+{
+    <link type="image/ico" href="~/Static/global/favicon/favicon.ico" rel="icon">
+    @Html.IncludeVersionedCss("/dist/residential/css/styles.min.css")
+    @RenderSection("SiteHeader", required: false)
+
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+}
+
+<div id="residential-wrapper">
+    @Html.Partial("~/Views/NewResidential/Shared/Navigation.cshtml", Model)
+    <input type="hidden" id="site-color" value="@(string.IsNullOrEmpty(homePage.SiteColor)?string.Empty:homePage.SiteColor)" />
+    @RenderBody()
+    <div class="residential-footer">
+        @Html.Partial("~/Views/NewResidential/Shared/Footer.cshtml", Model)
+    </div>
+</div>
+@if (!string.IsNullOrEmpty(homePage.SiteColor))
+{
+    <script type="text/javascript">
+        var styleNode = document.createElement("style");
+        var formSubmitBtnBorderStyle = document.createTextNode(".formcontainerblock .Form__MainBody .block.submitbuttonelementblock button { border-color: @homePage.SiteColor !important}");
+        styleNode.appendChild(formSubmitBtnBorderStyle);
+
+        var formSubmitBtnBgStyle = document.createTextNode(".formcontainerblock .Form__MainBody .block.submitbuttonelementblock button:before { background: @homePage.SiteColor !important}");
+        styleNode.appendChild(formSubmitBtnBgStyle);
+
+        var formStatusStyle = document.createTextNode(".EPiServerForms .Form__Status .Form__Success__Message  { background: @homePage.SiteColor !important}");
+        styleNode.appendChild(formStatusStyle);
+
+        
+
+        var formStatusStyle = document.createTextNode(".EPiServerForms .Form__Status .Form__Success__Message  { background: @homePage.SiteColor !important}");
+        styleNode.appendChild(formStatusStyle);
+
+        var formSuccessMessageStyle = document.createTextNode(".formcontainerblock .success-message  { background: @homePage.SiteColor !important}");
+        styleNode.appendChild(formSuccessMessageStyle);
+
+        document.head.appendChild(styleNode);
+    </script>
+}
+
+@section Footer
+{
+    @Html.IncludeVersionedJs("/dist/residential/scripts/scripts.js")
+    @RenderSection("SiteFooter", required: false)
+}
+
+

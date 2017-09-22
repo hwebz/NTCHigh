@@ -1,0 +1,15 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@using ImageVault.EPiServer
+@using High.Net.Core
+
+@model  TextTableItemBlock
+
+<div class="txt-tbl">
+    <h3>@Html.PropertyFor(x => x.Heading)</h3>
+    <div class="txt-tbl-cont" style="background-image: linear-gradient(left, transparent 15%,@Model.BackGroundColor 10px,@Model.BackGroundColor 100%);background-image: -webkit-linear-gradient(left, transparent 15%,@Model.BackGroundColor 10px,@Model.BackGroundColor 100%); background-image: -moz-linear-gradient(left, transparent 15%,@Model.BackGroundColor 10px,@Model.BackGroundColor 100%); background-image: -ms-linear-gradient(left, transparent 15%,@Model.BackGroundColor 10px,@Model.BackGroundColor 100%); background-image: -o-linear-gradient(left, transparent 15%,@Model.BackGroundColor 10px,@Model.BackGroundColor 100%);">
+        @Html.PropertyFor(x => x.TextTableSubContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.OneThirdWidth,
+       Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.ThreeFourthWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth, Global.ContentAreaTags.OneFifthWidth, Global.ContentAreaTags.OneTwelfthWidth } })
+    </div>
+</div>

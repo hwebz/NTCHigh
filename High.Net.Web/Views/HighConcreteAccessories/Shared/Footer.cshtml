@@ -1,0 +1,109 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using High.Net.Models.HighConcreteAccessories.Pages
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+
+    var homePage = contentLoader.Get<HomePage>(PageReference.StartPage);
+    var chilPages = contentLoader.GetChildren<BasePageData>(PageReference.StartPage);
+
+    var containerPage = contentLoader.GetChildren<High.Net.Models.Shared.Pages.ContainerPage>(homePage.ContentLink).FirstOrDefault();
+    var miscellaneousPageList = contentLoader.GetChildren<BasePageData>(containerPage.ContentLink);
+}
+
+<div class="contact-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="main-title">Contact Us</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-3">
+                <p class="heading">INFORMATION</p>
+                @if (chilPages != null)
+                {
+                    int pageSize = (chilPages.Count() / 2) - 1;
+                    <ul class="ul1">
+                        <li><a href="@Url.ContentUrl(homePage.ContentLink)">Home</a></li>
+                        @foreach (var item in chilPages.Where(x => x.VisibleInMenu == true).Take(pageSize))
+                        {
+                            if (item.GetType().BaseType == typeof(OrderProductPage))
+                            {
+                            <li><a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a></li>
+                            }
+                            else
+                            {
+                            <li><a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a></li>
+                            }
+                        }
+                    </ul>
+                    <ul>
+                        @foreach (var item in chilPages.Where(x => x.VisibleInMenu == true).Skip(pageSize))
+                        {
+                            if (item.GetType().BaseType == typeof(OrderProductPage))
+                            {
+                            <li><a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a></li>
+                            }
+                            else
+                            {
+                            <li><a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a></li>
+                            }
+                        }
+                    </ul>
+                }
+                <div class="clearfix"></div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <div class="location">
+                    <p class="heading">ADDRESS</p>
+                    <p>
+                        @Html.PropertyFor(x => homePage.Address)
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <div class="call">
+                    <p class="heading">CALL</p>
+                    <p>
+                        <a href="tel:@homePage.Contact">@Html.PropertyFor(x => homePage.Contact)</a>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <div class="at-the-rate">
+                    <p class="heading">EMAIL</p>
+                    <p>
+                        <a href="mailto:@homePage.EmailID">@Html.PropertyFor(x => homePage.EmailID)</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="container">
+        <ul>
+            <li>@Html.PropertyFor(x => homePage.CopyRightText)</li>
+            <li>@Html.PropertyFor(x => homePage.Address)</li>
+            <li><a href="tel:@homePage.Contact">@Html.PropertyFor(x => homePage.Contact)</a></li>
+            <li>@Html.PropertyFor(x => homePage.FaxNo)</li>
+            <li><a href="mailto:@homePage.EmailID">@Html.PropertyFor(x => homePage.EmailID)</a></li>
+
+            @if (miscellaneousPageList != null)
+            {
+                foreach (var item in miscellaneousPageList)
+                {
+                    if (item.VisibleInMenu)
+                    {
+                <li><a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a></li>
+                    }
+                }
+            }
+            <li><a href="@Url.ContentUrl(homePage.HighNetLink)" @Html.EditAttributes(x => homePage.HighNetLink)>The High Cos.</a></li>
+        </ul>
+    </div>
+</div>

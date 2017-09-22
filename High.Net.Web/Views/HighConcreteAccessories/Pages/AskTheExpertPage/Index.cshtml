@@ -1,0 +1,117 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+
+@model High.Net.Models.HighConcreteAccessories.ViewModels.AskTheExpertPageModel
+
+<div class="subscribe">
+    <div class="container">
+        @if(!Model.AskTheExpertForm.IsMailSendSuccessfully)
+        {
+            @Html.PropertyFor(x => x.CurrentPage.ContentArea, new { CssClass = "row", tag = Global.ContentAreaTags.FullWidth, Tags = new[] { Global.ContentAreaTags.FullWidth, Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.HalfWidth, Global.ContentAreaTags.OneThirdWidth, Global.ContentAreaTags.OneFourthWidth, Global.ContentAreaTags.OneFifthWidth, Global.ContentAreaTags.OneTwelfthWidth } })
+            <div class="row">
+          
+           @using (Html.BeginForm(null, null, FormMethod.Post,
+                        new { @Class = "form-horizontal custom-form", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <h6>
+                    <span>*</span> indicates a required field
+                </h6>
+                <div class="form-group">
+                    <label class="col-md-2 col-sm-3 col-xs-12">First Name:</label>
+                    <div class="col-md-3 col-sm-5 col-xs-10">
+                       @Html.TextBoxFor(x => x.AskTheExpertForm.FirstName, new { @class = "form-control" })
+                       @Html.ValidationMessageFor(x=> x.AskTheExpertForm.FirstName)
+                    </div>
+                    <span class="col-md-1">*</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-sm-3 col-xs-12">Middle Initial:</label>
+                    <div class="col-md-3 col-sm-5 col-xs-10">
+                        @Html.TextBoxFor(x => x.AskTheExpertForm.MiddleName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-sm-3 col-xs-12">Last  Name:</label>
+                    <div class="col-md-3 col-sm-5 col-xs-10">
+                        @Html.TextBoxFor(x => x.AskTheExpertForm.LastName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x=> x.AskTheExpertForm.LastName)
+                    </div>
+                    <span class="col-md-1">*</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-sm-3 col-xs-12">Country:</label>
+                    <div class="col-md-3 col-sm-5 col-xs-10">
+                        @Html.TextBoxFor(x => x.AskTheExpertForm.Country, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x=> x.AskTheExpertForm.Country)
+                    </div>
+                    <span class="col-md-1">*</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-sm-3 col-xs-12">Zip/Postal Code:</label>
+                    <div class="col-md-3 col-sm-5 col-xs-10">
+                       @Html.TextBoxFor(x => x.AskTheExpertForm.PostalCode, new { @class = "form-control" })
+                       @Html.ValidationMessageFor(x=> x.AskTheExpertForm.PostalCode)
+                    </div>
+                    <span class="col-md-1">*</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-sm-3 col-xs-12">Email Address:</label>
+                    <div class="col-md-3 col-sm-5 col-xs-10">
+                        @Html.TextBoxFor(x => x.AskTheExpertForm.EmailID, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x=> x.AskTheExpertForm.EmailID)
+                    </div>
+                    <span class="col-md-1">*</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-sm-3 col-xs-12">Customer Type:</label>
+                    <div class="col-md-3 col-sm-5 col-xs-10">
+                        @Html.DropDownList("AskTheExpertForm.CustomerType", new List<SelectListItem>() {
+                        new SelectListItem(){ Text="Precaster" , Value="Precaster" },
+                        new SelectListItem(){ Text="Precast Erector" , Value="Precast Erector" },
+                        new SelectListItem(){ Text="Cast-in-Place Contractor" , Value="Cast-in-Place Contractor" },
+                        new SelectListItem(){ Text="Architect" , Value="Architect" },
+                        new SelectListItem(){ Text="Engineer" , Value="Engineer" },
+                        new SelectListItem(){ Text="General Contractor" , Value="General Contractor" },
+                        new SelectListItem(){ Text="Construction Manager" , Value="Construction Manager" },
+                        new SelectListItem(){ Text="Owner" , Value="Owner" },
+                        new SelectListItem(){ Text="Other" , Value="Other" },
+                        new SelectListItem(){ Text="Student" , Value="Student" }
+                   }, "---Select---", new { @Class = "form-control" })
+                        @Html.ValidationMessageFor(x=> x.AskTheExpertForm.CustomerType)
+                    </div>
+                    <span class="col-md-1">*</span>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2 col-sm-3 col-xs-12">Question:</div>
+                    <div class="col-md-3 col-sm-5 col-xs-10">
+                         @Html.TextAreaFor(x => x.AskTheExpertForm.QuestionType, new { @class = "form-control" })
+                    </div>
+                </div>
+                <p>You can upload any documents we should use in reference to your request. <br /> Documents supported: PDF, TIFF, JPG, and DWG</p>
+                for (int i = 0; i < 5; i++)
+                {
+                    <div class="form-group">
+                       <label class="col-md-2 col-sm-3 col-xs-3">File # @(i+1):</label>
+                          <div class="col-md-5 col-sm-6 col-xs-9">
+                           @Html.TextBox(string.Format("AskTheExpertForm.fileUpload[{0}]", i), null, new { type = "file" })
+                        </div>
+                    </div>
+                }
+                <div class="form-group">
+                    <div class="col-md-3 col-sm-5 col-xs-10">
+                        <input type="submit" value="Submit" class="btn btn-default" />
+                        <input type="button" value="Clear Form" class="btn btn-default" />
+                    </div>
+                </div>
+           }
+    </div>
+        }
+        else
+        {
+            @Model.CurrentPage.ThankYouMessage   
+        }
+    </div>
+</div>
+

@@ -1,0 +1,133 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Core
+@using High.Net.Models.HighSteelStructure.Pages
+@model IPageViewModel<BasePageData>
+@{
+    var contenLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contenLoader.Get<HomePage>(PageReference.StartPage);
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+}
+@Html.FullRefreshPropertiesMetaData(new[] { "GoogleMapLink" })
+
+<!--footer start-->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-5">
+                <h1>Links</h1>
+                <div class="row">
+                    @if (homePage.QuickLinks != null)
+                    {
+                        <div class="col-md-6 col-sm-6">
+                            <ul>
+                                @foreach (var item in homePage.QuickLinks.Take(4))
+                                {
+                                    <li>@Html.ContentLink(item)</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <ul>
+                            @foreach (var item in homePage.QuickLinks.Skip(4))
+                            {
+                                <li>@Html.ContentLink(item)</li>
+                            }
+                            </ul>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4">
+                <h1>Get in Touch</h1>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2  col-xs-1">
+                        <a href="#">
+                            <img src="~/Static/high-steel-structure/img/home.jpg" alt="home">
+                        </a>
+                    </div>
+                    <div class="col-md-10 col-sm-10  col-xs-11">
+                        <a href="#">
+                            @Html.PropertyFor(x => homePage.Address)
+                        </a>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 col-xs-1 ">
+                        <a href="#">
+                            <img src="~/Static/high-steel-structure/img/phone.jpg" alt="phone">
+                        </a>
+                    </div>
+                    <div class="col-md-10 col-sm-10  col-xs-11">
+                        <a href="tel:@homePage.Contact">@Html.PropertyFor(x => homePage.Contact)</a><br />
+                        <br />
+                        <br />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 ">
+                        <a href="@Url.ContentUrl(homePage.FacebookLink)" @Html.EditAttributes(x => homePage.FacebookLink)>
+                            <img src="~/Static/high-steel-structure/img/img/FB.png" alt="phone">
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            @*  <div class="col-lg-3 col-sm-3" @Html.EditAttributes(x=> homePage.GoogleMapLink)>
+                    <iframe src="@homePage.GoogleMapLink" width="100%" height="200" frameborder="0" style="border: 0" allowfullscreen=""></iframe>
+                </div>*@
+
+            <div class=" col-md-3 col-sm-3">
+                <h1>Search</h1>
+                @using (Html.BeginForm(null, null, EPiServer.Editor.PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @action = Url.ContentUrl(homePage.SearchPageUrl), @Class = "" }))
+                {
+                    <div class="footer-search-box">
+                        <div class="input-group">
+                            <input type="text" name="q" placeholder="Search" class="form-control">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="clearfix"></div>
+                <div class="newsletter pull-left">
+                    <div class="header-links">
+                        <ul class="">
+                            <li><a target="_blank" @Html.EditAttributes(x => homePage.SubscriptionLink) href="@Url.ContentUrl(homePage.SubscriptionLink)"><i class="glyphicon glyphicon-envelope"></i>&nbsp;Newsletter Subscription</a></li>
+                            @if (homePage.PDFBrochureLink != null)
+                            {
+                                var pdfFile = client.Load<ImageVault.Common.Data.Media>(homePage.PDFBrochureLink.Id).ToList();
+                                if (pdfFile.Count > 0)
+                                {
+                                    <li><a target="_blank" @Html.EditAttributes(x => homePage.PDFBrochureLink) href="@Url.ContentUrl(pdfFile.FirstOrDefault().Url)"><i class="glyphicon glyphicon-download"></i>&nbsp;Download our Brochure</a></li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="footer1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                @Html.PropertyFor(x => homePage.CopyRightText)  |
+                @if (homePage.FooterLinks != null)
+                {
+                    foreach (var item in homePage.FooterLinks)
+                    {
+                    <a href="@Url.ContentUrl(item.Href)">@item.Text</a> <span>|</span>
+                    }
+                }
+                <a href="@Url.ContentUrl(homePage.HighCompaniesLink)" @Html.EditAttributes(x => homePage.HighCompaniesLink)>The High Companies</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--footer end-->

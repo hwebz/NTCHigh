@@ -1,0 +1,96 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+
+@using High.Net.Core
+@using High.Net.Models
+@using High.Net.Models.HighNet.Pages
+@using EPiServer.ServiceLocation
+@using EPiServer.Web.Routing
+@using High.Net.Models.Shared.Pages
+@using EPiServer.Web
+@using EPiServer.Core.Html
+@model High.Net.Models.HighNet.Blocks.NewsBlock
+
+
+
+@{
+
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var contentLocator = ServiceLocator.Current.GetInstance<ContentLocator>();
+    var dataLocator = ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+
+
+
+    var referelUrl = Request.UrlReferrer;
+
+    var contentReference = referelUrl != null ? UrlResolver.Current.Route(new EPiServer.UrlBuilder(referelUrl)) : null;
+
+
+    var news = new NewsItemPage();
+    if (contentReference != null)
+    {
+        if (!contentReference.GetType().GetInterfaces().Contains(typeof(High.Net.Core.IHome)))
+        {
+            var rootpage1 = contentLoader.GetAncestors(contentReference.ContentLink).Where(x => x.GetType().GetInterfaces().Contains(typeof(High.Net.Core.IHome))).FirstOrDefault();
+            var NewsItems = contentLocator.GetAll<High.Net.Models.Shared.Pages.NewsListingPage>(rootpage1.ContentLink).FirstOrDefault();
+            news = dataLocator.GetLatestFeaturedNews(NewsItems);
+
+            if (news == null)
+            {
+                NewsItems = contentLocator.GetAll<High.Net.Models.Shared.Pages.NewsListingPage>(contentReference.ContentLink).FirstOrDefault();
+                news = dataLocator.GetLatestFeaturedNews(NewsItems);
+            }
+
+        }
+        else
+        {
+
+            var NewsItems = contentLocator.GetAll<High.Net.Models.Shared.Pages.NewsListingPage>(contentReference.ContentLink).FirstOrDefault();
+            news = dataLocator.GetLatestFeaturedNews(NewsItems);
+        }
+
+
+
+    }
+    else
+    {
+
+        var rootpage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+        var NewsItems = contentLocator.GetAll<High.Net.Models.Shared.Pages.NewsListingPage>(rootpage.ContentLink).FirstOrDefault();
+        news = dataLocator.GetLatestFeaturedNews(NewsItems);
+
+
+    }
+
+
+
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+}
+
+<div class="no-padding">
+    <a href="@Url.ContentUrl(news.ContentLink)">
+
+        @{
+            var backgroundImage = client.Load<ImageVault.Common.Data.WebMedia>(Model.BackGroundImage != null ? Model.BackGroundImage.Id : 0).FirstOrDefault();
+            var backgroundImageStyle = backgroundImage==null ? string.Empty : "background-image: url('" + Url.ContentUrl(backgroundImage.Url) + "');";
+        }
+
+        <div class="home-block" style="color:@Model.TextColor !important;background:@Model.BackGroundColor;@backgroundImageStyle">
+            <img class="img-responsive" src="~/Static/highnet/images/homepg/blank.jpg" style="visibility: hidden" ;>
+            <div class="Full-block-content">
+                <div class="block-head">
+                    <span class="arr">&#x2192;</span>
+
+                    @*<a block-arrow href="@Url.ContentUrl(news.ContentLink)">&#x2192;</a>*@
+
+                    <p>@Html.PropertyFor(x => Model.TileName)</p>
+                    <h3></h3>
+                </div>
+                <div class="block-main-content">
+                    @Html.PropertyFor(t => news.Title) <br />
+                    @Html.PropertyFor(t => news.NewsHighlight)
+                </div>
+            </div>
+        </div>
+    </a>
+</div>

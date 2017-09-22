@@ -1,0 +1,54 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighTransit.Blocks
+@using ImageVault.EPiServer
+
+@model ImageGalleryBlock
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+}
+
+<!--Photo Gallery Start -->
+<div class="img-gallery-slider border-block" data-pager="pager-0">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-10">
+            <div class="video-slider-wrapper">
+                <ul class="bxslider-img-gallery inner-page">
+                    @if (Model.GalleryContent != null && Model.GalleryContent.Items.Any())
+                    {
+                        foreach (var contentItem in Model.GalleryContent.Items)
+                        {
+                            var item = contentLoader.Get<ImageTextBlock>(contentItem.ContentLink);
+                            <li>
+                                @Html.PropertyFor(x => item.Image, new { PropertySettings = new PropertyMediaSettings { Width = 925, Height = 360 }, CssClass = "img-responsive" })
+                                @if (item.Description != null)
+                                {
+                                    <div class="text">@item.Description</div>
+                                }
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2">
+            <div class="pager-container">
+                <div class="row gallery-pager pager-0">
+                    @if (Model.GalleryContent != null && Model.GalleryContent.Items.Any())
+                    {
+                        int i = 0;
+                        foreach (var contentItem in Model.GalleryContent.Items)
+                        {
+                            var item = contentLoader.Get<ImageTextBlock>(contentItem.ContentLink);
+                            <a data-slide-index="@i" href="" class="col-xs-4 col-sm-12">
+                                @Html.PropertyFor(x => item.Image, new { PropertySettings = new PropertyMediaSettings { Width = 132, Height = 106 , ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill }, CssClass = "thumb" })
+                            </a>
+                            i++;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Photo Gallery End -->

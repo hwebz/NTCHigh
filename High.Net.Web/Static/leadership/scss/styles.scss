@@ -1,0 +1,28 @@
+// ------------------------------------------------------------------------- //
+// #STYLES
+//
+// Bundle for all scss files.
+// No styles should be written in this file!
+// ------------------------------------------------------------------------- //
+@import "../../common/scss/styles";
+@import "_settings/_fonts";
+@import "_settings/_global";
+
+// Customize library's css
+@import "_components/_manific-popup";
+@import "_components/_slick";
+
+// Component's css
+@import "_components/_header";
+@import "_components/_header-banner";
+@import "_components/_two-columns";
+@import "_components/_video-popup";
+@import "_components/_carousel-slider";
+@import "_components/_testimonial-slider";
+@import "_components/_photo-gallery";
+@import "_components/_bulleted-list";
+@import "_components/_photo-slider";
+@import "_components/_pure-image";
+@import "_components/_location";
+@import "_components/_footer";
+

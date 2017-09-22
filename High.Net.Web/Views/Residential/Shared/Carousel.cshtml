@@ -1,0 +1,33 @@
+﻿@using High.Net.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web
+@using High.Net.Models.Residential.Pages
+
+@model IPageViewModel<BasePageData>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(SiteDefinition.Current.StartPage);
+}
+
+<!-- Hero Banner Start -->
+<div class="hero-banner">
+    <!-- Carousel Start -->
+    <div class="carousel-wrapper">
+        <div class="owl-carousel">
+            @if (homePage.ImageCarousel != null && homePage.ImageCarousel.Any())
+            {
+                foreach (var item in homePage.ImageCarousel)
+                {
+                    <div class="item">
+                        @Html.PropertyFor(x => item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width=1400, Height = 430 } , CssClass="img-responsive" })
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <!-- Carousel Ends-->
+</div>
+<!-- Hero Banner Ends-->
+<!--  Banner Ends-->
+<span class="spacer"></span>
+

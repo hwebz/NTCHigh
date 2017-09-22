@@ -1,0 +1,50 @@
+﻿@using High.Net.Core
+@using High.Net.Core.Helpers
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Web.Business.Helpers
+@using ImageVault.EPiServer
+
+@model High.Net.Models.NewResidential.Blocks.PhotosGridGalleryBlock
+
+@{
+    var slides = CarouselHelper.GetPhotosGridGallerySliders(Model);
+    if (slides.IsNullOrEmpty()) { return; }
+
+    var cssClassInSmallDevice = Model.NumberOfColums == 3 ? "col-sm-4" : "col-sm-6";
+    var cssClassInMediumDevice = Model.NumberOfColums == 3 ? "col-md-4" : "col-md-3";
+}
+
+@helper renderImage(bool enableViewFullSize, ImageTextBlock galleryItem)
+{
+var imgUrl = MediaHelpers.GetImageUrl(galleryItem.Image, new { PropertySettings = new PropertyMediaSettings { ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } });
+var textInPopUp = string.IsNullOrEmpty(galleryItem.Text) ? galleryItem.HtmlText.ToSimpleString() : galleryItem.Text;
+
+    <div class="leadership-photo-gallery__slider-item__item">
+        <img src="@imgUrl" data-text="@textInPopUp">
+    </div>
+}
+<div class="leadership-photo-gallery @(Model.EnableViewFullSize?"popup":string.Empty)">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="leadership-photo-gallery__slider">
+                    @foreach (var slide in slides)
+                    {
+                        <div class="leadership-photo-gallery__slider-item">
+                            @foreach (var slideItem in slide)
+                            {
+                                var imgUrl = MediaHelpers.GetImageUrl(slideItem.Image, new { PropertySettings = new PropertyMediaSettings { Width=350, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } });
+                                var largeImage = MediaHelpers.GetImageUrl(slideItem.Image);
+                                var textInPopUp = string.IsNullOrEmpty(slideItem.Text) ? slideItem.HtmlText.ToSimpleString() : slideItem.Text;
+
+                                <div class="leadership-photo-gallery__slider-item__item">
+                                    <img src="@imgUrl" data-text="@textInPopUp" data-image="@largeImage">
+                                </div>
+                            }
+                        </div>
+                    }                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

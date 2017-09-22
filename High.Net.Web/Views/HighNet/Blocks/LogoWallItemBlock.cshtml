@@ -1,0 +1,9 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Core
+@model LogoWallItemBlock
+
+<a href="@Url.ContentUrl(Model.LogoUrl)" target="_blank">
+    @Html.PropertyFor(x => Model.LogoImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 75, Width = 200, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFit }, CssClass = "img-responsive" })
+</a>

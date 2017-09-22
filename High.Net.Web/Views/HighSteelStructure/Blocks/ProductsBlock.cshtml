@@ -1,0 +1,17 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighSteelStructure.Blocks
+@model ProductsBlock
+<div class="product_services">
+    <a href="@Url.ContentUrl(Model.LinkPage)">
+        @Html.PropertyFor(x => x.Image, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 312, Height = 234 } , CssClass="" })
+    </a>
+    <h5><strong>@Model.Heading</strong></h5>
+    <p>
+        @Model.IntroText<br />
+        @if (Model.LinkPage != null)
+        {
+            <a href="@Url.ContentUrl(Model.LinkPage)">Read More</a>
+        }
+    </p>
+</div>

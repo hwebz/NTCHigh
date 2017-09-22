@@ -1,0 +1,65 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Shared.ViewModels
+@using High.Net.Models.Residential.Pages
+
+@model ContactUsPageModel
+@{
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var HomePage = contentLoader.Get<HomePage>(PageReference.StartPage);
+}
+@section PageBannerSection
+{
+    @Html.Partial("~/Views/Residential/Shared/Banner.cshtml", Model)
+
+}
+
+@if (!Model.ContactUsForm.IsContactSubmitted)
+{
+    <div class="section contact form-contact">
+        <p>Have a question about a home or want to schedule your personal community tour? Feel free to e-mail or call the community office. You will get a response as quickly as possible. </p>
+        <div class="spacer"></div>
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal contact" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group contact">
+                <label class="control-label col-sm-2" for="Name">Name*:</label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(x => x.ContactUsForm.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.ContactUsForm.Name)
+                </div>
+            </div>
+            <div class="form-group contact">
+                <label class="control-label col-sm-2" for="pwd">Email*:</label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(x => x.ContactUsForm.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.ContactUsForm.Email)
+                </div>
+            </div>
+
+            <div class="form-group contact">
+                <label class="control-label col-sm-2" for="pwd">Phone number:</label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(x => x.ContactUsForm.PhoneNo, new { @class = "form-control" })<!--<span> *Required information</span>-->
+                </div>
+            </div>
+
+            <div class="form-group contact ">
+                <label class="control-label col-sm-2" for="comment">Comment:</label>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(x => x.ContactUsForm.Message, new { @class = "form-control", rows = 5 })
+                </div>
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="form-group contact">
+                <button type="submit" class="btn btn-submit">Submit</button>
+            </div>
+        }
+    </div>
+}
+else
+{
+    @(new HtmlString(Model.ContactUsForm.ThankYouMessageText))
+}
+
+

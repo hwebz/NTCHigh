@@ -1,0 +1,215 @@
+﻿@using EPiServer.Core
+@using High.Net.Core
+@using EPiServer.Web
+@using EPiServer.ServiceLocation
+@using High.Net.Core.Helpers
+@using High.Net.Models.HighHotels.Pages
+@model PageViewModel<HomePage>
+@{
+    var datalocator = ServiceLocator.Current.GetInstance<High.Net.Web.Business.DataLocator>();
+    var repository = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+
+    var videoListingPage = repository.GetChildren<VideoListingPage>(Model.CurrentPage.ContentLink).FirstOrDefault();
+    var videoItems = repository.GetChildren<VideoItemPage>(videoListingPage.ContentLink);
+}
+
+@if (Model.CurrentPage.Slider != null)
+{<div class="container">
+        <div class="main-banner-home">
+            <div class="hero-banner">
+
+                <!-- Carousel Start -->
+                <div class="img-slider">
+                    <ul class="bxslider-img" data-slider-type="img">
+                        @foreach (var item in Model.CurrentPage.Slider)
+                {
+                        <li>
+                            @Html.PropertyFor(x => item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 1170, Height = 475 }, CssClass = "img-responsive" })
+                        </li>
+                    }
+                    </ul>
+                </div>
+                <!-- Carousel Ends-->
+            </div>
+
+            <div class="tagline" @Html.EditAttributes(m => m.CurrentPage.TagLine)>
+                <h4>@Html.PropertyFor(m=>m.CurrentPage.TagLine)</h4>
+            </div>
+        </div>
+    </div>
+}
+
+<!--container start-->
+<div class="container" @Html.EditAttributes(m => m.CurrentPage.FeaturesArea)>
+    @Html.PropertyFor(m => m.CurrentPage.FeaturesArea, new { CssClass = "row" })
+</div>
+
+<!--property start-->
+<div class="property gray-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-sm-8">
+                <!--<img src="img/property-img.png" alt="">-->
+                @Html.PropertyFor(m => m.CurrentPage.AboutDescription)
+            </div>
+            @if (videoItems != null)
+            {
+                <div class="col-lg-4 col-sm-4">
+                    <h1>@Html.PropertyFor(m => videoListingPage.Name)</h1>
+                    @foreach (var item in videoItems)
+                    {
+                        <article class="media">
+                            <a class="pull-left ">
+                                <img src="@Url.ContentUrl(datalocator.GetYouTubeThumbnail(item.VideoLink))" alt="">
+                            </a>
+                            <div class="media-body">
+                                <p>
+                                    @item.IntroText<br />
+                                    <br />
+                                    <a href="@Url.ContentUrl(item.ContentLink)">read more...</a>
+                                </p>
+                            </div>
+                        </article>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!--property end-->
+<div class="lightpitch-bg">
+    <div class="container">
+        @if (Model.CurrentPage.HotelImages != null)
+        {
+            <div class="row">
+                <div class="col-lg-4 col-sm-4">
+                    @foreach (var item in Model.CurrentPage.HotelImages.Take(2))
+                    {
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="box">
+                                
+                                @Html.PropertyFor(x => item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 150, Width = 150, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                <div class="zoom-icon">
+                                    <h2>
+                                        @*<a href="#">
+                                            <i class="icon-link"></i>
+                                        </a>*@
+                                        <a href="javascript:;" class="image-popup" data-large-image="@MediaHelpers.GetImageUrl(item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 500, Width = 500 } })" >
+                                            <i class="icon-search"></i>
+                                        </a>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div>&nbsp;</div>
+                    @foreach (var item in Model.CurrentPage.HotelImages.Skip(2).Take(1))
+                    {
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="box">
+                                @Html.PropertyFor(x => item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 330, Height = 260, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                <div class="zoom-icon">
+                                    <h2>
+                                        @*<a href="#">
+            <i class="icon-link"></i>
+        </a>*@
+                                        <a href="javascript:;" class="image-popup" data-large-image="@MediaHelpers.GetImageUrl(item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 500, Width = 500 } })">
+                                            <i class="icon-search"></i>
+                                        </a>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="col-lg-4 col-sm-4">
+                    @foreach (var item in Model.CurrentPage.HotelImages.Skip(3).Take(1))
+                    {
+                        var MetaData = client.Query<High.Net.Core.Attributes.MediaMetaData>().Where(x => x.Id == item.Id).ToList();
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="box">
+                                @Html.PropertyFor(x => item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 330, Height = 220, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                <div class="zoom-icon">
+                                    <h2>
+                                        @*<a href="#">
+            <i class="icon-link"></i>
+        </a>*@
+                                        <a href="javascript:;" class="image-popup" data-large-image="@MediaHelpers.GetImageUrl(item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 500, Width = 500 } })">
+                                            <i class="icon-search"></i>
+                                        </a>
+                                    </h2>
+                                </div>
+                                @if (MetaData.Count > 0)
+                                {
+                                    <div><h5>@MetaData.FirstOrDefault().Descriptions</h5></div>
+                                }
+                            </div>
+                        </div>
+                    }
+                    @foreach (var item in Model.CurrentPage.HotelImages.Skip(4).Take(1))
+                    {
+                        <div style="background-color: #f4f4f4;">
+                            &nbsp;<br />
+                        </div>
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="box">
+                                        @Html.PropertyFor(x => item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 339, Height = 152, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                        <div class="zoom-icon">
+                                            <h2>
+                                                @*<a href="#">
+            <i class="icon-link"></i>
+        </a>*@
+                                                <a href="javascript:;" class="image-popup" data-large-image="@MediaHelpers.GetImageUrl(item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 500, Width = 500 } })">
+                                                    <i class="icon-search"></i>
+                                                </a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                    }
+                </div>
+                <div class="col-lg-4 col-sm-4">
+                    @foreach (var item in Model.CurrentPage.HotelImages.Skip(5).Take(2))
+                    {
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="box">
+                                @Html.PropertyFor(x => item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 150, Width = 150, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                <div class="zoom-icon">
+                                    <h2>
+                                        @*<a href="#">
+            <i class="icon-link"></i>
+        </a>*@
+                                        <a href="javascript:;" class="image-popup" data-large-image="@MediaHelpers.GetImageUrl(item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 500, Width = 500 } })">
+                                            <i class="icon-search"></i>
+                                        </a>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div>&nbsp;</div>
+                    @foreach (var item in Model.CurrentPage.HotelImages.Skip(7).Take(1))
+                    {
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="box">
+                                @Html.PropertyFor(x => item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 334, Height = 260, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                <div class="zoom-icon">
+                                    <h2>
+                                        @*<a href="#">
+            <i class="icon-link"></i>
+        </a>*@
+                                        <a href="javascript:;" class="image-popup" data-large-image="@MediaHelpers.GetImageUrl(item, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Height = 500, Width = 500 } })">
+                                            <i class="icon-search"></i>
+                                        </a>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

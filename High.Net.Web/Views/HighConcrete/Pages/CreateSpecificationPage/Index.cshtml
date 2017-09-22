@@ -1,0 +1,144 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.HighConcrete.Pages
+@using High.Net.Core
+
+@model High.Net.Models.HighConcrete.ViewModels.CreateSpecificationModel
+@Html.Partial("~/Views/HighConcrete/Shared/Banner.cshtml", Model)
+<div class="specification">
+    <div class="social-media">
+        <div class="row">
+            @Html.Partial("~/Views/HighConcrete/Shared/LeftContent.cshtml", Model)
+            @if (!Model.createSpecificationForm.IsFormSubmitted)
+            {
+                <div class="col-md-8 col-sm-8">
+                    @using (Html.BeginForm(null, null, FormMethod.Post,
+                        new { @Class = "custom-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="step-1">
+                            <div class="step-title"><strong>Step 1: Choose a product</strong></div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        @Html.RadioButtonFor(x => x.createSpecificationForm.ProductType, "Hollowcore_Plank")<label>Hollowcore Plank</label>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.RadioButtonFor(x => x.createSpecificationForm.ProductType, "Structural_CarbonCast")<label>Structural - CarbonCast</label>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.RadioButtonFor(x => x.createSpecificationForm.ProductType, "Structural")<label>Structural</label>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.RadioButtonFor(x => x.createSpecificationForm.ProductType, "Insulated_Wall_Panels")<label>Insulated Wall Panels</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        @Html.RadioButtonFor(x => x.createSpecificationForm.ProductType, "Architectural")<label>Architectural</label>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.RadioButtonFor(x => x.createSpecificationForm.ProductType, "Architectural_CarbonCast")<label>Architectural CarbonCast</label>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.RadioButtonFor(x => x.createSpecificationForm.ProductType, "Insulated_Wall_Panels_CarbonCast")<label>Insulated Wall Panels CarbonCast</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-2">
+                            <div class="step-title"><strong>Step 2: Optional Page Header</strong></div>
+                            <div class="form-group">
+                                <label>Project Name:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationForm.ProjectName, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Address 1:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationForm.Address1, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Address 2:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationForm.Address2, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>City:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationForm.City, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>State:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationForm.State, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Postal Code:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationForm.PostalCode, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Project Size:</label>
+                                @Html.DropDownList("createSpecificationForm.ProjectSize", new List<SelectListItem>()
+                                    {
+                                        new SelectListItem(){ Text= "Up to 99,999 Sq. Ft.", Value = "Up to 99,999 Sq. Ft."},
+                                        new SelectListItem(){ Text= "100,000 to 249,999 Sq. Ft.", Value = "100,000 to 249,999 Sq. Ft."},
+                                        new SelectListItem(){ Text= "250,000 to 499,999 Sq. Ft.", Value = "250,000 to 499,999 Sq. Ft."},
+                                        new SelectListItem(){ Text= "500,000 Sq. Ft. or more", Value = "500,000 Sq. Ft. or more"},
+                                    }, "-- Select --", new { @Class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Firm Name:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationForm.FirmName, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Firm Contact:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationForm.FirmContact, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Firm Email:</label>
+                                @Html.TextBoxFor(x => x.createSpecificationForm.FirmEmail, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.createSpecificationForm.FirmEmail)
+                            </div>
+                        </div>
+                        <div class="step-3">
+                            <div class="step-title"><strong>Step 3: Create Specification</strong></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3">
+                                        @Html.RadioButtonFor(x => x.createSpecificationForm.SpecificationFormat, "CSI_2004_format")<label>CSI 2004 format</label>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3">
+                                        @Html.RadioButtonFor(x => x.createSpecificationForm.SpecificationFormat, "CSI_1995_format")<label>CSI 1995 format</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3">
+                                        @Html.RadioButtonFor(x => x.createSpecificationForm.SpecificationType, "DOC")<label>DOC</label>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3">
+                                        @Html.RadioButtonFor(x => x.createSpecificationForm.SpecificationType, "PDF")<label>PDF</label>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3">
+                                        @Html.RadioButtonFor(x => x.createSpecificationForm.SpecificationType, "HTML")<label>HTML</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-8 col-xs-10">
+                                    <input type="reset" value="Clear Form" class="btn btn-default orange">
+                                    <input type="submit" value="Submit" class="btn btn-default orange">
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="col-md-8">
+                    @Model.CurrentPage.ThankYouMessage
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

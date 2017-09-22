@@ -1,0 +1,67 @@
+﻿@using High.Net.Core
+@using High.Net.Models
+@using HA = High.Net.Models.Associates.Pages
+@using HAPP = High.Net.Models.HighAppraisal.Pages
+@using EPiServer.ServiceLocation
+@using ImageVault.EPiServer
+
+@model PageViewModel<HA.ServiceListPage>
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentRepository>();
+
+    var homePage = contentLoader.GetChildren<HA.AssociatesPageData>(EPiServer.Core.PageReference.StartPage);
+    var SubsiteList = contentLoader.GetChildren<BasePageData>(Model.CurrentPage.ContentLink).ToList();
+}
+
+@Html.Partial("~/Views/Associates/Shared/Banner.cshtml")
+<div class="container">
+    <div class="portfolio">
+        <div class="row">
+            @foreach (var item in SubsiteList)
+            {
+                if ((item.GetType().BaseType).BaseType == typeof(HAPP.HighAppraisalPageData))
+                {
+                    var getPageProperty = contentLoader.Get<HAPP.HighAppraisalPageData>(item.ContentLink);
+                    <div class="col-md-4 col-sm-4">
+                        <div class="portfolio-content">
+                            <a href="@Url.ContentUrl(item.ContentLink)">
+                                @if (getPageProperty.PageImage != null)
+                                {
+                                    @Html.PropertyFor(x => getPageProperty.PageImage, new {CssClass="img-responsive", PropertySettings = new PropertyMediaSettings { Width = 360, Height = 241, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                    <h2>@item.Name</h2>
+                                }
+                            </a>
+                        </div>
+                        <div class="portfolio-para">
+                            <p>@getPageProperty.PageIntroText</p>
+                            <a href="@Url.ContentUrl(getPageProperty.ContentLink)">read more..</a>
+                        </div>
+                    </div>
+                }
+                else if ((item.GetType().BaseType).BaseType == typeof(HA.AssociatesPageData))
+                {
+                    var getPageProperty = contentLoader.Get<HA.AssociatesPageData>(item.ContentLink);
+                    <div class="col-md-4 col-sm-4">
+                        <div class="portfolio-content">
+                            @if (getPageProperty != null)
+                            {
+                                <a href="@Url.ContentUrl(item.ContentLink)">
+                                    @if (getPageProperty.PageImage != null)
+                                    {
+                                        @Html.PropertyFor(x => getPageProperty.PageImage, new { CssClass="img-responsive",PropertySettings = new PropertyMediaSettings { Width = 360, Height = 241, ResizeMode = ImageVault.Common.Data.ResizeMode.ScaleToFill } })
+                                        <h2>@item.Name</h2>
+                                    }
+                                </a>
+                            }
+                        </div>
+                        <div class="portfolio-para">
+                            <p>@getPageProperty.PageIntroText</p>
+                            <a href="@Url.ContentUrl(getPageProperty.ContentLink)">read more..</a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>

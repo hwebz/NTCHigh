@@ -1,0 +1,51 @@
+﻿$pre: 'leadership-video-popup';
+
+.#{$pre} {
+    @include block-spacing($block-spacing, $block-spacing-tablet);
+
+    .#{$pre}__thumbnail {
+        ##{$pre}__video {
+            outline: none;
+            display: block;
+            position: relative;
+
+            img {
+                width: 100%;
+                display: block;
+            }
+
+            .#{$pre}__play-btn {
+                @extend %all-centered;
+                width: 125px;
+                height: 125px;
+                background-color: $color-white-half;
+                border-radius: 50%;
+
+                @include respond-to-max($tabletSize) {
+                    width: 60px;
+                    height: 60px;
+                }
+
+                span {
+                    @extend %all-centered;
+                    border: 40px solid transparent;
+                    border-top-width: 20px;
+                    border-bottom-width: 20px;
+                    border-left-color: $color-dark-red;
+                    margin-left: 25px;
+
+                    @include respond-to-max($tabletSize) {
+                        border-width: 20px;
+                        border-top-width: 10px;
+                        border-bottom-width: 10px;
+                        margin-left: 12.5px;
+                    }
+                }
+
+                &:hover {
+                    background-color: $color-white;
+                }
+            }
+        }
+    }
+}

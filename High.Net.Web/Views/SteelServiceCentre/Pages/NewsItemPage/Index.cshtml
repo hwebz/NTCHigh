@@ -1,0 +1,39 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using High.Net.Models.Shared.Pages
+@using High.Net.Core
+
+@model PageViewModel<NewsItemPage>
+@Html.Partial("~/Views/SteelServiceCentre/Shared/Banner.cshtml", Model.CurrentPage)
+
+<div class="container">
+    <div class="news">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="col-md-3 text-center">
+                    @if (Model.CurrentPage.NewsImage != null)
+                    {
+                        @Html.PropertyFor(x => x.CurrentPage.NewsImage, new { PropertySettings = new ImageVault.EPiServer.PropertyMediaSettings { Width = 250, Height = 250 }, CssClass = "img-responsive" })
+                    }
+                    else
+                    {
+                        <img src="~/Static/global/images/news-placeholder-290X190.jpg" class="img-responsive placeholder" />
+                    }
+                    <p>@Model.CurrentPage.ImageQuote</p>
+                </div>
+                <div class="col-md-9">
+                    <div class="passage">
+                        <div class="passage-head">
+                            <div class="date"><span class="glyphicon glyphicon-calendar"></span>@Model.CurrentPage.PostedDate.ToString("MMMM dd,yyyy")</div>
+                        </div>
+                        <div class="passage-body">
+                            <h3>@Model.CurrentPage.Title</h3>
+                            @Model.CurrentPage.NewsContent
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

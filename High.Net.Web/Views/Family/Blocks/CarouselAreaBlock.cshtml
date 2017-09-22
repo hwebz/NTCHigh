@@ -1,0 +1,38 @@
+﻿@using High.Net.Core
+@using High.Net.Models.HighNet.Blocks
+@using High.Net.Web.Business.Helpers
+@using High.Net.Models.Constants
+
+@model CarouselAreaBlock
+
+@{
+    if (Model.CarouselItems.IsNullOrEmpty()) { return; }
+    var client = ImageVault.Client.ClientFactory.GetSdkClient();
+    var firstItem = Model.CarouselItems.FilteredItems.FirstOrDefault(x => x.ContentLink.GetContent<CarouselBlock>() != null);
+    if (firstItem == null) { return; }
+    var isHeaderInLeft = EditorConstants.CarouselViewTemplate.FamilyCarouselLeftImage.Equals(firstItem.ContentLink.GetContent<CarouselBlock>().ViewTemplate);
+}
+<div class="leadership-article-slider">
+    <div class="container">
+        <div class="row">
+            @if (isHeaderInLeft)
+            {
+                <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-6">
+                    <div class="leadership-article-slider__title">
+                        <h1 class="right">@Html.PropertyFor(x=>x.MainHeading)</h1>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <div class="leadership-article-slider__title">
+                        <h1 class="left">@Html.PropertyFor(x=>x.MainHeading)</h1>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>    
+    @Html.PropertyFor(x => x.CarouselItems)
+</div>
